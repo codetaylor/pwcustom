@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "ctpwcustom",
+  "name": "CT Planeswalker Modpack Custom Content",
+  "description": "Custom content for the Planeswalker modpack.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["codetaylor"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
