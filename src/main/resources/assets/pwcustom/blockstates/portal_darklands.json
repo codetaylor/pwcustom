@@ -1,0 +1,17 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "particle": "pwcustom:blocks/portal_darklands",
+      "portal": "pwcustom:blocks/portal_darklands"
+    }
+  },
+  "variants": {
+    "axis=z": {
+      "model": "portal_ew"
+    },
+    "axis=x": {
+      "model": "portal_ns"
+    }
+  }
+}

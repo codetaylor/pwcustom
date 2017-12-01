@@ -22,7 +22,7 @@ project.ext.mcversion = "1.12.2"
 project.ext.forgeversion = "14.23.1.2556"
 version = getVersionName("${project.projectDir}")
 group = "com.sudoplay.mc"
-archivesBaseName = "ctpwcustom"
+archivesBaseName = "pwcustom"
 
 compileJava.doFirst {
     project.sourceSets.main.java.srcDirs.each { dir ->

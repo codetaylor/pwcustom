@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "pwcustom:item/generated"
+  },
+  "variants": {
+    "variant": {
+      "darklands": {
+        "textures": {
+          "layer0": "pwcustom:items/portal_wand_darklands"
+        }
+      }
+    }
+  }
+}

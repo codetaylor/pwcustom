@@ -1,8 +1,8 @@
 [
 {
-  "modid": "ctpwcustom",
-  "name": "CT Planeswalker Modpack Custom Content",
-  "description": "Custom content for the Planeswalker modpack.",
+  "modid": "pwcustom",
+  "name": "PlanesWalker Modpack Custom Content",
+  "description": "Custom content for the PlanesWalker modpack.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

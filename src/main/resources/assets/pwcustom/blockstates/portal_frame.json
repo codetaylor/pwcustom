@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all"
+  },
+  "variants": {
+    "variant": {
+      "darklands": {
+        "textures": {
+          "all": "pwcustom:blocks/portal_frame_darklands"
+        }
+      }
+    }
+  }
+}
