@@ -17,6 +17,7 @@ public class ItemCast
   public ItemCast() {
 
     super(NAME);
+    this.setHasSubtypes(true);
   }
 
   @Override

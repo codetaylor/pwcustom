@@ -32,6 +32,7 @@ public class ItemCraftingToolPart
   public ItemCraftingToolPart(String name) {
 
     super(name);
+    this.setHasSubtypes(true);
   }
 
   @Override

@@ -17,6 +17,7 @@ public class ItemCraftingToolPartFlint
   public ItemCraftingToolPartFlint() {
 
     super(NAME);
+    this.setHasSubtypes(true);
   }
 
   @Override

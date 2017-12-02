@@ -17,6 +17,7 @@ public class ItemCraftingPart
   public ItemCraftingPart() {
 
     super(NAME);
+    this.setHasSubtypes(true);
   }
 
   @Override

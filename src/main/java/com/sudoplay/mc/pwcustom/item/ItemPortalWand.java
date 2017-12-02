@@ -19,6 +19,7 @@ public class ItemPortalWand
 
     super(NAME);
     this.setMaxStackSize(1);
+    this.setHasSubtypes(true);
   }
 
   @Override
