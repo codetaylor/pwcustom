@@ -5,10 +5,10 @@ import com.sudoplay.mc.pwcustom.spi.IVariant;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-public enum EnumCraftingMaterialType
+public enum EnumCraftingToolPartMaterialType
     implements IVariant {
 
-  FLINT("flint", 0),
+  STONE("stone", 0),
   IRON("iron", 1),
   GOLD("gold", 2),
   DIAMOND("diamond", 3),
@@ -25,15 +25,15 @@ public enum EnumCraftingMaterialType
   STEEL("steel", 14),
   TIN("tin", 15);
 
-  private static final EnumCraftingMaterialType[] META_LOOKUP = Stream
-      .of(EnumCraftingMaterialType.values())
-      .sorted(Comparator.comparing(EnumCraftingMaterialType::getMeta))
-      .toArray(EnumCraftingMaterialType[]::new);
+  private static final EnumCraftingToolPartMaterialType[] META_LOOKUP = Stream
+      .of(EnumCraftingToolPartMaterialType.values())
+      .sorted(Comparator.comparing(EnumCraftingToolPartMaterialType::getMeta))
+      .toArray(EnumCraftingToolPartMaterialType[]::new);
 
   private final String name;
   private final int meta;
 
-  EnumCraftingMaterialType(String name, int meta) {
+  EnumCraftingToolPartMaterialType(String name, int meta) {
 
     this.name = name;
     this.meta = meta;
@@ -51,7 +51,7 @@ public enum EnumCraftingMaterialType
     return this.name;
   }
 
-  public static EnumCraftingMaterialType fromMeta(int meta) {
+  public static EnumCraftingToolPartMaterialType fromMeta(int meta) {
 
     if (meta < 0 || meta > META_LOOKUP.length) {
       meta = 0;

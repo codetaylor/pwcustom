@@ -5,9 +5,9 @@
   },
   "variants": {
     "material": {
-      "flint": {
+      "stone": {
         "textures": {
-          "layer0": "pwcustom:items/pickaxe_head_flint"
+          "layer0": "pwcustom:items/pickaxe_head_stone"
         }
       },
       "iron": {

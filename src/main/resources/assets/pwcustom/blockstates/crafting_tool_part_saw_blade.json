@@ -5,9 +5,9 @@
   },
   "variants": {
     "material": {
-      "flint": {
+      "stone": {
         "textures": {
-          "layer0": "pwcustom:items/saw_blade_flint"
+          "layer0": "pwcustom:items/saw_blade_stone"
         }
       },
       "iron": {

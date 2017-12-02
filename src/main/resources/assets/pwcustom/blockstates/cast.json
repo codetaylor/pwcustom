@@ -1,0 +1,90 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "pwcustom:item/generated"
+  },
+  "variants": {
+    "variant": {
+      "saw_blade": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_saw_blade"
+        }
+      },
+      "axe_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_axe_head"
+        }
+      },
+      "pickaxe_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_pickaxe_head"
+        }
+      },
+      "shovel_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_shovel_head"
+        }
+      },
+      "hoe_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_hoe_head"
+        }
+      },
+      "tool_rod": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_tool_rod"
+        }
+      },
+      "sword_blade": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_sword_blade"
+        }
+      },
+      "sword_guard": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_sword_guard"
+        }
+      },
+      "hammer_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_hammer_head"
+        }
+      },
+      "bow_limb": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_bow_limb"
+        }
+      },
+      "sickle_blade": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_sickle_blade"
+        }
+      },
+      "rod": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_rod"
+        }
+      },
+      "shear_blades": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_shear_blades"
+        }
+      },
+      "ring": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_ring"
+        }
+      },
+      "paxel_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_paxel_head"
+        }
+      },
+      "shield": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_shield"
+        }
+      }
+    }
+  }
+}
