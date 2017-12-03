@@ -27,6 +27,11 @@
         { "target": "saw_handle.png", "position": [18, 0] },
         { "target": "tanned_leather_cord.png", "position": [19, 0] },
         { "target": "tanned_leather_strips.png", "position": [20, 0] },
+        { "target": "crafting_rune_common.png", "position": [21, 0] },
+        { "target": "crafting_rune_uncommon.png", "position": [22, 0] },
+        { "target": "crafting_rune_rare.png", "position": [23, 0] },
+        { "target": "crafting_rune_epic.png", "position": [24, 0] },
+        { "target": "crafting_rune_legendary.png", "position": [25, 0] },
 
         { "target": "saw_blade_stone.png", "position": [0, 1] },
         { "target": "saw_blade_flint.png", "position": [1, 1] },

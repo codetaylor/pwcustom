@@ -11,7 +11,12 @@ public enum EnumCraftingPartType
   SAW_HANDLE("saw_handle", 0),
   TANNED_LEATHER_CORD("tanned_leather_cord", 1),
   TANNED_LEATHER_STRIPS("tanned_leather_strips", 2),
-  BOW_LIMB_WOODEN("bow_limb_wooden", 3);
+  BOW_LIMB_WOODEN("bow_limb_wooden", 3),
+  CRAFTING_RUNE_COMMON("crafting_rune_common", 4),
+  CRAFTING_RUNE_UNCOMMON("crafting_rune_uncommon", 5),
+  CRAFTING_RUNE_RARE("crafting_rune_rare", 6),
+  CRAFTING_RUNE_EPIC("crafting_rune_epic", 7),
+  CRAFTING_RUNE_LEGENDARY("crafting_rune_legendary", 8);
 
   private static final EnumCraftingPartType[] META_LOOKUP = Stream
       .of(EnumCraftingPartType.values())

@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom;
 
+import com.sudoplay.mc.pwcustom.init.ModItems;
 import com.sudoplay.mc.pwcustom.integration.CraftTweakerPlugin;
 import com.sudoplay.mc.pwcustom.proxy.ProxyCommon;
 import net.minecraft.creativetab.CreativeTabs;
@@ -39,7 +40,7 @@ public class ModPWCustom {
     @Override
     public ItemStack getTabIconItem() {
 
-      return new ItemStack(Items.STONE_SWORD);
+      return new ItemStack(ModItems.PORTAL_WAND, 1, 0);
     }
   };
 

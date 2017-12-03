@@ -24,6 +24,31 @@
         "textures": {
           "layer0": "pwcustom:items/bow_limb_wooden"
         }
+      },
+      "crafting_rune_common": {
+        "textures": {
+          "layer0": "pwcustom:items/crafting_rune_common"
+        }
+      },
+      "crafting_rune_uncommon": {
+        "textures": {
+          "layer0": "pwcustom:items/crafting_rune_uncommon"
+        }
+      },
+      "crafting_rune_rare": {
+        "textures": {
+          "layer0": "pwcustom:items/crafting_rune_rare"
+        }
+      },
+      "crafting_rune_epic": {
+        "textures": {
+          "layer0": "pwcustom:items/crafting_rune_epic"
+        }
+      },
+      "crafting_rune_legendary": {
+        "textures": {
+          "layer0": "pwcustom:items/crafting_rune_legendary"
+        }
       }
     }
   }
