@@ -49,6 +49,11 @@
         "textures": {
           "layer0": "pwcustom:items/crafting_rune_legendary"
         }
+      },
+      "paper_gold_leaf": {
+        "textures": {
+          "layer0": "pwcustom:items/paper_gold_leaf"
+        }
       }
     }
   }

@@ -27,6 +27,9 @@ public class ModItems {
   @ObjectHolder(ModPWCustom.MOD_ID + ":" + ItemCraftingPart.NAME)
   public static final ItemCraftingPart CRAFTING_PART;
 
+  @ObjectHolder(ModPWCustom.MOD_ID + ":" + ItemBookGoldEmbossed.NAME)
+  public static final ItemBookGoldEmbossed BOOK_GOLD_EMBOSSED;
+
   static ItemSaw[] ITEM_SAWS;
   static ItemCraftingToolPart[] TOOL_PARTS;
 
@@ -35,6 +38,7 @@ public class ModItems {
     CRAFTING_TOOL_PART_FLINT = null;
     CAST = null;
     CRAFTING_PART = null;
+    BOOK_GOLD_EMBOSSED = null;
   }
 
   @Mod.EventBusSubscriber
@@ -87,7 +91,8 @@ public class ModItems {
           new ItemPortalWand(),
           new ItemCraftingToolPartFlint(),
           new ItemCast(),
-          new ItemCraftingPart()
+          new ItemCraftingPart(),
+          new ItemBookGoldEmbossed()
       );
     }
   }
@@ -99,6 +104,10 @@ public class ModItems {
     public static void registerModels(ModelRegistryEvent event) {
 
       ModelRegistrationUtil.registerItemModels(ITEM_SAWS);
+
+      ModelRegistrationUtil.registerItemModels(
+          BOOK_GOLD_EMBOSSED
+      );
 
       ModelRegistrationUtil.registerVariantItemModels(
           ModItems.PORTAL_WAND,

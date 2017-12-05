@@ -16,7 +16,8 @@ public enum EnumCraftingPartType
   CRAFTING_RUNE_UNCOMMON("crafting_rune_uncommon", 5),
   CRAFTING_RUNE_RARE("crafting_rune_rare", 6),
   CRAFTING_RUNE_EPIC("crafting_rune_epic", 7),
-  CRAFTING_RUNE_LEGENDARY("crafting_rune_legendary", 8);
+  CRAFTING_RUNE_LEGENDARY("crafting_rune_legendary", 8),
+  PAPER_GOLD_LEAF("paper_gold_leaf", 9);
 
   private static final EnumCraftingPartType[] META_LOOKUP = Stream
       .of(EnumCraftingPartType.values())
