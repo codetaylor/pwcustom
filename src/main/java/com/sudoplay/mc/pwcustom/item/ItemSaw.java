@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.item;
 
 import com.sudoplay.mc.pwcustom.api.PWCustomAPI;
-import com.sudoplay.mc.pwcustom.api.SawRecipe;
+import com.sudoplay.mc.pwcustom.recipe.RecipeSawing;
 import com.sudoplay.mc.pwcustom.spi.ItemToolBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -56,15 +56,15 @@ public class ItemSaw
 
       for (Iterator<ItemStack> it = drops.iterator(); it.hasNext(); ) {
         ItemStack itemDropped = it.next();
-        SawRecipe sawRecipe = PWCustomAPI.getSawRecipe(
+        RecipeSawing recipeSawing = PWCustomAPI.getRegistryRecipeSawing().findRecipe(
             heldItem,
             new ItemStack(itemDropped.getItem(), 1, itemDropped.getMetadata())
         );
 
-        if (sawRecipe != SawRecipe.NULL) {
+        if (recipeSawing != null) {
           it.remove();
 
-          for (ItemStack itemStack : sawRecipe.getDrops()) {
+          for (ItemStack itemStack : recipeSawing.getReplacementItems()) {
             dropsToAdd.add(itemStack.copy());
           }
         }

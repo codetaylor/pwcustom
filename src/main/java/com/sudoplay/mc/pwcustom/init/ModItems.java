@@ -30,6 +30,9 @@ public class ModItems {
   @ObjectHolder(ModPWCustom.MOD_ID + ":" + ItemBookGoldEmbossed.NAME)
   public static final ItemBookGoldEmbossed BOOK_GOLD_EMBOSSED;
 
+  @ObjectHolder(ModPWCustom.MOD_ID + ":" + ItemTomeGoldEmbossed.NAME)
+  public static final ItemTomeGoldEmbossed TOME_GOLD_EMBOSSED;
+
   static ItemSaw[] ITEM_SAWS;
   static ItemCraftingToolPart[] TOOL_PARTS;
 
@@ -39,6 +42,7 @@ public class ModItems {
     CAST = null;
     CRAFTING_PART = null;
     BOOK_GOLD_EMBOSSED = null;
+    TOME_GOLD_EMBOSSED = null;
   }
 
   @Mod.EventBusSubscriber
@@ -92,7 +96,8 @@ public class ModItems {
           new ItemCraftingToolPartFlint(),
           new ItemCast(),
           new ItemCraftingPart(),
-          new ItemBookGoldEmbossed()
+          new ItemBookGoldEmbossed(),
+          new ItemTomeGoldEmbossed()
       );
     }
   }
@@ -106,7 +111,8 @@ public class ModItems {
       ModelRegistrationUtil.registerItemModels(ITEM_SAWS);
 
       ModelRegistrationUtil.registerItemModels(
-          BOOK_GOLD_EMBOSSED
+          BOOK_GOLD_EMBOSSED,
+          TOME_GOLD_EMBOSSED
       );
 
       ModelRegistrationUtil.registerVariantItemModels(

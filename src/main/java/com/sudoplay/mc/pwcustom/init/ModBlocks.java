@@ -4,6 +4,8 @@ import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.block.BlockPortalDarklands;
 import com.sudoplay.mc.pwcustom.block.BlockPortalFrame;
 import com.sudoplay.mc.pwcustom.block.BlockSoulGravel;
+import com.sudoplay.mc.pwcustom.block.BlockWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.tile.TileEntityWorkbenchTailoring;
 import com.sudoplay.mc.pwcustom.util.BlockRegistrationUtil;
 import com.sudoplay.mc.pwcustom.util.ModelRegistrationUtil;
 import net.minecraft.block.Block;
@@ -12,6 +14,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import static net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
@@ -27,10 +30,14 @@ public class ModBlocks {
   @ObjectHolder(ModPWCustom.MOD_ID + ":" + BlockPortalDarklands.NAME)
   public static final BlockPortalDarklands PORTAL_DARKLANDS;
 
+  @ObjectHolder(ModPWCustom.MOD_ID + ":" + BlockWorkbenchBasic.NAME)
+  public static final BlockWorkbenchBasic WORKBENCH_BASIC;
+
   static {
     SOUL_GRAVEL = null;
     PORTAL_FRAME = null;
     PORTAL_DARKLANDS = null;
+    WORKBENCH_BASIC = null;
   }
 
   @Mod.EventBusSubscriber(modid = ModPWCustom.MOD_ID)
@@ -42,7 +49,8 @@ public class ModBlocks {
       event.getRegistry().registerAll(
           new BlockSoulGravel(),
           new BlockPortalFrame(),
-          new BlockPortalDarklands()
+          new BlockPortalDarklands(),
+          new BlockWorkbenchBasic()
       );
     }
 
@@ -52,7 +60,8 @@ public class ModBlocks {
       event.getRegistry().registerAll(
           BlockRegistrationUtil.createItemBlocks(
               SOUL_GRAVEL,
-              PORTAL_FRAME
+              PORTAL_FRAME,
+              WORKBENCH_BASIC
           )
       );
 
@@ -60,7 +69,11 @@ public class ModBlocks {
     }
 
     private static void registerTileEntities() {
-      //
+
+      GameRegistry.registerTileEntity(
+          TileEntityWorkbenchTailoring.class,
+          ModPWCustom.MOD_ID + "_TileEntityWorkbenchTailoring"
+      );
     }
   }
 
@@ -79,6 +92,12 @@ public class ModBlocks {
       ModelRegistrationUtil.registerVariantBlockItemModels(
           PORTAL_FRAME.getDefaultState(),
           BlockPortalFrame.VARIANT
+      );
+
+      // Workbench Basic
+      ModelRegistrationUtil.registerVariantBlockItemModels(
+          WORKBENCH_BASIC.getDefaultState(),
+          BlockWorkbenchBasic.VARIANT
       );
 
     }

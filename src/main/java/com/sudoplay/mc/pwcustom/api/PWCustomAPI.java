@@ -1,39 +1,34 @@
 package com.sudoplay.mc.pwcustom.api;
 
-import net.minecraft.item.ItemStack;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
+import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeSawing;
+import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbench;
 
 public class PWCustomAPI {
 
-  private static final List<SawRecipe> SAW_RECIPE_LIST;
+  private static final RegistryRecipeSawing REGISTRY_RECIPE_SAWING;
+  private static final RegistryRecipeWorkbench REGISTRY_RECIPE_WORKBENCH_LEATHERWORKING;
 
   static {
-    SAW_RECIPE_LIST = new ArrayList<>();
+    REGISTRY_RECIPE_SAWING = new RegistryRecipeSawing();
+    REGISTRY_RECIPE_WORKBENCH_LEATHERWORKING = new RegistryRecipeWorkbench();
   }
 
-  @Nonnull
-  public static SawRecipe addSawRecipe(ItemStack[] drops, ItemStack saw, ItemStack block) {
+  // --------------------------------------------------------------------------
+  // - Sawing
+  // --------------------------------------------------------------------------
 
-    SawRecipe recipe = new SawRecipe(saw, block, drops);
-    SAW_RECIPE_LIST.add(recipe);
-    return recipe;
+  public static RegistryRecipeSawing getRegistryRecipeSawing() {
+
+    return REGISTRY_RECIPE_SAWING;
   }
 
-  @Nonnull
-  public static SawRecipe getSawRecipe(ItemStack saw, ItemStack block) {
+  // --------------------------------------------------------------------------
+  // - Workbench Leatherworking
+  // --------------------------------------------------------------------------
 
-    for (SawRecipe recipe : SAW_RECIPE_LIST) {
+  public static RegistryRecipeWorkbench getRegistryRecipeWorkbenchLeatherworking() {
 
-      if (ItemStack.areItemsEqualIgnoreDurability(recipe.getSaw(), saw)
-          && ItemStack.areItemsEqual(recipe.getBlock(), block)) {
-        return recipe;
-      }
-    }
-
-    return SawRecipe.NULL;
+    return REGISTRY_RECIPE_WORKBENCH_LEATHERWORKING;
   }
 
 }

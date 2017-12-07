@@ -5,9 +5,12 @@ import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseUndoable;
 import com.sudoplay.mc.pwcustom.api.PWCustomAPI;
 import com.sudoplay.mc.pwcustom.integration.CraftTweakerPlugin;
+import com.sudoplay.mc.pwcustom.util.CTUtil;
 import crafttweaker.annotations.ZenRegister;
+import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -16,12 +19,12 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class ZenSawing {
 
   @ZenMethod
-  public static void addRecipe(IItemStack[] drops, IItemStack saw, IItemStack block) {
+  public static void addRecipe(IItemStack[] drops, IItemStack saw, IIngredient block) {
 
     CraftTweakerPlugin.LATE_ADDITIONS.add(new Add(
         InputHelper.toStacks(drops),
         InputHelper.toStack(saw),
-        InputHelper.toStack(block)
+        CTUtil.toIngredient(block)
     ));
   }
 
@@ -30,9 +33,9 @@ public class ZenSawing {
 
     private final ItemStack[] drops;
     private final ItemStack saw;
-    private final ItemStack block;
+    private final Ingredient block;
 
-    Add(ItemStack[] drops, ItemStack saw, ItemStack block) {
+    Add(ItemStack[] drops, ItemStack saw, Ingredient block) {
 
       super("Sawing");
       this.saw = saw;
@@ -43,7 +46,7 @@ public class ZenSawing {
     @Override
     public void apply() {
 
-      PWCustomAPI.addSawRecipe(this.drops, this.saw, this.block);
+      PWCustomAPI.getRegistryRecipeSawing().addRecipe(this.drops, this.saw, this.block);
     }
 
     @Override

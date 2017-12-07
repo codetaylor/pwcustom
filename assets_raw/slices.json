@@ -34,6 +34,7 @@
         { "target": "crafting_rune_legendary.png", "position": [25, 0] },
         { "target": "book_gold_embossed.png", "position": [26, 0] },
         { "target": "paper_gold_leaf.png", "position": [27, 0] },
+        { "target": "tome_gold_embossed.png", "position": [28, 0] },
 
         { "target": "saw_blade_stone.png", "position": [0, 1] },
         { "target": "saw_blade_flint.png", "position": [1, 1] },
