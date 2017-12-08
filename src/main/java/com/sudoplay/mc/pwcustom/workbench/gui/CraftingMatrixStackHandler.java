@@ -1,4 +1,6 @@
-package com.sudoplay.mc.pwcustom.inventory;
+package com.sudoplay.mc.pwcustom.workbench.gui;
+
+import com.sudoplay.mc.pwcustom.inventory.ObservableStackHandler;
 
 public class CraftingMatrixStackHandler
     extends ObservableStackHandler {

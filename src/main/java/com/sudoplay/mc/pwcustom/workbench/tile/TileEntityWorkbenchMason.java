@@ -37,7 +37,7 @@ public class TileEntityWorkbenchMason
   }
 
   @Override
-  protected RegistryRecipeWorkbenchBasic getRecipeRegistry() {
+  public RegistryRecipeWorkbenchBasic getRecipeRegistry() {
 
     return PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(TYPE.getName());
   }

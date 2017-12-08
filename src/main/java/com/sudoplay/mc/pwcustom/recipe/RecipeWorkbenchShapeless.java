@@ -1,6 +1,6 @@
 package com.sudoplay.mc.pwcustom.recipe;
 
-import com.sudoplay.mc.pwcustom.inventory.CraftingMatrixStackHandler;
+import com.sudoplay.mc.pwcustom.workbench.gui.CraftingMatrixStackHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -10,55 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeWorkbenchShapeless
-    implements IRecipeWorkbench {
-
-  private ItemStack tool;
-  private NonNullList<Ingredient> input;
-  private ItemStack result;
-  private int toolDamage;
+    extends RecipeWorkbenchBase {
 
   public RecipeWorkbenchShapeless(
-      ItemStack tool,
+      ItemStack[] tools,
       NonNullList<Ingredient> input,
       ItemStack result,
       int toolDamage
   ) {
 
-    this.tool = tool;
-    this.input = input;
-    this.result = result;
-    this.toolDamage = toolDamage;
+    super(result, tools, toolDamage, input);
   }
 
   @Override
-  public ItemStack getResult() {
-
-    return this.result.copy();
-  }
-
-  @Override
-  public int getToolDamage() {
-
-    return this.toolDamage;
-  }
-
-  @Override
-  public boolean matches(ItemStack tool, CraftingMatrixStackHandler craftingMatrix) {
-
-    // Do we have the correct tool?
-    if (!this.tool.isItemEqualIgnoreDurability(tool)) {
-      return false;
-    }
-
-    // Does the tool have enough durability for this recipe?
-    /*if (tool.getItemDamage() + this.toolDamage > tool.getMaxDamage()) {
-      return false;
-    }*/
-
-    return this.recipeLayoutMatchesShapeless(craftingMatrix);
-  }
-
-  private boolean recipeLayoutMatchesShapeless(CraftingMatrixStackHandler craftingMatrix) {
+  protected boolean matches(CraftingMatrixStackHandler craftingMatrix) {
 
     int count = 0;
     List<ItemStack> itemList = new ArrayList<>();

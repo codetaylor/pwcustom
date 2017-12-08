@@ -36,7 +36,7 @@ public class ZenWorkbench {
   public static void addRecipeShaped(
       String table,
       IItemStack result,
-      IItemStack tool,
+      IIngredient tool,
       int toolDamage,
       IIngredient[][] input
   ) {
@@ -48,7 +48,7 @@ public class ZenWorkbench {
   public static void addRecipeShaped(
       String table,
       IItemStack result,
-      IItemStack tool,
+      IIngredient tool,
       int toolDamage,
       boolean mirrored,
       IIngredient[][] input
@@ -57,7 +57,7 @@ public class ZenWorkbench {
     CraftTweakerPlugin.LATE_ADDITIONS.add(new AddShaped(
         table,
         InputHelper.toStack(result),
-        InputHelper.toStack(tool),
+        CTUtil.toIngredient(tool),
         CTUtil.toIngredientMatrix(input),
         toolDamage,
         mirrored
@@ -69,12 +69,12 @@ public class ZenWorkbench {
 
     private String table;
     private final ItemStack result;
-    private final ItemStack tool;
+    private final Ingredient tool;
     private final Ingredient[][] input;
     private final int toolDamage;
     private final boolean mirrored;
 
-    AddShaped(String table, ItemStack result, ItemStack tool, Ingredient[][] input, int toolDamage, boolean mirrored) {
+    AddShaped(String table, ItemStack result, Ingredient tool, Ingredient[][] input, int toolDamage, boolean mirrored) {
 
       super("WorkbenchShaped");
       this.table = table;
@@ -120,7 +120,7 @@ public class ZenWorkbench {
   public static void addRecipeShapeless(
       String table,
       IItemStack result,
-      IItemStack tool,
+      IIngredient tool,
       int toolDamage,
       IIngredient[] input
   ) {
@@ -128,7 +128,7 @@ public class ZenWorkbench {
     CraftTweakerPlugin.LATE_ADDITIONS.add(new AddShapeless(
         table,
         InputHelper.toStack(result),
-        InputHelper.toStack(tool),
+        CTUtil.toIngredient(tool),
         CTUtil.toIngredientArray(input),
         toolDamage
     ));
@@ -139,11 +139,11 @@ public class ZenWorkbench {
 
     private String table;
     private final ItemStack result;
-    private final ItemStack tool;
+    private final Ingredient tool;
     private final Ingredient[] input;
     private final int toolDamage;
 
-    AddShapeless(String table, ItemStack result, ItemStack tool, Ingredient[] input, int toolDamage) {
+    AddShapeless(String table, ItemStack result, Ingredient tool, Ingredient[] input, int toolDamage) {
 
       super("WorkbenchShapeless");
       this.table = table;

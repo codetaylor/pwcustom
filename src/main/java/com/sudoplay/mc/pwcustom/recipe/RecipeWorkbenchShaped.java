@@ -1,69 +1,36 @@
 package com.sudoplay.mc.pwcustom.recipe;
 
-import com.sudoplay.mc.pwcustom.inventory.CraftingMatrixStackHandler;
+import com.sudoplay.mc.pwcustom.workbench.gui.CraftingMatrixStackHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 
 public class RecipeWorkbenchShaped
-    implements IRecipeWorkbench {
+    extends RecipeWorkbenchBase {
 
   private final int width;
   private final int height;
-  private ItemStack tool;
-  private NonNullList<Ingredient> input;
-  private ItemStack result;
-  private int toolDamage;
   private boolean mirrored;
 
   public RecipeWorkbenchShaped(
       int width,
       int height,
-      ItemStack tool,
+      ItemStack[] tools,
       NonNullList<Ingredient> input,
       ItemStack result,
       int toolDamage,
       boolean mirrored
   ) {
 
+    super(result, tools, toolDamage, input);
+
     this.width = width;
     this.height = height;
-    this.tool = tool;
-    this.input = input;
-    this.result = result;
-    this.toolDamage = toolDamage;
     this.mirrored = mirrored;
   }
 
   @Override
-  public ItemStack getResult() {
-
-    return this.result.copy();
-  }
-
-  @Override
-  public int getToolDamage() {
-
-    return this.toolDamage;
-  }
-
-  @Override
-  public boolean matches(ItemStack tool, CraftingMatrixStackHandler craftingMatrix) {
-
-    // Do we have the correct tool?
-    if (!this.tool.isItemEqualIgnoreDurability(tool)) {
-      return false;
-    }
-
-    // Does the tool have enough durability for this recipe?
-    /*if (tool.getItemDamage() + this.toolDamage > tool.getMaxDamage()) {
-      return false;
-    }*/
-
-    return this.recipeLayoutMatchesShaped(craftingMatrix);
-  }
-
-  private boolean recipeLayoutMatchesShaped(CraftingMatrixStackHandler craftingMatrix) {
+  protected boolean matches(CraftingMatrixStackHandler craftingMatrix) {
 
     for (int x = 0; x <= craftingMatrix.getWidth() - this.width; ++x) {
 

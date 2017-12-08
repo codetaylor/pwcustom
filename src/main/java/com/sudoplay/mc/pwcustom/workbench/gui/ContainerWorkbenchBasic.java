@@ -1,7 +1,6 @@
 package com.sudoplay.mc.pwcustom.workbench.gui;
 
-import com.sudoplay.mc.pwcustom.inventory.CraftingResultSlot;
-import com.sudoplay.mc.pwcustom.inventory.CraftingToolSlot;
+import com.sudoplay.mc.pwcustom.inventory.PredicateSlotItemHandler;
 import com.sudoplay.mc.pwcustom.workbench.tile.TileEntityWorkbenchBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -27,10 +26,10 @@ public class ContainerWorkbenchBasic
     this.world = world;
     this.tile = tile;
 
-    // Result Slot
+    // Result Slot 0
     this.addSlotToContainer(new CraftingResultSlot(this.tile, this.tile.getResultHandler(), 0, 124, 35));
 
-    // Crafting Matrix
+    // Crafting Matrix 1 - 9
     for (int y = 0; y < this.tile.getCraftingMatrixHandler().getHeight(); ++y) {
       for (int x = 0; x < this.tile.getCraftingMatrixHandler().getWidth(); ++x) {
         this.addSlotToContainer(new SlotItemHandler(
@@ -42,20 +41,26 @@ public class ContainerWorkbenchBasic
       }
     }
 
-    // Player Inventory
+    // Player Inventory 10 - 37
     for (int y = 0; y < 3; ++y) {
       for (int x = 0; x < 9; ++x) {
         this.addSlotToContainer(new Slot(playerInventory, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
       }
     }
 
-    // Player HotBar
+    // Player HotBar 38 - 46
     for (int x = 0; x < 9; ++x) {
       this.addSlotToContainer(new Slot(playerInventory, x, 8 + x * 18, 142));
     }
 
-    // Tool Slot
-    this.addSlotToContainer(new CraftingToolSlot(this.tile.getToolHandler(), 0, 87, 35));
+    // Tool Slot 47
+    this.addSlotToContainer(new PredicateSlotItemHandler(
+        itemStack -> ContainerWorkbenchBasic.this.tile.getRecipeRegistry().containsRecipeWithTool(itemStack),
+        this.tile.getToolHandler(),
+        0,
+        87,
+        35
+    ));
   }
 
   @Override
@@ -80,7 +85,9 @@ public class ContainerWorkbenchBasic
       ItemStack itemstack1 = slot.getStack();
       itemstack = itemstack1.copy();
 
-      if (slotIndex == 0) { // Result
+      if (slotIndex == 0) {
+        // Result
+
         itemstack1.getItem().onCreated(itemstack1, this.world, playerIn);
 
         if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
@@ -89,19 +96,24 @@ public class ContainerWorkbenchBasic
 
         slot.onSlotChange(itemstack1, itemstack);
 
-      } else if (slotIndex >= 10 && slotIndex < 37) { // Inventory
+      } else if (slotIndex >= 10 && slotIndex < 37) {
+        // Inventory clicked, try to move to tool slot first, then hotbar
 
-        if (!this.mergeItemStack(itemstack1, 37, 46, false)) {
+        if (!this.mergeItemStack(itemstack1, 46, 47, false)
+            && !this.mergeItemStack(itemstack1, 37, 46, false)) {
           return ItemStack.EMPTY;
         }
 
-      } else if (slotIndex >= 37 && slotIndex < 46) { // HotBar
+      } else if (slotIndex >= 37 && slotIndex < 46) {
+        // HotBar clicked, try to move to tool slot first, then inventory
 
-        if (!this.mergeItemStack(itemstack1, 10, 37, false)) {
+        if (!this.mergeItemStack(itemstack1, 46, 47, false)
+            && !this.mergeItemStack(itemstack1, 10, 37, false)) {
           return ItemStack.EMPTY;
         }
 
       } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
+        // All others: tool slot and crafting matrix
         return ItemStack.EMPTY;
       }
 

@@ -14,7 +14,7 @@ public class CTUtil {
 
   public static Ingredient toIngredient(IIngredient ingredient) {
 
-    return new CTIngredient(ingredient);
+    return new CTIngredientWrapper(ingredient);
   }
 
   public static Ingredient[][] toIngredientMatrix(IIngredient[][] ingredients) {
@@ -25,7 +25,7 @@ public class CTUtil {
       result[row] = new Ingredient[ingredients[row].length];
 
       for (int col = 0; col < ingredients[row].length; col++) {
-        result[row][col] = new CTIngredient(ingredients[row][col]);
+        result[row][col] = new CTIngredientWrapper(ingredients[row][col]);
       }
     }
 
@@ -37,18 +37,18 @@ public class CTUtil {
     Ingredient[] result = new Ingredient[ingredients.length];
 
     for (int i = 0; i < ingredients.length; i++) {
-      result[i] = new CTIngredient(ingredients[i]);
+      result[i] = new CTIngredientWrapper(ingredients[i]);
     }
 
     return result;
   }
 
-  public static class CTIngredient
+  public static class CTIngredientWrapper
       extends Ingredient {
 
     private IIngredient ingredient;
 
-    public CTIngredient(IIngredient ingredient) {
+    public CTIngredientWrapper(IIngredient ingredient) {
 
       this.ingredient = ingredient;
     }

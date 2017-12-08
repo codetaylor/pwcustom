@@ -1,6 +1,6 @@
 package com.sudoplay.mc.pwcustom.recipe;
 
-import com.sudoplay.mc.pwcustom.inventory.CraftingMatrixStackHandler;
+import com.sudoplay.mc.pwcustom.workbench.gui.CraftingMatrixStackHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -24,7 +24,7 @@ public class RegistryRecipeWorkbenchBasic {
 
   public IRecipeWorkbench addRecipeShaped(
       ItemStack result,
-      ItemStack tool,
+      Ingredient tool,
       Ingredient[][] input,
       int toolDamage,
       boolean mirrored
@@ -47,7 +47,7 @@ public class RegistryRecipeWorkbenchBasic {
     RecipeWorkbenchShaped recipe = new RecipeWorkbenchShaped(
         width,
         height,
-        tool,
+        tool.getMatchingStacks(),
         inputList,
         result,
         toolDamage,
@@ -60,7 +60,7 @@ public class RegistryRecipeWorkbenchBasic {
 
   public IRecipeWorkbench addRecipeShapeless(
       ItemStack result,
-      ItemStack tool,
+      Ingredient tool,
       Ingredient[] input,
       int toolDamage
   ) {
@@ -70,7 +70,7 @@ public class RegistryRecipeWorkbenchBasic {
     inputList.addAll(Arrays.asList(input));
 
     IRecipeWorkbench recipe = new RecipeWorkbenchShapeless(
-        tool,
+        tool.getMatchingStacks(),
         inputList,
         result,
         toolDamage
@@ -98,5 +98,24 @@ public class RegistryRecipeWorkbenchBasic {
     }
 
     return null;
+  }
+
+  public boolean containsRecipeWithTool(ItemStack tool) {
+
+    for (IRecipeWorkbench recipe : this.recipeShapedList) {
+
+      if (recipe.isValidTool(tool)) {
+        return true;
+      }
+    }
+
+    for (IRecipeWorkbench recipe : this.recipeShapelessList) {
+
+      if (recipe.isValidTool(tool)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

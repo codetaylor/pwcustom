@@ -1,6 +1,6 @@
 package com.sudoplay.mc.pwcustom.workbench.tile;
 
-import com.sudoplay.mc.pwcustom.inventory.CraftingMatrixStackHandler;
+import com.sudoplay.mc.pwcustom.workbench.gui.CraftingMatrixStackHandler;
 import com.sudoplay.mc.pwcustom.inventory.ObservableStackHandler;
 import com.sudoplay.mc.pwcustom.recipe.IRecipeWorkbench;
 import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbenchBasic;
@@ -196,7 +196,7 @@ public abstract class TileEntityWorkbenchBase
 
   protected abstract ResourceLocation getBackgroundTexture();
 
-  protected abstract RegistryRecipeWorkbenchBasic getRecipeRegistry();
+  public abstract RegistryRecipeWorkbenchBasic getRecipeRegistry();
 
   public enum EnumWorkbenchTier {
 
