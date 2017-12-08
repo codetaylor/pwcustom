@@ -11,8 +11,7 @@ import java.awt.*;
 public class TileEntityWorkbenchJeweler
     extends TileEntityWorkbenchBasicBase {
 
-  private static final int TEXT_SHADOW_DARK_COLOR = new Color(188, 152, 98).getRGB();
-  private static final int TEXT_SHADOW_LIGHT_COLOR = new Color(105, 89, 133).getRGB();
+  private static final int TEXT_SHADOW_COLOR = new Color(105, 89, 133).getRGB();
   private static final BlockWorkbenchBasic.EnumType TYPE = BlockWorkbenchBasic.EnumType.JEWELER;
   private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(
       ModPWCustom.MOD_ID,
@@ -25,15 +24,9 @@ public class TileEntityWorkbenchJeweler
   }
 
   @Override
-  protected int getWorkbenchGuiTextShadowDarkColor() {
+  protected int getWorkbenchGuiTextShadowColor() {
 
-    return TEXT_SHADOW_DARK_COLOR;
-  }
-
-  @Override
-  protected int getWorkbenchGuiTextShadowLightColor() {
-
-    return TEXT_SHADOW_LIGHT_COLOR;
+    return TEXT_SHADOW_COLOR;
   }
 
   @Override

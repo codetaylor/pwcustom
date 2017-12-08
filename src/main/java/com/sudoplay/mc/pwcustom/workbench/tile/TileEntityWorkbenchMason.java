@@ -11,8 +11,7 @@ import java.awt.*;
 public class TileEntityWorkbenchMason
     extends TileEntityWorkbenchBasicBase {
 
-  private static final int TEXT_SHADOW_DARK_COLOR = new Color(51, 51, 51).getRGB();
-  private static final int TEXT_SHADOW_LIGHT_COLOR = new Color(151, 151, 151).getRGB();
+  private static final int TEXT_SHADOW_COLOR = new Color(151, 151, 151).getRGB();
   private static final BlockWorkbenchBasic.EnumType TYPE = BlockWorkbenchBasic.EnumType.MASON;
   private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(
       ModPWCustom.MOD_ID,
@@ -25,15 +24,9 @@ public class TileEntityWorkbenchMason
   }
 
   @Override
-  protected int getWorkbenchGuiTextShadowDarkColor() {
+  protected int getWorkbenchGuiTextShadowColor() {
 
-    return TEXT_SHADOW_DARK_COLOR;
-  }
-
-  @Override
-  protected int getWorkbenchGuiTextShadowLightColor() {
-
-    return TEXT_SHADOW_LIGHT_COLOR;
+    return TEXT_SHADOW_COLOR;
   }
 
   @Override

@@ -1,11 +1,11 @@
 package com.sudoplay.mc.pwcustom.workbench.tile;
 
-import com.sudoplay.mc.pwcustom.workbench.gui.CraftingMatrixStackHandler;
 import com.sudoplay.mc.pwcustom.inventory.ObservableStackHandler;
 import com.sudoplay.mc.pwcustom.recipe.IRecipeWorkbench;
 import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbenchBasic;
 import com.sudoplay.mc.pwcustom.tile.IContainer;
 import com.sudoplay.mc.pwcustom.util.StackUtil;
+import com.sudoplay.mc.pwcustom.workbench.gui.CraftingMatrixStackHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -190,9 +190,7 @@ public abstract class TileEntityWorkbenchBase
     }
   }
 
-  protected abstract int getWorkbenchGuiTextShadowLightColor();
-
-  protected abstract int getWorkbenchGuiTextShadowDarkColor();
+  protected abstract int getWorkbenchGuiTextShadowColor();
 
   protected abstract ResourceLocation getBackgroundTexture();
 

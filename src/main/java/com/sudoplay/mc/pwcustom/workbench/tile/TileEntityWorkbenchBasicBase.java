@@ -43,7 +43,7 @@ public abstract class TileEntityWorkbenchBasicBase
         this.getContainer(inventoryPlayer, world, state, pos),
         this.getBackgroundTexture(),
         "container." + ModPWCustom.MOD_ID + ".workbench." + type.getName() + "." + this.getWorkbenchTier().getName(),
-        this.getWorkbenchGuiTextShadowLightColor(),
+        this.getWorkbenchGuiTextShadowColor(),
         this.getWorkbenchGuiTextShadowDarkColor()
     );
   }

@@ -12,21 +12,21 @@ public class GuiContainerWorkbenchBasic
 
   private final ResourceLocation backgroundTexture;
   private final String titleKey;
-  private final int textShadowLightColor;
+  private final int textShadowColor;
   private final int textShadowDarkColor;
 
   public GuiContainerWorkbenchBasic(
       ContainerWorkbenchBasic container,
       ResourceLocation backgroundTexture,
       String titleKey,
-      int textShadowLightColor,
+      int textShadowColor,
       int textShadowDarkColor
   ) {
 
     super(container);
     this.backgroundTexture = backgroundTexture;
     this.titleKey = titleKey;
-    this.textShadowLightColor = textShadowLightColor;
+    this.textShadowColor = textShadowColor;
     this.textShadowDarkColor = textShadowDarkColor;
     this.xSize = 176;
     this.ySize = 166;
@@ -60,20 +60,15 @@ public class GuiContainerWorkbenchBasic
 
     String displayText = I18n.format(translateKey);
 
-    this.fontRenderer.drawString(displayText, x + 0, y + 1, this.textShadowLightColor);
-    this.fontRenderer.drawString(displayText, x + 1, y + 1, this.textShadowLightColor);
-    this.fontRenderer.drawString(displayText, x + 1, y - 1, this.textShadowLightColor);
-    this.fontRenderer.drawString(displayText, x + 1, y + 0, this.textShadowLightColor);
+    this.fontRenderer.drawString(displayText, x + 0, y + 1, this.textShadowColor);
+    this.fontRenderer.drawString(displayText, x + 1, y + 1, this.textShadowColor);
+    this.fontRenderer.drawString(displayText, x + 1, y - 1, this.textShadowColor);
+    this.fontRenderer.drawString(displayText, x + 1, y + 0, this.textShadowColor);
 
-    this.fontRenderer.drawString(displayText, x - 0, y - 1, this.textShadowLightColor);
-    this.fontRenderer.drawString(displayText, x - 1, y - 1, this.textShadowLightColor);
-    this.fontRenderer.drawString(displayText, x - 1, y + 1, this.textShadowLightColor);
-    this.fontRenderer.drawString(displayText, x - 1, y - 0, this.textShadowLightColor);
-
-//    this.fontRenderer.drawString(displayText, x - 0, y - 1, this.textShadowDarkColor);
-//    this.fontRenderer.drawString(displayText, x - 1, y - 1, this.textShadowDarkColor);
-//    this.fontRenderer.drawString(displayText, x - 1, y - 0, this.textShadowDarkColor);
-
+    this.fontRenderer.drawString(displayText, x - 0, y - 1, this.textShadowColor);
+    this.fontRenderer.drawString(displayText, x - 1, y - 1, this.textShadowColor);
+    this.fontRenderer.drawString(displayText, x - 1, y + 1, this.textShadowColor);
+    this.fontRenderer.drawString(displayText, x - 1, y - 0, this.textShadowColor);
 
     this.fontRenderer.drawString(displayText, x, y, Color.BLACK.getRGB());
   }
