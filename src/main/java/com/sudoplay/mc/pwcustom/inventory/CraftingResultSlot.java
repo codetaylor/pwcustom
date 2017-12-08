@@ -1,6 +1,6 @@
 package com.sudoplay.mc.pwcustom.inventory;
 
-import com.sudoplay.mc.pwcustom.tile.TileEntityWorkbenchBase;
+import com.sudoplay.mc.pwcustom.workbench.tile.TileEntityWorkbenchBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;

@@ -1,9 +1,10 @@
-package com.sudoplay.mc.pwcustom.tile;
+package com.sudoplay.mc.pwcustom.workbench.tile;
 
 import com.sudoplay.mc.pwcustom.inventory.CraftingMatrixStackHandler;
 import com.sudoplay.mc.pwcustom.inventory.ObservableStackHandler;
 import com.sudoplay.mc.pwcustom.recipe.IRecipeWorkbench;
-import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbench;
+import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.tile.IContainer;
 import com.sudoplay.mc.pwcustom.util.StackUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -12,6 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -26,9 +28,8 @@ public abstract class TileEntityWorkbenchBase
   protected CraftingMatrixStackHandler craftingMatrixHandler;
   protected ItemStackHandler resultHandler;
   protected IRecipeWorkbench lastRecipeCrafted;
-  protected RegistryRecipeWorkbench registry;
 
-  public TileEntityWorkbenchBase(int width, int height, RegistryRecipeWorkbench registry) {
+  public TileEntityWorkbenchBase(int width, int height) {
 
     this.craftingMatrixHandler = new CraftingMatrixStackHandler(width, height);
     this.craftingMatrixHandler.addObserver(this::onInputsChanged);
@@ -37,7 +38,6 @@ public abstract class TileEntityWorkbenchBase
     this.toolHandler.addObserver(this::onInputsChanged);
 
     this.resultHandler = new ItemStackHandler();
-    this.registry = registry;
   }
 
   public ObservableStackHandler getToolHandler() {
@@ -163,18 +163,23 @@ public abstract class TileEntityWorkbenchBase
       }
 
     }
-
   }
 
-  protected void onInputsChanged(ItemStackHandler stackHandler, int slotIndex) {
+  public void updateRecipe() {
 
     this.findResult();
     this.markDirty();
   }
 
+  protected void onInputsChanged(ItemStackHandler stackHandler, int slotIndex) {
+
+    this.updateRecipe();
+  }
+
   protected void findResult() {
 
-    IRecipeWorkbench recipe = this.registry.findRecipe(this.toolHandler.getStackInSlot(0), this.craftingMatrixHandler);
+    RegistryRecipeWorkbenchBasic registry = this.getRecipeRegistry();
+    IRecipeWorkbench recipe = registry.findRecipe(this.toolHandler.getStackInSlot(0), this.craftingMatrixHandler);
 
     if (recipe != null) {
       this.lastRecipeCrafted = recipe;
@@ -182,6 +187,38 @@ public abstract class TileEntityWorkbenchBase
 
     } else {
       this.resultHandler.setStackInSlot(0, ItemStack.EMPTY);
+    }
+  }
+
+  protected abstract int getWorkbenchGuiTextShadowLightColor();
+
+  protected abstract int getWorkbenchGuiTextShadowDarkColor();
+
+  protected abstract ResourceLocation getBackgroundTexture();
+
+  protected abstract RegistryRecipeWorkbenchBasic getRecipeRegistry();
+
+  public enum EnumWorkbenchTier {
+
+    BASIC(0, "basic");
+
+    private final int index;
+    private final String name;
+
+    EnumWorkbenchTier(int index, String name) {
+
+      this.index = index;
+      this.name = name;
+    }
+
+    public String getName() {
+
+      return this.name;
+    }
+
+    public int getIndex() {
+
+      return this.index;
     }
   }
 }

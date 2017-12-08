@@ -1,11 +1,11 @@
-package com.sudoplay.mc.pwcustom.block;
+package com.sudoplay.mc.pwcustom.workbench.block;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.spi.BlockBase;
 import com.sudoplay.mc.pwcustom.spi.IBlockVariant;
 import com.sudoplay.mc.pwcustom.spi.IVariant;
 import com.sudoplay.mc.pwcustom.tile.IContainer;
-import com.sudoplay.mc.pwcustom.tile.TileEntityWorkbenchTailoring;
+import com.sudoplay.mc.pwcustom.workbench.tile.*;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -42,7 +42,7 @@ public class BlockWorkbenchBasic
 
     this.setHardness(5);
     this.setSoundType(SoundType.WOOD);
-    this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.LEATHERWORKING));
+    this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.TAILOR));
   }
 
   @Override
@@ -56,8 +56,16 @@ public class BlockWorkbenchBasic
   public TileEntity createTileEntity(World world, IBlockState state) {
 
     switch (state.getValue(VARIANT)) {
-      case LEATHERWORKING:
-        return new TileEntityWorkbenchTailoring();
+      case TAILOR:
+        return new TileEntityWorkbenchTailor();
+      case MASON:
+        return new TileEntityWorkbenchMason();
+      case JEWELER:
+        return new TileEntityWorkbenchJeweler();
+      case CARPENTER:
+        return new TileEntityWorkbenchCarpenter();
+      case BLACKSMITH:
+        return new TileEntityWorkbenchBlacksmith();
 
       default:
         throw new RuntimeException("Unknown variant: " + state.getValue(VARIANT));
@@ -79,6 +87,13 @@ public class BlockWorkbenchBasic
 
     if (worldIn.isRemote) {
       return true;
+    }
+
+    TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+    if (tileEntity != null
+        && tileEntity instanceof TileEntityWorkbenchBase) {
+      ((TileEntityWorkbenchBase) tileEntity).updateRecipe();
     }
 
     playerIn.openGui(ModPWCustom.INSTANCE, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
@@ -163,7 +178,11 @@ public class BlockWorkbenchBasic
   public enum EnumType
       implements IVariant {
 
-    LEATHERWORKING(0, "leatherworking");
+    TAILOR(0, "tailor"),
+    CARPENTER(1, "carpenter"),
+    MASON(2, "mason"),
+    BLACKSMITH(3, "blacksmith"),
+    JEWELER(4, "jeweler");
 
     private static final EnumType[] META_LOOKUP = Stream.of(EnumType.values())
         .sorted(Comparator.comparing(EnumType::getMeta))
@@ -188,6 +207,20 @@ public class BlockWorkbenchBasic
     public String getName() {
 
       return this.name;
+    }
+
+    public static EnumType fromName(String name) {
+
+      EnumType[] values = EnumType.values();
+
+      for (EnumType value : values) {
+
+        if (value.name.equals(name)) {
+          return value;
+        }
+      }
+
+      throw new IllegalArgumentException("Unknown name: " + name);
     }
 
     public static EnumType fromMeta(int meta) {

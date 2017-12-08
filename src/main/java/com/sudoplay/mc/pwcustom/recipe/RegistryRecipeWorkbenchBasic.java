@@ -11,12 +11,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class RegistryRecipeWorkbench {
+public class RegistryRecipeWorkbenchBasic {
 
   private List<IRecipeWorkbench> recipeShapedList;
   private List<IRecipeWorkbench> recipeShapelessList;
 
-  public RegistryRecipeWorkbench() {
+  public RegistryRecipeWorkbenchBasic() {
 
     this.recipeShapedList = new ArrayList<>();
     this.recipeShapelessList = new ArrayList<>();

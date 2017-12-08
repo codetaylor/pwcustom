@@ -56,7 +56,7 @@ public class ItemSaw
 
       for (Iterator<ItemStack> it = drops.iterator(); it.hasNext(); ) {
         ItemStack itemDropped = it.next();
-        RecipeSawing recipeSawing = PWCustomAPI.getRegistryRecipeSawing().findRecipe(
+        RecipeSawing recipeSawing = PWCustomAPI.Recipes.Sawing.REGISTRY.findRecipe(
             heldItem,
             new ItemStack(itemDropped.getItem(), 1, itemDropped.getMetadata())
         );

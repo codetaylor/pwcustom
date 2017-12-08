@@ -1,6 +1,8 @@
-package com.sudoplay.mc.pwcustom.inventory;
+package com.sudoplay.mc.pwcustom.workbench.gui;
 
-import com.sudoplay.mc.pwcustom.tile.TileEntityWorkbenchBase;
+import com.sudoplay.mc.pwcustom.inventory.CraftingResultSlot;
+import com.sudoplay.mc.pwcustom.inventory.CraftingToolSlot;
+import com.sudoplay.mc.pwcustom.workbench.tile.TileEntityWorkbenchBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -10,13 +12,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerWorkbench
+public class ContainerWorkbenchBasic
     extends Container {
 
   private World world;
   private TileEntityWorkbenchBase tile;
 
-  public ContainerWorkbench(
+  public ContainerWorkbenchBasic(
       InventoryPlayer playerInventory,
       World world,
       TileEntityWorkbenchBase tile
@@ -34,7 +36,7 @@ public class ContainerWorkbench
         this.addSlotToContainer(new SlotItemHandler(
             this.tile.getCraftingMatrixHandler(),
             x + y * 3,
-            30 + x * 18,
+            29 + x * 18,
             17 + y * 18
         ));
       }
@@ -53,7 +55,7 @@ public class ContainerWorkbench
     }
 
     // Tool Slot
-    this.addSlotToContainer(new CraftingToolSlot(this.tile.getToolHandler(), 0, 8, 35));
+    this.addSlotToContainer(new CraftingToolSlot(this.tile.getToolHandler(), 0, 87, 35));
   }
 
   @Override

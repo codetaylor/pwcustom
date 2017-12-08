@@ -7,10 +7,10 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public interface IContainerProvider {
+public interface IContainerProvider<C extends Container, G extends GuiContainer> {
 
-  Container getContainer(InventoryPlayer inventoryPlayer, World world, IBlockState state, BlockPos pos);
+  C getContainer(InventoryPlayer inventoryPlayer, World world, IBlockState state, BlockPos pos);
 
-  GuiContainer getGuiContainer(InventoryPlayer inventoryPlayer, World world, IBlockState state, BlockPos pos);
+  G getGuiContainer(InventoryPlayer inventoryPlayer, World world, IBlockState state, BlockPos pos);
 
 }

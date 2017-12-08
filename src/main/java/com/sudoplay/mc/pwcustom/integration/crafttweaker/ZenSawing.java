@@ -46,7 +46,7 @@ public class ZenSawing {
     @Override
     public void apply() {
 
-      PWCustomAPI.getRegistryRecipeSawing().addRecipe(this.drops, this.saw, this.block);
+      PWCustomAPI.Recipes.Sawing.REGISTRY.addRecipe(this.drops, this.saw, this.block);
     }
 
     @Override

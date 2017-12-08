@@ -1,34 +1,34 @@
 package com.sudoplay.mc.pwcustom.api;
 
 import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeSawing;
-import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbench;
+import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbenchBasic;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PWCustomAPI {
 
-  private static final RegistryRecipeSawing REGISTRY_RECIPE_SAWING;
-  private static final RegistryRecipeWorkbench REGISTRY_RECIPE_WORKBENCH_LEATHERWORKING;
+  public static final class Recipes {
 
-  static {
-    REGISTRY_RECIPE_SAWING = new RegistryRecipeSawing();
-    REGISTRY_RECIPE_WORKBENCH_LEATHERWORKING = new RegistryRecipeWorkbench();
-  }
+    public static final class Sawing {
 
-  // --------------------------------------------------------------------------
-  // - Sawing
-  // --------------------------------------------------------------------------
+      public static final RegistryRecipeSawing REGISTRY = new RegistryRecipeSawing();
+    }
 
-  public static RegistryRecipeSawing getRegistryRecipeSawing() {
+    public static final class Workbench {
 
-    return REGISTRY_RECIPE_SAWING;
-  }
+      public static final Map<String, RegistryRecipeWorkbenchBasic> REGISTRY_MAP = new HashMap<>();
 
-  // --------------------------------------------------------------------------
-  // - Workbench Leatherworking
-  // --------------------------------------------------------------------------
+      static {
 
-  public static RegistryRecipeWorkbench getRegistryRecipeWorkbenchLeatherworking() {
+        BlockWorkbenchBasic.EnumType[] values = BlockWorkbenchBasic.EnumType.values();
 
-    return REGISTRY_RECIPE_WORKBENCH_LEATHERWORKING;
+        for (BlockWorkbenchBasic.EnumType type : values) {
+          REGISTRY_MAP.put(type.getName(), new RegistryRecipeWorkbenchBasic());
+        }
+      }
+    }
   }
 
 }

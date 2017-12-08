@@ -4,12 +4,13 @@ import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.block.BlockPortalDarklands;
 import com.sudoplay.mc.pwcustom.block.BlockPortalFrame;
 import com.sudoplay.mc.pwcustom.block.BlockSoulGravel;
-import com.sudoplay.mc.pwcustom.block.BlockWorkbenchBasic;
-import com.sudoplay.mc.pwcustom.tile.TileEntityWorkbenchTailoring;
 import com.sudoplay.mc.pwcustom.util.BlockRegistrationUtil;
 import com.sudoplay.mc.pwcustom.util.ModelRegistrationUtil;
+import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.workbench.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -70,10 +71,21 @@ public class ModBlocks {
 
     private static void registerTileEntities() {
 
-      GameRegistry.registerTileEntity(
-          TileEntityWorkbenchTailoring.class,
-          ModPWCustom.MOD_ID + "_TileEntityWorkbenchTailoring"
+      RegistrationHandler.registerTileEntities(
+          TileEntityWorkbenchBlacksmith.class,
+          TileEntityWorkbenchCarpenter.class,
+          TileEntityWorkbenchJeweler.class,
+          TileEntityWorkbenchMason.class,
+          TileEntityWorkbenchTailor.class
       );
+    }
+
+    @SafeVarargs
+    private static void registerTileEntities(Class<? extends TileEntity>... tileEntityClasses) {
+
+      for (Class<? extends TileEntity> tileEntityClass : tileEntityClasses) {
+        GameRegistry.registerTileEntity(tileEntityClass, ModPWCustom.MOD_ID + "_" + tileEntityClass.getSimpleName());
+      }
     }
   }
 
