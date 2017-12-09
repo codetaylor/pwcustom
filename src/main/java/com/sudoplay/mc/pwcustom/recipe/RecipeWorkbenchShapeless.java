@@ -37,11 +37,11 @@ public class RecipeWorkbenchShapeless
       }
     }
 
-    if (count != this.input.size()) {
+    if (count != this.ingredients.size()) {
       return false;
     }
 
-    return RecipeMatcher.findMatches(itemList, this.input) != null;
+    return RecipeMatcher.findMatches(itemList, this.ingredients) != null;
   }
 
 }

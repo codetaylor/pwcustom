@@ -2,7 +2,7 @@ package com.sudoplay.mc.pwcustom.workbench.tile;
 
 import com.sudoplay.mc.pwcustom.inventory.ObservableStackHandler;
 import com.sudoplay.mc.pwcustom.recipe.IRecipeWorkbench;
-import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbench;
 import com.sudoplay.mc.pwcustom.tile.IContainer;
 import com.sudoplay.mc.pwcustom.util.StackUtil;
 import com.sudoplay.mc.pwcustom.workbench.gui.CraftingMatrixStackHandler;
@@ -178,12 +178,12 @@ public abstract class TileEntityWorkbenchBase
 
   protected void findResult() {
 
-    RegistryRecipeWorkbenchBasic registry = this.getRecipeRegistry();
+    RegistryRecipeWorkbench registry = this.getRecipeRegistry();
     IRecipeWorkbench recipe = registry.findRecipe(this.toolHandler.getStackInSlot(0), this.craftingMatrixHandler);
 
     if (recipe != null) {
       this.lastRecipeCrafted = recipe;
-      this.resultHandler.setStackInSlot(0, recipe.getResult());
+      this.resultHandler.setStackInSlot(0, recipe.getOutput());
 
     } else {
       this.resultHandler.setStackInSlot(0, ItemStack.EMPTY);
@@ -194,7 +194,7 @@ public abstract class TileEntityWorkbenchBase
 
   protected abstract ResourceLocation getBackgroundTexture();
 
-  public abstract RegistryRecipeWorkbenchBasic getRecipeRegistry();
+  public abstract RegistryRecipeWorkbench getRecipeRegistry();
 
   public enum EnumWorkbenchTier {
 

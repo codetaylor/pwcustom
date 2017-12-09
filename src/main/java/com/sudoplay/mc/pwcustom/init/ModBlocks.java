@@ -6,7 +6,7 @@ import com.sudoplay.mc.pwcustom.block.BlockPortalFrame;
 import com.sudoplay.mc.pwcustom.block.BlockSoulGravel;
 import com.sudoplay.mc.pwcustom.util.BlockRegistrationUtil;
 import com.sudoplay.mc.pwcustom.util.ModelRegistrationUtil;
-import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbench;
 import com.sudoplay.mc.pwcustom.workbench.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -31,8 +31,8 @@ public class ModBlocks {
   @ObjectHolder(ModPWCustom.MOD_ID + ":" + BlockPortalDarklands.NAME)
   public static final BlockPortalDarklands PORTAL_DARKLANDS;
 
-  @ObjectHolder(ModPWCustom.MOD_ID + ":" + BlockWorkbenchBasic.NAME)
-  public static final BlockWorkbenchBasic WORKBENCH_BASIC;
+  @ObjectHolder(ModPWCustom.MOD_ID + ":" + BlockWorkbench.NAME)
+  public static final BlockWorkbench WORKBENCH_BASIC;
 
   static {
     SOUL_GRAVEL = null;
@@ -51,7 +51,7 @@ public class ModBlocks {
           new BlockSoulGravel(),
           new BlockPortalFrame(),
           new BlockPortalDarklands(),
-          new BlockWorkbenchBasic()
+          new BlockWorkbench()
       );
     }
 
@@ -109,7 +109,7 @@ public class ModBlocks {
       // Workbench Basic
       ModelRegistrationUtil.registerVariantBlockItemModels(
           WORKBENCH_BASIC.getDefaultState(),
-          BlockWorkbenchBasic.VARIANT
+          BlockWorkbench.VARIANT
       );
 
     }

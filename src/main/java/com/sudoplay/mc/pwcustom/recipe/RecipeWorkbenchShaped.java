@@ -62,10 +62,10 @@ public class RecipeWorkbenchShaped
         if (subX >= 0 && subY >= 0 && subX < this.width && subY < this.height) {
 
           if (mirror) {
-            ingredient = this.input.get(this.width - subX - 1 + subY * this.width);
+            ingredient = this.ingredients.get(this.width - subX - 1 + subY * this.width);
 
           } else {
-            ingredient = this.input.get(subX + subY * this.width);
+            ingredient = this.ingredients.get(subX + subY * this.width);
           }
         }
 

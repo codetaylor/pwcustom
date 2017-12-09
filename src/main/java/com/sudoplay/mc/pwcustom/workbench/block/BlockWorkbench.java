@@ -28,15 +28,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class BlockWorkbenchBasic
+public class BlockWorkbench
     extends BlockBase
-    implements IBlockVariant<BlockWorkbenchBasic.EnumType> {
+    implements IBlockVariant<BlockWorkbench.EnumType> {
 
   public static final String NAME = "workbench_basic";
 
   public static final IProperty<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class);
 
-  public BlockWorkbenchBasic() {
+  public BlockWorkbench() {
 
     super(Material.WOOD, NAME);
 

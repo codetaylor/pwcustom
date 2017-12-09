@@ -13,21 +13,18 @@ public class GuiContainerWorkbenchBasic
   private final ResourceLocation backgroundTexture;
   private final String titleKey;
   private final int textShadowColor;
-  private final int textShadowDarkColor;
 
   public GuiContainerWorkbenchBasic(
       ContainerWorkbenchBasic container,
       ResourceLocation backgroundTexture,
       String titleKey,
-      int textShadowColor,
-      int textShadowDarkColor
+      int textShadowColor
   ) {
 
     super(container);
     this.backgroundTexture = backgroundTexture;
     this.titleKey = titleKey;
     this.textShadowColor = textShadowColor;
-    this.textShadowDarkColor = textShadowDarkColor;
     this.xSize = 176;
     this.ySize = 166;
   }
@@ -35,6 +32,7 @@ public class GuiContainerWorkbenchBasic
   @Override
   public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
+    this.drawDefaultBackground();
     super.drawScreen(mouseX, mouseY, partialTicks);
     this.renderHoveredToolTip(mouseX, mouseY);
   }

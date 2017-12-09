@@ -1,7 +1,10 @@
 package com.sudoplay.mc.pwcustom.workbench.gui;
 
+import com.sudoplay.mc.pwcustom.init.ModBlocks;
 import com.sudoplay.mc.pwcustom.inventory.PredicateSlotItemHandler;
+import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbench;
 import com.sudoplay.mc.pwcustom.workbench.tile.TileEntityWorkbenchBase;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -10,6 +13,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.items.SlotItemHandler;
+
+import java.util.List;
 
 public class ContainerWorkbenchBasic
     extends Container {
@@ -136,5 +141,32 @@ public class ContainerWorkbenchBasic
     }
 
     return itemstack;
+  }
+
+  public List<Slot> getRecipeSlots(List<Slot> result) {
+
+    // grid
+    for (int i = 1; i < 10; i++) {
+      result.add(this.inventorySlots.get(i));
+    }
+
+    // tool
+    result.add(this.inventorySlots.get(this.inventorySlots.size() - 1));
+
+    return result;
+  }
+
+  public List<Slot> getInventorySlots(List<Slot> result) {
+
+    for (int i = 10; i < 46; i++) {
+      result.add(this.inventorySlots.get(i));
+    }
+
+    return result;
+  }
+
+  public TileEntityWorkbenchBase getTile() {
+
+    return this.tile;
   }
 }

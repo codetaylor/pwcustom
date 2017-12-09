@@ -3,3 +3,9 @@ container.pwcustom.workbench.carpenter.basic=Carpenter's Workbench
 container.pwcustom.workbench.jeweler.basic=Jeweler's Workbench
 container.pwcustom.workbench.mason.basic=Mason's Workbench
 container.pwcustom.workbench.tailor.basic=Tailor's Workbench
+
+text.pwcustom.jei.category.workbench.blacksmith=Blacksmith's Workbench
+text.pwcustom.jei.category.workbench.carpenter=Carpenter's Workbench
+text.pwcustom.jei.category.workbench.jeweler=Jeweler's Workbench
+text.pwcustom.jei.category.workbench.mason=Mason's Workbench
+text.pwcustom.jei.category.workbench.tailor=Tailor's Workbench

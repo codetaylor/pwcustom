@@ -11,15 +11,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class RegistryRecipeWorkbenchBasic {
+public class RegistryRecipeWorkbench {
 
   private List<IRecipeWorkbench> recipeShapedList;
   private List<IRecipeWorkbench> recipeShapelessList;
 
-  public RegistryRecipeWorkbenchBasic() {
+  public RegistryRecipeWorkbench() {
 
     this.recipeShapedList = new ArrayList<>();
     this.recipeShapelessList = new ArrayList<>();
+  }
+
+  public List<IRecipeWorkbench> getRecipeShapedList(List<IRecipeWorkbench> result) {
+
+    result.addAll(this.recipeShapedList);
+    return result;
   }
 
   public IRecipeWorkbench addRecipeShaped(
@@ -56,6 +62,12 @@ public class RegistryRecipeWorkbenchBasic {
 
     this.recipeShapedList.add(recipe);
     return recipe;
+  }
+
+  public List<IRecipeWorkbench> getRecipeShapelessList(List<IRecipeWorkbench> result) {
+
+    result.addAll(this.recipeShapelessList);
+    return result;
   }
 
   public IRecipeWorkbench addRecipeShapeless(

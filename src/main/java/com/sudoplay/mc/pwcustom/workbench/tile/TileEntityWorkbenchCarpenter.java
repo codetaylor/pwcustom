@@ -2,8 +2,8 @@ package com.sudoplay.mc.pwcustom.workbench.tile;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.api.PWCustomAPI;
-import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbenchBasic;
-import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbench;
+import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbench;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
@@ -12,7 +12,7 @@ public class TileEntityWorkbenchCarpenter
     extends TileEntityWorkbenchBasicBase {
 
   private static final int TEXT_SHADOW_COLOR = new Color(188, 152, 98).getRGB();
-  private static final BlockWorkbenchBasic.EnumType TYPE = BlockWorkbenchBasic.EnumType.CARPENTER;
+  private static final BlockWorkbench.EnumType TYPE = BlockWorkbench.EnumType.CARPENTER;
   private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(
       ModPWCustom.MOD_ID,
       "textures/gui/workbench_basic_carpenter.png"
@@ -30,7 +30,7 @@ public class TileEntityWorkbenchCarpenter
   }
 
   @Override
-  public RegistryRecipeWorkbenchBasic getRecipeRegistry() {
+  public RegistryRecipeWorkbench getRecipeRegistry() {
 
     return PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(TYPE.getName());
   }

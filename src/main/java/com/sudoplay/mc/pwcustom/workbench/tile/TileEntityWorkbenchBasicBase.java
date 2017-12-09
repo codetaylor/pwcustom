@@ -2,7 +2,7 @@ package com.sudoplay.mc.pwcustom.workbench.tile;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.tile.IContainerProvider;
-import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbench;
 import com.sudoplay.mc.pwcustom.workbench.gui.ContainerWorkbenchBasic;
 import com.sudoplay.mc.pwcustom.workbench.gui.GuiContainerWorkbenchBasic;
 import net.minecraft.block.state.IBlockState;
@@ -37,14 +37,13 @@ public abstract class TileEntityWorkbenchBasicBase
       InventoryPlayer inventoryPlayer, World world, IBlockState state, BlockPos pos
   ) {
 
-    BlockWorkbenchBasic.EnumType type = state.getValue(BlockWorkbenchBasic.VARIANT);
+    BlockWorkbench.EnumType type = state.getValue(BlockWorkbench.VARIANT);
 
     return new GuiContainerWorkbenchBasic(
         this.getContainer(inventoryPlayer, world, state, pos),
         this.getBackgroundTexture(),
         "container." + ModPWCustom.MOD_ID + ".workbench." + type.getName() + "." + this.getWorkbenchTier().getName(),
-        this.getWorkbenchGuiTextShadowColor(),
-        this.getWorkbenchGuiTextShadowDarkColor()
+        this.getWorkbenchGuiTextShadowColor()
     );
   }
 

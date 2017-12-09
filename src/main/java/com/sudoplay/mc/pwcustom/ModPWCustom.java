@@ -1,12 +1,9 @@
 package com.sudoplay.mc.pwcustom;
 
 import com.sudoplay.mc.pwcustom.init.ModItems;
-import com.sudoplay.mc.pwcustom.integration.CraftTweakerPlugin;
 import com.sudoplay.mc.pwcustom.proxy.ProxyCommon;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
@@ -76,9 +73,7 @@ public class ModPWCustom {
   @Mod.EventHandler
   protected void onLoadComplete(FMLLoadCompleteEvent event) {
 
-    if (Loader.isModLoaded("crafttweaker")) {
-      CraftTweakerPlugin.apply();
-    }
+    //
   }
 
 }

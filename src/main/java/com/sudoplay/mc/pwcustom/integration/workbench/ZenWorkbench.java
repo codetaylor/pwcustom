@@ -1,13 +1,13 @@
-package com.sudoplay.mc.pwcustom.integration.crafttweaker;
+package com.sudoplay.mc.pwcustom.integration.workbench;
 
 import com.blamejared.mtlib.helpers.InputHelper;
 import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseUndoable;
 import com.sudoplay.mc.pwcustom.api.PWCustomAPI;
-import com.sudoplay.mc.pwcustom.integration.CraftTweakerPlugin;
-import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbench;
 import com.sudoplay.mc.pwcustom.util.CTUtil;
-import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbenchBasic;
+import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbench;
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
@@ -54,7 +54,7 @@ public class ZenWorkbench {
       IIngredient[][] input
   ) {
 
-    CraftTweakerPlugin.LATE_ADDITIONS.add(new AddShaped(
+    CraftTweakerAPI.apply(new AddShaped(
         table,
         InputHelper.toStack(result),
         CTUtil.toIngredient(tool),
@@ -88,14 +88,14 @@ public class ZenWorkbench {
     @Override
     public void apply() {
 
-      RegistryRecipeWorkbenchBasic registry = PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(this.table);
+      RegistryRecipeWorkbench registry = PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(this.table);
 
       if (registry != null) {
         registry.addRecipeShaped(this.result, this.tool, this.input, this.toolDamage, this.mirrored);
 
       } else {
         LogHelper.logError("Unrecognized table name: " + this.table + ", valid values are: " + Arrays.toString(
-            BlockWorkbenchBasic.EnumType.values()));
+            BlockWorkbench.EnumType.values()));
       }
     }
 
@@ -125,7 +125,7 @@ public class ZenWorkbench {
       IIngredient[] input
   ) {
 
-    CraftTweakerPlugin.LATE_ADDITIONS.add(new AddShapeless(
+    CraftTweakerAPI.apply(new AddShapeless(
         table,
         InputHelper.toStack(result),
         CTUtil.toIngredient(tool),
@@ -156,14 +156,14 @@ public class ZenWorkbench {
     @Override
     public void apply() {
 
-      RegistryRecipeWorkbenchBasic registry = PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(this.table);
+      RegistryRecipeWorkbench registry = PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(this.table);
 
       if (registry != null) {
         registry.addRecipeShapeless(this.result, this.tool, this.input, this.toolDamage);
 
       } else {
         LogHelper.logError("Unrecognized table name: " + this.table + ", valid values are: " + Arrays.toString(
-            BlockWorkbenchBasic.EnumType.values()));
+            BlockWorkbench.EnumType.values()));
       }
     }
 

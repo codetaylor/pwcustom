@@ -1,11 +1,11 @@
-package com.sudoplay.mc.pwcustom.integration.crafttweaker;
+package com.sudoplay.mc.pwcustom.integration.sawing;
 
 import com.blamejared.mtlib.helpers.InputHelper;
 import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseUndoable;
 import com.sudoplay.mc.pwcustom.api.PWCustomAPI;
-import com.sudoplay.mc.pwcustom.integration.CraftTweakerPlugin;
 import com.sudoplay.mc.pwcustom.util.CTUtil;
+import crafttweaker.CraftTweakerAPI;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
@@ -21,7 +21,7 @@ public class ZenSawing {
   @ZenMethod
   public static void addRecipe(IItemStack[] drops, IItemStack saw, IIngredient block) {
 
-    CraftTweakerPlugin.LATE_ADDITIONS.add(new Add(
+    CraftTweakerAPI.apply(new Add(
         InputHelper.toStacks(drops),
         InputHelper.toStack(saw),
         CTUtil.toIngredient(block)

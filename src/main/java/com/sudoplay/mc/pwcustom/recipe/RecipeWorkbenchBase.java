@@ -9,21 +9,21 @@ public abstract class RecipeWorkbenchBase
     implements IRecipeWorkbench {
 
   protected ItemStack[] tools;
-  protected ItemStack result;
+  protected ItemStack output;
   protected int toolDamage;
-  protected NonNullList<Ingredient> input;
+  protected NonNullList<Ingredient> ingredients;
 
   /* package */ RecipeWorkbenchBase(
-      ItemStack result,
+      ItemStack output,
       ItemStack[] tools,
       int toolDamage,
-      NonNullList<Ingredient> input
+      NonNullList<Ingredient> ingredients
   ) {
 
-    this.result = result;
+    this.output = output;
     this.tools = tools;
     this.toolDamage = toolDamage;
-    this.input = input;
+    this.ingredients = ingredients;
   }
 
   @Override
@@ -40,9 +40,21 @@ public abstract class RecipeWorkbenchBase
   }
 
   @Override
-  public ItemStack getResult() {
+  public ItemStack[] getTools() {
 
-    return this.result.copy();
+    return this.tools;
+  }
+
+  @Override
+  public NonNullList<Ingredient> getIngredients() {
+
+    return this.ingredients;
+  }
+
+  @Override
+  public ItemStack getOutput() {
+
+    return this.output.copy();
   }
 
   @Override
