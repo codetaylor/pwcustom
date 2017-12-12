@@ -1,8 +1,8 @@
 package com.sudoplay.mc.pwcustom.api;
 
-import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeSawing;
-import com.sudoplay.mc.pwcustom.recipe.RegistryRecipeWorkbench;
-import com.sudoplay.mc.pwcustom.workbench.block.BlockWorkbench;
+import com.sudoplay.mc.pwcustom.modules.sawing.recipe.RegistryRecipeSawing;
+import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RegistryRecipeWorkbench;
+import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
 
 import java.util.HashMap;
 import java.util.Map;
