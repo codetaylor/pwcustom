@@ -6,6 +6,7 @@ import com.sudoplay.mc.pwcustom.modules.blocks.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.craftingparts.ModuleCraftingParts;
 import com.sudoplay.mc.pwcustom.modules.enchanting.ModuleEnchanting;
 import com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts;
+import com.sudoplay.mc.pwcustom.modules.mortar.ModuleMortar;
 import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
 import com.sudoplay.mc.pwcustom.modules.sawing.ModuleSawing;
 import com.sudoplay.mc.pwcustom.modules.toolparts.ModuleToolParts;
@@ -74,7 +75,8 @@ public class ModPWCustom {
         new ModuleCasts(),
         new ModuleEnchanting(),
         new ModuleBlocks(),
-        new ModuleCraftingParts()
+        new ModuleCraftingParts(),
+        new ModuleMortar()
     );
     PROXY.onPreInitialization(event);
   }

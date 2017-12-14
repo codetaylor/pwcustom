@@ -3,11 +3,11 @@ package com.sudoplay.mc.pwcustom.modules.workbench.integration.crafttweaker;
 import com.blamejared.mtlib.helpers.InputHelper;
 import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseUndoable;
-import com.sudoplay.mc.pwcustom.api.PWCustomAPI;
 import com.sudoplay.mc.pwcustom.integration.PluginCraftTweaker;
-import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RegistryRecipeWorkbench;
 import com.sudoplay.mc.pwcustom.lib.util.CTUtil;
+import com.sudoplay.mc.pwcustom.modules.workbench.api.WorkbenchAPI;
 import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
+import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RegistryRecipeWorkbench;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
@@ -88,7 +88,7 @@ public class ZenWorkbench {
     @Override
     public void apply() {
 
-      RegistryRecipeWorkbench registry = PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(this.table);
+      RegistryRecipeWorkbench registry = WorkbenchAPI.RECIPE_REGISTRY_MAP.get(this.table);
 
       if (registry != null) {
         registry.addRecipeShaped(this.result, this.tool, this.input, this.toolDamage, this.mirrored);
@@ -156,7 +156,7 @@ public class ZenWorkbench {
     @Override
     public void apply() {
 
-      RegistryRecipeWorkbench registry = PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(this.table);
+      RegistryRecipeWorkbench registry = WorkbenchAPI.RECIPE_REGISTRY_MAP.get(this.table);
 
       if (registry != null) {
         registry.addRecipeShapeless(this.result, this.tool, this.input, this.toolDamage);

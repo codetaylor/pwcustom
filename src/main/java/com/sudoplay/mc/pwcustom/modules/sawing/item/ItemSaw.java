@@ -1,9 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.sawing.item;
 
-import com.sudoplay.mc.pwcustom.api.PWCustomAPI;
-import com.sudoplay.mc.pwcustom.material.EnumMaterial;
-import com.sudoplay.mc.pwcustom.modules.sawing.recipe.RecipeSawing;
 import com.sudoplay.mc.pwcustom.lib.spi.ItemToolBase;
+import com.sudoplay.mc.pwcustom.material.EnumMaterial;
+import com.sudoplay.mc.pwcustom.modules.sawing.api.SawingAPI;
+import com.sudoplay.mc.pwcustom.modules.sawing.recipe.RecipeSawing;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -65,7 +65,7 @@ public class ItemSaw
 
       for (Iterator<ItemStack> it = drops.iterator(); it.hasNext(); ) {
         ItemStack itemDropped = it.next();
-        RecipeSawing recipeSawing = PWCustomAPI.Recipes.Sawing.REGISTRY.findRecipe(
+        RecipeSawing recipeSawing = SawingAPI.RECIPE_REGISTRY.findRecipe(
             heldItem,
             new ItemStack(itemDropped.getItem(), 1, itemDropped.getMetadata())
         );

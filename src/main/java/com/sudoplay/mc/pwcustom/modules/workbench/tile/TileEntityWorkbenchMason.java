@@ -1,9 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.workbench.tile;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.api.PWCustomAPI;
-import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RegistryRecipeWorkbench;
+import com.sudoplay.mc.pwcustom.modules.workbench.api.WorkbenchAPI;
 import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
+import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RegistryRecipeWorkbench;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
@@ -32,7 +32,7 @@ public class TileEntityWorkbenchMason
   @Override
   public RegistryRecipeWorkbench getRecipeRegistry() {
 
-    return PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(TYPE.getName());
+    return WorkbenchAPI.RECIPE_REGISTRY_MAP.get(TYPE.getName());
   }
 
   @Override

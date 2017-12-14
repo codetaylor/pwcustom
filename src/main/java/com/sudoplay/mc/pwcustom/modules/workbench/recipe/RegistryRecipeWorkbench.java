@@ -31,7 +31,7 @@ public class RegistryRecipeWorkbench {
   public IRecipeWorkbench addRecipeShaped(
       ItemStack result,
       Ingredient tool,
-      Ingredient[][] input,
+      Ingredient[][] inputs,
       int toolDamage,
       boolean mirrored
   ) {
@@ -39,7 +39,7 @@ public class RegistryRecipeWorkbench {
     NonNullList<Ingredient> inputList = NonNullList.create();
     int width = 0;
 
-    for (Ingredient[] row : input) {
+    for (Ingredient[] row : inputs) {
 
       if (row.length > width) {
         width = row.length;
@@ -48,7 +48,7 @@ public class RegistryRecipeWorkbench {
       Collections.addAll(inputList, row);
     }
 
-    int height = input.length;
+    int height = inputs.length;
 
     RecipeWorkbenchShaped recipe = new RecipeWorkbenchShaped(
         width,
@@ -73,13 +73,12 @@ public class RegistryRecipeWorkbench {
   public IRecipeWorkbench addRecipeShapeless(
       ItemStack result,
       Ingredient tool,
-      Ingredient[] input,
+      Ingredient[] inputs,
       int toolDamage
   ) {
 
     NonNullList<Ingredient> inputList = NonNullList.create();
-
-    inputList.addAll(Arrays.asList(input));
+    Collections.addAll(inputList, inputs);
 
     IRecipeWorkbench recipe = new RecipeWorkbenchShapeless(
         tool.getMatchingStacks(),

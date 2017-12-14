@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
@@ -91,13 +92,23 @@ public class ModelRegistrationUtil {
 
     for (T value : property.getAllowedValues()) {
 
-      Item item = Item.getItemFromBlock(state.getBlock());
+      Block block = state.getBlock();
+      Item item = Item.getItemFromBlock(block);
+
+      String name;
+
+      if (block instanceof IBlockVariant) {
+        name = ((IBlockVariant) block).getName(new ItemStack(item, 1, value.getMeta())) + suffix;
+
+      } else {
+        name = value.getName() + suffix;
+      }
 
       if (item != Items.AIR) {
         ModelRegistrationUtil.registerItemModel(
             item,
             value.getMeta(),
-            new ModelResourceLocation(ModPWCustom.MOD_ID + ":" + value.getName() + suffix, "inventory")
+            new ModelResourceLocation(ModPWCustom.MOD_ID + ":" + name, "inventory")
         );
       }
 

@@ -1,13 +1,13 @@
 package com.sudoplay.mc.pwcustom.modules.workbench.integration.jei;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.api.PWCustomAPI;
+import com.sudoplay.mc.pwcustom.modules.workbench.ModuleWorkbench;
+import com.sudoplay.mc.pwcustom.modules.workbench.api.WorkbenchAPI;
+import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
 import com.sudoplay.mc.pwcustom.modules.workbench.recipe.IRecipeWorkbench;
 import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RecipeWorkbenchShaped;
 import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RecipeWorkbenchShapeless;
 import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RegistryRecipeWorkbench;
-import com.sudoplay.mc.pwcustom.modules.workbench.ModuleWorkbench;
-import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IModPlugin;
@@ -58,7 +58,7 @@ public class PluginJEI
 
     for (BlockWorkbench.EnumType type : BlockWorkbench.EnumType.values()) {
       List<IRecipeWorkbench> recipeList = new ArrayList<>();
-      RegistryRecipeWorkbench recipeRegistry = PWCustomAPI.Recipes.Workbench.REGISTRY_MAP.get(type.getName());
+      RegistryRecipeWorkbench recipeRegistry = WorkbenchAPI.RECIPE_REGISTRY_MAP.get(type.getName());
       recipeRegistry.getRecipeShapedList(recipeList);
       recipeRegistry.getRecipeShapelessList(recipeList);
       registry.addRecipes(recipeList, this.createUID(type));
