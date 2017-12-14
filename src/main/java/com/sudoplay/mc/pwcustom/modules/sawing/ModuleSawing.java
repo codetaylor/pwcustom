@@ -1,11 +1,12 @@
 package com.sudoplay.mc.pwcustom.modules.sawing;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import com.sudoplay.mc.pwcustom.lib.ItemMaterialPart;
-import com.sudoplay.mc.pwcustom.lib.module.IModule;
+import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
+import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
+import com.sudoplay.mc.pwcustom.material.EnumMaterial;
+import com.sudoplay.mc.pwcustom.modules.sawing.integration.PluginCraftTweaker;
 import com.sudoplay.mc.pwcustom.modules.sawing.item.ItemSaw;
-import com.sudoplay.mc.pwcustom.lib.util.ModelRegistrationUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -13,12 +14,14 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModuleSawing
-    implements IModule {
+    extends ModuleBase {
 
   public static final EnumMaterial[] MATERIALS = new EnumMaterial[]{
       EnumMaterial.FLINT,
@@ -53,7 +56,7 @@ public class ModuleSawing
   }
 
   @Override
-  public void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
+  public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
     IForgeRegistry<Item> registry = event.getRegistry();
 
@@ -70,23 +73,25 @@ public class ModuleSawing
   @Override
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
+    ModelRegistrationHelper helper = this.getModelRegistrationHelper();
+
     for (ItemSaw saw : Items.SAWS) {
       String resourcePath = saw.getMaterial().isHighlighted() ? "saw_highlight" : "saw";
       ResourceLocation location = new ResourceLocation(ModPWCustom.MOD_ID, resourcePath);
       ModelResourceLocation modelResourceLocation = new ModelResourceLocation(location, "inventory");
-      ModelRegistrationUtil.registerItemModel(saw, 0, modelResourceLocation);
+      helper.registerItemModel(saw, 0, modelResourceLocation);
     }
 
     for (int i = 0; i < MATERIALS.length; i++) {
       String resourcePath = MATERIALS[i].isHighlighted() ? "part_saw_blade_highlight" : "part_saw_blade";
       ResourceLocation location = new ResourceLocation(ModPWCustom.MOD_ID, resourcePath);
       ModelResourceLocation modelResourceLocation = new ModelResourceLocation(location, "inventory");
-      ModelRegistrationUtil.registerItemModel(Items.PART_SAW_BLADE, i, modelResourceLocation);
+      helper.registerItemModel(Items.PART_SAW_BLADE, i, modelResourceLocation);
     }
   }
 
   @Override
-  public void onClientInitialization(FMLInitializationEvent event) {
+  public void onClientInitializationEvent(FMLInitializationEvent event) {
 
     ItemColors itemColors = Minecraft.getMinecraft().getItemColors();
 
@@ -100,4 +105,13 @@ public class ModuleSawing
         Items.PART_SAW_BLADE
     );
   }
+
+  @Override
+  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
+
+    if (Loader.isModLoaded("crafttweaker")) {
+      PluginCraftTweaker.apply();
+    }
+  }
+
 }

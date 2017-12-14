@@ -1,22 +1,22 @@
 package com.sudoplay.mc.pwcustom.modules.workbench;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.lib.module.IModule;
-import com.sudoplay.mc.pwcustom.lib.util.BlockRegistrationUtil;
-import com.sudoplay.mc.pwcustom.lib.util.ModelRegistrationUtil;
-import com.sudoplay.mc.pwcustom.lib.util.TileEntityRegistrationUtil;
+import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
+import com.sudoplay.mc.pwcustom.modules.workbench.integration.crafttweaker.PluginCraftTweaker;
 import com.sudoplay.mc.pwcustom.modules.workbench.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static com.sudoplay.mc.pwcustom.modules.workbench.ModuleWorkbench.Blocks.WORKBENCH_BASIC;
 
 public class ModuleWorkbench
-    implements IModule {
+    extends ModuleBase {
 
   public static class Blocks {
 
@@ -29,7 +29,7 @@ public class ModuleWorkbench
   }
 
   @Override
-  public void onRegisterBlocksEvent(RegistryEvent.Register<Block> event) {
+  public void onRegisterBlockEvent(RegistryEvent.Register<Block> event) {
 
     // Blocks
     event.getRegistry().registerAll(
@@ -38,11 +38,11 @@ public class ModuleWorkbench
   }
 
   @Override
-  public void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
+  public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
     // Item Blocks
     event.getRegistry().registerAll(
-        BlockRegistrationUtil.createItemBlocks(
+        this.getBlockRegistrationHelper().createItemBlocks(
             WORKBENCH_BASIC
         )
     );
@@ -51,7 +51,8 @@ public class ModuleWorkbench
   @Override
   public void onRegisterTileEntitiesEvent() {
 
-    TileEntityRegistrationUtil.registerTileEntities(
+    this.getTileEntityRegistrationHelper().registerTileEntities(
+        ModPWCustom.MOD_ID,
         TileEntityWorkbenchBlacksmith.class,
         TileEntityWorkbenchCarpenter.class,
         TileEntityWorkbenchJeweler.class,
@@ -64,9 +65,18 @@ public class ModuleWorkbench
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
     // Workbench Basic
-    ModelRegistrationUtil.registerVariantBlockItemModels(
+    this.getModelRegistrationHelper().registerVariantBlockItemModels(
         WORKBENCH_BASIC.getDefaultState(),
         BlockWorkbench.VARIANT
     );
   }
+
+  @Override
+  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
+
+    if (Loader.isModLoaded("crafttweaker")) {
+      PluginCraftTweaker.apply();
+    }
+  }
+
 }

@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.gui;
+package com.sudoplay.mc.pwcustom.lib.gui;
 
 import com.sudoplay.mc.pwcustom.lib.tile.IContainerProvider;
 import net.minecraft.block.state.IBlockState;

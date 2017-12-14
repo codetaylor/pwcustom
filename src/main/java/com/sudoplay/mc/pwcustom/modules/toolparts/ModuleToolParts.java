@@ -1,10 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.toolparts;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import com.sudoplay.mc.pwcustom.lib.ItemMaterialPart;
-import com.sudoplay.mc.pwcustom.lib.module.IModule;
-import com.sudoplay.mc.pwcustom.lib.util.ModelRegistrationUtil;
+import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
+import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -16,7 +15,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModuleToolParts
-    implements IModule {
+    extends ModuleBase {
 
   private static final EnumMaterial[] MATERIALS = new EnumMaterial[]{
       EnumMaterial.STONE,
@@ -56,7 +55,7 @@ public class ModuleToolParts
   };
 
   @Override
-  public void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
+  public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
     IForgeRegistry<Item> registry = event.getRegistry();
 
@@ -108,11 +107,11 @@ public class ModuleToolParts
 
     ResourceLocation location = new ResourceLocation(ModPWCustom.MOD_ID, name);
     ModelResourceLocation modelResourceLocation = new ModelResourceLocation(location, "inventory");
-    ModelRegistrationUtil.registerItemModel(item, i, modelResourceLocation);
+    this.getModelRegistrationHelper().registerItemModel(item, i, modelResourceLocation);
   }
 
   @Override
-  public void onClientInitialization(FMLInitializationEvent event) {
+  public void onClientInitializationEvent(FMLInitializationEvent event) {
 
     ItemColors itemColors = Minecraft.getMinecraft().getItemColors();
 

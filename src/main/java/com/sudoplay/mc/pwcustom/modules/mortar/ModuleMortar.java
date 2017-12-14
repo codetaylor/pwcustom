@@ -1,10 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.mortar;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.lib.module.IModule;
-import com.sudoplay.mc.pwcustom.lib.util.BlockRegistrationUtil;
-import com.sudoplay.mc.pwcustom.lib.util.ModelRegistrationUtil;
+import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.modules.mortar.block.BlockMortar;
+import com.sudoplay.mc.pwcustom.modules.mortar.integration.PluginCraftTweaker;
 import com.sudoplay.mc.pwcustom.modules.mortar.tile.TESRMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.tile.TileEntityMortarWood;
 import net.minecraft.block.Block;
@@ -13,10 +12,12 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModuleMortar
-    implements IModule {
+    extends ModuleBase {
 
   public static class Blocks {
 
@@ -29,7 +30,7 @@ public class ModuleMortar
   }
 
   @Override
-  public void onRegisterBlocksEvent(RegistryEvent.Register<Block> event) {
+  public void onRegisterBlockEvent(RegistryEvent.Register<Block> event) {
 
     event.getRegistry().registerAll(
         new BlockMortar()
@@ -37,9 +38,9 @@ public class ModuleMortar
   }
 
   @Override
-  public void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
+  public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
-    ItemBlock itemBlock = BlockRegistrationUtil.createItemBlock(Blocks.MORTAR);
+    ItemBlock itemBlock = this.getBlockRegistrationHelper().createItemBlock(Blocks.MORTAR);
     itemBlock.setMaxStackSize(1);
 
     event.getRegistry().registerAll(
@@ -50,13 +51,16 @@ public class ModuleMortar
   @Override
   public void onRegisterTileEntitiesEvent() {
 
-    GameRegistry.registerTileEntity(TileEntityMortarWood.class, ModPWCustom.MOD_ID + ".tile.mortar_wood");
+    this.getTileEntityRegistrationHelper().registerTileEntities(
+        ModPWCustom.MOD_ID,
+        TileEntityMortarWood.class
+    );
   }
 
   @Override
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
-    ModelRegistrationUtil.registerVariantBlockItemModelsSeparately(
+    this.getModelRegistrationHelper().registerVariantBlockItemModelsSeparately(
         Blocks.MORTAR.getDefaultState(),
         BlockMortar.VARIANT
     );
@@ -66,4 +70,13 @@ public class ModuleMortar
         new TESRMortar()
     );
   }
+
+  @Override
+  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
+
+    if (Loader.isModLoaded("crafttweaker")) {
+      PluginCraftTweaker.apply();
+    }
+  }
+
 }

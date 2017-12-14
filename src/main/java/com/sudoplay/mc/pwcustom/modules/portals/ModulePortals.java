@@ -1,12 +1,11 @@
 package com.sudoplay.mc.pwcustom.modules.portals;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.lib.module.IModule;
+import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
+import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.portals.block.BlockPortalDarklands;
 import com.sudoplay.mc.pwcustom.modules.portals.block.BlockPortalFrame;
 import com.sudoplay.mc.pwcustom.modules.portals.item.ItemPortalWand;
-import com.sudoplay.mc.pwcustom.lib.util.BlockRegistrationUtil;
-import com.sudoplay.mc.pwcustom.lib.util.ModelRegistrationUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -14,7 +13,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModulePortals
-    implements IModule {
+    extends ModuleBase {
 
   @SuppressWarnings("WeakerAccess")
   public static class Blocks {
@@ -42,7 +41,7 @@ public class ModulePortals
   }
 
   @Override
-  public void onRegisterBlocksEvent(RegistryEvent.Register<Block> event) {
+  public void onRegisterBlockEvent(RegistryEvent.Register<Block> event) {
 
     // Blocks
     event.getRegistry().registerAll(
@@ -52,11 +51,11 @@ public class ModulePortals
   }
 
   @Override
-  public void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
+  public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
     // Item Blocks
     event.getRegistry().registerAll(
-        BlockRegistrationUtil.createItemBlocks(
+        this.getBlockRegistrationHelper().createItemBlocks(
             Blocks.PORTAL_FRAME
         )
     );
@@ -70,12 +69,14 @@ public class ModulePortals
   @Override
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
-    ModelRegistrationUtil.registerVariantBlockItemModels(
+    ModelRegistrationHelper helper = this.getModelRegistrationHelper();
+
+    helper.registerVariantBlockItemModels(
         Blocks.PORTAL_FRAME.getDefaultState(),
         BlockPortalFrame.VARIANT
     );
 
-    ModelRegistrationUtil.registerVariantItemModels(
+    helper.registerVariantItemModels(
         Items.PORTAL_WAND,
         "variant",
         BlockPortalFrame.EnumType.values()

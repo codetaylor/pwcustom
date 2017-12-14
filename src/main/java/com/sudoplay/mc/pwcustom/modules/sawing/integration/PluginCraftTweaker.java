@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.integration;
+package com.sudoplay.mc.pwcustom.modules.sawing.integration;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;

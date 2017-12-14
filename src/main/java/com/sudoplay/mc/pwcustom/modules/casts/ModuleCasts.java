@@ -1,16 +1,15 @@
 package com.sudoplay.mc.pwcustom.modules.casts;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.lib.module.IModule;
+import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.modules.casts.item.ItemCast;
-import com.sudoplay.mc.pwcustom.lib.util.ModelRegistrationUtil;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModuleCasts
-    implements IModule {
+    extends ModuleBase {
 
   @SuppressWarnings("WeakerAccess")
   public static class Items {
@@ -24,7 +23,7 @@ public class ModuleCasts
   }
 
   @Override
-  public void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
+  public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
     event.getRegistry().registerAll(
         new ItemCast()
@@ -34,7 +33,7 @@ public class ModuleCasts
   @Override
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
-    ModelRegistrationUtil.registerVariantItemModels(
+    this.getModelRegistrationHelper().registerVariantItemModels(
         Items.CAST,
         "variant",
         ItemCast.EnumType.values()

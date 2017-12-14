@@ -1,61 +1,91 @@
 package com.sudoplay.mc.pwcustom.lib.module;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionType;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.VillagerRegistry;
+import org.apache.logging.log4j.Logger;
 
 public interface IModule {
+
+  String getName();
+
+  Logger getLogger();
+
+  void setLogger(Logger logger);
 
   // --------------------------------------------------------------------------
   // - Common
   // --------------------------------------------------------------------------
 
-  default void onRegisterBlocksEvent(RegistryEvent.Register<Block> event) {
-    // override
-  }
+  // - FML State
 
-  default void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
-    // override
-  }
+  void onConstructionEvent(FMLConstructionEvent event);
 
-  default void onRegisterTileEntitiesEvent() {
-    // override
-  }
+  void onLoadCompleteEvent(FMLLoadCompleteEvent event);
 
-  default void onPreInitialization(FMLPreInitializationEvent event) {
-    // override
-  }
+  void onPreInitializationEvent(FMLPreInitializationEvent event);
 
-  default void onInitialization(FMLInitializationEvent event) {
-    // override
-  }
+  void onInitializationEvent(FMLInitializationEvent event);
 
-  default void onPostInitialization(FMLPostInitializationEvent event) {
-    // override
-  }
+  void onPostInitializationEvent(FMLPostInitializationEvent event);
+
+  // - Registration
+
+  void onRegisterBlockEvent(RegistryEvent.Register<Block> event);
+
+  void onRegisterItemEvent(RegistryEvent.Register<Item> event);
+
+  void onRegisterPotionEvent(RegistryEvent.Register<Potion> event);
+
+  void onRegisterBiomeEvent(RegistryEvent.Register<Biome> event);
+
+  void onRegisterSoundEvent(RegistryEvent.Register<net.minecraft.util.SoundEvent> event);
+
+  void onRegisterPotionTypeEvent(RegistryEvent.Register<PotionType> event);
+
+  void onRegisterEnchantmentEvent(RegistryEvent.Register<Enchantment> event);
+
+  void onRegisterVillagerProfessionEvent(RegistryEvent.Register<VillagerRegistry.VillagerProfession> event);
+
+  void onRegisterEntityEvent(RegistryEvent.Register<EntityEntry> event);
+
+  void onRegisterRecipesEvent(RegistryEvent.Register<IRecipe> event);
+
+  void onRegisterTileEntitiesEvent();
 
   // --------------------------------------------------------------------------
   // - Client
   // --------------------------------------------------------------------------
 
-  default void onClientRegisterModelsEvent(ModelRegistryEvent event) {
-    // override
-  }
+  void onClientPreInitializationEvent(FMLPreInitializationEvent event);
 
-  default void onClientPreInitialization(FMLPreInitializationEvent event) {
-    // override
-  }
+  void onClientInitializationEvent(FMLInitializationEvent event);
 
-  default void onClientInitialization(FMLInitializationEvent event) {
-    // override
-  }
+  void onClientPostInitializationEvent(FMLPostInitializationEvent event);
 
-  default void onClientPostInitialization(FMLPostInitializationEvent event) {
-    // override
-  }
+  void onClientRegisterModelsEvent(ModelRegistryEvent event);
+
+  // --------------------------------------------------------------------------
+  // - Server
+  // --------------------------------------------------------------------------
+
+  void onServerAboutToStartEvent(FMLServerAboutToStartEvent event);
+
+  void onServerStartingEvent(FMLServerStartingEvent event);
+
+  void onServerStartedEvent(FMLServerStartedEvent event);
+
+  void onServerStoppingEvent(FMLServerStoppingEvent event);
+
+  void onServerStoppedEvent(FMLServerStoppedEvent event);
 
 }

@@ -1,10 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.blocks;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
+import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.modules.blocks.block.BlockSoulGravel;
-import com.sudoplay.mc.pwcustom.lib.module.IModule;
-import com.sudoplay.mc.pwcustom.lib.util.BlockRegistrationUtil;
-import com.sudoplay.mc.pwcustom.lib.util.ModelRegistrationUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -12,7 +10,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModuleBlocks
-    implements IModule {
+    extends ModuleBase {
 
   @SuppressWarnings("WeakerAccess")
   public static class Blocks {
@@ -26,7 +24,7 @@ public class ModuleBlocks
   }
 
   @Override
-  public void onRegisterBlocksEvent(RegistryEvent.Register<Block> event) {
+  public void onRegisterBlockEvent(RegistryEvent.Register<Block> event) {
 
     event.getRegistry().registerAll(
         new BlockSoulGravel()
@@ -34,10 +32,10 @@ public class ModuleBlocks
   }
 
   @Override
-  public void onRegisterItemsEvent(RegistryEvent.Register<Item> event) {
+  public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
     event.getRegistry().registerAll(
-        BlockRegistrationUtil.createItemBlocks(
+        this.getBlockRegistrationHelper().createItemBlocks(
             Blocks.SOUL_GRAVEL
         )
     );
@@ -47,7 +45,7 @@ public class ModuleBlocks
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
     // Single Variant Blocks
-    ModelRegistrationUtil.registerBlockItemModels(
+    this.getModelRegistrationHelper().registerBlockItemModels(
         Blocks.SOUL_GRAVEL
     );
   }

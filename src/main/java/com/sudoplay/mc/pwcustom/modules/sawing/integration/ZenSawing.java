@@ -3,7 +3,6 @@ package com.sudoplay.mc.pwcustom.modules.sawing.integration;
 import com.blamejared.mtlib.helpers.InputHelper;
 import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseUndoable;
-import com.sudoplay.mc.pwcustom.integration.PluginCraftTweaker;
 import com.sudoplay.mc.pwcustom.lib.util.CTUtil;
 import com.sudoplay.mc.pwcustom.modules.sawing.api.SawingAPI;
 import crafttweaker.annotations.ZenRegister;

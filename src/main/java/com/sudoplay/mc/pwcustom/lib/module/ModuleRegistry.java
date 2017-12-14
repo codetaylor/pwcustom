@@ -1,5 +1,7 @@
 package com.sudoplay.mc.pwcustom.lib.module;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,9 +9,11 @@ import java.util.Map;
 public class ModuleRegistry {
 
   private Map<Class<? extends IModule>, IModule> moduleMap;
+  private IModuleLoggerFactory moduleLoggerFactory;
 
-  public ModuleRegistry() {
+  public ModuleRegistry(IModuleLoggerFactory moduleLoggerFactory) {
 
+    this.moduleLoggerFactory = moduleLoggerFactory;
     this.moduleMap = new HashMap<>();
   }
 
@@ -25,6 +29,10 @@ public class ModuleRegistry {
     if (this.moduleMap.containsKey(module.getClass())) {
       throw new RuntimeException("Module already registered: " + module.getClass());
     }
+
+    MinecraftForge.EVENT_BUS.register(module);
+
+    module.setLogger(this.moduleLoggerFactory.create(module));
 
     this.moduleMap.put(module.getClass(), module);
   }

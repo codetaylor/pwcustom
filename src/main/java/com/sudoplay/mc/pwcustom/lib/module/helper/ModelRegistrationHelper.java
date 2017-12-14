@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.lib.util;
+package com.sudoplay.mc.pwcustom.lib.module.helper;
 
 import com.google.common.base.Preconditions;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
@@ -13,13 +13,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.function.ToIntFunction;
 
-@Mod.EventBusSubscriber(Side.CLIENT)
-public class ModelRegistrationUtil {
+public class ModelRegistrationHelper {
 
   /**
    * A {@link StateMapperBase} used to create property strings.
@@ -37,29 +34,29 @@ public class ModelRegistrationUtil {
   // - ItemBlock
   // --------------------------------------------------------------------------
 
-  public static void registerBlockItemModels(Block... blocks) {
+  public void registerBlockItemModels(Block... blocks) {
 
     for (Block block : blocks) {
 
       if (block instanceof IBlockVariant) {
         //noinspection unchecked
-        ModelRegistrationUtil.registerVariantBlockItemModels(
+        this.registerVariantBlockItemModels(
             block.getDefaultState(),
             ((IBlockVariant) block).getVariant()
         );
 
       } else {
-        ModelRegistrationUtil.registerBlockItemModel(block.getDefaultState());
+        this.registerBlockItemModel(block.getDefaultState());
       }
     }
   }
 
-  public static void registerBlockItemModel(IBlockState blockState) {
+  public void registerBlockItemModel(IBlockState blockState) {
 
     Block block = blockState.getBlock();
     Item item = Item.getItemFromBlock(block);
 
-    ModelRegistrationUtil.registerItemModel(
+    this.registerItemModel(
         item,
         new ModelResourceLocation(
             Preconditions.checkNotNull(block.getRegistryName(), "Block %s has null registry name", block),
@@ -68,23 +65,23 @@ public class ModelRegistrationUtil {
     );
   }
 
-  public static <T extends IVariant & Comparable<T>> void registerVariantBlockItemModels(
+  public <T extends IVariant & Comparable<T>> void registerVariantBlockItemModels(
       IBlockState baseState,
       IProperty<T> property
   ) {
 
-    ModelRegistrationUtil.registerVariantBlockItemModels(baseState, property, IVariant::getMeta);
+    this.registerVariantBlockItemModels(baseState, property, IVariant::getMeta);
   }
 
-  public static <T extends IVariant & Comparable<T>> void registerVariantBlockItemModelsSeparately(
+  public <T extends IVariant & Comparable<T>> void registerVariantBlockItemModelsSeparately(
       IBlockState state,
       IProperty<T> property
   ) {
 
-    ModelRegistrationUtil.registerVariantBlockItemModelsSeparately(state, property, "");
+    this.registerVariantBlockItemModelsSeparately(state, property, "");
   }
 
-  public static <T extends IVariant & Comparable<T>> void registerVariantBlockItemModelsSeparately(
+  public <T extends IVariant & Comparable<T>> void registerVariantBlockItemModelsSeparately(
       IBlockState state,
       IProperty<T> property,
       String suffix
@@ -105,7 +102,7 @@ public class ModelRegistrationUtil {
       }
 
       if (item != Items.AIR) {
-        ModelRegistrationUtil.registerItemModel(
+        this.registerItemModel(
             item,
             value.getMeta(),
             new ModelResourceLocation(ModPWCustom.MOD_ID + ":" + name, "inventory")
@@ -115,25 +112,25 @@ public class ModelRegistrationUtil {
     }
   }
 
-  public static <T extends Comparable<T>> void registerVariantBlockItemModels(
+  public <T extends Comparable<T>> void registerVariantBlockItemModels(
       IBlockState baseState,
       IProperty<T> property,
       ToIntFunction<T> getMeta
   ) {
 
     property.getAllowedValues()
-        .forEach(value -> ModelRegistrationUtil.registerBlockItemModelForMeta(
+        .forEach(value -> this.registerBlockItemModelForMeta(
             baseState.withProperty(property, value),
             getMeta.applyAsInt(value)
         ));
   }
 
-  public static void registerBlockItemModelForMeta(final IBlockState state, final int metadata) {
+  public void registerBlockItemModelForMeta(final IBlockState state, final int metadata) {
 
     Item item = Item.getItemFromBlock(state.getBlock());
 
     if (item != Items.AIR) {
-      ModelRegistrationUtil.registerItemModel(
+      this.registerItemModel(
           item,
           metadata,
           PROPERTY_STRING_MAPPER.getPropertyString(state.getProperties())
@@ -145,42 +142,42 @@ public class ModelRegistrationUtil {
   // - Item
   // --------------------------------------------------------------------------
 
-  public static void registerItemModels(Item... items) {
+  public void registerItemModels(Item... items) {
 
     for (Item item : items) {
-      ModelRegistrationUtil.registerItemModel(item, item.getRegistryName().toString());
+      this.registerItemModel(item, item.getRegistryName().toString());
     }
   }
 
-  public static void registerItemModel(Item item, String modelLocation) {
+  public void registerItemModel(Item item, String modelLocation) {
 
     ModelResourceLocation resourceLocation = new ModelResourceLocation(modelLocation, "inventory");
-    ModelRegistrationUtil.registerItemModel(item, 0, resourceLocation);
+    this.registerItemModel(item, 0, resourceLocation);
   }
 
-  public static void registerItemModel(Item item, ModelResourceLocation resourceLocation) {
+  public void registerItemModel(Item item, ModelResourceLocation resourceLocation) {
 
-    ModelRegistrationUtil.registerItemModel(item, 0, resourceLocation);
+    this.registerItemModel(item, 0, resourceLocation);
   }
 
-  public static void registerItemModel(final Item item, final int metadata, final String variant) {
+  public void registerItemModel(final Item item, final int metadata, final String variant) {
 
-    ModelRegistrationUtil.registerItemModel(
+    this.registerItemModel(
         item,
         metadata,
         new ModelResourceLocation(item.getRegistryName(), variant)
     );
   }
 
-  public static void registerItemModel(Item item, int meta, ModelResourceLocation resourceLocation) {
+  public void registerItemModel(Item item, int meta, ModelResourceLocation resourceLocation) {
 
     ModelLoader.setCustomModelResourceLocation(item, meta, resourceLocation);
   }
 
-  public static <T extends IVariant> void registerVariantItemModels(Item item, String variantName, T[] values) {
+  public <T extends IVariant> void registerVariantItemModels(Item item, String variantName, T[] values) {
 
     for (T value : values) {
-      ModelRegistrationUtil.registerItemModel(item, value.getMeta(), variantName + "=" + value.getName());
+      this.registerItemModel(item, value.getMeta(), variantName + "=" + value.getName());
     }
   }
 

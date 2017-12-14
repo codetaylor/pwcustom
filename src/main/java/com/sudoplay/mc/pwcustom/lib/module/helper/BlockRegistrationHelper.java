@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.lib.util;
+package com.sudoplay.mc.pwcustom.lib.module.helper;
 
 import com.google.common.base.Preconditions;
 import com.sudoplay.mc.pwcustom.lib.spi.IBlockColored;
@@ -9,21 +9,21 @@ import net.minecraft.item.ItemColored;
 import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.util.ResourceLocation;
 
-public class BlockRegistrationUtil {
+public class BlockRegistrationHelper {
 
-  public static ItemBlock[] createItemBlocks(Block... blocks) {
+  public ItemBlock[] createItemBlocks(Block... blocks) {
 
     ItemBlock[] result = new ItemBlock[blocks.length];
 
     for (int i = 0; i < blocks.length; i++) {
-      ItemBlock itemBlock = BlockRegistrationUtil.createItemBlock(blocks[i]);
+      ItemBlock itemBlock = this.createItemBlock(blocks[i]);
       result[i] = itemBlock;
     }
 
     return result;
   }
 
-  public static ItemBlock createItemBlock(Block block) {
+  public ItemBlock createItemBlock(Block block) {
 
     ItemBlock itemBlock;
 
@@ -37,11 +37,11 @@ public class BlockRegistrationUtil {
       itemBlock = new ItemBlock(block);
     }
 
-    BlockRegistrationUtil.setRegistryName(block, itemBlock);
+    this.setRegistryName(block, itemBlock);
     return itemBlock;
   }
 
-  private static void setRegistryName(Block block, ItemBlock itemBlock) {
+  private void setRegistryName(Block block, ItemBlock itemBlock) {
 
     ResourceLocation registryName = block.getRegistryName();
     Preconditions.checkNotNull(registryName, "Block %s has null registry name", block);
