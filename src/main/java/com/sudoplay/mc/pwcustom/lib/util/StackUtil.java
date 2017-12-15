@@ -30,10 +30,12 @@ public class StackUtil {
 
   public static void spawnStackOnTop(World world, ItemStack itemStack, BlockPos pos) {
 
+    double yOffset = 0.0;
+
     EntityItem entityItem = new EntityItem(
         world,
         pos.getX() + 0.5,
-        pos.getY() + 1.5,
+        pos.getY() + 0.5 + yOffset,
         pos.getZ() + 0.5,
         itemStack
     );

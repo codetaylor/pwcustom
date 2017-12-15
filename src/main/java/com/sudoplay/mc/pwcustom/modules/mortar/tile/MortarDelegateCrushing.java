@@ -1,9 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 
-import com.sudoplay.mc.pwcustom.lib.IRecipeOutputProvider;
-import com.sudoplay.mc.pwcustom.lib.util.CTUtil;
 import com.sudoplay.mc.pwcustom.modules.mortar.ModuleMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.api.MortarAPI;
+import com.sudoplay.mc.pwcustom.modules.mortar.recipe.IRecipeMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.RecipeMortarCrushing;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -94,7 +93,7 @@ public class MortarDelegateCrushing
   }
 
   @Override
-  public IRecipeOutputProvider getRecipe() {
+  public IRecipeMortar getRecipe() {
 
     return MortarAPI.RECIPE_REGISTRY.findCrushingRecipe(this.itemStackHandler.getStackInSlot(0));
   }

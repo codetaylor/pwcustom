@@ -1,6 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 
 import com.sudoplay.mc.pwcustom.lib.IRecipeOutputProvider;
+import com.sudoplay.mc.pwcustom.modules.mortar.recipe.IRecipeMortar;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.items.ItemStackHandler;
@@ -27,7 +28,7 @@ public interface IMortar {
 
   String getMortarModeString();
 
-  IRecipeOutputProvider getRecipe();
+  IRecipeMortar getRecipe();
 
   ItemStack doCrafting();
 

@@ -1,17 +1,18 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.recipe;
 
-import com.sudoplay.mc.pwcustom.lib.IRecipeOutputProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 public class RecipeMortarCrushing
-    implements IRecipeOutputProvider {
+    implements IRecipeMortar {
 
-  private Ingredient input;
   private ItemStack output;
+  private int duration;
+  private Ingredient input;
 
-  public RecipeMortarCrushing(ItemStack output, Ingredient input) {
+  public RecipeMortarCrushing(ItemStack output, int duration, Ingredient input) {
 
+    this.duration = duration;
     this.input = input;
     this.output = output;
   }
@@ -20,6 +21,12 @@ public class RecipeMortarCrushing
   public ItemStack getOutput() {
 
     return this.output.copy();
+  }
+
+  @Override
+  public int getDuration() {
+
+    return this.duration;
   }
 
   public Ingredient getInput() {

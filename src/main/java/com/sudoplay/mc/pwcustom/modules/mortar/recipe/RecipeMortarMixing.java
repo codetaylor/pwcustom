@@ -1,6 +1,5 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.recipe;
 
-import com.sudoplay.mc.pwcustom.lib.IRecipeOutputProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -10,13 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeMortarMixing
-    implements IRecipeOutputProvider {
+    implements IRecipeMortar {
 
-  private NonNullList<Ingredient> inputs;
   private ItemStack output;
+  private int duration;
+  private NonNullList<Ingredient> inputs;
 
-  public RecipeMortarMixing(ItemStack output, NonNullList<Ingredient> inputs) {
+  public RecipeMortarMixing(ItemStack output, int duration, NonNullList<Ingredient> inputs) {
 
+    this.duration = duration;
     this.inputs = inputs;
     this.output = output;
   }
@@ -25,6 +26,12 @@ public class RecipeMortarMixing
   public ItemStack getOutput() {
 
     return this.output.copy();
+  }
+
+  @Override
+  public int getDuration() {
+
+    return this.duration;
   }
 
   public boolean matches(ItemStack[] inputs) {

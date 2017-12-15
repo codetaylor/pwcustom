@@ -22,18 +22,18 @@ public class RegistryRecipeMortar {
   }
 
   @Nonnull
-  public RecipeMortarMixing addMixingRecipe(ItemStack output, Ingredient[] inputs) {
+  public RecipeMortarMixing addMixingRecipe(ItemStack output, int duration, Ingredient[] inputs) {
 
     NonNullList<Ingredient> inputList = NonNullList.create();
     Collections.addAll(inputList, inputs);
-    RecipeMortarMixing recipe = new RecipeMortarMixing(output, inputList);
+    RecipeMortarMixing recipe = new RecipeMortarMixing(output, duration, inputList);
     this.recipeListMixing.add(recipe);
     return recipe;
   }
 
-  public RecipeMortarCrushing addCrushingRecipe(ItemStack output, Ingredient input) {
+  public RecipeMortarCrushing addCrushingRecipe(ItemStack output, int duration, Ingredient input) {
 
-    RecipeMortarCrushing recipe = new RecipeMortarCrushing(output, input);
+    RecipeMortarCrushing recipe = new RecipeMortarCrushing(output, duration, input);
     this.recipeListCrushing.add(recipe);
     return recipe;
   }

@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 
-import com.sudoplay.mc.pwcustom.lib.IRecipeOutputProvider;
 import com.sudoplay.mc.pwcustom.lib.util.StackUtil;
+import com.sudoplay.mc.pwcustom.modules.mortar.recipe.IRecipeMortar;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -96,11 +96,13 @@ public abstract class TileEntityMortarBase
 
   public void incrementCraftingProgress() {
 
-    if (this.hasRecipe()) {
+    IRecipeMortar recipe = this.getRecipe();
+
+    if (recipe != null) {
       this.craftingProgress += 1;
       this.markDirty();
 
-      if (this.craftingProgress >= 10) {
+      if (this.craftingProgress >= recipe.getDuration()) {
         this.resetCraftingProgress();
 
         ItemStack itemStack = this.doCrafting();
@@ -121,7 +123,7 @@ public abstract class TileEntityMortarBase
   }
 
   @Override
-  public IRecipeOutputProvider getRecipe() {
+  public IRecipeMortar getRecipe() {
 
     return this.mortarDelegate.getRecipe();
   }

@@ -47,8 +47,14 @@ public class TESRMortar
 
     ItemStackHandler itemStackHandler = tile.getItemStackHandler();
     double offsetY = 0.125;
+    double scale = 1.0;
+
+    if (tile.getMortarMode() == EnumMortarMode.CRUSHING) {
+      scale = 3.0;
+    }
+
     for (int i = 0; i < itemStackHandler.getSlots(); i++) {
-      offsetY = this.renderItem(itemStackHandler.getStackInSlot(i), offsetY);
+      offsetY = this.renderItem(itemStackHandler.getStackInSlot(i), offsetY, scale);
     }
 
     GlStateManager.popMatrix();
@@ -111,7 +117,7 @@ public class TESRMortar
     GlStateManager.popMatrix();
   }
 
-  private double renderItem(ItemStack itemStack, double offsetY) {
+  private double renderItem(ItemStack itemStack, double offsetY, double scale) {
 
     if (!itemStack.isEmpty()) {
 
@@ -131,18 +137,18 @@ public class TESRMortar
 
       if (item instanceof ItemSkull) {
         GlStateManager.translate(0, offsetY + 0.05, 0);
-        GlStateManager.scale(.2f, .2f, .2f);
+        GlStateManager.scale(.2f * scale, .2f * scale, .2f * scale);
         offsetY += 0.1;
 
       } else if (item instanceof ItemBlock) {
         GlStateManager.translate(0, offsetY, 0);
-        GlStateManager.scale(.1f, .1f, .1f);
+        GlStateManager.scale(.1f * scale, .1f * scale, .1f * scale);
         //GlStateManager.rotate(90, 1, 0, 0);
         offsetY += 0.1;
 
       } else {
         GlStateManager.translate(0, offsetY - 0.05, 0);
-        GlStateManager.scale(.2f, .2f, .2f);
+        GlStateManager.scale(.2f * scale, .2f * scale, .2f * scale);
         GlStateManager.rotate(270, 1, 0, 0);
         offsetY += 0.015;
       }

@@ -39,7 +39,7 @@ public class BlockMortar
 
   public static final IProperty<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class);
 
-  private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.5, 0.75);
+  private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.25, 0.75);
 
   public BlockMortar() {
 

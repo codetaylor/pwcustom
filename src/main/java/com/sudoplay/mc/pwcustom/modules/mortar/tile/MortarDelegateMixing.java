@@ -1,8 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 
-import com.sudoplay.mc.pwcustom.lib.IRecipeOutputProvider;
 import com.sudoplay.mc.pwcustom.modules.mortar.ModuleMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.api.MortarAPI;
+import com.sudoplay.mc.pwcustom.modules.mortar.recipe.IRecipeMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.RecipeMortarMixing;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -129,7 +129,7 @@ public class MortarDelegateMixing
   }
 
   @Override
-  public IRecipeOutputProvider getRecipe() {
+  public IRecipeMortar getRecipe() {
 
     List<ItemStack> itemStackList = new ArrayList<>();
 
