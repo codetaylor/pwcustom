@@ -22,21 +22,21 @@ public class ZenMortar {
   public static final String NAME = "com.sudoplay.mc.ctmortar.Mortar";
 
   @ZenMethod
-  public static void addRecipe(IItemStack output, IIngredient[] inputs) {
+  public static void addMixingRecipe(IItemStack output, IIngredient[] inputs) {
 
-    PluginCraftTweaker.LATE_ADDITIONS.add(new Add(
+    PluginCraftTweaker.LATE_ADDITIONS.add(new AddMixing(
         InputHelper.toStack(output),
         CTUtil.toIngredientArray(inputs)
     ));
   }
 
-  private static class Add
+  private static class AddMixing
       extends BaseUndoable {
 
     private final ItemStack output;
     private final Ingredient[] inputs;
 
-    /* package */ Add(ItemStack output, Ingredient[] inputs) {
+    /* package */ AddMixing(ItemStack output, Ingredient[] inputs) {
 
       super(NAME);
       this.output = output;
@@ -46,7 +46,42 @@ public class ZenMortar {
     @Override
     public void apply() {
 
-      MortarAPI.RECIPE_REGISTRY.addRecipe(this.output, this.inputs);
+      MortarAPI.RECIPE_REGISTRY.addMixingRecipe(this.output, this.inputs);
+    }
+
+    @Override
+    protected String getRecipeInfo() {
+
+      return LogHelper.getStackDescription(this.output);
+    }
+  }
+
+  @ZenMethod
+  public static void addCrushingRecipe(IItemStack output, IIngredient input) {
+
+    PluginCraftTweaker.LATE_ADDITIONS.add(new AddCrushing(
+        InputHelper.toStack(output),
+        CTUtil.toIngredient(input)
+    ));
+  }
+
+  private static class AddCrushing
+      extends BaseUndoable {
+
+    private final ItemStack output;
+    private final Ingredient input;
+
+    /* package */ AddCrushing(ItemStack output, Ingredient input) {
+
+      super(NAME);
+      this.output = output;
+      this.input = input;
+    }
+
+    @Override
+    public void apply() {
+
+      MortarAPI.RECIPE_REGISTRY.addCrushingRecipe(this.output, this.input);
     }
 
     @Override

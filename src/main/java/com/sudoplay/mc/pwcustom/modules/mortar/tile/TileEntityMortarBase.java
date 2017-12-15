@@ -1,5 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 
+import com.sudoplay.mc.pwcustom.lib.IRecipeOutputProvider;
+import com.sudoplay.mc.pwcustom.lib.util.StackUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -9,91 +11,119 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nonnull;
-
 public abstract class TileEntityMortarBase
-    extends TileEntity {
+    extends TileEntity
+    implements IMortar {
 
   protected int durability;
-  protected ItemStackHandler itemStackHandler;
+  protected MortarDelegateFactory mortarDelegateFactory;
+  protected IMortar mortarDelegate;
+  protected int craftingProgress;
 
   public TileEntityMortarBase(int durability) {
 
     this.durability = durability;
-    this.itemStackHandler = new ItemStackHandler(8) {
-
-      @Override
-      protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
-
-        return 1;
-      }
-    };
+    this.mortarDelegateFactory = new MortarDelegateFactory(this::markDirty);
+    this.mortarDelegate = this.mortarDelegateFactory.create(EnumMortarMode.MIXING);
   }
 
-  public ItemStackHandler getItemStackHandler() {
+  public EnumMortarMode cycleMortarMode() {
 
-    return this.itemStackHandler;
-  }
-
-  public boolean canInsertItem(ItemStack itemStack) {
-
-    if (itemStack.isEmpty()) {
-      // Trying to add air.  :-/
-      return false;
-    }
-
-    if (this.getFirstEmptySlotIndex() == -1) {
-      // All slots are full.
-      return false;
-    }
-
-    return true;
-  }
-
-  public void insertItem(ItemStack itemStack) {
-
-    if (this.canInsertItem(itemStack)) {
-      int index = this.getFirstEmptySlotIndex();
-
-      ItemStack stackToInsert = itemStack.copy();
-      stackToInsert.setCount(1);
-      this.itemStackHandler.setStackInSlot(index, stackToInsert);
-      itemStack.shrink(1);
-
+    if (this.isEmpty()) {
+      int id = this.mortarDelegate.getMortarMode().getId();
+      id = (id + 1) % EnumMortarMode.values().length;
+      this.mortarDelegate = this.mortarDelegateFactory.create(EnumMortarMode.fromId(id));
       this.markDirty();
     }
+
+    return this.mortarDelegate.getMortarMode();
   }
 
+  @Override
+  public EnumMortarMode getMortarMode() {
+
+    return this.mortarDelegate.getMortarMode();
+  }
+
+  @Override
+  public String getMortarModeString() {
+
+    return this.mortarDelegate.getMortarModeString();
+  }
+
+  @Override
+  public ItemStackHandler getItemStackHandler() {
+
+    return this.mortarDelegate.getItemStackHandler();
+  }
+
+  @Override
+  public boolean canInsertItem(ItemStack itemStack) {
+
+    return this.mortarDelegate.canInsertItem(itemStack);
+  }
+
+  @Override
+  public void insertItem(ItemStack itemStack) {
+
+    this.mortarDelegate.insertItem(itemStack);
+  }
+
+  @Override
   public ItemStack removeItem() {
 
-    int index = this.getLastNonEmptySlotIndex();
-
-    if (index == -1) {
-      return ItemStack.EMPTY;
-    }
-
-    ItemStack toReturn = this.itemStackHandler.getStackInSlot(index);
-    this.itemStackHandler.setStackInSlot(index, ItemStack.EMPTY);
-
-    this.markDirty();
-
-    return toReturn;
+    this.resetCraftingProgress();
+    return this.mortarDelegate.removeItem();
   }
 
+  @Override
   public int getItemCount() {
 
-    int index = this.getFirstEmptySlotIndex();
-
-    if (index == -1) {
-      return this.itemStackHandler.getSlots();
-    }
-
-    return index;
+    return this.mortarDelegate.getItemCount();
   }
 
+  @Override
   public boolean isEmpty() {
 
-    return this.getItemCount() == 0;
+    return this.mortarDelegate.isEmpty();
+  }
+
+  public void resetCraftingProgress() {
+
+    this.craftingProgress = 0;
+    this.markDirty();
+  }
+
+  public void incrementCraftingProgress() {
+
+    if (this.hasRecipe()) {
+      this.craftingProgress += 1;
+      this.markDirty();
+
+      if (this.craftingProgress >= 10) {
+        this.resetCraftingProgress();
+
+        ItemStack itemStack = this.doCrafting();
+        StackUtil.spawnStackOnTop(this.world, itemStack, this.pos);
+      }
+    }
+  }
+
+  @Override
+  public ItemStack doCrafting() {
+
+    return this.mortarDelegate.doCrafting();
+  }
+
+  public boolean hasRecipe() {
+
+    return this.getRecipe() != null;
+  }
+
+  @Override
+  public IRecipeOutputProvider getRecipe() {
+
+    return this.mortarDelegate.getRecipe();
   }
 
   public void markDirty() {
@@ -104,30 +134,6 @@ public abstract class TileEntityMortarBase
       IBlockState blockState = world.getBlockState(this.getPos());
       this.world.notifyBlockUpdate(this.getPos(), blockState, blockState, 3);
     }
-  }
-
-  private int getFirstEmptySlotIndex() {
-
-    for (int i = 0; i < this.itemStackHandler.getSlots(); i++) {
-
-      if (this.itemStackHandler.getStackInSlot(i).isEmpty()) {
-        return i;
-      }
-    }
-
-    return -1;
-  }
-
-  private int getLastNonEmptySlotIndex() {
-
-    for (int i = this.itemStackHandler.getSlots() - 1; i >= 0; i--) {
-
-      if (!this.itemStackHandler.getStackInSlot(i).isEmpty()) {
-        return i;
-      }
-    }
-
-    return -1;
   }
 
   public boolean canPlayerUse(EntityPlayer player) {
@@ -141,7 +147,10 @@ public abstract class TileEntityMortarBase
 
     compound = super.writeToNBT(compound);
     compound.setInteger("durability", this.durability);
-    compound.setTag("itemStackHandler", this.itemStackHandler.serializeNBT());
+    compound.setInteger("mortarMode", this.mortarDelegate.getMortarMode().getId());
+    compound.setTag("mortarDelegate", this.mortarDelegate.serializeNBT());
+    compound.setInteger("craftingProgress", this.craftingProgress);
+
     return compound;
   }
 
@@ -150,7 +159,13 @@ public abstract class TileEntityMortarBase
 
     super.readFromNBT(compound);
     this.durability = compound.getInteger("durability");
-    this.itemStackHandler.deserializeNBT(compound.getCompoundTag("itemStackHandler"));
+    this.craftingProgress = compound.getInteger("craftingProgress");
+
+    EnumMortarMode mortarMode = EnumMortarMode.fromId(compound.getInteger("mortarMode"));
+    if (mortarMode != this.mortarDelegate.getMortarMode()) {
+      this.mortarDelegate = this.mortarDelegateFactory.create(mortarMode);
+    }
+    this.mortarDelegate.deserializeNBT(compound.getCompoundTag("mortarDelegate"));
   }
 
   @Override

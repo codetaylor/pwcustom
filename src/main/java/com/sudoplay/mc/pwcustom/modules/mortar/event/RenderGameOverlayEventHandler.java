@@ -1,12 +1,14 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.event;
 
-import com.sudoplay.mc.pwcustom.modules.mortar.api.MortarAPI;
-import com.sudoplay.mc.pwcustom.modules.mortar.recipe.RecipeMortar;
+import com.sudoplay.mc.pwcustom.lib.IRecipeOutputProvider;
+import com.sudoplay.mc.pwcustom.modules.mortar.ModuleMortar;
+import com.sudoplay.mc.pwcustom.modules.mortar.tile.EnumMortarMode;
 import com.sudoplay.mc.pwcustom.modules.mortar.tile.TileEntityMortarBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -77,18 +79,33 @@ public class RenderGameOverlayEventHandler {
         int x = (int) (MathHelper.cos(angle * i) * radius + resolution.getScaledWidth() / 2) - 8;
         int y = (int) (MathHelper.sin(angle * i) * radius + resolution.getScaledHeight() / 2) - 8;
         minecraft.getRenderItem().renderItemAndEffectIntoGUI(itemStack, x, y);
+
+        if (((TileEntityMortarBase) tileEntity).getMortarMode() == EnumMortarMode.CRUSHING) {
+          minecraft.getRenderItem().renderItemOverlays(minecraft.fontRenderer, itemStack, x, y);
+        }
       }
 
-      RecipeMortar recipe = MortarAPI.RECIPE_REGISTRY.findRecipe(itemStackList.toArray(new ItemStack[itemStackList.size()]));
+      IRecipeOutputProvider recipe = ((TileEntityMortarBase) tileEntity).getRecipe();
 
       if (recipe != null) {
+        ItemStack output = recipe.getOutput();
         int x = (int) (radius + resolution.getScaledWidth() / 2) - 8 + 64;
         int y = resolution.getScaledHeight() / 2 - 8;
-        minecraft.getRenderItem().renderItemAndEffectIntoGUI(recipe.getOutput(), x, y);
+        minecraft.getRenderItem().renderItemAndEffectIntoGUI(output, x, y);
       }
 
       RenderHelper.disableStandardItemLighting();
       GlStateManager.disableLighting();
+
+      {
+        String mode = I18n.format(((TileEntityMortarBase) tileEntity).getMortarModeString());
+        String modeWithLabel = I18n.format(ModuleMortar.Lang.MORTAR_MODE_LABEL, mode);
+
+        int x = resolution.getScaledWidth() / 2 - minecraft.fontRenderer.getStringWidth(modeWithLabel) / 2;
+        int y = resolution.getScaledHeight() / 2 + 48;
+        minecraft.fontRenderer.drawStringWithShadow(modeWithLabel, x, y, 0xFFFFFF);
+      }
+
       GlStateManager.disableBlend();
     }
   }

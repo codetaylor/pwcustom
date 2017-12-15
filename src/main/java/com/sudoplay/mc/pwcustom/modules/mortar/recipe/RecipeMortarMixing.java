@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.recipe;
 
+import com.sudoplay.mc.pwcustom.lib.IRecipeOutputProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -8,17 +9,19 @@ import net.minecraftforge.common.util.RecipeMatcher;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeMortar {
+public class RecipeMortarMixing
+    implements IRecipeOutputProvider {
 
   private NonNullList<Ingredient> inputs;
   private ItemStack output;
 
-  public RecipeMortar(ItemStack output, NonNullList<Ingredient> inputs) {
+  public RecipeMortarMixing(ItemStack output, NonNullList<Ingredient> inputs) {
 
     this.inputs = inputs;
     this.output = output;
   }
 
+  @Override
   public ItemStack getOutput() {
 
     return this.output.copy();

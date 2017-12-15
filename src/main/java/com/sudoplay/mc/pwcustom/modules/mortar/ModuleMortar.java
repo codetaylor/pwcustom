@@ -19,6 +19,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModuleMortar
     extends ModuleBase {
 
+  public static class Lang {
+
+    public static final String MORTAR_MODE_LABEL = "hud." + ModPWCustom.MOD_ID + ".mortar.mode";
+    public static final String MORTAR_MODE_MIXING = "hud." + ModPWCustom.MOD_ID + ".mortar.mode.mixing";
+    public static final String MORTAR_MODE_CRUSHING = "hud." + ModPWCustom.MOD_ID + ".mortar.mode.crushing";
+  }
+
   public static class Blocks {
 
     @GameRegistry.ObjectHolder(ModPWCustom.MOD_ID + ":" + BlockMortar.NAME)

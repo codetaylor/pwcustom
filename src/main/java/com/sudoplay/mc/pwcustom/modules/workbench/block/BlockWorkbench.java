@@ -188,6 +188,11 @@ public class BlockWorkbench
         .sorted(Comparator.comparing(EnumType::getMeta))
         .toArray(EnumType[]::new);
 
+    public static final String[] NAMES = Stream.of(EnumType.values())
+        .sorted(Comparator.comparing(EnumType::getMeta))
+        .map(EnumType::getName)
+        .toArray(String[]::new);
+
     private final int meta;
     private final String name;
 

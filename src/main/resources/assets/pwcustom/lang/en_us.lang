@@ -9,3 +9,7 @@ text.pwcustom.jei.category.workbench.carpenter=Carpenter's Workbench
 text.pwcustom.jei.category.workbench.jeweler=Jeweler's Workbench
 text.pwcustom.jei.category.workbench.mason=Mason's Workbench
 text.pwcustom.jei.category.workbench.tailor=Tailor's Workbench
+
+hud.pwcustom.mortar.mode=Mode: %s
+hud.pwcustom.mortar.mode.mixing=Mixing
+hud.pwcustom.mortar.mode.crushing=Crushing

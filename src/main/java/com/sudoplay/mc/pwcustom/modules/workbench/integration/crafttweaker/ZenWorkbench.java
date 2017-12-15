@@ -94,7 +94,7 @@ public class ZenWorkbench {
 
       } else {
         LogHelper.logError("Unrecognized table name: " + this.table + ", valid values are: " + Arrays.toString(
-            BlockWorkbench.EnumType.values()));
+            BlockWorkbench.EnumType.NAMES));
       }
     }
 

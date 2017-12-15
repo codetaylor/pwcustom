@@ -3,6 +3,7 @@ package com.sudoplay.mc.pwcustom.modules.mortar.block;
 import com.sudoplay.mc.pwcustom.lib.spi.BlockBase;
 import com.sudoplay.mc.pwcustom.lib.spi.IBlockVariant;
 import com.sudoplay.mc.pwcustom.lib.spi.IVariant;
+import com.sudoplay.mc.pwcustom.lib.util.StackUtil;
 import com.sudoplay.mc.pwcustom.modules.mortar.tile.TileEntityMortarBase;
 import com.sudoplay.mc.pwcustom.modules.mortar.tile.TileEntityMortarWood;
 import net.minecraft.block.material.MapColor;
@@ -12,7 +13,6 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
@@ -97,28 +97,20 @@ public class BlockMortar
           }
 
           if (player.isSneaking()) {
-            // pop the last item out of the tile
 
             if (!tile.isEmpty()) {
-              ItemStack itemStack = tile.removeItem();
-              EntityItem entityItem = new EntityItem(
-                  world,
-                  pos.getX() + 0.5,
-                  pos.getY() + 1.5,
-                  pos.getZ() + 0.5,
-                  itemStack
-              );
-              entityItem.motionX = 0;
-              entityItem.motionY = 0.1;
-              entityItem.motionZ = 0;
+              // pop the last item out of the tile
+              StackUtil.spawnStackOnTop(world, tile.removeItem(), pos);
 
-              world.spawnEntity(entityItem);
+            } else {
+              // cycle the mortar mode
+              tile.cycleMortarMode();
             }
 
             return true;
           }
 
-          // TODO: do the crafting on the server
+          tile.incrementCraftingProgress();
 
         } else {
 

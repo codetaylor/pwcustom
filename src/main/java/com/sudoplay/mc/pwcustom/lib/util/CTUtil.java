@@ -53,6 +53,11 @@ public class CTUtil {
       this.ingredient = ingredient;
     }
 
+    public int getAmount() {
+
+      return this.ingredient.getAmount();
+    }
+
     @Override
     public ItemStack[] getMatchingStacks() {
 
@@ -66,6 +71,11 @@ public class CTUtil {
       if (this.ingredient == null) {
         return itemStack == null || itemStack.isEmpty();
       }
+
+      if (itemStack == null) {
+        return false;
+      }
+
       return this.ingredient.matches(InputHelper.toIItemStack(itemStack));
     }
   }

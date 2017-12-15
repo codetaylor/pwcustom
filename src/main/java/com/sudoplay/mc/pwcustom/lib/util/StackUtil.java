@@ -1,6 +1,9 @@
 package com.sudoplay.mc.pwcustom.lib.util;
 
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class StackUtil {
 
@@ -23,6 +26,22 @@ public class StackUtil {
     }
 
     return itemStack;
+  }
+
+  public static void spawnStackOnTop(World world, ItemStack itemStack, BlockPos pos) {
+
+    EntityItem entityItem = new EntityItem(
+        world,
+        pos.getX() + 0.5,
+        pos.getY() + 1.5,
+        pos.getZ() + 0.5,
+        itemStack
+    );
+    entityItem.motionX = 0;
+    entityItem.motionY = 0.1;
+    entityItem.motionZ = 0;
+
+    world.spawnEntity(entityItem);
   }
 
 }

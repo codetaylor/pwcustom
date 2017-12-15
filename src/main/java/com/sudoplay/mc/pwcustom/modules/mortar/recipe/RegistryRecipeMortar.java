@@ -12,29 +12,51 @@ import java.util.List;
 
 public class RegistryRecipeMortar {
 
-  private List<RecipeMortar> recipeList;
+  private List<RecipeMortarMixing> recipeListMixing;
+  private List<RecipeMortarCrushing> recipeListCrushing;
 
   public RegistryRecipeMortar() {
 
-    this.recipeList = new ArrayList<>();
+    this.recipeListMixing = new ArrayList<>();
+    this.recipeListCrushing = new ArrayList<>();
   }
 
   @Nonnull
-  public RecipeMortar addRecipe(ItemStack output, Ingredient[] inputs) {
+  public RecipeMortarMixing addMixingRecipe(ItemStack output, Ingredient[] inputs) {
 
     NonNullList<Ingredient> inputList = NonNullList.create();
     Collections.addAll(inputList, inputs);
-    RecipeMortar recipe = new RecipeMortar(output, inputList);
-    this.recipeList.add(recipe);
+    RecipeMortarMixing recipe = new RecipeMortarMixing(output, inputList);
+    this.recipeListMixing.add(recipe);
+    return recipe;
+  }
+
+  public RecipeMortarCrushing addCrushingRecipe(ItemStack output, Ingredient input) {
+
+    RecipeMortarCrushing recipe = new RecipeMortarCrushing(output, input);
+    this.recipeListCrushing.add(recipe);
     return recipe;
   }
 
   @Nullable
-  public RecipeMortar findRecipe(ItemStack[] inputs) {
+  public RecipeMortarMixing findMixingRecipe(ItemStack[] inputs) {
 
-    for (RecipeMortar recipe : this.recipeList) {
+    for (RecipeMortarMixing recipe : this.recipeListMixing) {
 
       if (recipe.matches(inputs)) {
+        return recipe;
+      }
+    }
+
+    return null;
+  }
+
+  @Nullable
+  public RecipeMortarCrushing findCrushingRecipe(ItemStack input) {
+
+    for (RecipeMortarCrushing recipe : this.recipeListCrushing) {
+
+      if (recipe.matches(input)) {
         return recipe;
       }
     }
