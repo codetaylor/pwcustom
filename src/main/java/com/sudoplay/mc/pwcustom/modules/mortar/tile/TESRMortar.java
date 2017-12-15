@@ -51,6 +51,7 @@ public class TESRMortar
 
     if (tile.getMortarMode() == EnumMortarMode.CRUSHING) {
       scale = 3.0;
+      offsetY = 0.2;
     }
 
     for (int i = 0; i < itemStackHandler.getSlots(); i++) {
