@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.recipe;
 
+import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -8,40 +9,49 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.List;
 
 public class RegistryRecipeMortar {
 
-  private List<RecipeMortarMixing> recipeListMixing;
-  private List<RecipeMortarCrushing> recipeListCrushing;
+  private EnumMap<EnumMortarType, List<RecipeMortarMixing>> recipeMapMixing;
+  private EnumMap<EnumMortarType, List<RecipeMortarCrushing>> recipeMapCrushing;
 
   public RegistryRecipeMortar() {
 
-    this.recipeListMixing = new ArrayList<>();
-    this.recipeListCrushing = new ArrayList<>();
+    this.recipeMapMixing = new EnumMap<>(EnumMortarType.class);
+    this.recipeMapCrushing = new EnumMap<>(EnumMortarType.class);
   }
 
   @Nonnull
-  public RecipeMortarMixing addMixingRecipe(ItemStack output, int duration, Ingredient[] inputs) {
+  public RecipeMortarMixing addMixingRecipe(EnumMortarType type, ItemStack output, int duration, Ingredient[] inputs) {
 
     NonNullList<Ingredient> inputList = NonNullList.create();
     Collections.addAll(inputList, inputs);
     RecipeMortarMixing recipe = new RecipeMortarMixing(output, duration, inputList);
-    this.recipeListMixing.add(recipe);
+    List<RecipeMortarMixing> list = this.recipeMapMixing.computeIfAbsent(type, k -> new ArrayList<>());
+    list.add(recipe);
     return recipe;
   }
 
-  public RecipeMortarCrushing addCrushingRecipe(ItemStack output, int duration, Ingredient input) {
+  public RecipeMortarCrushing addCrushingRecipe(EnumMortarType type, ItemStack output, int duration, Ingredient input) {
 
     RecipeMortarCrushing recipe = new RecipeMortarCrushing(output, duration, input);
-    this.recipeListCrushing.add(recipe);
+    List<RecipeMortarCrushing> list = this.recipeMapCrushing.computeIfAbsent(type, k -> new ArrayList<>());
+    list.add(recipe);
     return recipe;
   }
 
   @Nullable
-  public RecipeMortarMixing findMixingRecipe(ItemStack[] inputs) {
+  public RecipeMortarMixing findMixingRecipe(EnumMortarType type, ItemStack[] inputs) {
 
-    for (RecipeMortarMixing recipe : this.recipeListMixing) {
+    List<RecipeMortarMixing> list = this.recipeMapMixing.get(type);
+
+    if (list == null || list.isEmpty()) {
+      return null;
+    }
+
+    for (RecipeMortarMixing recipe : list) {
 
       if (recipe.matches(inputs)) {
         return recipe;
@@ -52,9 +62,15 @@ public class RegistryRecipeMortar {
   }
 
   @Nullable
-  public RecipeMortarCrushing findCrushingRecipe(ItemStack input) {
+  public RecipeMortarCrushing findCrushingRecipe(EnumMortarType type, ItemStack input) {
 
-    for (RecipeMortarCrushing recipe : this.recipeListCrushing) {
+    List<RecipeMortarCrushing> list = this.recipeMapCrushing.get(type);
+
+    if (list == null || list.isEmpty()) {
+      return null;
+    }
+
+    for (RecipeMortarCrushing recipe : list) {
 
       if (recipe.matches(input)) {
         return recipe;

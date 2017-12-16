@@ -1,8 +1,8 @@
 {
   "parent": "pwcustom:block/mortar",
   "textures": {
-    "mortar": "blocks/planks_oak",
+    "mortar": "blocks/iron_block",
     "pestle": "blocks/quartz_block_bottom",
-    "particle": "blocks/planks_oak"
+    "particle": "blocks/iron_block"
   }
 }

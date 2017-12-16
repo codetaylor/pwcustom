@@ -4,8 +4,7 @@ import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.modules.mortar.block.BlockMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.integration.PluginCraftTweaker;
-import com.sudoplay.mc.pwcustom.modules.mortar.tile.TESRMortar;
-import com.sudoplay.mc.pwcustom.modules.mortar.tile.TileEntityMortarWood;
+import com.sudoplay.mc.pwcustom.modules.mortar.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -19,16 +18,19 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModuleMortar
     extends ModuleBase {
 
+  public static final String MOD_ID = ModPWCustom.MOD_ID;
+  public static final boolean IS_DEV = ModPWCustom.IS_DEV;
+
   public static class Lang {
 
-    public static final String MORTAR_MODE_LABEL = "hud." + ModPWCustom.MOD_ID + ".mortar.mode";
-    public static final String MORTAR_MODE_MIXING = "hud." + ModPWCustom.MOD_ID + ".mortar.mode.mixing";
-    public static final String MORTAR_MODE_CRUSHING = "hud." + ModPWCustom.MOD_ID + ".mortar.mode.crushing";
+    public static final String MORTAR_MODE_LABEL = "hud." + MOD_ID + ".mortar.mode";
+    public static final String MORTAR_MODE_MIXING = "hud." + MOD_ID + ".mortar.mode.mixing";
+    public static final String MORTAR_MODE_CRUSHING = "hud." + MOD_ID + ".mortar.mode.crushing";
   }
 
   public static class Blocks {
 
-    @GameRegistry.ObjectHolder(ModPWCustom.MOD_ID + ":" + BlockMortar.NAME)
+    @GameRegistry.ObjectHolder(MOD_ID + ":" + BlockMortar.NAME)
     public static final BlockMortar MORTAR;
 
     static {
@@ -59,8 +61,11 @@ public class ModuleMortar
   public void onRegisterTileEntitiesEvent() {
 
     this.getTileEntityRegistrationHelper().registerTileEntities(
-        ModPWCustom.MOD_ID,
-        TileEntityMortarWood.class
+        MOD_ID,
+        TileEntityMortarWood.class,
+        TileEntityMortarStone.class,
+        TileEntityMortarIron.class,
+        TileEntityMortarDiamond.class
     );
   }
 
@@ -74,6 +79,18 @@ public class ModuleMortar
 
     ClientRegistry.bindTileEntitySpecialRenderer(
         TileEntityMortarWood.class,
+        new TESRMortar()
+    );
+    ClientRegistry.bindTileEntitySpecialRenderer(
+        TileEntityMortarStone.class,
+        new TESRMortar()
+    );
+    ClientRegistry.bindTileEntitySpecialRenderer(
+        TileEntityMortarIron.class,
+        new TESRMortar()
+    );
+    ClientRegistry.bindTileEntitySpecialRenderer(
+        TileEntityMortarDiamond.class,
         new TESRMortar()
     );
   }

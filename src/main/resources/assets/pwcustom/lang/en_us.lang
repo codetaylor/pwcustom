@@ -13,3 +13,5 @@ text.pwcustom.jei.category.workbench.tailor=Tailor's Workbench
 hud.pwcustom.mortar.mode=Mode: %s
 hud.pwcustom.mortar.mode.mixing=Mixing
 hud.pwcustom.mortar.mode.crushing=Crushing
+
+config.pwcustom.mortar.durability="Mortar Durability"

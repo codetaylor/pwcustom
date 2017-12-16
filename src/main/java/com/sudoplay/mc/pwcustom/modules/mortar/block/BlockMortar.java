@@ -2,10 +2,11 @@ package com.sudoplay.mc.pwcustom.modules.mortar.block;
 
 import com.sudoplay.mc.pwcustom.lib.spi.BlockBase;
 import com.sudoplay.mc.pwcustom.lib.spi.IBlockVariant;
-import com.sudoplay.mc.pwcustom.lib.spi.IVariant;
 import com.sudoplay.mc.pwcustom.lib.util.StackUtil;
-import com.sudoplay.mc.pwcustom.modules.mortar.tile.TileEntityMortarBase;
-import com.sudoplay.mc.pwcustom.modules.mortar.tile.TileEntityMortarWood;
+import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarType;
+import com.sudoplay.mc.pwcustom.modules.mortar.tile.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -13,41 +14,104 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.Nullable;
-import java.util.Comparator;
-import java.util.stream.Stream;
+import java.util.Random;
 
 public class BlockMortar
     extends BlockBase
-    implements IBlockVariant<BlockMortar.EnumType> {
+    implements IBlockVariant<EnumMortarType> {
 
   public static final String NAME = "mortar";
 
-  public static final IProperty<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class);
+  public static final IProperty<EnumMortarType> VARIANT = PropertyEnum.create("variant", EnumMortarType.class);
 
   private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25, 0.0, 0.25, 0.75, 0.25, 0.75);
 
   public BlockMortar() {
 
     super(Material.WOOD, NAME);
-    this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.WOOD));
+    this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumMortarType.WOOD));
   }
 
   @Override
+  public Material getMaterial(IBlockState state) {
+
+    return state.getValue(VARIANT).getMaterial();
+  }
+
+  @Override
+  public MapColor getMapColor(
+      IBlockState state, IBlockAccess worldIn, BlockPos pos
+  ) {
+
+    return state.getValue(VARIANT).getMapColor();
+  }
+
+  @Override
+  public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos) {
+
+    return blockState.getValue(VARIANT).getHardness();
+  }
+
+  @Override
+  public float getExplosionResistance(
+      World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion
+  ) {
+
+    return world.getBlockState(pos).getValue(VARIANT).getResistance();
+  }
+
+  @Nullable
+  @Override
+  public String getHarvestTool(IBlockState state) {
+
+    return null;
+  }
+
+  @Override
+  public int getHarvestLevel(IBlockState state) {
+
+    return -1;
+  }
+
+  @Override
+  public boolean isToolEffective(String type, IBlockState state) {
+
+    return true;
+  }
+
+  @Override
+  public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+
+    return true;
+  }
+
+  @Override
+  public SoundType getSoundType(
+      IBlockState state, World world, BlockPos pos, @Nullable Entity entity
+  ) {
+
+    return state.getValue(VARIANT).getSoundType();
+  }
+
+  /*@Override
   public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 
     TileEntity tileEntity = worldIn.getTileEntity(pos);
@@ -67,6 +131,83 @@ public class BlockMortar
     }
 
     super.breakBlock(worldIn, pos, state);
+  }*/
+
+  @Override
+  public boolean removedByPlayer(
+      IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest
+  ) {
+
+    return willHarvest || super.removedByPlayer(state, world, pos, player, false);
+  }
+
+  @Override
+  public void harvestBlock(
+      World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack
+  ) {
+
+    super.harvestBlock(worldIn, player, pos, state, te, stack);
+    worldIn.setBlockToAir(pos);
+  }
+
+  @Override
+  public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+
+    return null;
+  }
+
+  @Override
+  public void getDrops(
+      NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune
+  ) {
+
+    drops.clear();
+
+    TileEntity tileEntity = world.getTileEntity(pos);
+
+    if (tileEntity != null
+        && tileEntity instanceof TileEntityMortarBase) {
+
+      ItemStack itemStack = this.getTileEntityAsItemStack(state, tileEntity);
+      drops.add(itemStack);
+    }
+  }
+
+  private ItemStack getTileEntityAsItemStack(IBlockState state, TileEntity tileEntity) {
+
+    ItemStack itemStack = new ItemStack(Item.getItemFromBlock(this), 1, this.damageDropped(state));
+    NBTTagCompound compound = new NBTTagCompound();
+    NBTTagCompound teCompound = new NBTTagCompound();
+    tileEntity.writeToNBT(teCompound);
+    compound.setTag("BlockEntityTag", teCompound);
+    itemStack.setTagCompound(compound);
+    return itemStack;
+  }
+
+  @Override
+  public boolean canPlaceBlockAt(World world, BlockPos pos) {
+
+    if (!super.canPlaceBlockAt(world, pos)) {
+      return false;
+    }
+
+    return world.getBlockState(pos.down()).isSideSolid(world, pos.down(), EnumFacing.UP);
+  }
+
+  @Override
+  public void neighborChanged(
+      IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos
+  ) {
+
+    if (!world.getBlockState(pos.down()).isSideSolid(world, pos.down(), EnumFacing.UP)) {
+      TileEntity tileEntity = world.getTileEntity(pos);
+
+      if (tileEntity instanceof TileEntityMortarBase) {
+        ((TileEntityMortarBase) tileEntity).destroy();
+        ItemStack itemStack = this.getTileEntityAsItemStack(state, tileEntity);
+        StackUtil.spawnStackOnTop(world, itemStack, pos);
+      }
+    }
   }
 
   @Override
@@ -144,15 +285,17 @@ public class BlockMortar
       World world, IBlockState state
   ) {
 
-    EnumType type = state.getValue(VARIANT);
+    EnumMortarType type = state.getValue(VARIANT);
 
     switch (type) {
       case WOOD:
         return new TileEntityMortarWood();
-      case IRON:
       case STONE:
+        return new TileEntityMortarStone();
+      case IRON:
+        return new TileEntityMortarIron();
       case DIAMOND:
-        throw new NotImplementedException();
+        return new TileEntityMortarDiamond();
       default:
         throw new IllegalArgumentException("Unknown variant: " + type);
     }
@@ -165,20 +308,6 @@ public class BlockMortar
   }
 
   @Override
-  public Material getMaterial(IBlockState state) {
-
-    return state.getValue(VARIANT).material;
-  }
-
-  @Override
-  public MapColor getMapColor(
-      IBlockState state, IBlockAccess worldIn, BlockPos pos
-  ) {
-
-    return state.getValue(VARIANT).mapColor;
-  }
-
-  @Override
   protected BlockStateContainer createBlockState() {
 
     return new BlockStateContainer(this, VARIANT);
@@ -187,7 +316,7 @@ public class BlockMortar
   @Override
   public IBlockState getStateFromMeta(int meta) {
 
-    return this.getDefaultState().withProperty(VARIANT, EnumType.fromMeta(meta));
+    return this.getDefaultState().withProperty(VARIANT, EnumMortarType.fromMeta(meta));
   }
 
   @Override
@@ -208,7 +337,7 @@ public class BlockMortar
       NonNullList<ItemStack> list
   ) {
 
-    for (EnumType type : EnumType.values()) {
+    for (EnumMortarType type : EnumMortarType.values()) {
       list.add(new ItemStack(this, 1, type.getMeta()));
     }
   }
@@ -228,60 +357,13 @@ public class BlockMortar
   @Override
   public String getName(ItemStack stack) {
 
-    return NAME + "_" + EnumType.fromMeta(stack.getMetadata()).getName();
+    return NAME + "_" + EnumMortarType.fromMeta(stack.getMetadata()).getName();
   }
 
   @Override
-  public IProperty<EnumType> getVariant() {
+  public IProperty<EnumMortarType> getVariant() {
 
     return VARIANT;
   }
 
-  public enum EnumType
-      implements IVariant {
-
-    WOOD(0, "wood", Material.WOOD, Material.WOOD.getMaterialMapColor()),
-    IRON(1, "iron", Material.IRON, Material.IRON.getMaterialMapColor()),
-    STONE(2, "stone", Material.ROCK, Material.ROCK.getMaterialMapColor()),
-    DIAMOND(3, "diamond", Material.IRON, MapColor.DIAMOND);
-
-    private static final EnumType[] META_LOOKUP = Stream.of(EnumType.values())
-        .sorted(Comparator.comparing(EnumType::getMeta))
-        .toArray(EnumType[]::new);
-
-    private final int meta;
-    private final String name;
-    private final Material material;
-    private final MapColor mapColor;
-
-    EnumType(int meta, String name, Material material, MapColor mapColor) {
-
-      this.meta = meta;
-      this.name = name;
-      this.material = material;
-      this.mapColor = mapColor;
-    }
-
-    @Override
-    public int getMeta() {
-
-      return this.meta;
-    }
-
-    @Override
-    public String getName() {
-
-      return this.name;
-    }
-
-    public static EnumType fromMeta(int meta) {
-
-      if (meta < 0 || meta >= META_LOOKUP.length) {
-        meta = 0;
-      }
-
-      return META_LOOKUP[meta];
-    }
-
-  }
 }

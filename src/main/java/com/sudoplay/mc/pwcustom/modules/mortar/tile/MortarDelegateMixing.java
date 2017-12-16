@@ -1,11 +1,16 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 
+import com.sudoplay.mc.pwcustom.lib.util.StackUtil;
 import com.sudoplay.mc.pwcustom.modules.mortar.ModuleMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.api.MortarAPI;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.IRecipeMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.RecipeMortarMixing;
+import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarMode;
+import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -16,9 +21,15 @@ public class MortarDelegateMixing
     implements IMortar {
 
   private ItemStackHandler itemStackHandler;
+  private EnumMortarType type;
   private Runnable changeObserver;
 
-  public MortarDelegateMixing(Runnable changeObserver) {
+  public MortarDelegateMixing(
+      EnumMortarType type,
+      Runnable changeObserver
+  ) {
+
+    this.type = type;
 
     this.changeObserver = changeObserver;
 
@@ -99,6 +110,14 @@ public class MortarDelegateMixing
   }
 
   @Override
+  public void dropAllItems(World world, BlockPos pos) {
+
+    while (!this.isEmpty()) {
+      StackUtil.spawnStackOnTop(world, this.removeItem(), pos);
+    }
+  }
+
+  @Override
   public int getItemCount() {
 
     int index = this.getFirstEmptySlotIndex();
@@ -143,7 +162,10 @@ public class MortarDelegateMixing
       itemStackList.add(stackInSlot);
     }
 
-    return MortarAPI.RECIPE_REGISTRY.findMixingRecipe(itemStackList.toArray(new ItemStack[itemStackList.size()]));
+    return MortarAPI.RECIPE_REGISTRY.findMixingRecipe(
+        this.type,
+        itemStackList.toArray(new ItemStack[itemStackList.size()])
+    );
   }
 
   @Override

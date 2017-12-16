@@ -1,7 +1,10 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
+import com.sudoplay.mc.pwcustom.modules.mortar.recipe.IRecipeMortar;
+import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarMode;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -27,6 +30,7 @@ public class TESRMortar
     extends TileEntitySpecialRenderer<TileEntityMortarBase> {
 
   private IBakedModel bakedModel;
+  //private ResourceLocation PESTLE_TEXTURE = new ResourceLocation(ModuleMortar.MOD_ID, "textures/blocks/soul_gravel.png");
 
   @Override
   public void render(
@@ -34,12 +38,7 @@ public class TESRMortar
   ) {
 
     GlStateManager.pushMatrix();
-    GlStateManager.translate(
-        (float) x - tile.getPos().getX(),
-        (float) y - tile.getPos().getY(),
-        (float) z - tile.getPos().getZ()
-    );
-    this.renderModel(tile);
+    this.renderModel(x, y, z, tile);
     GlStateManager.popMatrix();
 
     GlStateManager.pushMatrix();
@@ -68,7 +67,7 @@ public class TESRMortar
       IModel model;
 
       try {
-        model = ModelLoaderRegistry.getModel(new ResourceLocation(ModPWCustom.MOD_ID, "block/mortar_wood"));
+        model = ModelLoaderRegistry.getModel(new ResourceLocation(ModPWCustom.MOD_ID, "block/pestle"));
 
       } catch (Exception e) {
         throw new RuntimeException(e);
@@ -83,9 +82,28 @@ public class TESRMortar
     return bakedModel;
   }
 
-  private void renderModel(TileEntityMortarBase tile) {
+  private void renderModel(double x, double y, double z, TileEntityMortarBase tile) {
+
+    World world = tile.getWorld();
+    IBlockState blockState = world.getBlockState(tile.getPos());
+    int current = tile.getCraftingProgress();
+    IRecipeMortar recipe = tile.getRecipe();
+    float percentage = (recipe != null) ? current / (float) recipe.getDuration() : 0;
+
+    GlStateManager.translate(x + 0.5, y + 0.5, z + 0.5);
+    GlStateManager.rotate(360 * percentage, 0, 1, 0);
+    GlStateManager.translate(-0.5,-0.5,-0.5);
+
+    // Render Model -----------------------------------------
 
     GlStateManager.pushMatrix();
+
+    GlStateManager.translate(
+        -tile.getPos().getX(),
+        -tile.getPos().getY(),
+        -tile.getPos().getZ()
+    );
+
     RenderHelper.disableStandardItemLighting();
     this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
@@ -96,8 +114,6 @@ public class TESRMortar
       GlStateManager.shadeModel(GL11.GL_FLAT);
     }
 
-    World world = tile.getWorld();
-
     Tessellator tessellator = Tessellator.getInstance();
     tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     Minecraft.getMinecraft()
@@ -106,7 +122,7 @@ public class TESRMortar
         .renderModel(
             world,
             this.getBakedModel(),
-            world.getBlockState(tile.getPos()),
+            blockState,
             tile.getPos(),
             Tessellator.getInstance().getBuffer(),
             false,
@@ -116,6 +132,8 @@ public class TESRMortar
 
     RenderHelper.enableStandardItemLighting();
     GlStateManager.popMatrix();
+
+    // End: Render Model ----------------------------------------
   }
 
   private double renderItem(ItemStack itemStack, double offsetY, double scale) {

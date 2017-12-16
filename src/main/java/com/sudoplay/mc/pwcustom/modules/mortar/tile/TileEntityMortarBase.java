@@ -2,29 +2,41 @@ package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 
 import com.sudoplay.mc.pwcustom.lib.util.StackUtil;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.IRecipeMortar;
+import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarMode;
+import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarType;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.items.ItemStackHandler;
 
 public abstract class TileEntityMortarBase
     extends TileEntity
     implements IMortar {
 
+  protected byte typeId;
   protected int durability;
-  protected MortarDelegateFactory mortarDelegateFactory;
+  protected FactoryMortarDelegate factoryMortarDelegate;
   protected IMortar mortarDelegate;
   protected int craftingProgress;
 
-  public TileEntityMortarBase(int durability) {
+  public TileEntityMortarBase(EnumMortarType typeId) {
 
-    this.durability = durability;
-    this.mortarDelegateFactory = new MortarDelegateFactory(this::markDirty);
-    this.mortarDelegate = this.mortarDelegateFactory.create(EnumMortarMode.MIXING);
+    this.typeId = (byte) typeId.getMeta();
+    this.factoryMortarDelegate = new FactoryMortarDelegate(this::markDirty);
+    this.mortarDelegate = this.factoryMortarDelegate.create(
+        EnumMortarType.fromMeta(this.typeId),
+        EnumMortarMode.MIXING
+    );
   }
 
   public EnumMortarMode cycleMortarMode() {
@@ -32,11 +44,19 @@ public abstract class TileEntityMortarBase
     if (this.isEmpty()) {
       int id = this.mortarDelegate.getMortarMode().getId();
       id = (id + 1) % EnumMortarMode.values().length;
-      this.mortarDelegate = this.mortarDelegateFactory.create(EnumMortarMode.fromId(id));
+      this.mortarDelegate = this.factoryMortarDelegate.create(
+          EnumMortarType.fromMeta(this.typeId),
+          EnumMortarMode.fromId(id)
+      );
       this.markDirty();
     }
 
     return this.mortarDelegate.getMortarMode();
+  }
+
+  public int getCraftingProgress() {
+
+    return this.craftingProgress;
   }
 
   @Override
@@ -88,6 +108,12 @@ public abstract class TileEntityMortarBase
     return this.mortarDelegate.isEmpty();
   }
 
+  @Override
+  public void dropAllItems(World world, BlockPos pos) {
+
+    this.mortarDelegate.dropAllItems(world, pos);
+  }
+
   public void resetCraftingProgress() {
 
     this.craftingProgress = 0;
@@ -107,19 +133,61 @@ public abstract class TileEntityMortarBase
 
         ItemStack itemStack = this.doCrafting();
         StackUtil.spawnStackOnTop(this.world, itemStack, this.pos);
+
+        // check durability
+        int maxDurability = this.getMaxDurability();
+
+        if (maxDurability > 0) {
+          this.incrementAndCheckDurability(maxDurability);
+        }
       }
     }
+  }
+
+  private void incrementAndCheckDurability(int maxDurability) {
+
+    this.durability += 1;
+
+    if (this.durability >= maxDurability) {
+      this.destroy();
+    }
+  }
+
+  public void destroy() {
+
+    this.dropAllItems(this.world, this.pos);
+
+    ((WorldServer) this.world).spawnParticle(
+        EnumParticleTypes.BLOCK_CRACK,
+        this.pos.getX() + 0.5,
+        this.pos.getY() + 0.125,
+        this.pos.getZ() + 0.5,
+        50,
+        0,
+        0,
+        0,
+        2d,
+        Block.getStateId(this.world.getBlockState(this.pos))
+    );
+
+    this.world.playSound(
+        null,
+        this.pos.getX() + 0.5,
+        this.pos.getY() + 0.125,
+        this.pos.getZ() + 0.5,
+        SoundEvents.ENTITY_ITEM_BREAK,
+        SoundCategory.BLOCKS,
+        1.0f,
+        1.0f
+    );
+
+    this.world.setBlockToAir(this.pos);
   }
 
   @Override
   public ItemStack doCrafting() {
 
     return this.mortarDelegate.doCrafting();
-  }
-
-  public boolean hasRecipe() {
-
-    return this.getRecipe() != null;
   }
 
   @Override
@@ -138,16 +206,11 @@ public abstract class TileEntityMortarBase
     }
   }
 
-  public boolean canPlayerUse(EntityPlayer player) {
-
-    return this.getWorld().getTileEntity(this.getPos()) == this
-        && player.getDistanceSq(this.pos.add(0.5, 0.5, 0.5)) <= 64;
-  }
-
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
     compound = super.writeToNBT(compound);
+    compound.setByte("type", this.typeId);
     compound.setInteger("durability", this.durability);
     compound.setInteger("mortarMode", this.mortarDelegate.getMortarMode().getId());
     compound.setTag("mortarDelegate", this.mortarDelegate.serializeNBT());
@@ -160,12 +223,13 @@ public abstract class TileEntityMortarBase
   public void readFromNBT(NBTTagCompound compound) {
 
     super.readFromNBT(compound);
+    this.typeId = compound.getByte("type");
     this.durability = compound.getInteger("durability");
     this.craftingProgress = compound.getInteger("craftingProgress");
 
     EnumMortarMode mortarMode = EnumMortarMode.fromId(compound.getInteger("mortarMode"));
     if (mortarMode != this.mortarDelegate.getMortarMode()) {
-      this.mortarDelegate = this.mortarDelegateFactory.create(mortarMode);
+      this.mortarDelegate = this.factoryMortarDelegate.create(EnumMortarType.fromMeta(this.typeId), mortarMode);
     }
     this.mortarDelegate.deserializeNBT(compound.getCompoundTag("mortarDelegate"));
   }
@@ -187,4 +251,11 @@ public abstract class TileEntityMortarBase
 
     return this.writeToNBT(new NBTTagCompound());
   }
+
+  public int getDurability() {
+
+    return this.durability;
+  }
+
+  public abstract int getMaxDurability();
 }

@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.mortar.tile;
+package com.sudoplay.mc.pwcustom.modules.mortar.reference;
 
 public enum EnumMortarMode {
 

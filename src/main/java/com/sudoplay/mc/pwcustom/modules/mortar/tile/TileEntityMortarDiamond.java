@@ -3,17 +3,17 @@ package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 import com.sudoplay.mc.pwcustom.modules.mortar.ModuleConfig;
 import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarType;
 
-public class TileEntityMortarWood
+public class TileEntityMortarDiamond
     extends TileEntityMortarBase {
 
-  public TileEntityMortarWood() {
+  public TileEntityMortarDiamond() {
 
-    super(EnumMortarType.WOOD);
+    super(EnumMortarType.DIAMOND);
   }
 
   @Override
   public int getMaxDurability() {
 
-    return ModuleConfig.Durability.WOOD;
+    return ModuleConfig.Durability.DIAMOND;
   }
 }

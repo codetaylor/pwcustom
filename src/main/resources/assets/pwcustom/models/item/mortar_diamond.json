@@ -1,3 +1,6 @@
 {
-  "parent": "pwcustom:block/mortar_diamond"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "pwcustom:items/mortar_diamond"
+  }
 }
