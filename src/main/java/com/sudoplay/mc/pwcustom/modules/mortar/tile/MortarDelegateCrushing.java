@@ -119,7 +119,7 @@ public class MortarDelegateCrushing
   public ItemStack doCrafting() {
 
     RecipeMortarCrushing recipe = (RecipeMortarCrushing) this.getRecipe();
-    ItemStack[] matchingStacks = recipe.getInput().getMatchingStacks();
+    ItemStack[] matchingStacks = recipe.getIngredient().getMatchingStacks();
     int count = matchingStacks[0].getCount();
     this.itemStackHandler.getStackInSlot(0).shrink(count);
     this.changeObserver.run();

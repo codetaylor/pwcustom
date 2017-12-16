@@ -23,6 +23,28 @@ public class RegistryRecipeMortar {
     this.recipeMapCrushing = new EnumMap<>(EnumMortarType.class);
   }
 
+  public List<IRecipeMortar> getMixingRecipes(EnumMortarType type, List<IRecipeMortar> result) {
+
+    List<RecipeMortarMixing> recipes = this.recipeMapMixing.get(type);
+
+    if (recipes != null) {
+      result.addAll(recipes);
+    }
+
+    return result;
+  }
+
+  public List<IRecipeMortar> getCrushingRecipes(EnumMortarType type, List<IRecipeMortar> result) {
+
+    List<RecipeMortarCrushing> recipes = this.recipeMapCrushing.get(type);
+
+    if (recipes != null) {
+      result.addAll(recipes);
+    }
+
+    return result;
+  }
+
   @Nonnull
   public RecipeMortarMixing addMixingRecipe(EnumMortarType type, ItemStack output, int duration, Ingredient[] inputs) {
 

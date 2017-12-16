@@ -18,6 +18,7 @@ public class JEIRecipeWrapperWorkbench
   private RecipeWorkbenchBase recipe;
   private List<List<ItemStack>> inputs;
   private List<ItemStack> tools;
+  private ItemStack output;
 
   public JEIRecipeWrapperWorkbench(
       RecipeWorkbenchBase recipe
@@ -32,6 +33,7 @@ public class JEIRecipeWrapperWorkbench
     }
 
     this.tools = Arrays.asList(this.recipe.getTools());
+    this.output = this.recipe.getOutput();
   }
 
   public List<ItemStack> getTools() {
@@ -43,7 +45,7 @@ public class JEIRecipeWrapperWorkbench
   public void getIngredients(IIngredients ingredients) {
 
     ingredients.setInputLists(ItemStack.class, this.inputs);
-    ingredients.setOutput(ItemStack.class, this.recipe.getOutput());
+    ingredients.setOutput(ItemStack.class, this.output);
   }
 
   @Override
@@ -54,7 +56,13 @@ public class JEIRecipeWrapperWorkbench
     GlStateManager.pushMatrix();
     //GlStateManager.scale(0.5, 0.5, 1);
     String label = "-" + this.recipe.getToolDamage();
-    minecraft.fontRenderer.drawString(label, (95 - 3) - minecraft.fontRenderer.getStringWidth(label) * 0.5f, (55 - 3), 0xFFFFFFFF, true);
+    minecraft.fontRenderer.drawString(
+        label,
+        (95 - 3) - minecraft.fontRenderer.getStringWidth(label) * 0.5f,
+        (55 - 3),
+        0xFFFFFFFF,
+        true
+    );
     GlStateManager.popMatrix();
   }
 }

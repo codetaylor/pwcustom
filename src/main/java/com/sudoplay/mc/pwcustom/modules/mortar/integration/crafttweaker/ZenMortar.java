@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.mortar.integration;
+package com.sudoplay.mc.pwcustom.modules.mortar.integration.crafttweaker;
 
 import com.blamejared.mtlib.helpers.InputHelper;
 import com.blamejared.mtlib.helpers.LogHelper;
@@ -16,13 +16,13 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 import java.util.Arrays;
 
-import static com.sudoplay.mc.pwcustom.modules.mortar.integration.ZenMortar.NAME;
+import static com.sudoplay.mc.pwcustom.modules.mortar.integration.crafttweaker.ZenMortar.NAME;
 
 @ZenClass(NAME)
 @ZenRegister
 public class ZenMortar {
 
-  public static final String NAME = "com.sudoplay.mc.ctmortar2.Mortar";
+  public static final String NAME = "mods.advancedmortars.Mortar";
 
   @ZenMethod
   public static void addMixingRecipe(String[] types, IItemStack output, int duration, IIngredient[] inputs) {

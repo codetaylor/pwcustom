@@ -8,4 +8,5 @@ public interface IBlockVariant<T extends IVariant & Comparable<T>> {
   String getName(ItemStack stack);
 
   IProperty<T> getVariant();
+
 }

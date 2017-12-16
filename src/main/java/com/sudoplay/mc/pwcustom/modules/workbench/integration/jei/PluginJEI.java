@@ -8,10 +8,7 @@ import com.sudoplay.mc.pwcustom.modules.workbench.recipe.IRecipeWorkbench;
 import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RecipeWorkbenchShaped;
 import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RecipeWorkbenchShapeless;
 import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RegistryRecipeWorkbench;
-import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.IJeiHelpers;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
+import mezz.jei.api.*;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import net.minecraft.item.ItemStack;
@@ -20,7 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-@mezz.jei.api.JEIPlugin
+@JEIPlugin
 public class PluginJEI
     implements IModPlugin {
 

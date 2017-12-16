@@ -22,6 +22,11 @@ public class RecipeMortarMixing
     this.output = output;
   }
 
+  public NonNullList<Ingredient> getIngredients() {
+
+    return this.inputs;
+  }
+
   @Override
   public ItemStack getOutput() {
 

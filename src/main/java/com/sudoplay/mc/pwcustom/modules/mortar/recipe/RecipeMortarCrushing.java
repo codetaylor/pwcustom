@@ -29,7 +29,7 @@ public class RecipeMortarCrushing
     return this.duration;
   }
 
-  public Ingredient getInput() {
+  public Ingredient getIngredient() {
 
     return this.input;
   }

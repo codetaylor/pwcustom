@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.mortar.integration;
+package com.sudoplay.mc.pwcustom.modules.mortar.integration.crafttweaker;
 
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;

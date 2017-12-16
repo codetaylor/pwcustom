@@ -1,12 +1,14 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.tile;
 
 import com.sudoplay.mc.pwcustom.lib.util.StackUtil;
+import com.sudoplay.mc.pwcustom.modules.mortar.ModuleMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.IRecipeMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarMode;
 import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarType;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -14,10 +16,13 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
 
 public abstract class TileEntityMortarBase
     extends TileEntity
@@ -114,7 +119,7 @@ public abstract class TileEntityMortarBase
     this.mortarDelegate.dropAllItems(world, pos);
   }
 
-  public void resetCraftingProgress() {
+  private void resetCraftingProgress() {
 
     this.craftingProgress = 0;
     this.markDirty();
@@ -149,39 +154,58 @@ public abstract class TileEntityMortarBase
     this.durability += 1;
 
     if (this.durability >= maxDurability) {
-      this.destroy();
+      this.destroy(true,true, SoundEvents.ENTITY_ITEM_BREAK);
     }
   }
 
-  public void destroy() {
+  public ItemStack destroy(boolean dropAllItems, boolean spawnParticles, @Nullable SoundEvent soundEvent) {
 
-    this.dropAllItems(this.world, this.pos);
+    if (dropAllItems) {
+      this.dropAllItems(this.world, this.pos);
+    }
 
-    ((WorldServer) this.world).spawnParticle(
-        EnumParticleTypes.BLOCK_CRACK,
-        this.pos.getX() + 0.5,
-        this.pos.getY() + 0.125,
-        this.pos.getZ() + 0.5,
-        50,
-        0,
-        0,
-        0,
-        2d,
-        Block.getStateId(this.world.getBlockState(this.pos))
-    );
+    if (spawnParticles) {
+      ((WorldServer) this.world).spawnParticle(
+          EnumParticleTypes.BLOCK_CRACK,
+          this.pos.getX() + 0.5,
+          this.pos.getY() + 0.125,
+          this.pos.getZ() + 0.5,
+          50,
+          0,
+          0,
+          0,
+          2d,
+          Block.getStateId(this.world.getBlockState(this.pos))
+      );
+    }
 
-    this.world.playSound(
-        null,
-        this.pos.getX() + 0.5,
-        this.pos.getY() + 0.125,
-        this.pos.getZ() + 0.5,
-        SoundEvents.ENTITY_ITEM_BREAK,
-        SoundCategory.BLOCKS,
-        1.0f,
-        1.0f
-    );
+    if (soundEvent != null) {
+      this.world.playSound(
+          null,
+          this.pos.getX() + 0.5,
+          this.pos.getY() + 0.125,
+          this.pos.getZ() + 0.5,
+          soundEvent,
+          SoundCategory.BLOCKS,
+          1.0f,
+          1.0f
+      );
+    }
 
     this.world.setBlockToAir(this.pos);
+
+    return this.getAsItemStack();
+  }
+
+  public ItemStack getAsItemStack() {
+
+    ItemStack itemStack = new ItemStack(Item.getItemFromBlock(ModuleMortar.Blocks.MORTAR), 1, this.typeId);
+    NBTTagCompound compound = new NBTTagCompound();
+    NBTTagCompound teCompound = new NBTTagCompound();
+    this.writeToNBT(teCompound);
+    compound.setTag("BlockEntityTag", teCompound);
+    itemStack.setTagCompound(compound);
+    return itemStack;
   }
 
   @Override

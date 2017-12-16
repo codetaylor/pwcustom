@@ -14,4 +14,14 @@ hud.pwcustom.mortar.mode=Mode: %s
 hud.pwcustom.mortar.mode.mixing=Mixing
 hud.pwcustom.mortar.mode.crushing=Crushing
 
-config.pwcustom.mortar.durability="Mortar Durability"
+config.pwcustom.mortar.durability=Mortar Durability
+
+text.pwcustom.jei.category.mortar.wood=Wood Mortar
+text.pwcustom.jei.category.mortar.stone=Stone Mortar
+text.pwcustom.jei.category.mortar.iron=Iron Mortar
+text.pwcustom.jei.category.mortar.diamond=Diamond Mortar
+
+tile.pwcustom.mortar.mortar_wood.name=Wood Mortar
+tile.pwcustom.mortar.mortar_stone.name=Stone Mortar
+tile.pwcustom.mortar.mortar_iron.name=Iron Mortar
+tile.pwcustom.mortar.mortar_diamond.name=Diamond Mortar

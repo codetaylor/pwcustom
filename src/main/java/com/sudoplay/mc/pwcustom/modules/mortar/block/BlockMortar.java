@@ -16,10 +16,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -29,7 +28,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -82,25 +80,13 @@ public class BlockMortar
   @Override
   public String getHarvestTool(IBlockState state) {
 
-    return null;
+    return state.getValue(VARIANT).getHarvestTool();
   }
 
   @Override
   public int getHarvestLevel(IBlockState state) {
 
-    return -1;
-  }
-
-  @Override
-  public boolean isToolEffective(String type, IBlockState state) {
-
-    return true;
-  }
-
-  @Override
-  public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
-
-    return true;
+    return state.getValue(VARIANT).getHarvestLevel();
   }
 
   @Override
@@ -111,33 +97,13 @@ public class BlockMortar
     return state.getValue(VARIANT).getSoundType();
   }
 
-  /*@Override
-  public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-
-    TileEntity tileEntity = worldIn.getTileEntity(pos);
-
-    if (tileEntity instanceof TileEntityMortarBase) {
-      ItemStackHandler itemStackHandler = ((TileEntityMortarBase) tileEntity).getItemStackHandler();
-
-      for (int i = 0; i < itemStackHandler.getSlots(); i++) {
-        ItemStack itemStack = ((TileEntityMortarBase) tileEntity).removeItem();
-
-        if (itemStack.isEmpty()) {
-          break;
-        }
-
-        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), itemStack);
-      }
-    }
-
-    super.breakBlock(worldIn, pos, state);
-  }*/
-
   @Override
   public boolean removedByPlayer(
       IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest
   ) {
 
+    // Delay the destruction of the TE until after BlockMortar#getDrops is called. We need
+    // access to the TE while creating the dropped item in order to serialize it.
     return willHarvest || super.removedByPlayer(state, world, pos, player, false);
   }
 
@@ -168,20 +134,8 @@ public class BlockMortar
     if (tileEntity != null
         && tileEntity instanceof TileEntityMortarBase) {
 
-      ItemStack itemStack = this.getTileEntityAsItemStack(state, tileEntity);
-      drops.add(itemStack);
+      drops.add(((TileEntityMortarBase) tileEntity).getAsItemStack());
     }
-  }
-
-  private ItemStack getTileEntityAsItemStack(IBlockState state, TileEntity tileEntity) {
-
-    ItemStack itemStack = new ItemStack(Item.getItemFromBlock(this), 1, this.damageDropped(state));
-    NBTTagCompound compound = new NBTTagCompound();
-    NBTTagCompound teCompound = new NBTTagCompound();
-    tileEntity.writeToNBT(teCompound);
-    compound.setTag("BlockEntityTag", teCompound);
-    itemStack.setTagCompound(compound);
-    return itemStack;
   }
 
   @Override
@@ -203,8 +157,7 @@ public class BlockMortar
       TileEntity tileEntity = world.getTileEntity(pos);
 
       if (tileEntity instanceof TileEntityMortarBase) {
-        ((TileEntityMortarBase) tileEntity).destroy();
-        ItemStack itemStack = this.getTileEntityAsItemStack(state, tileEntity);
+        ItemStack itemStack = ((TileEntityMortarBase) tileEntity).destroy(true, false, SoundEvents.ENTITY_ITEM_PICKUP);
         StackUtil.spawnStackOnTop(world, itemStack, pos);
       }
     }
