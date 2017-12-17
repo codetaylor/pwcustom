@@ -1,17 +1,13 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.integration.jei;
 
+import com.sudoplay.mc.pwcustom.lib.gui.GuiHelper;
 import com.sudoplay.mc.pwcustom.modules.mortar.ModuleMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.RecipeMortarCrushing;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -50,7 +46,9 @@ public class JEIRecipeWrapperMortarCrushing
       Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY
   ) {
 
-    TextureManager renderEngine = minecraft.getRenderManager().renderEngine;
+    GuiHelper.drawTexturedRect(minecraft, this.texture, 20, 16, 14, 21, 100, 0, 0, 1, 1);
+
+    /*TextureManager renderEngine = minecraft.getRenderManager().renderEngine;
     renderEngine.bindTexture(this.texture);
 
     int x = 20;
@@ -78,6 +76,6 @@ public class JEIRecipeWrapperMortarCrushing
         .pos(x, y, zLevel)
         .tex(0, 0)
         .endVertex();
-    tessellator.draw();
+    tessellator.draw();*/
   }
 }

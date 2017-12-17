@@ -154,7 +154,7 @@ public abstract class TileEntityMortarBase
     this.durability += 1;
 
     if (this.durability >= maxDurability) {
-      this.destroy(true,true, SoundEvents.ENTITY_ITEM_BREAK);
+      this.destroy(true, true, SoundEvents.ENTITY_ITEM_BREAK);
     }
   }
 
@@ -276,10 +276,9 @@ public abstract class TileEntityMortarBase
     return this.writeToNBT(new NBTTagCompound());
   }
 
-  public int getDurability() {
+  private int getMaxDurability() {
 
-    return this.durability;
+    return ModuleMortar.Blocks.MORTAR.getMaxDurability(EnumMortarType.fromMeta(this.typeId));
   }
 
-  public abstract int getMaxDurability();
 }

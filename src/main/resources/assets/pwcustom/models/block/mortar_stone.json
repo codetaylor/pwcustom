@@ -2,7 +2,6 @@
   "parent": "pwcustom:block/mortar",
   "textures": {
     "mortar": "blocks/stone",
-    "pestle": "blocks/quartz_block_bottom",
     "particle": "blocks/stone"
   }
 }

@@ -39,7 +39,5 @@ public class ModuleConfig {
         ConfigManager.sync(ModuleMortar.MOD_ID, Config.Type.INSTANCE);
       }
     }
-
   }
-
 }

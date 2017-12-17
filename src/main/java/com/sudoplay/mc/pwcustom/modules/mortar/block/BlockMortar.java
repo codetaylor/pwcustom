@@ -3,6 +3,7 @@ package com.sudoplay.mc.pwcustom.modules.mortar.block;
 import com.sudoplay.mc.pwcustom.lib.spi.BlockBase;
 import com.sudoplay.mc.pwcustom.lib.spi.IBlockVariant;
 import com.sudoplay.mc.pwcustom.lib.util.StackUtil;
+import com.sudoplay.mc.pwcustom.modules.mortar.ModuleConfig;
 import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarType;
 import com.sudoplay.mc.pwcustom.modules.mortar.tile.*;
 import net.minecraft.block.Block;
@@ -29,6 +30,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
@@ -226,6 +228,35 @@ public class BlockMortar
     return true;
   }
 
+  public int getMaxDurability(IBlockState state) {
+
+    EnumMortarType type = state.getValue(VARIANT);
+    return this.getMaxDurability(type);
+  }
+
+  public int getMaxDurability(ItemStack itemStack) {
+
+    int metadata = itemStack.getMetadata();
+    EnumMortarType type = EnumMortarType.fromMeta(metadata);
+    return this.getMaxDurability(type);
+  }
+
+  public int getMaxDurability(EnumMortarType type) {
+
+    switch (type) {
+      case WOOD:
+        return ModuleConfig.Durability.WOOD;
+      case STONE:
+        return ModuleConfig.Durability.STONE;
+      case IRON:
+        return ModuleConfig.Durability.IRON;
+      case DIAMOND:
+        return ModuleConfig.Durability.DIAMOND;
+      default:
+        throw new IllegalArgumentException("Unknown mortar type: " + type);
+    }
+  }
+
   @Override
   public boolean hasTileEntity(IBlockState state) {
 
@@ -308,6 +339,7 @@ public class BlockMortar
   }
 
   @Override
+  @Nonnull
   public String getName(ItemStack stack) {
 
     return NAME + "_" + EnumMortarType.fromMeta(stack.getMetadata()).getName();

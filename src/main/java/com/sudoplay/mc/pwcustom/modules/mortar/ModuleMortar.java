@@ -2,20 +2,19 @@ package com.sudoplay.mc.pwcustom.modules.mortar;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
-import com.sudoplay.mc.pwcustom.lib.spi.IBlockVariant;
 import com.sudoplay.mc.pwcustom.modules.mortar.block.BlockMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.integration.crafttweaker.PluginCraftTweaker;
+import com.sudoplay.mc.pwcustom.modules.mortar.item.ItemBlockMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemMultiTexture;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModuleMortar
@@ -25,9 +24,12 @@ public class ModuleMortar
    * TODO:
    * <p>
    * test sound
-   * fix mortar texture
-   * graphic displayed in HUD for mortar mode
    * tooltip in JEI to clarify mortar mode
+   * item tooltip to explain usage
+   * review lang - move lang references to nested Lang class
+   * transfer to stand-alone project
+   * explicit registration of JEI plugin
+   * explicit registration of CT plugin
    */
 
   public static final String MOD_ID = ModPWCustom.MOD_ID;
@@ -51,6 +53,14 @@ public class ModuleMortar
   }
 
   @Override
+  public void onPreInitializationEvent(FMLPreInitializationEvent event) {
+
+    if (Loader.isModLoaded("crafttweaker")) {
+      PluginCraftTweaker.init();
+    }
+  }
+
+  @Override
   public void onRegisterBlockEvent(RegistryEvent.Register<Block> event) {
 
     event.getRegistry().registerAll(
@@ -61,17 +71,7 @@ public class ModuleMortar
   @Override
   public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
-    ItemBlock itemBlock = new ItemMultiTexture(Blocks.MORTAR, Blocks.MORTAR, ((IBlockVariant) Blocks.MORTAR)::getName) {
-
-      @Override
-      public int getItemBurnTime(ItemStack itemStack) {
-
-        return 0;
-      }
-    };
-
-    itemBlock.setMaxStackSize(1);
-    itemBlock.setRegistryName(Blocks.MORTAR.getRegistryName());
+    ItemBlock itemBlock = new ItemBlockMortar(Blocks.MORTAR, Blocks.MORTAR::getName);
 
     event.getRegistry().registerAll(
         itemBlock

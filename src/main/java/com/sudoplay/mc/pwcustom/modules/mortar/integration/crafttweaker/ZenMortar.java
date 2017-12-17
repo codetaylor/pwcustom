@@ -19,7 +19,6 @@ import java.util.Arrays;
 import static com.sudoplay.mc.pwcustom.modules.mortar.integration.crafttweaker.ZenMortar.NAME;
 
 @ZenClass(NAME)
-@ZenRegister
 public class ZenMortar {
 
   public static final String NAME = "mods.advancedmortars.Mortar";

@@ -11,6 +11,11 @@ public class PluginCraftTweaker {
   public static final List<IAction> LATE_REMOVALS = new LinkedList<>();
   public static final List<IAction> LATE_ADDITIONS = new LinkedList<>();
 
+  public static void init() {
+
+    CraftTweakerAPI.registerClass(ZenMortar.class);
+  }
+
   public static void apply() {
 
     LATE_REMOVALS.forEach(CraftTweakerAPI::apply);

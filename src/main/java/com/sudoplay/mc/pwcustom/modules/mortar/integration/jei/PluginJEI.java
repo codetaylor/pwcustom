@@ -1,13 +1,11 @@
 package com.sudoplay.mc.pwcustom.modules.mortar.integration.jei;
 
-import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.mortar.ModuleMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.api.MortarAPI;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.IRecipeMortar;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.RecipeMortarCrushing;
 import com.sudoplay.mc.pwcustom.modules.mortar.recipe.RecipeMortarMixing;
 import com.sudoplay.mc.pwcustom.modules.mortar.reference.EnumMortarType;
-import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
 import mezz.jei.api.*;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;

@@ -1,7 +1,7 @@
 {
     "parent": "block/block",
     "textures": {
-        "pestle": "blocks/quartz_block_bottom"
+      "pestle": "pwcustom:blocks/pestle"
     },
     "elements": [
         {
@@ -14,7 +14,7 @@
                 "south": { "texture": "#pestle", "uv": [ 0.0, 0.0, 2.0, 6.0 ] },
                 "west": { "texture": "#pestle", "uv": [ 0.0, 0.0, 2.0, 6.0 ] },
                 "up": { "texture": "#pestle", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
-                "down": { "texture": "#pestle", "uv": [ 0.0, 0.0, 2.0, 2.0 ] }
+                "down": { "texture": "#pestle", "uv": [ 0.0, 4.0, 2.0, 2.0 ] }
             }
         }
     ]

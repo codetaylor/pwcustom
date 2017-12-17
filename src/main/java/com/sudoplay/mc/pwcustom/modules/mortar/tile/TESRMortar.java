@@ -67,6 +67,10 @@ public class TESRMortar
       IModel model;
 
       try {
+        /*
+         * The texture for the pestle is actually loaded in the mortar block model. The texture specified in the
+         * pestle model never actually gets baked into the sprite atlas.
+         */
         model = ModelLoaderRegistry.getModel(new ResourceLocation(ModPWCustom.MOD_ID, "block/pestle"));
 
       } catch (Exception e) {
