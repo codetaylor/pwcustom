@@ -2,6 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.portals;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
+import com.sudoplay.mc.pwcustom.lib.module.helper.BlockRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.portals.block.BlockPortalDarklands;
 import com.sudoplay.mc.pwcustom.modules.portals.block.BlockPortalFrame;
@@ -55,7 +56,7 @@ public class ModulePortals
 
     // Item Blocks
     event.getRegistry().registerAll(
-        this.getBlockRegistrationHelper().createItemBlocks(
+        BlockRegistrationHelper.createItemBlocks(
             Blocks.PORTAL_FRAME
         )
     );
@@ -69,14 +70,12 @@ public class ModulePortals
   @Override
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
-    ModelRegistrationHelper helper = this.getModelRegistrationHelper();
-
-    helper.registerVariantBlockItemModels(
+    ModelRegistrationHelper.registerVariantBlockItemModels(
         Blocks.PORTAL_FRAME.getDefaultState(),
         BlockPortalFrame.VARIANT
     );
 
-    helper.registerVariantItemModels(
+    ModelRegistrationHelper.registerVariantItemModels(
         Items.PORTAL_WAND,
         "variant",
         BlockPortalFrame.EnumType.values()

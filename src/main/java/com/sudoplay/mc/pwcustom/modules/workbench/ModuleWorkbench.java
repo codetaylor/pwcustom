@@ -2,6 +2,9 @@ package com.sudoplay.mc.pwcustom.modules.workbench;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
+import com.sudoplay.mc.pwcustom.lib.module.helper.BlockRegistrationHelper;
+import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
+import com.sudoplay.mc.pwcustom.lib.module.helper.TileEntityRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
 import com.sudoplay.mc.pwcustom.modules.workbench.integration.crafttweaker.PluginCraftTweaker;
 import com.sudoplay.mc.pwcustom.modules.workbench.tile.*;
@@ -42,7 +45,7 @@ public class ModuleWorkbench
 
     // Item Blocks
     event.getRegistry().registerAll(
-        this.getBlockRegistrationHelper().createItemBlocks(
+        BlockRegistrationHelper.createItemBlocks(
             WORKBENCH_BASIC
         )
     );
@@ -51,7 +54,7 @@ public class ModuleWorkbench
   @Override
   public void onRegisterTileEntitiesEvent() {
 
-    this.getTileEntityRegistrationHelper().registerTileEntities(
+    TileEntityRegistrationHelper.registerTileEntities(
         ModPWCustom.MOD_ID,
         TileEntityWorkbenchBlacksmith.class,
         TileEntityWorkbenchCarpenter.class,
@@ -65,7 +68,7 @@ public class ModuleWorkbench
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
     // Workbench Basic
-    this.getModelRegistrationHelper().registerVariantBlockItemModels(
+    ModelRegistrationHelper.registerVariantBlockItemModels(
         WORKBENCH_BASIC.getDefaultState(),
         BlockWorkbench.VARIANT
     );

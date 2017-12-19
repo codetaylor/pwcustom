@@ -73,20 +73,18 @@ public class ModuleSawing
   @Override
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
-    ModelRegistrationHelper helper = this.getModelRegistrationHelper();
-
     for (ItemSaw saw : Items.SAWS) {
       String resourcePath = saw.getMaterial().isHighlighted() ? "saw_highlight" : "saw";
       ResourceLocation location = new ResourceLocation(ModPWCustom.MOD_ID, resourcePath);
       ModelResourceLocation modelResourceLocation = new ModelResourceLocation(location, "inventory");
-      helper.registerItemModel(saw, 0, modelResourceLocation);
+      ModelRegistrationHelper.registerItemModel(saw, 0, modelResourceLocation);
     }
 
     for (int i = 0; i < MATERIALS.length; i++) {
       String resourcePath = MATERIALS[i].isHighlighted() ? "part_saw_blade_highlight" : "part_saw_blade";
       ResourceLocation location = new ResourceLocation(ModPWCustom.MOD_ID, resourcePath);
       ModelResourceLocation modelResourceLocation = new ModelResourceLocation(location, "inventory");
-      helper.registerItemModel(Items.PART_SAW_BLADE, i, modelResourceLocation);
+      ModelRegistrationHelper.registerItemModel(Items.PART_SAW_BLADE, i, modelResourceLocation);
     }
   }
 

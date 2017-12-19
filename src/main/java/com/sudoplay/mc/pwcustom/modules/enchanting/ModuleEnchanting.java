@@ -2,6 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.enchanting;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
+import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.enchanting.event.ArcaneAffinityTooltipEventHandler;
 import com.sudoplay.mc.pwcustom.modules.enchanting.item.ItemBookGoldEmbossed;
 import com.sudoplay.mc.pwcustom.modules.enchanting.item.ItemTomeGoldEmbossed;
@@ -48,7 +49,7 @@ public class ModuleEnchanting
   @Override
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
-    this.getModelRegistrationHelper().registerItemModels(
+    ModelRegistrationHelper.registerItemModels(
         Items.BOOK_GOLD_EMBOSSED,
         Items.TOME_GOLD_EMBOSSED
     );

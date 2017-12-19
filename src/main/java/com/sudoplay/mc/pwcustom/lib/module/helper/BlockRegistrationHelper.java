@@ -11,19 +11,19 @@ import net.minecraft.util.ResourceLocation;
 
 public class BlockRegistrationHelper {
 
-  public ItemBlock[] createItemBlocks(Block... blocks) {
+  public static ItemBlock[] createItemBlocks(Block... blocks) {
 
     ItemBlock[] result = new ItemBlock[blocks.length];
 
     for (int i = 0; i < blocks.length; i++) {
-      ItemBlock itemBlock = this.createItemBlock(blocks[i]);
+      ItemBlock itemBlock = BlockRegistrationHelper.createItemBlock(blocks[i]);
       result[i] = itemBlock;
     }
 
     return result;
   }
 
-  public ItemBlock createItemBlock(Block block) {
+  public static ItemBlock createItemBlock(Block block) {
 
     ItemBlock itemBlock;
 
@@ -37,11 +37,11 @@ public class BlockRegistrationHelper {
       itemBlock = new ItemBlock(block);
     }
 
-    this.setRegistryName(block, itemBlock);
+    BlockRegistrationHelper.setRegistryName(block, itemBlock);
     return itemBlock;
   }
 
-  private void setRegistryName(Block block, ItemBlock itemBlock) {
+  private static void setRegistryName(Block block, ItemBlock itemBlock) {
 
     ResourceLocation registryName = block.getRegistryName();
     Preconditions.checkNotNull(registryName, "Block %s has null registry name", block);

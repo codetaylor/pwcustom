@@ -3,6 +3,7 @@ package com.sudoplay.mc.pwcustom.modules.toolparts;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.ItemMaterialPart;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
+import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -107,7 +108,7 @@ public class ModuleToolParts
 
     ResourceLocation location = new ResourceLocation(ModPWCustom.MOD_ID, name);
     ModelResourceLocation modelResourceLocation = new ModelResourceLocation(location, "inventory");
-    this.getModelRegistrationHelper().registerItemModel(item, i, modelResourceLocation);
+    ModelRegistrationHelper.registerItemModel(item, i, modelResourceLocation);
   }
 
   @Override

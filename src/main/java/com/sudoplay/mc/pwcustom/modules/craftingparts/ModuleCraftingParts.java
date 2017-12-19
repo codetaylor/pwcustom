@@ -2,6 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.craftingparts;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
+import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.craftingparts.item.ItemCraftingPart;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -33,7 +34,7 @@ public class ModuleCraftingParts
   @Override
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
-    this.getModelRegistrationHelper().registerVariantItemModels(
+    ModelRegistrationHelper.registerVariantItemModels(
         Items.CRAFTING_PART,
         "variant",
         ItemCraftingPart.EnumType.values()

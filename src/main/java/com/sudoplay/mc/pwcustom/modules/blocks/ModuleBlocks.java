@@ -2,6 +2,8 @@ package com.sudoplay.mc.pwcustom.modules.blocks;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
+import com.sudoplay.mc.pwcustom.lib.module.helper.BlockRegistrationHelper;
+import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.blocks.block.BlockSoulGravel;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -35,7 +37,7 @@ public class ModuleBlocks
   public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
     event.getRegistry().registerAll(
-        this.getBlockRegistrationHelper().createItemBlocks(
+        BlockRegistrationHelper.createItemBlocks(
             Blocks.SOUL_GRAVEL
         )
     );
@@ -45,7 +47,7 @@ public class ModuleBlocks
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
     // Single Variant Blocks
-    this.getModelRegistrationHelper().registerBlockItemModels(
+    ModelRegistrationHelper.registerBlockItemModels(
         Blocks.SOUL_GRAVEL
     );
   }
