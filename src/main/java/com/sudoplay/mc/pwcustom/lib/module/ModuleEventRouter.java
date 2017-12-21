@@ -39,10 +39,7 @@ public class ModuleEventRouter {
   @SubscribeEvent
   public void onRegisterBlockEvent(RegistryEvent.Register<Block> event) {
 
-    this.fireEvent(module -> {
-      module.onRegisterBlockEvent(event);
-    });
-
+    this.fireEvent(module -> module.onRegisterBlockEvent(event));
     this.onRegisterTileEntitiesEvent();
   }
 

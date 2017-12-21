@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "pwcustom:items/layer_knife",
+    "layer1": "pwcustom:items/layer_knife_handle"
+  }
+}

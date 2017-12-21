@@ -24,6 +24,7 @@ public class ModuleSawing
     extends ModuleBase {
 
   public static final EnumMaterial[] MATERIALS = new EnumMaterial[]{
+      EnumMaterial.STONE,
       EnumMaterial.FLINT,
       EnumMaterial.IRON,
       EnumMaterial.GOLD,

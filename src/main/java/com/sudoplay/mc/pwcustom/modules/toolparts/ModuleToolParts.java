@@ -45,6 +45,7 @@ public class ModuleToolParts
       new RegistrationWrapper("part_hoe_head", MATERIALS, true),
       new RegistrationWrapper("part_tool_rod", MATERIALS, false),
       new RegistrationWrapper("part_tool_rod_wrapped", MATERIALS, false),
+      new RegistrationWrapper("part_sword_blade", MATERIALS, true),
       new RegistrationWrapper("part_sword_guard", MATERIALS, false),
       new RegistrationWrapper("part_hammer_head", MATERIALS, false),
       new RegistrationWrapper("part_bow_limb", MATERIALS, false),
@@ -52,7 +53,8 @@ public class ModuleToolParts
       new RegistrationWrapper("part_rod", MATERIALS, false),
       new RegistrationWrapper("part_shear_blades", MATERIALS, false),
       new RegistrationWrapper("part_ring", MATERIALS, false),
-      new RegistrationWrapper("part_paxel_head", MATERIALS, true)
+      new RegistrationWrapper("part_paxel_head", MATERIALS, true),
+      new RegistrationWrapper("part_knife_blade", MATERIALS, true)
   };
 
   @Override

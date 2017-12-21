@@ -84,6 +84,11 @@
         "textures": {
           "layer0": "pwcustom:items/cast_shield"
         }
+      },
+      "knife_blade": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_knife_blade"
+        }
       }
     }
   }

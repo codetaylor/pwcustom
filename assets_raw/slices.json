@@ -23,6 +23,7 @@
         { "target": "cast_ring.png", "position": [0, 14] },
         { "target": "cast_paxel_head.png", "position": [0, 15] },
         { "target": "cast_shield.png", "position": [0, 16] },
+        { "target": "cast_knife_blade.png", "position": [0, 17] },
 
         { "target": "layer_saw_blade.png", "position": [1, 0] },
         { "target": "layer_part_saw_blade.png", "position": [1, 1] },
@@ -40,6 +41,7 @@
         { "target": "layer_part_shear_blades.png", "position": [1, 13] },
         { "target": "layer_part_ring.png", "position": [1, 14] },
         { "target": "layer_part_paxel_head.png", "position": [1, 15] },
+        { "target": "layer_part_knife_blade.png", "position": [1, 17] },
 
         { "target": "layer_saw_highlight.png", "position": [2, 0] },
         { "target": "layer_part_saw_blade_highlight.png", "position": [2, 1] },
@@ -50,6 +52,7 @@
         { "target": "layer_part_sword_blade_highlight.png", "position": [2, 7] },
         { "target": "layer_part_sickle_blade_highlight.png", "position": [2, 11] },
         { "target": "layer_part_paxel_head_highlight.png", "position": [2, 15] },
+        { "target": "layer_part_knife_blade_highlight.png", "position": [2, 17] },
 
         { "target": "layer_saw_handle.png", "position": [3, 0] },
         { "target": "bow_limb_wooden.png", "position": [3, 1] },
@@ -59,10 +62,13 @@
         { "target": "portal_wand_darklands.png", "position": [3, 5] },
 
         { "target": "tanned_leather_cord.png", "position": [4, 0] },
+        { "target": "layer_knife.png", "position": [4, 1] },
 
         { "target": "tanned_leather_strips.png", "position": [5, 0] },
+        { "target": "layer_knife_highlight.png", "position": [5, 1] },
 
         { "target": "crafting_rune_common.png", "position": [6, 0] },
+        { "target": "layer_knife_handle.png", "position": [6, 1] },
 
         { "target": "crafting_rune_uncommon.png", "position": [7, 0] },
 

@@ -14,6 +14,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static com.sudoplay.mc.pwcustom.modules.workbench.ModuleWorkbench.Blocks.WORKBENCH_BASIC;
@@ -28,6 +29,14 @@ public class ModuleWorkbench
 
     static {
       WORKBENCH_BASIC = null;
+    }
+  }
+
+  @Override
+  public void onPreInitializationEvent(FMLPreInitializationEvent event) {
+
+    if (Loader.isModLoaded("crafttweaker")) {
+      PluginCraftTweaker.init();
     }
   }
 
@@ -81,5 +90,4 @@ public class ModuleWorkbench
       PluginCraftTweaker.apply();
     }
   }
-
 }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JEIPlugin
-public class PluginJEI
+public class ModulePluginJEI
     implements IModPlugin {
 
   private IJeiHelpers jeiHelpers;

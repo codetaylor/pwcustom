@@ -18,7 +18,6 @@ import stanhebben.zenscript.annotations.ZenMethod;
 import java.util.Arrays;
 
 @ZenClass("mods.pwcustom.Workbench")
-@ZenRegister
 public class ZenWorkbench {
 
   // --------------------------------------------------------------------------
