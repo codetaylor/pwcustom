@@ -17,17 +17,16 @@ import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class ModuleEventRouter {
 
-  private final ModuleRegistry registry;
+  private final List<IModule> moduleList;
 
-  public ModuleEventRouter(ModuleRegistry registry) {
+  /* package */ ModuleEventRouter(List<IModule> moduleList) {
 
-    this.registry = registry;
+    this.moduleList = moduleList;
   }
 
   // --------------------------------------------------------------------------
@@ -97,24 +96,24 @@ public class ModuleEventRouter {
     this.fireEvent(module -> module.onRegisterRecipesEvent(event));
   }
 
-  public void onRegisterTileEntitiesEvent() {
+  /* package */ void onRegisterTileEntitiesEvent() {
 
     this.fireEvent(IModule::onRegisterTileEntitiesEvent);
   }
 
   // - FML State
 
-  public void onConstructionEvent(FMLConstructionEvent event) {
+  /* package */ void onConstructionEvent(FMLConstructionEvent event) {
 
     this.fireEvent(module -> module.onConstructionEvent(event));
   }
 
-  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
+  /* package */ void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
 
     this.fireEvent(module -> module.onLoadCompleteEvent(event));
   }
 
-  public void onPreInitializationEvent(FMLPreInitializationEvent event) {
+  /* package */ void onPreInitializationEvent(FMLPreInitializationEvent event) {
 
     this.fireEvent(module -> module.onPreInitializationEvent(event));
 
@@ -123,7 +122,7 @@ public class ModuleEventRouter {
     }
   }
 
-  public void onInitializationEvent(FMLInitializationEvent event) {
+  /* package */ void onInitializationEvent(FMLInitializationEvent event) {
 
     this.fireEvent(module -> module.onInitializationEvent(event));
 
@@ -132,7 +131,7 @@ public class ModuleEventRouter {
     }
   }
 
-  public void onPostInitializationEvent(FMLPostInitializationEvent event) {
+  /* package */ void onPostInitializationEvent(FMLPostInitializationEvent event) {
 
     this.fireEvent(module -> module.onPostInitializationEvent(event));
 
@@ -153,19 +152,19 @@ public class ModuleEventRouter {
   }
 
   @SideOnly(Side.CLIENT)
-  public void onClientPreInitializationEvent(FMLPreInitializationEvent event) {
+  private void onClientPreInitializationEvent(FMLPreInitializationEvent event) {
 
     this.fireEvent(module -> module.onClientPreInitializationEvent(event));
   }
 
   @SideOnly(Side.CLIENT)
-  public void onClientInitializationEvent(FMLInitializationEvent event) {
+  private void onClientInitializationEvent(FMLInitializationEvent event) {
 
     this.fireEvent(module -> module.onClientInitializationEvent(event));
   }
 
   @SideOnly(Side.CLIENT)
-  public void onClientPostInitializationEvent(FMLPostInitializationEvent event) {
+  private void onClientPostInitializationEvent(FMLPostInitializationEvent event) {
 
     this.fireEvent(module -> module.onClientPostInitializationEvent(event));
   }
@@ -174,27 +173,27 @@ public class ModuleEventRouter {
   // - Server
   // --------------------------------------------------------------------------
 
-  public void onServerAboutToStartEvent(FMLServerAboutToStartEvent event) {
+  /* package */ void onServerAboutToStartEvent(FMLServerAboutToStartEvent event) {
 
     this.fireEvent(module -> module.onServerAboutToStartEvent(event));
   }
 
-  public void onServerStartingEvent(FMLServerStartingEvent event) {
+  /* package */ void onServerStartingEvent(FMLServerStartingEvent event) {
 
     this.fireEvent(module -> module.onServerStartingEvent(event));
   }
 
-  public void onServerStartedEvent(FMLServerStartedEvent event) {
+  /* package */ void onServerStartedEvent(FMLServerStartedEvent event) {
 
     this.fireEvent(module -> module.onServerStartedEvent(event));
   }
 
-  public void onServerStoppingEvent(FMLServerStoppingEvent event) {
+  /* package */ void onServerStoppingEvent(FMLServerStoppingEvent event) {
 
     this.fireEvent(module -> module.onServerStoppingEvent(event));
   }
 
-  public void onServerStoppedEvent(FMLServerStoppedEvent event) {
+  /* package */ void onServerStoppedEvent(FMLServerStoppedEvent event) {
 
     this.fireEvent(module -> module.onServerStoppedEvent(event));
   }
@@ -205,9 +204,7 @@ public class ModuleEventRouter {
 
   private void fireEvent(Consumer<IModule> moduleConsumer) {
 
-    List<IModule> modules = this.registry.getModules(new ArrayList<>());
-
-    for (IModule module : modules) {
+    for (IModule module : this.moduleList) {
       moduleConsumer.accept(module);
     }
   }

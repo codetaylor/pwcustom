@@ -1,9 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.portals;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
+import com.sudoplay.mc.pwcustom.lib.BlockRegistrationHelper;
+import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
-import com.sudoplay.mc.pwcustom.lib.module.helper.BlockRegistrationHelper;
-import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.portals.block.BlockPortalDarklands;
 import com.sudoplay.mc.pwcustom.modules.portals.block.BlockPortalFrame;
 import com.sudoplay.mc.pwcustom.modules.portals.item.ItemPortalWand;
@@ -15,6 +15,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModulePortals
     extends ModuleBase {
+
+  public ModulePortals() {
+
+    super(0);
+  }
 
   @SuppressWarnings("WeakerAccess")
   public static class Blocks {

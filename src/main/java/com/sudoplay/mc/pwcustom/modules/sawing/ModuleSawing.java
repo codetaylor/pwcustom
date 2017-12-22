@@ -2,8 +2,8 @@ package com.sudoplay.mc.pwcustom.modules.sawing;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.ItemMaterialPart;
+import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
-import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import com.sudoplay.mc.pwcustom.modules.sawing.integration.PluginCraftTweaker;
 import com.sudoplay.mc.pwcustom.modules.sawing.item.ItemSaw;
@@ -22,6 +22,11 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModuleSawing
     extends ModuleBase {
+
+  public ModuleSawing() {
+
+    super(0);
+  }
 
   public static final EnumMaterial[] MATERIALS = new EnumMaterial[]{
       EnumMaterial.STONE,

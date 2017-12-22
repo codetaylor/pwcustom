@@ -57,9 +57,9 @@ public class JEIRecipeTransferInfoWorkbenchBasic
     return container.getInventorySlots(new ArrayList<>());
   }
 
-  /*@Override
+  @Override
   public boolean requireCompleteSets() {
 
     return false;
-  }*/
+  }
 }

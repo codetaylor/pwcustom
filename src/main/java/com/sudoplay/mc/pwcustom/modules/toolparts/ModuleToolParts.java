@@ -2,8 +2,8 @@ package com.sudoplay.mc.pwcustom.modules.toolparts;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.lib.ItemMaterialPart;
+import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
-import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -17,6 +17,11 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModuleToolParts
     extends ModuleBase {
+
+  public ModuleToolParts() {
+
+    super(0);
+  }
 
   private static final EnumMaterial[] MATERIALS = new EnumMaterial[]{
       EnumMaterial.STONE,

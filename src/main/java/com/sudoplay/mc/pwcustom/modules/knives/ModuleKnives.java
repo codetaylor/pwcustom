@@ -1,8 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.knives;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
+import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
-import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import com.sudoplay.mc.pwcustom.modules.knives.item.ItemKnife;
 import net.minecraft.client.Minecraft;
@@ -16,6 +16,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 public class ModuleKnives
     extends ModuleBase {
+
+  public ModuleKnives() {
+
+    super(0);
+  }
 
   public static final EnumMaterial[] MATERIALS = new EnumMaterial[]{
       EnumMaterial.STONE,

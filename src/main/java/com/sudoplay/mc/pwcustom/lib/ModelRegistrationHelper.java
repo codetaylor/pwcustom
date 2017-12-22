@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.lib.module.helper;
+package com.sudoplay.mc.pwcustom.lib;
 
 import com.google.common.base.Preconditions;
 import com.sudoplay.mc.pwcustom.ModPWCustom;

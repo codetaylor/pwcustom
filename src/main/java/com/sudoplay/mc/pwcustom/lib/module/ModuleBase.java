@@ -15,21 +15,21 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nonnull;
 
 public abstract class ModuleBase
     implements IModule {
 
   private final String name;
-  private Logger logger;
+  private final int priority;
 
-  protected ModuleBase() {
+  protected ModuleBase(int priority) {
 
     this.name = this.getClass().getSimpleName();
+    this.priority = priority;
   }
 
-  // --------------------------------------------------------------------------
-  // - Name
   // --------------------------------------------------------------------------
 
   @Override
@@ -38,30 +38,25 @@ public abstract class ModuleBase
     return this.name;
   }
 
-  // --------------------------------------------------------------------------
-  // - Logger
-  // --------------------------------------------------------------------------
-
   @Override
-  public Logger getLogger() {
+  public int getPriority() {
 
-    return this.logger;
-  }
-
-  @Override
-  public void setLogger(Logger logger) {
-
-    if (this.logger != null) {
-      throw new IllegalStateException("Logger already set!");
-    }
-    this.logger = logger;
+    return this.priority;
   }
 
   // --------------------------------------------------------------------------
-  // - Common
+  // - Comparator
   // --------------------------------------------------------------------------
 
+  @Override
+  public int compareTo(@Nonnull IModule otherModule) {
+
+    return Integer.compare(this.priority, otherModule.getPriority());
+  }
+
+  // --------------------------------------------------------------------------
   // - Registration
+  // --------------------------------------------------------------------------
 
   @Override
   public void onRegisterBlockEvent(RegistryEvent.Register<Block> event) {
@@ -118,15 +113,18 @@ public abstract class ModuleBase
     //
   }
 
-  // - FML State
-
   @Override
-  public void onConstructionEvent(FMLConstructionEvent event) {
+  @SideOnly(Side.CLIENT)
+  public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
     //
   }
 
+  // --------------------------------------------------------------------------
+  // - FML Lifecycle
+  // --------------------------------------------------------------------------
+
   @Override
-  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
+  public void onConstructionEvent(FMLConstructionEvent event) {
     //
   }
 
@@ -145,15 +143,14 @@ public abstract class ModuleBase
     //
   }
 
-  // --------------------------------------------------------------------------
-  // - Client
-  // --------------------------------------------------------------------------
-
   @Override
-  @SideOnly(Side.CLIENT)
-  public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
+  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
     //
   }
+
+  // --------------------------------------------------------------------------
+  // - FML Lifecycle: Client
+  // --------------------------------------------------------------------------
 
   @Override
   @SideOnly(Side.CLIENT)

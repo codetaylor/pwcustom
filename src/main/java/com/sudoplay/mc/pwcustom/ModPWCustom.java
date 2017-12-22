@@ -1,9 +1,7 @@
 package com.sudoplay.mc.pwcustom;
 
 import com.sudoplay.mc.pwcustom.lib.gui.GuiHandler;
-import com.sudoplay.mc.pwcustom.lib.module.IModuleLoggerFactory;
-import com.sudoplay.mc.pwcustom.lib.module.ModuleEventRouter;
-import com.sudoplay.mc.pwcustom.lib.module.ModuleRegistry;
+import com.sudoplay.mc.pwcustom.lib.module.ModBase;
 import com.sudoplay.mc.pwcustom.modules.blocks.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts;
 import com.sudoplay.mc.pwcustom.modules.craftingparts.ModuleCraftingParts;
@@ -15,11 +13,9 @@ import com.sudoplay.mc.pwcustom.modules.toolparts.ModuleToolParts;
 import com.sudoplay.mc.pwcustom.modules.workbench.ModuleWorkbench;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import org.apache.logging.log4j.LogManager;
 
 @Mod(
     modid = ModPWCustom.MOD_ID,
@@ -27,7 +23,8 @@ import org.apache.logging.log4j.LogManager;
     name = ModPWCustom.NAME,
     dependencies = ModPWCustom.DEPENDENCIES
 )
-public class ModPWCustom {
+public class ModPWCustom
+    extends ModBase {
 
   public static final String MOD_ID = Reference.MOD_ID;
   public static final String VERSION = Reference.VERSION;
@@ -49,38 +46,25 @@ public class ModPWCustom {
     }
   };
 
-  private ModuleEventRouter moduleEventRouter;
-
   public ModPWCustom() {
 
-    IModuleLoggerFactory moduleLoggerFactory = module -> LogManager.getLogger(MOD_ID + "." + module.getName());
-    ModuleRegistry moduleRegistry = new ModuleRegistry(moduleLoggerFactory);
-    this.moduleEventRouter = new ModuleEventRouter(moduleRegistry);
-    MinecraftForge.EVENT_BUS.register(this.moduleEventRouter);
-
-    moduleRegistry.registerModules(
-        new ModuleWorkbench(),
-        new ModulePortals(),
-        new ModuleSawing(),
-        new ModuleToolParts(),
-        new ModuleCasts(),
-        new ModuleEnchanting(),
-        new ModuleBlocks(),
-        new ModuleCraftingParts(),
-        new ModuleKnives()
+    this.registerModules(
+        ModuleWorkbench.class,
+        ModulePortals.class,
+        ModuleSawing.class,
+        ModuleToolParts.class,
+        ModuleCasts.class,
+        ModuleEnchanting.class,
+        ModuleBlocks.class,
+        ModuleCraftingParts.class,
+        ModuleKnives.class
     );
   }
 
   @Mod.EventHandler
   public void onConstructionEvent(FMLConstructionEvent event) {
 
-    this.moduleEventRouter.onConstructionEvent(event);
-  }
-
-  @Mod.EventHandler
-  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
-
-    this.moduleEventRouter.onLoadCompleteEvent(event);
+    super._onConstructionEvent(event);
   }
 
   @Mod.EventHandler
@@ -88,48 +72,55 @@ public class ModPWCustom {
 
     NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
-    this.moduleEventRouter.onPreInitializationEvent(event);
+    super._onPreInitializationEvent(event);
   }
 
   @Mod.EventHandler
   public void onInitializationEvent(FMLInitializationEvent event) {
 
-    this.moduleEventRouter.onInitializationEvent(event);
+    super._onInitializationEvent(event);
   }
 
   @Mod.EventHandler
   public void onPostInitializationEvent(FMLPostInitializationEvent event) {
 
-    this.moduleEventRouter.onPostInitializationEvent(event);
+    super._onPostInitializationEvent(event);
+  }
+
+  @Mod.EventHandler
+  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
+
+    super._onLoadCompleteEvent(event);
   }
 
   @Mod.EventHandler
   public void onServerAboutToStartEvent(FMLServerAboutToStartEvent event) {
 
-    this.moduleEventRouter.onServerAboutToStartEvent(event);
+    super._onServerAboutToStartEvent(event);
   }
 
   @Mod.EventHandler
   public void onServerStartingEvent(FMLServerStartingEvent event) {
 
-    this.moduleEventRouter.onServerStartingEvent(event);
+    super._onServerStartingEvent(event);
   }
 
   @Mod.EventHandler
   public void onServerStartedEvent(FMLServerStartedEvent event) {
 
-    this.moduleEventRouter.onServerStartedEvent(event);
+    super._onServerStartedEvent(event);
   }
 
   @Mod.EventHandler
   public void onServerStoppingEvent(FMLServerStoppingEvent event) {
 
-    this.moduleEventRouter.onServerStoppingEvent(event);
+    super._onServerStoppingEvent(event);
   }
 
   @Mod.EventHandler
   public void onServerStoppedEvent(FMLServerStoppedEvent event) {
 
-    this.moduleEventRouter.onServerStoppedEvent(event);
+    super._onServerStoppedEvent(event);
   }
+
 }

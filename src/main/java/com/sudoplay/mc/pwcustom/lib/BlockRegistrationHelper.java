@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.lib.module.helper;
+package com.sudoplay.mc.pwcustom.lib;
 
 import com.google.common.base.Preconditions;
 import com.sudoplay.mc.pwcustom.lib.spi.IBlockColored;
@@ -41,7 +41,7 @@ public class BlockRegistrationHelper {
     return itemBlock;
   }
 
-  private static void setRegistryName(Block block, ItemBlock itemBlock) {
+  public static void setRegistryName(Block block, ItemBlock itemBlock) {
 
     ResourceLocation registryName = block.getRegistryName();
     Preconditions.checkNotNull(registryName, "Block %s has null registry name", block);

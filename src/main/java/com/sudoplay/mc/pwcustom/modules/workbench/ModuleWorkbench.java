@@ -1,12 +1,12 @@
 package com.sudoplay.mc.pwcustom.modules.workbench;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
+import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
+import com.sudoplay.mc.pwcustom.lib.TileEntityRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
-import com.sudoplay.mc.pwcustom.lib.module.helper.BlockRegistrationHelper;
-import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
-import com.sudoplay.mc.pwcustom.lib.module.helper.TileEntityRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
 import com.sudoplay.mc.pwcustom.modules.workbench.integration.crafttweaker.PluginCraftTweaker;
+import com.sudoplay.mc.pwcustom.modules.workbench.item.ItemWorkbench;
 import com.sudoplay.mc.pwcustom.modules.workbench.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -21,6 +21,11 @@ import static com.sudoplay.mc.pwcustom.modules.workbench.ModuleWorkbench.Blocks.
 
 public class ModuleWorkbench
     extends ModuleBase {
+
+  public ModuleWorkbench() {
+
+    super(0);
+  }
 
   public static class Blocks {
 
@@ -54,9 +59,7 @@ public class ModuleWorkbench
 
     // Item Blocks
     event.getRegistry().registerAll(
-        BlockRegistrationHelper.createItemBlocks(
-            WORKBENCH_BASIC
-        )
+        new ItemWorkbench(Blocks.WORKBENCH_BASIC)
     );
   }
 

@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.lib.module.helper;
+package com.sudoplay.mc.pwcustom.lib;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;

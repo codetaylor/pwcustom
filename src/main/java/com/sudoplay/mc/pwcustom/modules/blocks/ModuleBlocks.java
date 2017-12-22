@@ -1,9 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.blocks;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
+import com.sudoplay.mc.pwcustom.lib.BlockRegistrationHelper;
+import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
-import com.sudoplay.mc.pwcustom.lib.module.helper.BlockRegistrationHelper;
-import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.blocks.block.BlockSoulGravel;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -13,6 +13,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModuleBlocks
     extends ModuleBase {
+
+  public ModuleBlocks() {
+
+    super(0);
+  }
 
   @SuppressWarnings("WeakerAccess")
   public static class Blocks {

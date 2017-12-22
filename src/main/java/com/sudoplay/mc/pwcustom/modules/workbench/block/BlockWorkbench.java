@@ -23,6 +23,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
@@ -151,6 +152,7 @@ public class BlockWorkbench
     }
   }
 
+  @Nonnull
   @Override
   public String getName(ItemStack stack) {
 

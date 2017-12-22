@@ -12,15 +12,12 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
-import org.apache.logging.log4j.Logger;
 
-public interface IModule {
+public interface IModule extends Comparable<IModule> {
 
   String getName();
 
-  Logger getLogger();
-
-  void setLogger(Logger logger);
+  int getPriority();
 
   // --------------------------------------------------------------------------
   // - Common

@@ -1,8 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.craftingparts;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
+import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
-import com.sudoplay.mc.pwcustom.lib.module.helper.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.craftingparts.item.ItemCraftingPart;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -11,6 +11,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModuleCraftingParts
     extends ModuleBase {
+
+  public ModuleCraftingParts() {
+
+    super(0);
+  }
 
   @SuppressWarnings("WeakerAccess")
   public static class Items {
