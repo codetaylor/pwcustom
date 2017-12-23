@@ -3,11 +3,11 @@ package com.sudoplay.mc.pwcustom.modules.workbench.integration.crafttweaker;
 import com.blamejared.mtlib.helpers.InputHelper;
 import com.blamejared.mtlib.helpers.LogHelper;
 import com.blamejared.mtlib.utils.BaseUndoable;
+import com.sudoplay.mc.pwcustom.lib.integration.crafttweaker.PluginDelegateCraftTweaker;
 import com.sudoplay.mc.pwcustom.lib.util.CTUtil;
 import com.sudoplay.mc.pwcustom.modules.workbench.api.WorkbenchAPI;
 import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
 import com.sudoplay.mc.pwcustom.modules.workbench.recipe.RegistryRecipeWorkbench;
-import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
@@ -52,7 +52,7 @@ public class ZenWorkbench {
       IIngredient[][] input
   ) {
 
-    PluginCraftTweaker.LATE_ADDITIONS.add(new AddShaped(
+    PluginDelegateCraftTweaker.LATE_ADDITIONS.add(new AddShaped(
         table,
         InputHelper.toStack(result),
         CTUtil.toIngredient(tool),
@@ -123,7 +123,7 @@ public class ZenWorkbench {
       IIngredient[] input
   ) {
 
-    PluginCraftTweaker.LATE_ADDITIONS.add(new AddShapeless(
+    PluginDelegateCraftTweaker.LATE_ADDITIONS.add(new AddShapeless(
         table,
         InputHelper.toStack(result),
         CTUtil.toIngredient(tool),

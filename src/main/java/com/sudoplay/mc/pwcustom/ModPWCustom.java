@@ -48,6 +48,8 @@ public class ModPWCustom
 
   public ModPWCustom() {
 
+    super(MOD_ID);
+
     this.registerModules(
         ModuleWorkbench.class,
         ModulePortals.class,
@@ -58,6 +60,16 @@ public class ModPWCustom
         ModuleBlocks.class,
         ModuleCraftingParts.class,
         ModuleKnives.class
+    );
+
+    this.registerIntegrationHandler(
+        "jei",
+        "com.sudoplay.mc.pwcustom.lib.integration.jei.IntegrationPluginHandlerJEI"
+    );
+
+    this.registerIntegrationHandler(
+        "crafttweaker",
+        "com.sudoplay.mc.pwcustom.lib.integration.crafttweaker.IntegrationPluginHandlerCraftTweaker"
     );
   }
 

@@ -5,7 +5,6 @@ import com.sudoplay.mc.pwcustom.lib.ItemMaterialPart;
 import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.material.EnumMaterial;
-import com.sudoplay.mc.pwcustom.modules.sawing.integration.PluginCraftTweaker;
 import com.sudoplay.mc.pwcustom.modules.sawing.item.ItemSaw;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -14,9 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -26,6 +23,11 @@ public class ModuleSawing
   public ModuleSawing() {
 
     super(0);
+
+    this.registerIntegrationPlugin(
+        "crafttweaker",
+        "com.sudoplay.mc.pwcustom.modules.sawing.integration.crafttweaker.ZenSawing"
+    );
   }
 
   public static final EnumMaterial[] MATERIALS = new EnumMaterial[]{
@@ -109,13 +111,4 @@ public class ModuleSawing
         Items.PART_SAW_BLADE
     );
   }
-
-  @Override
-  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
-
-    if (Loader.isModLoaded("crafttweaker")) {
-      PluginCraftTweaker.apply();
-    }
-  }
-
 }

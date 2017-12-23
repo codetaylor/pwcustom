@@ -5,16 +5,12 @@ import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.TileEntityRegistrationHelper;
 import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.modules.workbench.block.BlockWorkbench;
-import com.sudoplay.mc.pwcustom.modules.workbench.integration.crafttweaker.PluginCraftTweaker;
 import com.sudoplay.mc.pwcustom.modules.workbench.item.ItemWorkbench;
 import com.sudoplay.mc.pwcustom.modules.workbench.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static com.sudoplay.mc.pwcustom.modules.workbench.ModuleWorkbench.Blocks.WORKBENCH_BASIC;
@@ -25,6 +21,16 @@ public class ModuleWorkbench
   public ModuleWorkbench() {
 
     super(0);
+
+    this.registerIntegrationPlugin(
+        "crafttweaker",
+        "com.sudoplay.mc.pwcustom.modules.workbench.integration.crafttweaker.ZenWorkbench"
+    );
+
+    this.registerIntegrationPlugin(
+        "jei",
+        "com.sudoplay.mc.pwcustom.modules.workbench.integration.jei.PluginJEI"
+    );
   }
 
   public static class Blocks {
@@ -34,14 +40,6 @@ public class ModuleWorkbench
 
     static {
       WORKBENCH_BASIC = null;
-    }
-  }
-
-  @Override
-  public void onPreInitializationEvent(FMLPreInitializationEvent event) {
-
-    if (Loader.isModLoaded("crafttweaker")) {
-      PluginCraftTweaker.init();
     }
   }
 
@@ -84,13 +82,5 @@ public class ModuleWorkbench
         WORKBENCH_BASIC.getDefaultState(),
         BlockWorkbench.VARIANT
     );
-  }
-
-  @Override
-  public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
-
-    if (Loader.isModLoaded("crafttweaker")) {
-      PluginCraftTweaker.apply();
-    }
   }
 }

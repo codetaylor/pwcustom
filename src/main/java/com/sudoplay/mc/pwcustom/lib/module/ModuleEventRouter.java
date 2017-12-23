@@ -22,9 +22,9 @@ import java.util.function.Consumer;
 
 public class ModuleEventRouter {
 
-  private final List<IModule> moduleList;
+  private final List<ModuleBase> moduleList;
 
-  /* package */ ModuleEventRouter(List<IModule> moduleList) {
+  /* package */ ModuleEventRouter(List<ModuleBase> moduleList) {
 
     this.moduleList = moduleList;
   }
@@ -96,9 +96,9 @@ public class ModuleEventRouter {
     this.fireEvent(module -> module.onRegisterRecipesEvent(event));
   }
 
-  /* package */ void onRegisterTileEntitiesEvent() {
+  private void onRegisterTileEntitiesEvent() {
 
-    this.fireEvent(IModule::onRegisterTileEntitiesEvent);
+    this.fireEvent(ModuleBase::onRegisterTileEntitiesEvent);
   }
 
   // - FML State
@@ -202,9 +202,9 @@ public class ModuleEventRouter {
   // - Internal
   // --------------------------------------------------------------------------
 
-  private void fireEvent(Consumer<IModule> moduleConsumer) {
+  private void fireEvent(Consumer<ModuleBase> moduleConsumer) {
 
-    for (IModule module : this.moduleList) {
+    for (ModuleBase module : this.moduleList) {
       moduleConsumer.accept(module);
     }
   }

@@ -17,103 +17,109 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class ModuleBase
-    implements IModule {
+    implements Comparable<ModuleBase> {
 
   private final String name;
   private final int priority;
+  private final Map<String, Set<String>> integrationPluginMap;
 
   protected ModuleBase(int priority) {
 
     this.name = this.getClass().getSimpleName();
     this.priority = priority;
+    this.integrationPluginMap = new HashMap<>();
   }
 
   // --------------------------------------------------------------------------
 
-  @Override
   public String getName() {
 
     return this.name;
   }
 
-  @Override
   public int getPriority() {
 
     return this.priority;
   }
 
   // --------------------------------------------------------------------------
+  // - Integration
+  // --------------------------------------------------------------------------
+
+  protected void registerIntegrationPlugin(String modId, String plugin) {
+
+    Set<String> list = this.integrationPluginMap.computeIfAbsent(modId, k -> new HashSet<>());
+    list.add(plugin);
+  }
+
+  /* package */ Map<String, Set<String>> getIntegrationPluginMap() {
+
+    return this.integrationPluginMap;
+  }
+
+  // --------------------------------------------------------------------------
   // - Comparator
   // --------------------------------------------------------------------------
 
-  @Override
-  public int compareTo(@Nonnull IModule otherModule) {
+  public int compareTo(@Nonnull ModuleBase otherModule) {
 
-    return Integer.compare(this.priority, otherModule.getPriority());
+    return Integer.compare(otherModule.getPriority(), this.priority);
   }
 
   // --------------------------------------------------------------------------
   // - Registration
   // --------------------------------------------------------------------------
 
-  @Override
   public void onRegisterBlockEvent(RegistryEvent.Register<Block> event) {
     //
   }
 
-  @Override
   public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
     //
   }
 
-  @Override
   public void onRegisterPotionEvent(RegistryEvent.Register<Potion> event) {
     //
   }
 
-  @Override
   public void onRegisterBiomeEvent(RegistryEvent.Register<Biome> event) {
     //
   }
 
-  @Override
   public void onRegisterSoundEvent(RegistryEvent.Register<SoundEvent> event) {
     //
   }
 
-  @Override
   public void onRegisterPotionTypeEvent(RegistryEvent.Register<PotionType> event) {
     //
   }
 
-  @Override
   public void onRegisterEnchantmentEvent(RegistryEvent.Register<Enchantment> event) {
     //
   }
 
-  @Override
   public void onRegisterVillagerProfessionEvent(RegistryEvent.Register<VillagerRegistry.VillagerProfession> event) {
     //
   }
 
-  @Override
   public void onRegisterEntityEvent(RegistryEvent.Register<EntityEntry> event) {
     //
   }
 
-  @Override
   public void onRegisterRecipesEvent(RegistryEvent.Register<IRecipe> event) {
     //
   }
 
-  @Override
   public void onRegisterTileEntitiesEvent() {
     //
   }
 
-  @Override
   @SideOnly(Side.CLIENT)
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
     //
@@ -123,27 +129,22 @@ public abstract class ModuleBase
   // - FML Lifecycle
   // --------------------------------------------------------------------------
 
-  @Override
   public void onConstructionEvent(FMLConstructionEvent event) {
     //
   }
 
-  @Override
   public void onPreInitializationEvent(FMLPreInitializationEvent event) {
     //
   }
 
-  @Override
   public void onInitializationEvent(FMLInitializationEvent event) {
     //
   }
 
-  @Override
   public void onPostInitializationEvent(FMLPostInitializationEvent event) {
     //
   }
 
-  @Override
   public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
     //
   }
@@ -152,19 +153,16 @@ public abstract class ModuleBase
   // - FML Lifecycle: Client
   // --------------------------------------------------------------------------
 
-  @Override
   @SideOnly(Side.CLIENT)
   public void onClientPreInitializationEvent(FMLPreInitializationEvent event) {
     //
   }
 
-  @Override
   @SideOnly(Side.CLIENT)
   public void onClientInitializationEvent(FMLInitializationEvent event) {
     //
   }
 
-  @Override
   @SideOnly(Side.CLIENT)
   public void onClientPostInitializationEvent(FMLPostInitializationEvent event) {
     //
@@ -174,27 +172,22 @@ public abstract class ModuleBase
   // - Server
   // --------------------------------------------------------------------------
 
-  @Override
   public void onServerAboutToStartEvent(FMLServerAboutToStartEvent event) {
     //
   }
 
-  @Override
   public void onServerStartingEvent(FMLServerStartingEvent event) {
     //
   }
 
-  @Override
   public void onServerStartedEvent(FMLServerStartedEvent event) {
     //
   }
 
-  @Override
   public void onServerStoppingEvent(FMLServerStoppingEvent event) {
     //
   }
 
-  @Override
   public void onServerStoppedEvent(FMLServerStoppedEvent event) {
     //
   }

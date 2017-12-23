@@ -1,57 +1,63 @@
 package com.sudoplay.mc.pwcustom.lib.module;
 
+import com.sudoplay.mc.pwcustom.lib.integration.IntegrationPluginHandlerRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.*;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class ModBase {
 
-  private List<Class<? extends IModule>> moduleClassList;
-  private List<IModule> moduleList;
-  private IModuleInstanceFactory moduleInstanceFactory;
+  private final String modId;
+  private List<ModuleBase> moduleList;
+  private ModuleRegistry moduleRegistry;
   private ModuleEventRouter moduleEventRouter;
+  private IntegrationPluginHandlerRegistry integrationPluginHandlerRegistry;
 
-  public ModBase() {
+  public ModBase(String modId) {
 
-    this.moduleClassList = new ArrayList<>();
+    this.modId = modId;
     this.moduleList = new ArrayList<>();
-    this.moduleInstanceFactory = new ModuleInstanceFactory();
+    this.moduleRegistry = new ModuleRegistry(this.moduleList, new ModuleConstructor());
     this.moduleEventRouter = new ModuleEventRouter(this.moduleList);
+    this.integrationPluginHandlerRegistry = new IntegrationPluginHandlerRegistry(modId, this.moduleRegistry);
 
     MinecraftForge.EVENT_BUS.register(this.moduleEventRouter);
   }
 
-  @SafeVarargs
-  protected final void registerModules(Class<? extends IModule>... moduleClassArray) {
+  public String getModId() {
 
-    this.moduleClassList.addAll(Arrays.asList(moduleClassArray));
+    return this.modId;
+  }
+
+  @SafeVarargs
+  protected final void registerModules(Class<? extends ModuleBase>... moduleClassArray) {
+
+    this.moduleRegistry.registerModules(moduleClassArray);
+  }
+
+  protected void registerIntegrationHandler(String modId, String handler) {
+
+    this.integrationPluginHandlerRegistry.registerIntegrationHandler(modId, handler);
   }
 
   public abstract void onConstructionEvent(FMLConstructionEvent event);
 
   protected void _onConstructionEvent(FMLConstructionEvent event) {
 
-    for (Class<? extends IModule> moduleClass : this.moduleClassList) {
+    // Initialize integration handlers.
+    this.integrationPluginHandlerRegistry.initializeIntegrationHandlers();
 
-      try {
-        IModule module = this.moduleInstanceFactory.instantiate(moduleClass);
-        this.moduleList.add(module);
+    // Initialize modules.
+    this.moduleRegistry.initializeModules(this.getModId());
 
-      } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-        // TODO
-        e.printStackTrace();
-      }
+    // Register integration plugins using loaded handlers.
+    for (ModuleBase module : this.moduleList) {
+      this.integrationPluginHandlerRegistry.registerIntegrationPlugins(module.getIntegrationPluginMap());
     }
 
-    this.moduleClassList = null;
-
-    Collections.sort(this.moduleList);
-
+    // Fire all the modules' construction events.
     this.moduleEventRouter.onConstructionEvent(event);
   }
 

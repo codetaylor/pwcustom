@@ -17,8 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-@JEIPlugin
-public class ModulePluginJEI
+public class PluginJEI
     implements IModPlugin {
 
   private IJeiHelpers jeiHelpers;
