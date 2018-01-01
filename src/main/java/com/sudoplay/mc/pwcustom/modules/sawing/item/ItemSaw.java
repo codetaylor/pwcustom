@@ -1,7 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.sawing.item;
 
-import com.sudoplay.mc.pwcustom.lib.spi.ItemToolBase;
+import com.codetaylor.mc.athenaeum.spi.ItemToolBase;
 import com.sudoplay.mc.pwcustom.material.EnumMaterial;
+import com.sudoplay.mc.pwcustom.modules.sawing.ModuleSawing;
 import com.sudoplay.mc.pwcustom.modules.sawing.api.SawingAPI;
 import com.sudoplay.mc.pwcustom.modules.sawing.recipe.RecipeSawing;
 import net.minecraft.block.material.Material;
@@ -26,7 +27,7 @@ public class ItemSaw
 
   public ItemSaw(String name, EnumMaterial material) {
 
-    super(name, material.getToolMaterial(), Collections.emptySet());
+    super(ModuleSawing.MOD_ID, ModuleSawing.CREATIVE_TAB, name, material.getToolMaterial(), Collections.emptySet());
     this.setMaxStackSize(1);
     this.material = material;
   }

@@ -1,9 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.blocks;
 
+import com.codetaylor.mc.athenaeum.helper.BlockRegistrationHelper;
+import com.codetaylor.mc.athenaeum.helper.ModelRegistrationHelper;
+import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.lib.BlockRegistrationHelper;
-import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
-import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.modules.blocks.block.BlockSoulGravel;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

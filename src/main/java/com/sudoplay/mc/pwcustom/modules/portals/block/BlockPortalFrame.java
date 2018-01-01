@@ -1,9 +1,10 @@
 package com.sudoplay.mc.pwcustom.modules.portals.block;
 
+import com.codetaylor.mc.athenaeum.spi.BlockBase;
+import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
+import com.codetaylor.mc.athenaeum.spi.IVariant;
+import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
 import com.sudoplay.mc.pwcustom.modules.portals.item.ItemPortalWand;
-import com.sudoplay.mc.pwcustom.lib.spi.BlockBase;
-import com.sudoplay.mc.pwcustom.lib.spi.IBlockVariant;
-import com.sudoplay.mc.pwcustom.lib.spi.IVariant;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -20,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.NotImplementedException;
 
+import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
@@ -33,7 +35,7 @@ public class BlockPortalFrame
 
   public BlockPortalFrame() {
 
-    super(Material.ROCK, NAME);
+    super(ModulePortals.MOD_ID, ModulePortals.CREATIVE_TAB, Material.ROCK, NAME);
 
     this.setHardness(50);
     this.setResistance(2000);
@@ -76,12 +78,14 @@ public class BlockPortalFrame
     }
   }
 
+  @Nonnull
   @Override
-  public String getName(ItemStack stack) {
+  public String getModelName(ItemStack stack) {
 
     return EnumType.fromMeta(stack.getMetadata()).getName();
   }
 
+  @Nonnull
   @Override
   public IProperty<EnumType> getVariant() {
 

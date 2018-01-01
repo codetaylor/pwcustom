@@ -1,7 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.casts.item;
 
-import com.sudoplay.mc.pwcustom.lib.spi.IVariant;
-import com.sudoplay.mc.pwcustom.lib.spi.ItemBase;
+import com.codetaylor.mc.athenaeum.spi.IVariant;
+import com.codetaylor.mc.athenaeum.spi.ItemBase;
+import com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -18,7 +19,7 @@ public class ItemCast
 
   public ItemCast() {
 
-    super(NAME);
+    super(ModuleCasts.MOD_ID, ModuleCasts.CREATIVE_TAB, NAME);
     this.setHasSubtypes(true);
   }
 

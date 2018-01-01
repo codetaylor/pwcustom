@@ -1,7 +1,6 @@
-package com.sudoplay.mc.pwcustom.lib;
+package com.sudoplay.mc.pwcustom.material;
 
-import com.sudoplay.mc.pwcustom.material.EnumMaterial;
-import com.sudoplay.mc.pwcustom.lib.spi.ItemBase;
+import com.codetaylor.mc.athenaeum.spi.ItemBase;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -11,9 +10,9 @@ public class ItemMaterialPart
 
   private final EnumMaterial[] materials;
 
-  public ItemMaterialPart(String name, EnumMaterial[] materials) {
+  public ItemMaterialPart(String modId, CreativeTabs creativeTab, String name, EnumMaterial[] materials) {
 
-    super(name);
+    super(modId, creativeTab, name);
     this.materials = materials;
     this.setHasSubtypes(true);
   }

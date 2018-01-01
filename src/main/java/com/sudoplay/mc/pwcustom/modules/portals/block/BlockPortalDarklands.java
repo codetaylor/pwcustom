@@ -1,10 +1,10 @@
 package com.sudoplay.mc.pwcustom.modules.portals.block;
 
+import com.codetaylor.mc.athenaeum.util.PortalFramePlacer;
+import com.codetaylor.mc.athenaeum.util.Properties;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.Reference;
 import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
-import com.sudoplay.mc.pwcustom.lib.util.PortalFrameUtil;
-import com.sudoplay.mc.pwcustom.lib.util.Props;
 import com.sudoplay.mc.pwcustom.modules.portals.world.TeleporterCustom;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBreakable;
@@ -46,7 +46,7 @@ public class BlockPortalDarklands
   public BlockPortalDarklands() {
 
     super(Material.PORTAL, false);
-    this.setDefaultState(this.blockState.getBaseState().withProperty(Props.PORTAL_AXIS, EnumFacing.Axis.X));
+    this.setDefaultState(this.blockState.getBaseState().withProperty(Properties.PORTAL_AXIS, EnumFacing.Axis.X));
     this.setTickRandomly(true);
     this.setHardness(-1);
     this.setLightLevel(0.75f);
@@ -59,7 +59,7 @@ public class BlockPortalDarklands
 
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
-    switch (state.getValue(Props.PORTAL_AXIS)) {
+    switch (state.getValue(Properties.PORTAL_AXIS)) {
       case X:
         return X_AABB;
       case Y:
@@ -127,7 +127,7 @@ public class BlockPortalDarklands
 
   public boolean trySpawnPortal(World worldIn, BlockPos pos) {
 
-    PortalFrameUtil portalFrameUtil = new PortalFrameUtil(
+    PortalFramePlacer portalFrameUtil = new PortalFramePlacer(
         worldIn,
         pos,
         EnumFacing.Axis.X,
@@ -140,7 +140,7 @@ public class BlockPortalDarklands
       return true;
 
     } else {
-      portalFrameUtil = new PortalFrameUtil(
+      portalFrameUtil = new PortalFramePlacer(
           worldIn,
           pos,
           EnumFacing.Axis.Z,
@@ -165,13 +165,13 @@ public class BlockPortalDarklands
    */
   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 
-    EnumFacing.Axis axis = state.getValue(Props.PORTAL_AXIS);
+    EnumFacing.Axis axis = state.getValue(Properties.PORTAL_AXIS);
 
     if (axis != EnumFacing.Axis.X && axis != EnumFacing.Axis.Z) {
       return;
     }
 
-    PortalFrameUtil portalFrameUtil = new PortalFrameUtil(
+    PortalFramePlacer portalFrameUtil = new PortalFramePlacer(
         worldIn,
         pos,
         axis,
@@ -192,7 +192,7 @@ public class BlockPortalDarklands
     EnumFacing.Axis axis = null;
 
     if (blockState.getBlock() == this) {
-      axis = blockState.getValue(Props.PORTAL_AXIS);
+      axis = blockState.getValue(Properties.PORTAL_AXIS);
 
       if (axis == null) {
         return false;
@@ -314,7 +314,7 @@ public class BlockPortalDarklands
   public IBlockState getStateFromMeta(int meta) {
 
     return this.getDefaultState()
-        .withProperty(Props.PORTAL_AXIS, (meta & 3) == 2 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
+        .withProperty(Properties.PORTAL_AXIS, (meta & 3) == 2 ? EnumFacing.Axis.Z : EnumFacing.Axis.X);
   }
 
   @SideOnly(Side.CLIENT)
@@ -328,7 +328,7 @@ public class BlockPortalDarklands
    */
   public int getMetaFromState(IBlockState state) {
 
-    return getMetaForAxis(state.getValue(Props.PORTAL_AXIS));
+    return getMetaForAxis(state.getValue(Properties.PORTAL_AXIS));
   }
 
   /**
@@ -341,11 +341,11 @@ public class BlockPortalDarklands
       case COUNTERCLOCKWISE_90:
       case CLOCKWISE_90:
 
-        switch (state.getValue(Props.PORTAL_AXIS)) {
+        switch (state.getValue(Properties.PORTAL_AXIS)) {
           case X:
-            return state.withProperty(Props.PORTAL_AXIS, EnumFacing.Axis.Z);
+            return state.withProperty(Properties.PORTAL_AXIS, EnumFacing.Axis.Z);
           case Z:
-            return state.withProperty(Props.PORTAL_AXIS, EnumFacing.Axis.X);
+            return state.withProperty(Properties.PORTAL_AXIS, EnumFacing.Axis.X);
           default:
             return state;
         }
@@ -357,7 +357,7 @@ public class BlockPortalDarklands
 
   protected BlockStateContainer createBlockState() {
 
-    return new BlockStateContainer(this, new IProperty[]{Props.PORTAL_AXIS});
+    return new BlockStateContainer(this, new IProperty[]{Properties.PORTAL_AXIS});
   }
 
   public BlockFaceShape getBlockFaceShape(

@@ -1,12 +1,10 @@
 package com.sudoplay.mc.pwcustom.modules.sawing.integration.crafttweaker;
 
-import com.blamejared.mtlib.helpers.InputHelper;
-import com.blamejared.mtlib.helpers.LogHelper;
-import com.blamejared.mtlib.utils.BaseUndoable;
-import com.sudoplay.mc.pwcustom.lib.integration.crafttweaker.PluginDelegateCraftTweaker;
-import com.sudoplay.mc.pwcustom.lib.util.CTUtil;
+import com.codetaylor.mc.athenaeum.integration.crafttweaker.PluginDelegate;
+import com.codetaylor.mc.athenaeum.integration.crafttweaker.mtlib.helpers.CTInputHelper;
+import com.codetaylor.mc.athenaeum.integration.crafttweaker.mtlib.helpers.CTLogHelper;
+import com.codetaylor.mc.athenaeum.integration.crafttweaker.mtlib.utils.BaseUndoable;
 import com.sudoplay.mc.pwcustom.modules.sawing.api.SawingAPI;
-import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
@@ -20,10 +18,10 @@ public class ZenSawing {
   @ZenMethod
   public static void addRecipe(IItemStack[] drops, IItemStack saw, IIngredient block) {
 
-    PluginDelegateCraftTweaker.LATE_ADDITIONS.add(new Add(
-        InputHelper.toStacks(drops),
-        InputHelper.toStack(saw),
-        CTUtil.toIngredient(block)
+    PluginDelegate.LATE_ADDITIONS.add(new Add(
+        CTInputHelper.toStacks(drops),
+        CTInputHelper.toStack(saw),
+        CTInputHelper.toIngredient(block)
     ));
   }
 
@@ -51,7 +49,7 @@ public class ZenSawing {
     @Override
     protected String getRecipeInfo() {
 
-      return LogHelper.getStackDescription(this.drops);
+      return CTLogHelper.getStackDescription(this.drops);
     }
   }
 

@@ -1,7 +1,0 @@
-{
-  "parent": "pwcustom:block/mortar",
-  "textures": {
-    "mortar": "blocks/iron_block",
-    "particle": "blocks/iron_block"
-  }
-}

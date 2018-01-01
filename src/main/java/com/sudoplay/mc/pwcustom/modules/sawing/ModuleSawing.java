@@ -1,14 +1,15 @@
 package com.sudoplay.mc.pwcustom.modules.sawing;
 
+import com.codetaylor.mc.athenaeum.helper.ModelRegistrationHelper;
+import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.lib.ItemMaterialPart;
-import com.sudoplay.mc.pwcustom.lib.ModelRegistrationHelper;
-import com.sudoplay.mc.pwcustom.lib.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.material.EnumMaterial;
+import com.sudoplay.mc.pwcustom.material.ItemMaterialPart;
 import com.sudoplay.mc.pwcustom.modules.sawing.item.ItemSaw;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -19,6 +20,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModuleSawing
     extends ModuleBase {
+
+  public static final String MOD_ID = ModPWCustom.MOD_ID;
+  public static final CreativeTabs CREATIVE_TAB = ModPWCustom.CREATIVE_TAB;
 
   public ModuleSawing() {
 
@@ -75,7 +79,7 @@ public class ModuleSawing
     registry.registerAll(Items.SAWS);
 
     // Part Saw Blade
-    registry.register(new ItemMaterialPart("part_saw_blade", MATERIALS));
+    registry.register(new ItemMaterialPart(MOD_ID, CREATIVE_TAB, "part_saw_blade", MATERIALS));
   }
 
   @Override
