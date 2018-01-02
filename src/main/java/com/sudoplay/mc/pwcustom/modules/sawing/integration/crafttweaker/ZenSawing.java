@@ -4,6 +4,7 @@ import com.codetaylor.mc.athenaeum.integration.crafttweaker.PluginDelegate;
 import com.codetaylor.mc.athenaeum.integration.crafttweaker.mtlib.helpers.CTInputHelper;
 import com.codetaylor.mc.athenaeum.integration.crafttweaker.mtlib.helpers.CTLogHelper;
 import com.codetaylor.mc.athenaeum.integration.crafttweaker.mtlib.utils.BaseUndoable;
+import com.sudoplay.mc.pwcustom.modules.sawing.ModuleSawing;
 import com.sudoplay.mc.pwcustom.modules.sawing.api.SawingAPI;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
@@ -18,7 +19,7 @@ public class ZenSawing {
   @ZenMethod
   public static void addRecipe(IItemStack[] drops, IItemStack saw, IIngredient block) {
 
-    PluginDelegate.LATE_ADDITIONS.add(new Add(
+    PluginDelegate.addAddition(ModuleSawing.MOD_ID, new Add(
         CTInputHelper.toStacks(drops),
         CTInputHelper.toStack(saw),
         CTInputHelper.toIngredient(block)
