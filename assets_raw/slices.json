@@ -76,7 +76,15 @@
 
         { "target": "crafting_rune_epic.png", "position": [9, 0] },
 
-        { "target": "crafting_rune_legendary.png", "position": [10, 0] }
+        { "target": "crafting_rune_legendary.png", "position": [10, 0] },
+
+        { "target": "crude_pickaxe.png", "position": [11, 0] },
+
+        { "target": "crude_hoe.png", "position": [12, 0] },
+
+        { "target": "crude_axe.png", "position": [13, 0] },
+
+        { "target": "crude_shovel.png", "position": [14, 0] }
 
       ]
     }

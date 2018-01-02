@@ -4,6 +4,7 @@ import com.codetaylor.mc.athenaeum.module.ModuleManager;
 import com.sudoplay.mc.pwcustom.modules.blocks.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts;
 import com.sudoplay.mc.pwcustom.modules.craftingparts.ModuleCraftingParts;
+import com.sudoplay.mc.pwcustom.modules.crude.ModuleCrudeTools;
 import com.sudoplay.mc.pwcustom.modules.enchanting.ModuleEnchanting;
 import com.sudoplay.mc.pwcustom.modules.knives.ModuleKnives;
 import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
@@ -55,7 +56,8 @@ public class ModPWCustom {
         ModuleEnchanting.class,
         ModuleBlocks.class,
         ModuleCraftingParts.class,
-        ModuleKnives.class
+        ModuleKnives.class,
+        ModuleCrudeTools.class
     );
   }
 
