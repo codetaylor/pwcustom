@@ -22,7 +22,7 @@ public class ModulePortals
 
   public ModulePortals() {
 
-    super(0);
+    super(0, MOD_ID);
   }
 
   @SuppressWarnings("WeakerAccess")

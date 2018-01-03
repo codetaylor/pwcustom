@@ -18,7 +18,7 @@ public class ModuleCraftingParts
 
   public ModuleCraftingParts() {
 
-    super(0);
+    super(0, MOD_ID);
   }
 
   @SuppressWarnings("WeakerAccess")

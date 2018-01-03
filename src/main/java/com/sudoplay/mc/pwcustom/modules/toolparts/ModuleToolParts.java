@@ -24,7 +24,7 @@ public class ModuleToolParts
 
   public ModuleToolParts() {
 
-    super(0);
+    super(0, MOD_ID);
   }
 
   private static final EnumMaterial[] MATERIALS = new EnumMaterial[]{

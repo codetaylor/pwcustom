@@ -17,9 +17,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class ModuleKnives
     extends ModuleBase {
 
+  public static final String MOD_ID = ModPWCustom.MOD_ID;
+
   public ModuleKnives() {
 
-    super(0);
+    super(0, MOD_ID);
   }
 
   public static final EnumMaterial[] MATERIALS = new EnumMaterial[]{

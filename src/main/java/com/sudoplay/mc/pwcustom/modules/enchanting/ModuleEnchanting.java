@@ -22,7 +22,7 @@ public class ModuleEnchanting
 
   public ModuleEnchanting() {
 
-    super(0);
+    super(0, MOD_ID);
   }
 
   @SuppressWarnings("WeakerAccess")

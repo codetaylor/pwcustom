@@ -14,9 +14,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModuleBlocks
     extends ModuleBase {
 
+  public static final String MOD_ID = ModPWCustom.MOD_ID;
+
   public ModuleBlocks() {
 
-    super(0);
+    super(0, MOD_ID);
   }
 
   @SuppressWarnings("WeakerAccess")

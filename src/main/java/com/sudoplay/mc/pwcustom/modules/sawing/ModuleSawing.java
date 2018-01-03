@@ -26,7 +26,7 @@ public class ModuleSawing
 
   public ModuleSawing() {
 
-    super(0);
+    super(0, MOD_ID);
 
     this.registerIntegrationPlugin(
         "crafttweaker",
