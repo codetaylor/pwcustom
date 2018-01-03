@@ -91,13 +91,6 @@ public class ItemCrudePickaxe
               drops.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 1));
             }
           }
-
-        } else if ("bonecraft:pamfossil".equals(blockRegistryNameString)) {
-          Item rep = Item.getByNameOrId("minecraft:dye");
-
-          if (rep != null) {
-            drops.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 15));
-          }
         }
       }
     }
