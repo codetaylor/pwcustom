@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.crude.item;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -10,8 +11,6 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Mod.EventBusSubscriber
@@ -45,83 +44,62 @@ public class ItemCrudePickaxe
     if (heldItem.getItem() instanceof ItemCrudePickaxe) {
 
       List<ItemStack> drops = event.getDrops();
-      List<ItemStack> dropsToAdd = new ArrayList<>();
+      drops.clear();
 
-      for (Iterator<ItemStack> it = drops.iterator(); it.hasNext(); ) {
-        ItemStack drop = it.next();
-        Item item = drop.getItem();
+      IBlockState state = event.getState();
+      Block block = state.getBlock();
+      ResourceLocation blockRegistryName = block.getRegistryName();
 
-        ResourceLocation registryName = item.getRegistryName();
+      if (blockRegistryName != null) {
+        String blockRegistryNameString = blockRegistryName.toString();
 
-        if (registryName == null) {
-          it.remove();
-          continue;
-        }
-
-        String registryNameString = registryName.toString();
-
-        /*
-        minecraft:cobblestone
-        minecraft:stone
-        minecraft:stone:1
-        minecraft:stone:2
-        minecraft:stone:3
-        minecraft:stone:4
-        minecraft:stone:5
-        minecraft:stone:6
-        */
-
-        if ("minecraft:cobblestone".equals(registryNameString)) {
-          Item rep = Item.getByNameOrId("immcraft:rock");
+        if ("minecraft:cobblestone".equals(blockRegistryNameString)) {
+          Item rep = Item.getByNameOrId("survivalist:rock");
 
           if (rep != null) {
-            dropsToAdd.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 0));
+            drops.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 0));
           }
 
-        } else if ("minecraft:stone".equals(registryNameString)) {
+        } else if ("minecraft:stone".equals(blockRegistryNameString)) {
+          int meta = block.getMetaFromState(state);
 
-          if (drop.getMetadata() == 0) {
-            Item rep = Item.getByNameOrId("immcraft:rock");
+          if (meta == 0) {
+            Item rep = Item.getByNameOrId("survivalist:rock");
 
             if (rep != null) {
-              dropsToAdd.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 0));
+              drops.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 0));
             }
 
-          } else if (drop.getMetadata() == 1 || drop.getMetadata() == 2) {
-            Item rep = Item.getByNameOrId("immcraft:rock");
+          } else if (meta == 1 || meta == 2) {
+            Item rep = Item.getByNameOrId("survivalist:rock");
 
             if (rep != null) {
-              dropsToAdd.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 3));
+              drops.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 3));
             }
 
-          } else if (drop.getMetadata() == 3 || drop.getMetadata() == 4) {
-            Item rep = Item.getByNameOrId("immcraft:rock");
+          } else if (meta == 3 || meta == 4) {
+            Item rep = Item.getByNameOrId("survivalist:rock");
 
             if (rep != null) {
-              dropsToAdd.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 2));
+              drops.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 2));
             }
 
-          } else if (drop.getMetadata() == 5 || drop.getMetadata() == 6) {
-            Item rep = Item.getByNameOrId("immcraft:rock");
+          } else if (meta == 5 || meta == 6) {
+            Item rep = Item.getByNameOrId("survivalist:rock");
 
             if (rep != null) {
-              dropsToAdd.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 1));
+              drops.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 1));
             }
           }
 
-        } else if ("bonecraft:pamfossil".equals(registryNameString)) {
+        } else if ("bonecraft:pamfossil".equals(blockRegistryNameString)) {
           Item rep = Item.getByNameOrId("minecraft:dye");
 
           if (rep != null) {
-            dropsToAdd.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 15));
+            drops.add(new ItemStack(rep, 1 + player.world.rand.nextInt(3), 15));
           }
         }
-
-        it.remove();
       }
-
-      drops.addAll(dropsToAdd);
     }
-
   }
 }
