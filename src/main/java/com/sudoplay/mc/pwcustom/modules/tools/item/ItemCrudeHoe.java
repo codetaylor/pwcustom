@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.crude.item;
+package com.sudoplay.mc.pwcustom.modules.tools.item;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemHoe;

@@ -1,13 +1,13 @@
-package com.sudoplay.mc.pwcustom.modules.crude.item;
+package com.sudoplay.mc.pwcustom.modules.tools.item;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 
-public class ItemCrudeAxe
-    extends ItemAxe {
+public class ItemCrudeShovel
+    extends ItemSpade {
 
-  public ItemCrudeAxe() {
+  public ItemCrudeShovel() {
 
     super(ToolMaterial.STONE);
     this.setMaxDamage(ToolMaterial.STONE.getMaxUses() / 4);

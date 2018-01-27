@@ -84,7 +84,15 @@
 
         { "target": "crude_axe.png", "position": [13, 0] },
 
-        { "target": "crude_shovel.png", "position": [14, 0] }
+        { "target": "crude_shovel.png", "position": [14, 0] },
+
+        { "target": "bone_pickaxe.png", "position": [15, 0] },
+
+        { "target": "bone_hoe.png", "position": [16, 0] },
+
+        { "target": "bone_axe.png", "position": [17, 0] },
+
+        { "target": "bone_shovel.png", "position": [18, 0] }
 
       ]
     }

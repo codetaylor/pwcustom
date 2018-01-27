@@ -3,7 +3,6 @@ package com.sudoplay.mc.pwcustom.modules.toolparts;
 import com.codetaylor.mc.athenaeum.helper.ModelRegistrationHelper;
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import com.sudoplay.mc.pwcustom.material.ItemMaterialPart;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

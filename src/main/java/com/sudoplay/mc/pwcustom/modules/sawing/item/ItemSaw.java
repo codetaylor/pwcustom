@@ -1,7 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.sawing.item;
 
 import com.codetaylor.mc.athenaeum.spi.ItemToolBase;
-import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import com.sudoplay.mc.pwcustom.modules.sawing.ModuleSawing;
 import com.sudoplay.mc.pwcustom.modules.sawing.api.SawingAPI;
 import com.sudoplay.mc.pwcustom.modules.sawing.recipe.RecipeSawing;

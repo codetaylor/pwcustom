@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.material;
 
+import com.codetaylor.mc.athenaeum.reference.EnumMaterial;
 import com.codetaylor.mc.athenaeum.spi.ItemBase;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;

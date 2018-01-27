@@ -1,9 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.knives.item;
 
+import com.codetaylor.mc.athenaeum.reference.EnumMaterial;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.material.EnumMaterial;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
