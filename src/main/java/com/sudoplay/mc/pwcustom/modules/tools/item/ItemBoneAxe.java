@@ -8,6 +8,6 @@ public class ItemBoneAxe
 
   public ItemBoneAxe() {
 
-    super(EnumMaterial.BONE.getToolMaterial());
+    super(EnumMaterial.BONE.getToolMaterial(), 8f, -3.2f);
   }
 }

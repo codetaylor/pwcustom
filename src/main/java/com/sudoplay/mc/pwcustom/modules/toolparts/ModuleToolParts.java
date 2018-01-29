@@ -2,6 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.toolparts;
 
 import com.codetaylor.mc.athenaeum.helper.ModelRegistrationHelper;
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
+import com.codetaylor.mc.athenaeum.reference.EnumMaterial;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.material.ItemMaterialPart;
 import net.minecraft.client.Minecraft;
@@ -71,7 +72,12 @@ public class ModuleToolParts
     IForgeRegistry<Item> registry = event.getRegistry();
 
     for (RegistrationWrapper registrationWrapper : REGISTRATION_WRAPPERS) {
-      ItemMaterialPart item = new ItemMaterialPart(MOD_ID, CREATIVE_TAB, registrationWrapper.name, registrationWrapper.materials);
+      ItemMaterialPart item = new ItemMaterialPart(
+          MOD_ID,
+          CREATIVE_TAB,
+          registrationWrapper.name,
+          registrationWrapper.materials
+      );
       registrationWrapper.item = item;
       registry.register(item);
     }

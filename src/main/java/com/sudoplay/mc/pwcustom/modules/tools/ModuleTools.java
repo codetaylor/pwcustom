@@ -38,8 +38,6 @@ public class ModuleTools
   @Override
   public void onRegister(Registry registry) {
 
-    super.onRegister(registry);
-
     registry.registerItem(Items.CRUDE_AXE, new ResourceLocation(MOD_ID, "crude_axe"));
     registry.registerItem(Items.CRUDE_HOE, new ResourceLocation(MOD_ID, "crude_hoe"));
     registry.registerItem(Items.CRUDE_PICKAXE, new ResourceLocation(MOD_ID, "crude_pickaxe"));
