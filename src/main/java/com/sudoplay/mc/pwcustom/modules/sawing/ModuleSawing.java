@@ -51,7 +51,8 @@ public class ModuleSawing
       EnumMaterial.PLATINUM,
       EnumMaterial.SILVER,
       EnumMaterial.STEEL,
-      EnumMaterial.TIN
+      EnumMaterial.TIN,
+      EnumMaterial.BONE
   };
 
   @SuppressWarnings("WeakerAccess")

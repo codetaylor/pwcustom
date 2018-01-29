@@ -44,7 +44,8 @@ public class ModuleToolParts
       EnumMaterial.PLATINUM,
       EnumMaterial.SILVER,
       EnumMaterial.STEEL,
-      EnumMaterial.TIN
+      EnumMaterial.TIN,
+      EnumMaterial.BONE
   };
 
   private static final RegistrationWrapper[] REGISTRATION_WRAPPERS = new RegistrationWrapper[]{
