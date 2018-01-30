@@ -63,8 +63,7 @@ public class ModuleToolParts
       new RegistrationWrapper("part_rod", MATERIALS, false),
       new RegistrationWrapper("part_shear_blades", MATERIALS, false),
       new RegistrationWrapper("part_ring", MATERIALS, false),
-      new RegistrationWrapper("part_paxel_head", MATERIALS, true),
-      new RegistrationWrapper("part_knife_blade", MATERIALS, true)
+      new RegistrationWrapper("part_paxel_head", MATERIALS, true)
   };
 
   @Override

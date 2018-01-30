@@ -62,8 +62,7 @@ public class ItemCast
     SHEAR_BLADES("shear_blades", 12),
     RING("ring", 13),
     PAXEL_HEAD("paxel_head", 14),
-    SHIELD("shield", 15),
-    KNIFE_BLADE("knife_blade", 16);
+    SHIELD("shield", 15);
 
     private static final EnumType[] META_LOOKUP = Stream
         .of(EnumType.values())

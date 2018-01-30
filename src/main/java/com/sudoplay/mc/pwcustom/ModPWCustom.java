@@ -47,13 +47,13 @@ public class ModPWCustom {
     this.moduleManager = new ModuleManager(MOD_ID);
     this.moduleManager.registerModules(
         ModulePortals.class,
-        ModuleSawing.class,
+        //ModuleSawing.class,
         ModuleToolParts.class,
         ModuleCasts.class,
         ModuleEnchanting.class,
         ModuleBlocks.class,
         ModuleCraftingParts.class,
-        ModuleKnives.class,
+        //ModuleKnives.class,
         ModuleTools.class
     );
   }
