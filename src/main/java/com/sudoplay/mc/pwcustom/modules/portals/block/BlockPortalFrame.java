@@ -1,10 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.portals.block;
 
-import com.codetaylor.mc.athenaeum.spi.BlockBase;
 import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
-import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
 import com.sudoplay.mc.pwcustom.modules.portals.item.ItemPortalWand;
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -26,7 +25,7 @@ import java.util.Comparator;
 import java.util.stream.Stream;
 
 public class BlockPortalFrame
-    extends BlockBase
+    extends Block
     implements IBlockVariant<BlockPortalFrame.EnumType> {
 
   public static final String NAME = "portal_frame";
@@ -35,7 +34,7 @@ public class BlockPortalFrame
 
   public BlockPortalFrame() {
 
-    super(ModulePortals.MOD_ID, ModulePortals.CREATIVE_TAB, Material.ROCK, NAME);
+    super(Material.ROCK);
 
     this.setHardness(50);
     this.setResistance(2000);

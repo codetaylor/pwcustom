@@ -1,8 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.sawing;
 
-import com.codetaylor.mc.athenaeum.helper.ModelRegistrationHelper;
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.codetaylor.mc.athenaeum.reference.EnumMaterial;
+import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.material.ItemMaterialPart;
 import com.sudoplay.mc.pwcustom.modules.sawing.item.ItemSaw;

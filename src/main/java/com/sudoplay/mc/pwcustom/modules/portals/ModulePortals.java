@@ -1,18 +1,13 @@
 package com.sudoplay.mc.pwcustom.modules.portals;
 
-import com.codetaylor.mc.athenaeum.helper.BlockRegistrationHelper;
-import com.codetaylor.mc.athenaeum.helper.ModelRegistrationHelper;
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
+import com.codetaylor.mc.athenaeum.registry.Registry;
+import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.portals.block.BlockPortalDarklands;
 import com.sudoplay.mc.pwcustom.modules.portals.block.BlockPortalFrame;
 import com.sudoplay.mc.pwcustom.modules.portals.item.ItemPortalWand;
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModulePortals
     extends ModuleBase {
@@ -23,71 +18,47 @@ public class ModulePortals
   public ModulePortals() {
 
     super(0, MOD_ID);
+    this.setRegistry(new Registry(MOD_ID, CREATIVE_TAB));
+    this.enableAutoRegistry();
   }
 
   @SuppressWarnings("WeakerAccess")
   public static class Blocks {
 
-    @GameRegistry.ObjectHolder(ModPWCustom.MOD_ID + ":" + BlockPortalFrame.NAME)
-    public static final BlockPortalFrame PORTAL_FRAME;
-
-    @GameRegistry.ObjectHolder(ModPWCustom.MOD_ID + ":" + BlockPortalDarklands.NAME)
-    public static final BlockPortalDarklands PORTAL_DARKLANDS;
-
-    static {
-      PORTAL_FRAME = null;
-      PORTAL_DARKLANDS = null;
-    }
+    public static final BlockPortalFrame PORTAL_FRAME = new BlockPortalFrame();
+    public static final BlockPortalDarklands PORTAL_DARKLANDS = new BlockPortalDarklands();
   }
 
   public static class Items {
 
-    @GameRegistry.ObjectHolder(ModPWCustom.MOD_ID + ":" + ItemPortalWand.NAME)
-    public static final ItemPortalWand PORTAL_WAND;
-
-    static {
-      PORTAL_WAND = null;
-    }
+    public static final ItemPortalWand PORTAL_WAND = new ItemPortalWand();
   }
 
   @Override
-  public void onRegisterBlockEvent(RegistryEvent.Register<Block> event) {
+  public void onRegister(Registry registry) {
 
-    // Blocks
-    event.getRegistry().registerAll(
-        new BlockPortalFrame(),
-        new BlockPortalDarklands()
-    );
+    registry.registerBlockWithItem(Blocks.PORTAL_FRAME, BlockPortalFrame.NAME);
+    registry.registerBlock(Blocks.PORTAL_DARKLANDS, BlockPortalDarklands.NAME);
+
+    registry.registerItem(Items.PORTAL_WAND, ItemPortalWand.NAME);
   }
 
   @Override
-  public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
+  public void onClientRegister(Registry registry) {
 
-    // Item Blocks
-    event.getRegistry().registerAll(
-        BlockRegistrationHelper.createItemBlocks(
-            Blocks.PORTAL_FRAME
-        )
-    );
+    registry.registerClientModelRegistrationStrategy(() -> {
 
-    // Items
-    event.getRegistry().registerAll(
-        new ItemPortalWand()
-    );
+      ModelRegistrationHelper.registerVariantBlockItemModels(
+          Blocks.PORTAL_FRAME.getDefaultState(),
+          BlockPortalFrame.VARIANT
+      );
+
+      ModelRegistrationHelper.registerVariantItemModels(
+          Items.PORTAL_WAND,
+          "variant",
+          BlockPortalFrame.EnumType.values()
+      );
+    });
   }
 
-  @Override
-  public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
-
-    ModelRegistrationHelper.registerVariantBlockItemModels(
-        Blocks.PORTAL_FRAME.getDefaultState(),
-        BlockPortalFrame.VARIANT
-    );
-
-    ModelRegistrationHelper.registerVariantItemModels(
-        Items.PORTAL_WAND,
-        "variant",
-        BlockPortalFrame.EnumType.values()
-    );
-  }
 }

@@ -1,13 +1,12 @@
 package com.sudoplay.mc.pwcustom.modules.tools;
 
-import com.codetaylor.mc.athenaeum.helper.ModelRegistrationHelper;
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.codetaylor.mc.athenaeum.registry.Registry;
+import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.tools.item.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 
 public class ModuleTools
     extends ModuleBase {
@@ -50,20 +49,22 @@ public class ModuleTools
   }
 
   @Override
-  public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
+  public void onClientRegister(Registry registry) {
 
-    super.onClientRegisterModelsEvent(event);
+    registry.registerClientModelRegistrationStrategy(() -> {
 
-    ModelRegistrationHelper.registerItemModels(
-        Items.CRUDE_AXE,
-        Items.CRUDE_HOE,
-        Items.CRUDE_PICKAXE,
-        Items.CRUDE_SHOVEL,
+      ModelRegistrationHelper.registerItemModels(
+          Items.CRUDE_AXE,
+          Items.CRUDE_HOE,
+          Items.CRUDE_PICKAXE,
+          Items.CRUDE_SHOVEL,
 
-        Items.BONE_AXE,
-        Items.BONE_HOE,
-        Items.BONE_PICKAXE,
-        Items.BONE_SHOVEL
-    );
+          Items.BONE_AXE,
+          Items.BONE_HOE,
+          Items.BONE_PICKAXE,
+          Items.BONE_SHOVEL
+      );
+    });
   }
+
 }

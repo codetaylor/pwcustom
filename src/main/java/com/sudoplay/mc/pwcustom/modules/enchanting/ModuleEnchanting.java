@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.enchanting;
 
-import com.codetaylor.mc.athenaeum.helper.ModelRegistrationHelper;
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
+import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.enchanting.event.ArcaneAffinityTooltipEventHandler;
 import com.sudoplay.mc.pwcustom.modules.enchanting.item.ItemBookGoldEmbossed;

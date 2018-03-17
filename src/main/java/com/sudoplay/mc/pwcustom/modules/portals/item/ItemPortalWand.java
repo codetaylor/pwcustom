@@ -1,9 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.portals.item;
 
-import com.codetaylor.mc.athenaeum.spi.ItemBase;
-import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
 import com.sudoplay.mc.pwcustom.modules.portals.block.BlockPortalFrame;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
@@ -12,13 +11,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ItemPortalWand
-    extends ItemBase {
+    extends Item {
 
   public static final String NAME = "portal_wand";
 
   public ItemPortalWand() {
 
-    super(ModulePortals.MOD_ID, ModulePortals.CREATIVE_TAB, NAME);
     this.setMaxStackSize(1);
     this.setHasSubtypes(true);
   }

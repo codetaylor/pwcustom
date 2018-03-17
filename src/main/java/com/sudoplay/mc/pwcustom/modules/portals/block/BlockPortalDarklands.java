@@ -2,7 +2,6 @@ package com.sudoplay.mc.pwcustom.modules.portals.block;
 
 import com.codetaylor.mc.athenaeum.util.PortalFramePlacer;
 import com.codetaylor.mc.athenaeum.util.Properties;
-import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.Reference;
 import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
 import com.sudoplay.mc.pwcustom.modules.portals.world.TeleporterCustom;
@@ -19,7 +18,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -50,9 +48,6 @@ public class BlockPortalDarklands
     this.setTickRandomly(true);
     this.setHardness(-1);
     this.setLightLevel(0.75f);
-
-    this.setUnlocalizedName(NAME);
-    this.setRegistryName(new ResourceLocation(ModPWCustom.MOD_ID, NAME));
 
     BLOCK_PORTAL = this;
   }

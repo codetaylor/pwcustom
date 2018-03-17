@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.casts;
 
-import com.codetaylor.mc.athenaeum.helper.ModelRegistrationHelper;
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
+import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.casts.item.ItemCast;
 import net.minecraft.creativetab.CreativeTabs;
