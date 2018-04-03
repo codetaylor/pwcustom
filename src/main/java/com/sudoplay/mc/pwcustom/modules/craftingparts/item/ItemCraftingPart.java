@@ -47,16 +47,15 @@ public class ItemCraftingPart
   public enum EnumType
       implements IVariant {
 
-    SAW_HANDLE("saw_handle", 0),
-    TANNED_LEATHER_CORD("tanned_leather_cord", 1),
-    TANNED_LEATHER_STRIPS("tanned_leather_strips", 2),
-    BOW_LIMB_WOODEN("bow_limb_wooden", 3),
-    CRAFTING_RUNE_COMMON("crafting_rune_common", 4),
-    CRAFTING_RUNE_UNCOMMON("crafting_rune_uncommon", 5),
-    CRAFTING_RUNE_RARE("crafting_rune_rare", 6),
-    CRAFTING_RUNE_EPIC("crafting_rune_epic", 7),
-    CRAFTING_RUNE_LEGENDARY("crafting_rune_legendary", 8),
-    PAPER_GOLD_LEAF("paper_gold_leaf", 9);
+    TANNED_LEATHER_CORD("tanned_leather_cord", 0),
+    TANNED_LEATHER_STRIPS("tanned_leather_strips", 1),
+    BOW_LIMB_WOODEN("bow_limb_wooden", 2),
+    CRAFTING_RUNE_COMMON("crafting_rune_common", 3),
+    CRAFTING_RUNE_UNCOMMON("crafting_rune_uncommon", 4),
+    CRAFTING_RUNE_RARE("crafting_rune_rare", 5),
+    CRAFTING_RUNE_EPIC("crafting_rune_epic", 6),
+    CRAFTING_RUNE_LEGENDARY("crafting_rune_legendary", 7),
+    PAPER_GOLD_LEAF("paper_gold_leaf", 8);
 
     private static final EnumType[] META_LOOKUP = Stream
         .of(EnumType.values())

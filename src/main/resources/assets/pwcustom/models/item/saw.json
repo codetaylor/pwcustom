@@ -1,7 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "pwcustom:items/layer_saw_blade",
-    "layer1": "pwcustom:items/layer_saw_handle"
-  }
-}

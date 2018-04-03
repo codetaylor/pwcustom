@@ -5,11 +5,6 @@
   },
   "variants": {
     "variant": {
-      "saw_handle": {
-        "textures": {
-          "layer0": "pwcustom:items/layer_saw_handle"
-        }
-      },
       "tanned_leather_cord": {
         "textures": {
           "layer0": "pwcustom:items/tanned_leather_cord"

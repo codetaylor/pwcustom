@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "pwcustom:items/layer_part_saw_blade",
-    "layer1": "pwcustom:items/layer_part_saw_blade_highlight"
-  }
-}
