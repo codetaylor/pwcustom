@@ -5,11 +5,6 @@
   },
   "variants": {
     "variant": {
-      "saw_blade": {
-        "textures": {
-          "layer0": "pwcustom:items/cast_saw_blade"
-        }
-      },
       "axe_head": {
         "textures": {
           "layer0": "pwcustom:items/cast_axe_head"

@@ -47,22 +47,21 @@ public class ItemCast
   public enum EnumType
       implements IVariant {
 
-    SAW_BLADE("saw_blade", 0),
-    AXE_HEAD("axe_head", 1),
-    PICKAXE_HEAD("pickaxe_head", 2),
-    SHOVEL_HEAD("shovel_head", 3),
-    HOE_HEAD("hoe_head", 4),
-    TOOL_ROD("tool_rod", 5),
-    SWORD_BLADE("sword_blade", 6),
-    SWORD_GUARD("sword_guard", 7),
-    HAMMER_HEAD("hammer_head", 8),
-    BOW_LIMB("bow_limb", 9),
-    SICKLE_BLADE("sickle_blade", 10),
-    ROD("rod", 11),
-    SHEAR_BLADES("shear_blades", 12),
-    RING("ring", 13),
-    PAXEL_HEAD("paxel_head", 14),
-    SHIELD("shield", 15);
+    AXE_HEAD("axe_head", 0),
+    PICKAXE_HEAD("pickaxe_head", 1),
+    SHOVEL_HEAD("shovel_head", 2),
+    HOE_HEAD("hoe_head", 3),
+    TOOL_ROD("tool_rod", 4),
+    SWORD_BLADE("sword_blade", 5),
+    SWORD_GUARD("sword_guard", 6),
+    HAMMER_HEAD("hammer_head", 7),
+    BOW_LIMB("bow_limb", 8),
+    SICKLE_BLADE("sickle_blade", 9),
+    ROD("rod", 10),
+    SHEAR_BLADES("shear_blades", 11),
+    RING("ring", 12),
+    PAXEL_HEAD("paxel_head", 13),
+    SHIELD("shield", 14);
 
     private static final EnumType[] META_LOOKUP = Stream
         .of(EnumType.values())
