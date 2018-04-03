@@ -5,9 +5,7 @@ import com.sudoplay.mc.pwcustom.modules.blocks.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts;
 import com.sudoplay.mc.pwcustom.modules.craftingparts.ModuleCraftingParts;
 import com.sudoplay.mc.pwcustom.modules.enchanting.ModuleEnchanting;
-import com.sudoplay.mc.pwcustom.modules.knives.ModuleKnives;
 import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
-import com.sudoplay.mc.pwcustom.modules.sawing.ModuleSawing;
 import com.sudoplay.mc.pwcustom.modules.toolparts.ModuleToolParts;
 import com.sudoplay.mc.pwcustom.modules.tools.ModuleTools;
 import net.minecraft.creativetab.CreativeTabs;
@@ -47,13 +45,11 @@ public class ModPWCustom {
     this.moduleManager = new ModuleManager(MOD_ID);
     this.moduleManager.registerModules(
         ModulePortals.class,
-        //ModuleSawing.class,
         ModuleToolParts.class,
         ModuleCasts.class,
         ModuleEnchanting.class,
         ModuleBlocks.class,
         ModuleCraftingParts.class,
-        //ModuleKnives.class,
         ModuleTools.class
     );
   }
