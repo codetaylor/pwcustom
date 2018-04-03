@@ -34,6 +34,7 @@ public class BlockOre
     this.setHardness(3.0F);
     this.setResistance(5.0F);
     this.setSoundType(SoundType.STONE);
+    this.setHarvestLevel("pickaxe", 0);
     this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.FOSSIL_ORE));
   }
 
