@@ -4,14 +4,13 @@ import com.sudoplay.mc.pwcustom.modules.veins.util.LongObjectMap;
 import com.sudoplay.mc.pwcustom.modules.veins.util.MathUtil;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class SpawnData
     implements INBTSerializable<NBTTagList> {
 
-  private LongObjectMap<BlockPos> map;
+  private LongObjectMap<SpawnDataEntry> map;
 
   public SpawnData() {
 
@@ -28,21 +27,21 @@ public class SpawnData
     return ((long) chunkX << 32) | (chunkZ & 0xffffffffL);
   }
 
-  public BlockPos getFromChunk(int chunkX, int chunkZ) {
+  public SpawnDataEntry getFromChunk(int chunkX, int chunkZ) {
 
     long key = this.getKeyFromChunk(chunkX, chunkZ);
     return this.map.get(key);
   }
 
-  public void set(BlockPos pos) {
+  public void set(BlockPos pos, NBTTagCompound data) {
 
-    this.set(pos.getX(), pos.getY(), pos.getZ());
+    this.set(pos.getX(), pos.getY(), pos.getZ(), data);
   }
 
-  public void set(int blockX, int blockY, int blockZ) {
+  public void set(int blockX, int blockY, int blockZ, NBTTagCompound data) {
 
     long key = this.getKeyFromBlock(blockX, blockZ);
-    this.map.put(key, new BlockPos(blockX, blockY, blockZ));
+    this.map.put(key, new SpawnDataEntry(new BlockPos(blockX, blockY, blockZ), data));
   }
 
   public void removeChunk(int chunkX, int chunkZ) {
@@ -167,7 +166,7 @@ public class SpawnData
     for (int i = 0; i < size; i++) {
       NBTTagCompound compound = new NBTTagCompound();
       compound.setLong("chunk", keys[i]);
-      compound.setTag("pos", NBTUtil.createPosTag(this.map.get(keys[i])));
+      compound.setTag("entry", this.map.get(keys[i]).serializeNBT());
       tag.appendTag(compound);
     }
 
@@ -182,8 +181,9 @@ public class SpawnData
     for (int i = 0; i < count; i++) {
       NBTTagCompound compound = (NBTTagCompound) tag.get(i);
       long key = compound.getLong("chunk");
-      BlockPos pos = NBTUtil.getPosFromTag(compound.getCompoundTag("pos"));
-      this.map.put(key, pos);
+      SpawnDataEntry entry = new SpawnDataEntry();
+      entry.deserializeNBT(compound.getCompoundTag("entry"));
+      this.map.put(key, entry);
     }
   }
 }

@@ -142,7 +142,7 @@ public class ModuleVeins
     Random random = new Random();
 
     GameRegistry.registerWorldGenerator(
-        new LargeVeinWorldGenerator(
+        new WorldGenLargeVein(
             new VeinDataSelector(
                 parsedVeinDataList,
                 random
