@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.world.spawn;
+package com.sudoplay.mc.pwcustom.modules.veins.spawn;
 
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import net.minecraft.nbt.NBTTagCompound;

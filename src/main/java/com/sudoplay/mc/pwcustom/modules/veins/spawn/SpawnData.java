@@ -1,7 +1,7 @@
-package com.sudoplay.mc.pwcustom.modules.world.spawn;
+package com.sudoplay.mc.pwcustom.modules.veins.spawn;
 
-import com.sudoplay.mc.pwcustom.modules.world.util.LongObjectMap;
-import com.sudoplay.mc.pwcustom.modules.world.util.MathUtil;
+import com.sudoplay.mc.pwcustom.modules.veins.util.LongObjectMap;
+import com.sudoplay.mc.pwcustom.modules.veins.util.MathUtil;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTUtil;

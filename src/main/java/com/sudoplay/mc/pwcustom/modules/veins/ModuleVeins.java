@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.world;
+package com.sudoplay.mc.pwcustom.modules.veins;
 
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.MalformedRecipeItemException;
@@ -8,8 +8,8 @@ import com.codetaylor.mc.athenaeum.registry.Registry;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
-import com.sudoplay.mc.pwcustom.modules.world.data.VeinData;
-import com.sudoplay.mc.pwcustom.modules.world.data.VeinDataList;
+import com.sudoplay.mc.pwcustom.modules.veins.data.VeinData;
+import com.sudoplay.mc.pwcustom.modules.veins.data.VeinDataList;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class ModuleWorld
+public class ModuleVeins
     extends ModuleBase {
 
   public static final String MOD_ID = ModPWCustom.MOD_ID;
@@ -52,7 +52,7 @@ public class ModuleWorld
     GSON = new GsonBuilder().setPrettyPrinting().create();
   }
 
-  public ModuleWorld() {
+  public ModuleVeins() {
 
     super(0, MOD_ID);
     this.setRegistry(new Registry(MOD_ID, CREATIVE_TAB));

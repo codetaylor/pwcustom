@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.world.data;
+package com.sudoplay.mc.pwcustom.modules.veins.data;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@ import com.sudoplay.mc.pwcustom.modules.enchanting.ModuleEnchanting;
 import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
 import com.sudoplay.mc.pwcustom.modules.toolparts.ModuleToolParts;
 import com.sudoplay.mc.pwcustom.modules.tools.ModuleTools;
-import com.sudoplay.mc.pwcustom.modules.world.ModuleWorld;
+import com.sudoplay.mc.pwcustom.modules.veins.ModuleVeins;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
@@ -52,7 +52,7 @@ public class ModPWCustom {
         ModuleBlocks.class,
         ModuleCraftingParts.class,
         ModuleTools.class,
-        ModuleWorld.class
+        ModuleVeins.class
     );
   }
 

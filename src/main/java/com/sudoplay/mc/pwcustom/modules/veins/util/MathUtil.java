@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.world.util;
+package com.sudoplay.mc.pwcustom.modules.veins.util;
 
 import java.util.Random;
 

@@ -1,7 +1,8 @@
-package com.sudoplay.mc.pwcustom.modules.world;
+package com.sudoplay.mc.pwcustom.modules.veins;
 
 import com.codetaylor.mc.athenaeum.util.WeightedPicker;
-import com.sudoplay.mc.pwcustom.modules.world.data.VeinData;
+import com.sudoplay.mc.pwcustom.modules.veins.data.EnumListType;
+import com.sudoplay.mc.pwcustom.modules.veins.data.VeinData;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
@@ -37,9 +38,38 @@ public class VeinDataSelector {
       weightedPicker = new WeightedPicker<>(this.random);
       weightedPickerMap.put(biome, weightedPicker);
 
-      // TODO: filter the population
-
+      veinData:
       for (VeinData veinData : this.veinDataList) {
+
+        if (veinData.dimensions.ids.length > 0) {
+
+          for (int id : veinData.dimensions.ids) {
+
+            if (dimensionId == id) {
+
+              if (veinData.dimensions.type == EnumListType.BLACKLIST) {
+                continue veinData;
+
+              } else if (veinData.dimensions.type == EnumListType.WHITELIST) {
+                break;
+              }
+            }
+          }
+        }
+
+        if (veinData.biomes.ids.size() > 0) {
+
+          if (veinData.biomes.ids.contains(biome.toString())) {
+
+            if (veinData.biomes.type == EnumListType.BLACKLIST) {
+              continue;
+
+            } else if (veinData.biomes.type == EnumListType.WHITELIST) {
+              break;
+            }
+          }
+        }
+
         weightedPicker.add(veinData.weight, veinData);
       }
     }

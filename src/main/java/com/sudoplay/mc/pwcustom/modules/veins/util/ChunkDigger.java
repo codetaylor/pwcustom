@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.world.util;
+package com.sudoplay.mc.pwcustom.modules.veins.util;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;

@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.world;
+package com.sudoplay.mc.pwcustom.modules.veins.util;
 
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;

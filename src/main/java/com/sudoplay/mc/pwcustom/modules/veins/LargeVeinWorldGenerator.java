@@ -1,11 +1,11 @@
-package com.sudoplay.mc.pwcustom.modules.world;
+package com.sudoplay.mc.pwcustom.modules.veins;
 
-import com.sudoplay.mc.pwcustom.modules.world.data.VeinData;
-import com.sudoplay.mc.pwcustom.modules.world.spawn.IWorldSavedData;
-import com.sudoplay.mc.pwcustom.modules.world.spawn.SpawnData;
-import com.sudoplay.mc.pwcustom.modules.world.spawn.WorldSavedData;
-import com.sudoplay.mc.pwcustom.modules.world.util.ChunkDigger;
-import com.sudoplay.mc.pwcustom.modules.world.util.MathUtil;
+import com.sudoplay.mc.pwcustom.modules.veins.data.VeinData;
+import com.sudoplay.mc.pwcustom.modules.veins.spawn.IWorldSavedData;
+import com.sudoplay.mc.pwcustom.modules.veins.spawn.SpawnData;
+import com.sudoplay.mc.pwcustom.modules.veins.spawn.WorldSavedData;
+import com.sudoplay.mc.pwcustom.modules.veins.util.ChunkDigger;
+import com.sudoplay.mc.pwcustom.modules.veins.util.MathUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +23,7 @@ import java.util.function.Predicate;
 public class LargeVeinWorldGenerator
     implements IWorldGenerator {
 
-  private static final String SPAWN_DATA_NAME = ModuleWorld.MOD_ID + ":vein";
+  private static final String SPAWN_DATA_NAME = ModuleVeins.MOD_ID + ":vein";
 
   private final int genCheckRange;
   private final Random rand;

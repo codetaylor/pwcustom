@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.world.data;
+package com.sudoplay.mc.pwcustom.modules.veins.data;
 
 import net.minecraft.block.state.IBlockState;
 
@@ -9,6 +9,8 @@ public class VeinData {
   public transient Predicate<IBlockState> _toReplace;
   public transient IBlockState _replaceWith;
 
+  public VeinDataDimensions dimensions = new VeinDataDimensions();
+  public VeinDataBiomes biomes = new VeinDataBiomes();
   public String toReplace;
   public String replaceWith;
   public int range;
