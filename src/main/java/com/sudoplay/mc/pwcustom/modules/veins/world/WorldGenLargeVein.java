@@ -1,6 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.veins.world;
 
 import com.sudoplay.mc.pwcustom.modules.veins.ModuleVeins;
+import com.sudoplay.mc.pwcustom.modules.veins.ModuleVeinsConfig;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinData;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinDataSelector;
 import com.sudoplay.mc.pwcustom.modules.veins.spawn.IWorldSavedData;
@@ -9,6 +10,7 @@ import com.sudoplay.mc.pwcustom.modules.veins.spawn.WorldSavedData;
 import com.sudoplay.mc.pwcustom.modules.veins.util.ChunkDigger;
 import com.sudoplay.mc.pwcustom.modules.veins.util.MathUtil;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -73,17 +75,7 @@ public class WorldGenLargeVein
         int dimension = world.provider.getDimension();
         Biome biome = world.getBiome(new BlockPos(x << 4, 0, z << 4));
         ResourceLocation biomeRegistryName = biome.getRegistryName();
-
         VeinData veinData = this.selector.selectVeinData(dimension, biomeRegistryName);
-
-        if (veinData == null) {
-          continue;
-        }
-
-        if (!spawnData.containsChunk(x, z)
-            && spawnData.containsChunkInRadius(veinData.range, x, z, false)) {
-          continue;
-        }
 
         this.generate(world, chunkX, chunkZ, x, z, veinData, spawnData, chunkDigger);
       }
@@ -101,8 +93,32 @@ public class WorldGenLargeVein
       ChunkDigger chunkDigger
   ) {
 
-    // chance to generate
-    if (this.rand.nextFloat() > 0.5f) {
+    boolean canGenerate = (veinData != null);
+
+    if (canGenerate) {
+      canGenerate = spawnData.containsChunk(chunkX, chunkZ)
+          || !spawnData.containsChunkInRadius(veinData.range, chunkX, chunkZ, false);
+    }
+
+    if (canGenerate) {
+      canGenerate = this.rand.nextFloat() < ModuleVeinsConfig.VEIN_CHANCE;
+    }
+
+    if (!canGenerate) {
+
+      if (chunkX == originX
+          && chunkZ == originZ
+          && this.rand.nextFloat() < ModuleVeinsConfig.FAKE_SURFACE_INDICATOR_CHANCE) {
+
+        this.generateSurfaceIndicator(
+            world,
+            (chunkX << 4) + 8,
+            (chunkZ << 4) + 8,
+            chunkDigger,
+            Blocks.GRAVEL.getDefaultState()
+        );
+      }
+
       return;
     }
 
