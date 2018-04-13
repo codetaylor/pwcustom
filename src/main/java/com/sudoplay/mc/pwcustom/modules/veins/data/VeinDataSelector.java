@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.veins;
+package com.sudoplay.mc.pwcustom.modules.veins.data;
 
 import com.codetaylor.mc.athenaeum.util.WeightedPicker;
 import com.sudoplay.mc.pwcustom.modules.veins.data.EnumListType;
