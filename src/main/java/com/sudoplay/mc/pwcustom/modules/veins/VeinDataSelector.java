@@ -59,13 +59,16 @@ public class VeinDataSelector {
 
         if (veinData.biomes.ids.size() > 0) {
 
-          if (veinData.biomes.ids.contains(biome.toString())) {
+          if (veinData.biomes.type == EnumListType.BLACKLIST) {
 
-            if (veinData.biomes.type == EnumListType.BLACKLIST) {
+            if (veinData.biomes.ids.contains(biome.toString())) {
               continue;
+            }
 
-            } else if (veinData.biomes.type == EnumListType.WHITELIST) {
-              break;
+          } else if (veinData.biomes.type == EnumListType.WHITELIST) {
+
+            if (!veinData.biomes.ids.contains(biome.toString())) {
+              continue;
             }
           }
         }

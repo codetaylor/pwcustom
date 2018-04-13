@@ -8,17 +8,20 @@ public class VeinData {
 
   public transient Predicate<IBlockState> _toReplace;
   public transient IBlockState _replaceWith;
+  public transient IBlockState _indicator;
 
   public VeinDataDimensions dimensions = new VeinDataDimensions();
   public VeinDataBiomes biomes = new VeinDataBiomes();
-  public String toReplace;
-  public String replaceWith;
-  public int range;
-  public int weight;
-  public int minGenHeight;
-  public int maxGenHeight;
-  public float minSize;
-  public float maxSize;
-  public float length;
+  public String toReplace = "minecraft:stone:*";
+  public String replaceWith = "minecraft:dirt";
+  public String indicator = "minecraft:gravel";
+  public boolean generateIndicator = true;
+  public int range = 4;
+  public int weight = 100;
+  public int minGenHeight = 0;
+  public int maxGenHeight = 50;
+  public float minSize = 3;
+  public float maxSize = 5;
+  public float length = 100;
 
 }

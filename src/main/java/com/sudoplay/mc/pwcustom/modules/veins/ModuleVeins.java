@@ -1,25 +1,20 @@
 package com.sudoplay.mc.pwcustom.modules.veins;
 
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
-import com.codetaylor.mc.athenaeum.parser.recipe.item.MalformedRecipeItemException;
-import com.codetaylor.mc.athenaeum.parser.recipe.item.ParseResult;
-import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.codetaylor.mc.athenaeum.registry.Registry;
+import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
+import com.sudoplay.mc.pwcustom.modules.veins.block.BlockDenseOreStone;
+import com.sudoplay.mc.pwcustom.modules.veins.block.BlockGravelOre;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinData;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinDataList;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockStateMatcher;
+import com.sudoplay.mc.pwcustom.modules.veins.parse.VeinDataParser;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,7 +28,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
 
 public class ModuleVeins
     extends ModuleBase {
@@ -52,6 +46,12 @@ public class ModuleVeins
     GSON = new GsonBuilder().setPrettyPrinting().create();
   }
 
+  public static class Blocks {
+
+    public static final BlockDenseOreStone DENSE_ORE_STONE = new BlockDenseOreStone();
+    public static final BlockGravelOre GRAVEL_ORE = new BlockGravelOre();
+  }
+
   public ModuleVeins() {
 
     super(0, MOD_ID);
@@ -59,6 +59,30 @@ public class ModuleVeins
     this.enableAutoRegistry();
 
     this.veinDataLists = new ArrayList<>();
+  }
+
+  @Override
+  public void onRegister(Registry registry) {
+
+    registry.registerBlockWithItem(Blocks.DENSE_ORE_STONE, "ore_dense_stone");
+    registry.registerBlockWithItem(Blocks.GRAVEL_ORE, "ore_gravel");
+  }
+
+  @Override
+  public void onClientRegister(Registry registry) {
+
+    registry.registerClientModelRegistrationStrategy(() -> {
+
+      ModelRegistrationHelper.registerVariantBlockItemModels(
+          Blocks.DENSE_ORE_STONE.getDefaultState(),
+          BlockDenseOreStone.VARIANT
+      );
+
+      ModelRegistrationHelper.registerVariantBlockItemModels(
+          Blocks.GRAVEL_ORE.getDefaultState(),
+          BlockGravelOre.VARIANT
+      );
+    });
   }
 
   @Override
@@ -133,10 +157,11 @@ public class ModuleVeins
 
     super.onLoadCompleteEvent(event);
 
+    VeinDataParser parser = new VeinDataParser();
     List<VeinData> parsedVeinDataList = new ArrayList<>();
 
     for (VeinDataList veinDataList : this.veinDataLists) {
-      this.parse(veinDataList, parsedVeinDataList);
+      parser.parse(veinDataList, parsedVeinDataList);
     }
 
     Random random = new Random();
@@ -151,90 +176,6 @@ public class ModuleVeins
         ),
         1000
     );
-  }
-
-  private List<VeinData> parse(VeinDataList veinDataList, List<VeinData> result) {
-
-    for (VeinData data : veinDataList.veins) {
-
-      // TODO: parse data
-
-      RecipeItemParser parser = new RecipeItemParser();
-
-      try {
-        this.parseToReplace(data, parser);
-        this.parseReplaceWith(data, parser);
-
-        result.add(data);
-
-      } catch (Throwable e) {
-        LOGGER.error("", e);
-      }
-    }
-
-    return result;
-  }
-
-  private void parseReplaceWith(VeinData data, RecipeItemParser parser) throws MalformedRecipeItemException {
-
-    ParseResult parse = parser.parse(data.replaceWith);
-
-    int meta = parse.getMeta();
-
-    if (meta == OreDictionary.WILDCARD_VALUE) {
-      throw new IllegalArgumentException("Can't use wildcard for replace with value");
-    }
-
-    ResourceLocation resourceLocation = new ResourceLocation(parse.getDomain(), parse.getPath());
-    Block block = ForgeRegistries.BLOCKS.getValue(resourceLocation);
-
-    if (block == null) {
-      throw new IllegalArgumentException("Unable to locate block for [" + resourceLocation + "]");
-    }
-
-    data._replaceWith = block.getStateFromMeta(meta);
-  }
-
-  private void parseToReplace(VeinData data, RecipeItemParser parser) throws MalformedRecipeItemException {
-
-    ParseResult parse = parser.parse(data.toReplace);
-    ResourceLocation resourceLocation = new ResourceLocation(parse.getDomain(), parse.getPath());
-    Block block = ForgeRegistries.BLOCKS.getValue(resourceLocation);
-
-    if (block == null) {
-      throw new IllegalArgumentException("Unable to locate block for [" + resourceLocation + "]");
-    }
-
-    int meta = parse.getMeta();
-
-    if (meta == OreDictionary.WILDCARD_VALUE) {
-      data._toReplace = BlockStateMatcher.forBlock(block);
-
-    } else {
-      data._toReplace = new BlockMetaMatcher(block, meta);
-    }
-  }
-
-  public static class BlockMetaMatcher
-      implements Predicate<IBlockState> {
-
-    private final Block block;
-    private final int meta;
-
-    public BlockMetaMatcher(Block block, int meta) {
-
-      this.block = block;
-      this.meta = meta;
-    }
-
-    @Override
-    public boolean test(IBlockState blockState) {
-
-      Block blockCandidate = blockState.getBlock();
-
-      return blockCandidate == this.block
-          && this.block.getStateFromMeta(this.meta) == blockState;
-    }
   }
 
 }

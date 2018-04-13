@@ -1,0 +1,60 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all"
+  },
+  "variants": {
+    "variant": {
+      "copper": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_copper"
+        }
+      },
+      "iron": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_iron"
+        }
+      },
+      "silver": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_silver"
+        }
+      },
+      "lead": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_lead"
+        }
+      },
+      "platinum": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_platinum"
+        }
+      },
+      "nickel": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_nickel"
+        }
+      },
+      "tin": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_tin"
+        }
+      },
+      "aluminum": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_aluminum"
+        }
+      },
+      "gold": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_gold"
+        }
+      },
+      "coal": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_coal"
+        }
+      }
+    }
+  }
+}

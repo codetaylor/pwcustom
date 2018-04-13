@@ -7,7 +7,6 @@ import com.sudoplay.mc.pwcustom.modules.veins.spawn.WorldSavedData;
 import com.sudoplay.mc.pwcustom.modules.veins.util.ChunkDigger;
 import com.sudoplay.mc.pwcustom.modules.veins.util.MathUtil;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -111,9 +110,7 @@ public class WorldGenLargeVein
     int blockY = this.rand.nextInt(rangeY) + veinData.minGenHeight;
     int blockZ = chunkZ * 16 + this.rand.nextInt(16);
 
-    NBTTagCompound data = new NBTTagCompound();
-    data.setString("top", "minecraft:gravel");
-    spawnData.set(blockX, blockY, blockZ, data);
+    spawnData.set(blockX, blockY, blockZ, new NBTTagCompound());
 
     int veinSize = (int) Math.max(veinData.minSize, 1);
     int nodeCount = (int) Math.max(veinData.length, 1);
@@ -134,7 +131,8 @@ public class WorldGenLargeVein
         veinData
     );
 
-    if (chunkX == originX
+    if (veinData.generateIndicator
+        && chunkX == originX
         && chunkZ == originZ) {
 
       this.generateSurfaceIndicator(
@@ -142,7 +140,7 @@ public class WorldGenLargeVein
           (chunkX << 4) + 8,
           (chunkZ << 4) + 8,
           chunkDigger,
-          Blocks.GRAVEL.getDefaultState()
+          veinData._indicator
       );
     }
   }
