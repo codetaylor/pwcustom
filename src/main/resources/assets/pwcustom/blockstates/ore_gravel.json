@@ -54,6 +54,36 @@
         "textures": {
           "all": "pwcustom:blocks/gravel_ore_coal"
         }
+      },
+      "diamond": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_diamond"
+        }
+      },
+      "emerald": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_emerald"
+        }
+      },
+      "lapis": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_lapis"
+        }
+      },
+      "redstone": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_redstone"
+        }
+      },
+      "quartz": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_quartz"
+        }
+      },
+      "ender": {
+        "textures": {
+          "all": "pwcustom:blocks/gravel_ore_ender"
+        }
       }
     }
   }

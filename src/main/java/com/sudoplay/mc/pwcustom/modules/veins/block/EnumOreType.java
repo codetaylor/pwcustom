@@ -17,7 +17,13 @@ public enum EnumOreType
   TIN(6, "tin"),
   ALUMINUM(7, "aluminum"),
   GOLD(8, "gold"),
-  COAL(9, "coal");
+  COAL(9, "coal"),
+  EMERALD(10, "emerald"),
+  DIAMOND(11, "diamond"),
+  LAPIS(12, "lapis"),
+  REDSTONE(13, "redstone"),
+  QUARTZ(14, "quartz"),
+  ENDER(15, "ender");
 
   private static final EnumOreType[] META_LOOKUP = Stream.of(EnumOreType.values())
       .sorted(Comparator.comparing(EnumOreType::getMeta))

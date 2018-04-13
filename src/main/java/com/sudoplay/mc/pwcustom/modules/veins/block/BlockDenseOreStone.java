@@ -33,12 +33,6 @@ public class BlockDenseOreStone
     this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumOreType.IRON));
   }
 
-  @SideOnly(Side.CLIENT)
-  public BlockRenderLayer getBlockLayer() {
-
-    return BlockRenderLayer.CUTOUT_MIPPED;
-  }
-
   @Override
   protected BlockStateContainer createBlockState() {
 

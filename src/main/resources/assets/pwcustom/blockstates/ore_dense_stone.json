@@ -54,6 +54,36 @@
         "textures": {
           "all": "pwcustom:blocks/dense_ore_stone_coal"
         }
+      },
+      "diamond": {
+        "textures": {
+          "all": "pwcustom:blocks/dense_ore_stone_diamond"
+        }
+      },
+      "emerald": {
+        "textures": {
+          "all": "pwcustom:blocks/dense_ore_stone_emerald"
+        }
+      },
+      "lapis": {
+        "textures": {
+          "all": "pwcustom:blocks/dense_ore_stone_lapis"
+        }
+      },
+      "redstone": {
+        "textures": {
+          "all": "pwcustom:blocks/dense_ore_stone_redstone"
+        }
+      },
+      "quartz": {
+        "textures": {
+          "all": "pwcustom:blocks/dense_ore_stone_quartz"
+        }
+      },
+      "ender": {
+        "textures": {
+          "all": "pwcustom:blocks/dense_ore_stone_ender"
+        }
       }
     }
   }
