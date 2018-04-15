@@ -53,12 +53,20 @@
         { "target": "portal_wand_darklands.png", "position": [3, 5] },
 
         { "target": "tanned_leather_cord.png", "position": [4, 0] },
+        { "target": "tanned_leather_sheet.png", "position": [4, 2] },
+        { "target": "hardened_leather_sheet.png", "position": [4, 3] },
 
         { "target": "tanned_leather_strips.png", "position": [5, 0] },
+        { "target": "leather_strips.png", "position": [5, 2] },
+        { "target": "hardened_leather_strips.png", "position": [5, 3] },
 
         { "target": "crafting_rune_common.png", "position": [6, 0] },
+        { "target": "tanned_leather_strip.png", "position": [6, 2] },
+        { "target": "hardened_leather_strip.png", "position": [6, 3] },
 
         { "target": "crafting_rune_uncommon.png", "position": [7, 0] },
+        { "target": "leather_cord.png", "position": [7, 2] },
+        { "target": "hardened_leather_cord.png", "position": [7, 3] },
 
         { "target": "crafting_rune_rare.png", "position": [8, 0] },
 

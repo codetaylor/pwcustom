@@ -49,6 +49,46 @@
         "textures": {
           "layer0": "pwcustom:items/paper_gold_leaf"
         }
+      },
+      "tanned_leather_sheet": {
+        "textures": {
+          "layer0": "pwcustom:items/tanned_leather_sheet"
+        }
+      },
+      "leather_strips": {
+        "textures": {
+          "layer0": "pwcustom:items/leather_strips"
+        }
+      },
+      "tanned_leather_strip": {
+        "textures": {
+          "layer0": "pwcustom:items/tanned_leather_strip"
+        }
+      },
+      "leather_cord": {
+        "textures": {
+          "layer0": "pwcustom:items/leather_cord"
+        }
+      },
+      "hardened_leather_sheet": {
+        "textures": {
+          "layer0": "pwcustom:items/hardened_leather_sheet"
+        }
+      },
+      "hardened_leather_strips": {
+        "textures": {
+          "layer0": "pwcustom:items/hardened_leather_strips"
+        }
+      },
+      "hardened_leather_strip": {
+        "textures": {
+          "layer0": "pwcustom:items/hardened_leather_strip"
+        }
+      },
+      "hardened_leather_cord": {
+        "textures": {
+          "layer0": "pwcustom:items/hardened_leather_cord"
+        }
       }
     }
   }

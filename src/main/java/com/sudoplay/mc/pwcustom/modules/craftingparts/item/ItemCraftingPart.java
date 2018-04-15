@@ -55,7 +55,16 @@ public class ItemCraftingPart
     CRAFTING_RUNE_RARE("crafting_rune_rare", 5),
     CRAFTING_RUNE_EPIC("crafting_rune_epic", 6),
     CRAFTING_RUNE_LEGENDARY("crafting_rune_legendary", 7),
-    PAPER_GOLD_LEAF("paper_gold_leaf", 8);
+    PAPER_GOLD_LEAF("paper_gold_leaf", 8),
+    TANNED_LEATHER_SHEET("tanned_leather_sheet", 9),
+    LEATHER_STRIPS("leather_strips", 10),
+    TANNED_LEATHER_STRIP("tanned_leather_strip", 11),
+    LEATHER_CORD("leather_cord", 12),
+    HARDENED_LEATHER_SHEET("hardened_leather_sheet", 13),
+    HARDENED_LEATHER_STRIPS("hardened_leather_strips", 14),
+    HARDENED_LEATHER_STRIP("hardened_leather_strip", 15),
+    HARDENED_LEATHER_CORD("hardened_leather_cord", 16),
+    ;
 
     private static final EnumType[] META_LOOKUP = Stream
         .of(EnumType.values())
