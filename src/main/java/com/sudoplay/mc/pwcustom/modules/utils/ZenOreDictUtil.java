@@ -1,10 +1,11 @@
 package com.sudoplay.mc.pwcustom.modules.utils;
 
 import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.api.oredict.IOreDictEntry;
-import crafttweaker.mc1120.actions.ActionOreDictRemoveItem;
+import crafttweaker.mc1120.oredict.MCOreDictEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -16,7 +17,7 @@ import java.util.List;
 @ZenClass("mods.pwcustom.OreDictUtil")
 public class ZenOreDictUtil {
 
-  public static final List<ActionOreDictRemoveItem> REMOVE_ITEM_LIST;
+  public static final List<IAction> REMOVE_ITEM_LIST;
 
   static {
     REMOVE_ITEM_LIST = new ArrayList<>();
@@ -24,7 +25,7 @@ public class ZenOreDictUtil {
 
   public static void apply() {
 
-    for (ActionOreDictRemoveItem action : REMOVE_ITEM_LIST) {
+    for (IAction action : REMOVE_ITEM_LIST) {
       CraftTweakerAPI.apply(action);
     }
   }
@@ -40,18 +41,44 @@ public class ZenOreDictUtil {
   @ZenMethod
   public static void remove(IOreDictEntry oreDictEntry, IItemStack item) {
 
-    ItemStack result = ItemStack.EMPTY;
+    REMOVE_ITEM_LIST.add(new ActionOreDictRemoveItemDelayed(oreDictEntry.getName(), item));
+  }
 
-    for (ItemStack itemStack : OreDictionary.getOres(oreDictEntry.getName())) {
+  public static class ActionOreDictRemoveItemDelayed
+      implements IAction {
 
-      if (item.matches(CraftTweakerMC.getIItemStackWildcardSize(itemStack))) {
-        result = itemStack;
-        break;
+    private final String id;
+    private final IItemStack item;
+
+    public ActionOreDictRemoveItemDelayed(String id, IItemStack item) {
+
+      this.id = id;
+      this.item = item;
+    }
+
+    @Override
+    public void apply() {
+
+      ItemStack result = ItemStack.EMPTY;
+
+      for (ItemStack itemStack : OreDictionary.getOres(this.id)) {
+
+        if (this.item.matches(CraftTweakerMC.getIItemStackWildcardSize(itemStack))) {
+          result = itemStack;
+          break;
+        }
+      }
+
+      if (!result.isEmpty()) {
+        int oreId = OreDictionary.getOreID(this.id);
+        MCOreDictEntry.getOredictContents().get(oreId).remove(result);
       }
     }
 
-    if (!result.isEmpty()) {
-      REMOVE_ITEM_LIST.add(new ActionOreDictRemoveItem(oreDictEntry.getName(), result));
+    @Override
+    public String describe() {
+
+      return "Removing " + this.item.getDisplayName() + " from ore dictionary entry " + this.id;
     }
   }
 
