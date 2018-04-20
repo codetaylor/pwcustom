@@ -1,8 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.init;
 
 import com.google.common.base.Preconditions;
-import com.sudoplay.mc.pwcustom.modules.charcoal.block.fluid.BlockFluidCreosote;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.fluid.BlockFluidCoalTar;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.fluid.BlockFluidWoodTar;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -34,11 +35,18 @@ public class ModuleFluids {
   private static final List<Fluid> ALL_FLUID_LIST = new ArrayList<>();
   private static final List<IFluidBlock> MOD_FLUID_BLOCK_LIST = new ArrayList<>();
 
-  public static final Fluid CREOSOTE = ModuleFluids.createFluid(
-      "creosote",
+  public static final Fluid WOOD_TAR = ModuleFluids.createFluid(
+      "wood_tar",
       true,
-      fluid -> fluid.setDensity(2000),
-      BlockFluidCreosote::new
+      fluid -> fluid.setDensity(3000).setViscosity(6000),
+      BlockFluidWoodTar::new
+  );
+
+  public static final Fluid COAL_TAR = ModuleFluids.createFluid(
+      "coal_tar",
+      true,
+      fluid -> fluid.setDensity(3000).setViscosity(6000),
+      BlockFluidCoalTar::new
   );
 
   private static <T extends Block & IFluidBlock> Fluid createFluid(

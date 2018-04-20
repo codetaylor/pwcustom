@@ -1,9 +1,12 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
@@ -23,9 +26,9 @@ public class TileActiveCoalPile
   }
 
   @Override
-  protected int getFluidProducedPerItem() {
+  protected FluidStack getFluidProducedPerItem() {
 
-    return 50;
+    return FluidRegistry.getFluidStack(ModuleFluids.COAL_TAR.getName(), 50);
   }
 
   @Override

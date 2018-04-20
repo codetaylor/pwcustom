@@ -1,15 +1,18 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import net.minecraft.block.state.IBlockState;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TileActiveLogPile
     extends TileActivePileBase {
 
   @Override
-  protected int getFluidProducedPerItem() {
+  protected FluidStack getFluidProducedPerItem() {
 
-    return 50;
+    return FluidRegistry.getFluidStack(ModuleFluids.WOOD_TAR.getName(), 50);
   }
 
   @Override
@@ -29,4 +32,5 @@ public class TileActiveLogPile
 
     return 9;
   }
+
 }

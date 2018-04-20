@@ -4,10 +4,17 @@
     "model": "forge:fluid"
   },
   "variants": {
-    "creosote": [
+    "wood_tar": [
       {
         "custom": {
-          "fluid": "creosote"
+          "fluid": "wood_tar"
+        }
+      }
+    ],
+    "coal_tar": [
+      {
+        "custom": {
+          "fluid": "coal_tar"
         }
       }
     ]

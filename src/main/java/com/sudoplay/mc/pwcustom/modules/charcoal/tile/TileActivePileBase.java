@@ -1,6 +1,5 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -9,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
 import javax.annotation.Nonnull;
@@ -52,7 +51,7 @@ public abstract class TileActivePileBase
         this.remainingStages -= 1;
 
         this.fluidTank.fill(
-            FluidRegistry.getFluidStack(this.getFluidName(), this.getFluidProducedPerItem()),
+            this.getFluidProducedPerItem(),
             true
         );
 
@@ -152,11 +151,6 @@ public abstract class TileActivePileBase
     this.needStructureValidation = true;
   }
 
-  protected String getFluidName() {
-
-    return ModuleFluids.CREOSOTE.getName();
-  }
-
   protected boolean isValidStructureBlock(IBlockState blockState) {
 
     return true;
@@ -172,7 +166,7 @@ public abstract class TileActivePileBase
     return DEFAULT_MAX_INVALID_TICKS;
   }
 
-  protected abstract int getFluidProducedPerItem();
+  protected abstract FluidStack getFluidProducedPerItem();
 
   protected abstract int getTotalBurnTimeTicks();
 
