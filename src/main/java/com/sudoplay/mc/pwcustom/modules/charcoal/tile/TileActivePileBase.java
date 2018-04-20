@@ -33,6 +33,11 @@ public abstract class TileActivePileBase
     this.fluidTank = new FluidTank(this.getMaxCreosoteLevel());
   }
 
+  public FluidTank getFluidTank() {
+
+    return this.fluidTank;
+  }
+
   @Override
   public void update() {
 

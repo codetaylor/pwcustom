@@ -1,0 +1,20 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "pwcustom:tar_collector"
+  },
+  "variants": {
+    "variant": {
+      "stone": {
+        "textures": {
+          "all": "minecraft:blocks/stone"
+        }
+      },
+      "brick": {
+        "textures": {
+          "all": "pwcustom:blocks/refractory_brick"
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarCollector;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarDrain;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import net.minecraft.block.state.IBlockState;
@@ -21,7 +23,15 @@ public class TileActiveCoalPile
     VALID_STRUCTURE_BLOCK_LIST = new ArrayList<>();
     VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(ModuleCharcoal.Blocks.COAL_PILE_ACTIVE, 0));
     VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(ModuleCharcoal.Blocks.COAL_PILE_ASH, 0));
-    VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(Blocks.BRICK_BLOCK, 0));
+    VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(ModuleCharcoal.Blocks.REFRACTORY_BRICK, 0));
+    VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(
+        ModuleCharcoal.Blocks.TAR_COLLECTOR,
+        BlockTarCollector.EnumType.BRICK.getMeta()
+    ));
+    VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(
+        ModuleCharcoal.Blocks.TAR_DRAIN,
+        BlockTarDrain.EnumType.BRICK.getMeta()
+    ));
     VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(Blocks.IRON_DOOR, OreDictionary.WILDCARD_VALUE));
   }
 

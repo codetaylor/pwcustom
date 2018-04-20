@@ -377,16 +377,28 @@ tile.pwcustom.ore_gravel.redstone.name=Redstone Gravel
 tile.pwcustom.ore_gravel.quartz.name=Quartz Gravel
 tile.pwcustom.ore_gravel.ender.name=Ender Gravel
 
-fluid.creosote=Creosote
-tile.fluid.creosote.name=Creosote
+fluid.wood_tar=Wood Tar
+tile.fluid.wood_tar.name=Wood Tar
+fluid.coal_tar=Coal Tar
+tile.fluid.coal_tar.name=Coal Tar
 
 item.pwcustom.coal.ash.name=Coal Ash
 item.pwcustom.straw.name=Straw
 item.pwcustom.coal.coke.name=Coal Coke
 item.pwcustom.wood.ash.name=Wood Ash
+item.pwcustom.flint.clay.ball.name=Flint Clay
+item.pwcustom.refractory.clay.ball.name=Refractory Clay
 
 tile.pwcustom.coal_pile_ash.name=Coal Ash Block
 tile.pwcustom.thatch.name=Thatch Block
 tile.pwcustom.coal_coke_block.name=Coal Coke Block
 tile.pwcustom.log_pile_ash.name=Wood Ash Block
 tile.pwcustom.log_pile.name=Log Pile
+
+tile.pwcustom.tar_collector.stone.name=Stone Tar Collector
+tile.pwcustom.tar_collector.brick.name=Refractory Brick Tar Collector
+
+tile.pwcustom.tar_drain.stone.name=Stone Tar Drain
+tile.pwcustom.tar_drain.brick.name=Refractory Brick Tar Drain
+
+tile.pwcustom.refractory_brick_block.name=Refractory Brick Block
