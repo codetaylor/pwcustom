@@ -376,3 +376,17 @@ tile.pwcustom.ore_gravel.lapis.name=Lapis Gravel
 tile.pwcustom.ore_gravel.redstone.name=Redstone Gravel
 tile.pwcustom.ore_gravel.quartz.name=Quartz Gravel
 tile.pwcustom.ore_gravel.ender.name=Ender Gravel
+
+fluid.creosote=Creosote
+tile.fluid.creosote.name=Creosote
+
+item.pwcustom.coal.ash.name=Coal Ash
+item.pwcustom.straw.name=Straw
+item.pwcustom.coal.coke.name=Coal Coke
+item.pwcustom.wood.ash.name=Wood Ash
+
+tile.pwcustom.coal_pile_ash.name=Coal Ash Block
+tile.pwcustom.thatch.name=Thatch Block
+tile.pwcustom.coal_coke_block.name=Coal Coke Block
+tile.pwcustom.log_pile_ash.name=Wood Ash Block
+tile.pwcustom.log_pile.name=Log Pile

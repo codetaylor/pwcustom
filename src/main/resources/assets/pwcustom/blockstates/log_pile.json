@@ -1,0 +1,23 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "normal": {
+      "model": "pwcustom:log_pile"
+    },
+    "axis=y": {
+      "model": "pwcustom:log_pile"
+    },
+    "axis=z": {
+      "model": "pwcustom:log_pile",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "pwcustom:log_pile",
+      "x": 90,
+      "y": 90
+    },
+    "axis=none": {
+      "model": "pwcustom:log_pile_bark"
+    }
+  }
+}

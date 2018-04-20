@@ -3,6 +3,7 @@ package com.sudoplay.mc.pwcustom;
 import com.codetaylor.mc.athenaeum.module.ModuleManager;
 import com.sudoplay.mc.pwcustom.modules.blocks.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.craftingparts.ModuleCraftingParts;
 import com.sudoplay.mc.pwcustom.modules.enchanting.ModuleEnchanting;
 import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
@@ -54,7 +55,8 @@ public class ModPWCustom {
         ModuleCraftingParts.class,
         ModuleTools.class,
         ModuleVeins.class,
-        ModuleUtils.class
+        ModuleUtils.class,
+        ModuleCharcoal.class
     );
   }
 

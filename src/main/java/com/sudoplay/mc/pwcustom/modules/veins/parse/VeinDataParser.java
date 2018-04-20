@@ -6,15 +6,14 @@ import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.sudoplay.mc.pwcustom.modules.veins.ModuleVeins;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinData;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinDataList;
+import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class VeinDataParser {
 
@@ -95,28 +94,6 @@ public class VeinDataParser {
 
     } else {
       data._toReplace = new BlockMetaMatcher(block, meta);
-    }
-  }
-
-  public static class BlockMetaMatcher
-      implements Predicate<IBlockState> {
-
-    private final Block block;
-    private final int meta;
-
-    public BlockMetaMatcher(Block block, int meta) {
-
-      this.block = block;
-      this.meta = meta;
-    }
-
-    @Override
-    public boolean test(IBlockState blockState) {
-
-      Block blockCandidate = blockState.getBlock();
-
-      return blockCandidate == this.block
-          && this.block.getStateFromMeta(this.meta) == blockState;
     }
   }
 
