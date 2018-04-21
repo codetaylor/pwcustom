@@ -61,10 +61,9 @@ public class BlockTarDrain
   @Override
   public IBlockState getStateFromMeta(int meta) {
 
-    int horizontalFacingIndex = (meta >> 2) & 0xF;
     return this.getDefaultState()
-        .withProperty(VARIANT, EnumType.fromMeta(meta & 0x8))
-        .withProperty(FACING, EnumFacing.HORIZONTALS[horizontalFacingIndex]);
+        .withProperty(VARIANT, EnumType.fromMeta(meta & 0x3))
+        .withProperty(FACING, EnumFacing.HORIZONTALS[(meta >> 2) & 0x3]);
   }
 
   @Override
