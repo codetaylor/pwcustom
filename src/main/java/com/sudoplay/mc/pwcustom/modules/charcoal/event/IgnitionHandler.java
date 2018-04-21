@@ -1,8 +1,13 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.event;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.util.FloodFill;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,19 +25,35 @@ public class IgnitionHandler {
     World world = event.getWorld();
     BlockPos pos = event.getPos();
 
+    Block fireBlock = world.getBlockState(pos).getBlock();
+
     if (event.isCanceled()
-        || world.getBlockState(pos).getBlock() != Blocks.FIRE) {
+        || fireBlock != Blocks.FIRE) {
       return;
     }
 
     for (EnumFacing facing : event.getNotifiedSides()) {
       BlockPos offset = pos.offset(facing);
+      IBlockState blockState = world.getBlockState(offset);
+      Block block = blockState.getBlock();
 
-      if (world.getBlockState(offset).getBlock() == ModuleCharcoal.Blocks.LOG_PILE) {
+      if (block == ModuleCharcoal.Blocks.LOG_PILE) {
         IgnitionHandler.igniteLogPiles(world, offset);
 
-      } else if (world.getBlockState(offset).getBlock() == Blocks.COAL_BLOCK) {
+      } else if (block == Blocks.COAL_BLOCK) {
         IgnitionHandler.igniteCoalBlocks(world, offset);
+
+      } else if (facing == EnumFacing.DOWN
+          && block == ModuleCharcoal.Blocks.KILN) {
+
+        if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.WOOD) {
+          world.setBlockState(offset, blockState.withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.ACTIVE));
+          TileEntity tileEntity = world.getTileEntity(offset);
+
+          if (tileEntity instanceof TileKiln) {
+            ((TileKiln) tileEntity).setActive(true);
+          }
+        }
       }
     }
   }

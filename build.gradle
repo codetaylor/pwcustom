@@ -72,6 +72,9 @@ minecraft {
 
 repositories {
 
+    // hwyla
+    maven { url "http://tehnut.info/maven" }
+
     flatDir {
         dirs 'libs'
     }
@@ -79,6 +82,7 @@ repositories {
 
 dependencies {
     compile project(":athenaeum")
+    deobfCompile "mcp.mobius.waila:Hwyla:1.8.25-B40_1.12"
 }
 
 processResources {

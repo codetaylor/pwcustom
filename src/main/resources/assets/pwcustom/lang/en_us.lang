@@ -388,6 +388,7 @@ item.pwcustom.coal.coke.name=Coal Coke
 item.pwcustom.wood.ash.name=Wood Ash
 item.pwcustom.flint.clay.ball.name=Flint Clay
 item.pwcustom.refractory.clay.ball.name=Refractory Clay
+item.pwcustom.refractory.brick.name=Refractory Brick
 
 tile.pwcustom.coal_pile_ash.name=Coal Ash Block
 tile.pwcustom.thatch.name=Thatch Block
@@ -402,3 +403,5 @@ tile.pwcustom.tar_drain.stone.name=Stone Tar Drain
 tile.pwcustom.tar_drain.brick.name=Refractory Brick Tar Drain
 
 tile.pwcustom.refractory_brick_block.name=Refractory Brick Block
+
+tile.pwcustom.kiln.name=Pit Kiln

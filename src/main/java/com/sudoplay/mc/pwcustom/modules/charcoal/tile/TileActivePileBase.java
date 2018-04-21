@@ -6,7 +6,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -14,22 +13,15 @@ import net.minecraftforge.fluids.FluidTank;
 import javax.annotation.Nonnull;
 
 public abstract class TileActivePileBase
-    extends TileEntity
-    implements ITickable {
+    extends TileBurnableBase {
 
   private static final int DEFAULT_MAX_CREOSOTE_LEVEL = 1000;
-  private static final int DEFAULT_MAX_INVALID_TICKS = 100;
 
-  private boolean needStructureValidation;
-  private int burnTimeTicksPerStage;
-  private int invalidTicks;
-  private int remainingStages;
-  private FluidTank fluidTank;
+  protected FluidTank fluidTank;
 
   public TileActivePileBase() {
 
-    this.invalidTicks = 0;
-    this.remainingStages = this.getTotalStages();
+    super();
     this.fluidTank = new FluidTank(this.getMaxCreosoteLevel());
   }
 
@@ -38,34 +30,31 @@ public abstract class TileActivePileBase
     return this.fluidTank;
   }
 
+  @Nonnull
   @Override
-  public void update() {
+  public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
-    if (this.world.isRemote) {
-      return;
-    }
+    super.writeToNBT(compound);
 
-    this.checkValid();
+    compound.setTag("fluidTank", this.fluidTank.writeToNBT(new NBTTagCompound()));
+    return compound;
+  }
 
-    if (this.burnTimeTicksPerStage > 0) {
-      this.burnTimeTicksPerStage -= 1;
+  @Override
+  public void readFromNBT(NBTTagCompound compound) {
 
-    } else {
+    super.readFromNBT(compound);
 
-      if (this.remainingStages > 0) {
-        this.remainingStages -= 1;
+    this.fluidTank.readFromNBT(compound.getCompoundTag("fluidTank"));
+  }
 
-        this.fluidTank.fill(
-            this.getFluidProducedPerItem(),
-            true
-        );
+  protected int getMaxCreosoteLevel() {
 
-        this.burnTimeTicksPerStage = this.getTotalBurnTimeTicks() / this.getTotalStages();
+    return DEFAULT_MAX_CREOSOTE_LEVEL;
+  }
 
-      } else {
-        this.world.setBlockState(this.pos, this.getResultingBlockState());
-      }
-    }
+  @Override
+  protected void onUpdate() {
 
     if (this.fluidTank.getFluidAmount() > 0) {
       TileEntity tileEntity = this.world.getTileEntity(this.pos.offset(EnumFacing.DOWN));
@@ -77,106 +66,50 @@ public abstract class TileActivePileBase
     }
   }
 
-  protected void checkValid() {
+  @Override
+  protected void onBurnStageComplete() {
 
-    if (!this.needStructureValidation) {
-      return;
-    }
-
-    if (this.isStructureValid()) {
-      this.invalidTicks = 0;
-      this.needStructureValidation = false;
-
-    } else {
-
-      if (this.invalidTicks < this.getMaxInvalidTicks()) {
-        this.invalidTicks += 1;
-
-        for (EnumFacing facing : EnumFacing.VALUES) {
-          BlockPos offset = this.pos.offset(facing);
-          IBlockState blockState = this.world.getBlockState(offset);
-          Block block = blockState.getBlock();
-
-          if (block.isAir(blockState, this.world, offset) ||
-              block.isReplaceable(this.world, offset)) {
-            this.world.setBlockState(offset, Blocks.FIRE.getDefaultState());
-          }
-        }
-
-      } else {
-        this.world.setBlockToAir(this.pos);
-      }
-    }
+    this.fluidTank.fill(
+        this.getFluidProducedPerBurnStage(),
+        true
+    );
   }
 
-  protected boolean isStructureValid() {
+  @Override
+  protected void onUpdateValid() {
+    //
+  }
+
+  @Override
+  protected void onUpdateInvalid() {
 
     for (EnumFacing facing : EnumFacing.VALUES) {
       BlockPos offset = this.pos.offset(facing);
       IBlockState blockState = this.world.getBlockState(offset);
-      EnumFacing opposite = facing.getOpposite();
+      Block block = blockState.getBlock();
 
-      if ((!this.isValidStructureBlock(blockState)) ||
-          (!blockState.isSideSolid(this.world, offset, opposite)) ||
-          blockState.getBlock().isFlammable(this.world, offset, opposite)) {
-        return false;
+      if (block.isAir(blockState, this.world, offset) ||
+          block.isReplaceable(this.world, offset)) {
+        this.world.setBlockState(offset, Blocks.FIRE.getDefaultState());
       }
     }
-    return true;
-  }
-
-  @Nonnull
-  @Override
-  public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
-    super.writeToNBT(compound);
-
-    compound.setBoolean("needStructureValidation", this.needStructureValidation);
-    compound.setInteger("burnTimeTicksPerStage", this.burnTimeTicksPerStage);
-    compound.setInteger("invalidTicks", this.invalidTicks);
-    compound.setInteger("remainingStages", this.remainingStages);
-    compound.setTag("fluidTank", this.fluidTank.writeToNBT(new NBTTagCompound()));
-    return compound;
   }
 
   @Override
-  public void readFromNBT(NBTTagCompound compound) {
+  protected void onInvalidDelayExpired() {
 
-    super.readFromNBT(compound);
-
-    this.needStructureValidation = compound.getBoolean("needStructureValidation");
-    this.burnTimeTicksPerStage = compound.getInteger("burnTimeTicksPerStage");
-    this.invalidTicks = compound.getInteger("invalidTicks");
-    this.remainingStages = compound.getInteger("remainingStages");
-    this.fluidTank.readFromNBT(compound.getCompoundTag("fluidTank"));
+    this.world.setBlockToAir(this.pos);
   }
 
-  public void setNeedStructureValidation() {
-
-    this.needStructureValidation = true;
-  }
-
-  protected boolean isValidStructureBlock(IBlockState blockState) {
+  @Override
+  protected boolean isActive() {
 
     return true;
   }
 
-  protected int getMaxCreosoteLevel() {
-
-    return DEFAULT_MAX_CREOSOTE_LEVEL;
-  }
-
-  protected int getMaxInvalidTicks() {
-
-    return DEFAULT_MAX_INVALID_TICKS;
-  }
-
-  protected abstract FluidStack getFluidProducedPerItem();
-
-  protected abstract int getTotalBurnTimeTicks();
-
-  protected abstract IBlockState getResultingBlockState();
-
-  protected abstract int getTotalStages();
+  /**
+   * @return the fluid stack produced per burn stage
+   */
+  protected abstract FluidStack getFluidProducedPerBurnStage();
 
 }

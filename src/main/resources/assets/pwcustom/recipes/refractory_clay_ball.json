@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "pwcustom:wood_ash"
+    },
+    "B": {
+      "item": "pwcustom:flint_clay_ball"
+    }
+  },
+  "result": {
+    "item": "pwcustom:refractory_clay_ball",
+    "count": 1,
+    "data": 0
+  }
+}

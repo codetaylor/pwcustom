@@ -1,6 +1,5 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActiveCoalPile;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePileBase;
 import net.minecraft.block.Block;

@@ -5,16 +5,19 @@ import com.codetaylor.mc.athenaeum.registry.Registry;
 import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
+import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.FuelHandler;
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActiveCoalPile;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActiveLogPile;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarCollector;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarDrain;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModuleCharcoal
@@ -39,6 +42,7 @@ public class ModuleCharcoal
     public static final BlockTarCollector TAR_COLLECTOR = new BlockTarCollector();
     public static final BlockTarDrain TAR_DRAIN = new BlockTarDrain();
     public static final BlockRefractoryBrick REFRACTORY_BRICK = new BlockRefractoryBrick();
+    public static final BlockKiln KILN = new BlockKiln();
   }
 
   public static final class Items {
@@ -67,6 +71,7 @@ public class ModuleCharcoal
     registry.registerBlock(Blocks.COAL_PILE_ACTIVE, BlockCoalPileActive.NAME);
     registry.registerBlock(Blocks.LOG_PILE_ASH, BlockLogPileAsh.NAME);
     registry.registerBlock(Blocks.COAL_PILE_ASH, BlockCoalPileAsh.NAME);
+    registry.registerBlock(Blocks.KILN, BlockKiln.NAME);
 
     registry.registerBlockWithItem(Blocks.LOG_PILE, BlockLogPile.NAME);
     registry.registerBlockWithItem(Blocks.COAL_COKE_BLOCK, BlockCoalCokeBlock.NAME);
@@ -82,12 +87,14 @@ public class ModuleCharcoal
     registry.registerItem(Items.FLINT_CLAY_BALL, "flint_clay_ball");
     registry.registerItem(Items.REFRACTORY_CLAY_BALL, "refractory_clay_ball");
     registry.registerItem(Items.REFRACTORY_BRICK, "refractory_brick");
+    registry.registerItem(new ItemBlock(Blocks.KILN), Blocks.KILN.getRegistryName());
 
     registry.registerTileEntities(
         TileActiveLogPile.class,
         TileActiveCoalPile.class,
         TileTarCollector.class,
-        TileTarDrain.class
+        TileTarDrain.class,
+        TileKiln.class
     );
 
     GameRegistry.registerFuelHandler(new FuelHandler());
@@ -117,6 +124,9 @@ public class ModuleCharcoal
           Items.FLINT_CLAY_BALL
       );
 
+      ModelRegistrationHelper.registerBlockItemModel(Blocks.KILN.getDefaultState()
+          .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.EMPTY));
+
       // tar collector
       ModelRegistrationHelper.registerVariantBlockItemModels(
           Blocks.TAR_COLLECTOR.getDefaultState(),
@@ -128,6 +138,22 @@ public class ModuleCharcoal
           Blocks.TAR_DRAIN.getDefaultState(),
           BlockTarDrain.VARIANT
       );
+
+      ClientRegistry.bindTileEntitySpecialRenderer(
+          TileKiln.class,
+          new TESRKiln()
+      );
     });
+  }
+
+  @Override
+  public void onRegisterRecipesEvent(RegistryEvent.Register<IRecipe> event) {
+
+    super.onRegisterRecipesEvent(event);
+
+    KilnRecipe.RECIPE_LIST.add(new KilnRecipe(
+        Ingredient.fromStacks(new ItemStack(Items.REFRACTORY_CLAY_BALL)),
+        new ItemStack(Items.REFRACTORY_BRICK)
+    ));
   }
 }

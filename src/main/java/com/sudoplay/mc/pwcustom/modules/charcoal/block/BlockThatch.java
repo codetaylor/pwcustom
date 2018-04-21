@@ -15,7 +15,7 @@ public class BlockThatch
     super(Material.GRASS);
     this.setSoundType(SoundType.PLANT);
     this.setHardness(0.5F);
-    this.setHarvestLevel("none", 0);
+    this.setHarvestLevel(null, 0);
     Blocks.FIRE.setFireInfo(this, 60, 100);
   }
 

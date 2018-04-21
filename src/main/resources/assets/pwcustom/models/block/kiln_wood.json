@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "minecraft:blocks/log_oak",
+    "down": "pwcustom:blocks/thatch",
+    "north": "pwcustom:blocks/kiln_wood_end",
+    "south": "pwcustom:blocks/kiln_wood_end",
+    "west": "pwcustom:blocks/kiln_wood_side",
+    "east": "pwcustom:blocks/kiln_wood_side",
+    "particle": "pwcustom:blocks/thatch"
+  }
+}

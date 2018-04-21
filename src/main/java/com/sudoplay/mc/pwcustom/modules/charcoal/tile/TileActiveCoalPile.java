@@ -7,6 +7,9 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -36,7 +39,7 @@ public class TileActiveCoalPile
   }
 
   @Override
-  protected FluidStack getFluidProducedPerItem() {
+  protected FluidStack getFluidProducedPerBurnStage() {
 
     return FluidRegistry.getFluidStack(ModuleFluids.COAL_TAR.getName(), 50);
   }
@@ -48,19 +51,20 @@ public class TileActiveCoalPile
   }
 
   @Override
-  protected IBlockState getResultingBlockState() {
+  protected void onAllBurnStagesComplete() {
 
-    return ModuleCharcoal.Blocks.COAL_PILE_ASH.getDefaultState();
+    IBlockState state = ModuleCharcoal.Blocks.COAL_PILE_ASH.getDefaultState();
+    this.world.setBlockState(this.pos, state);
   }
 
   @Override
   protected int getTotalStages() {
 
-    return 9;
+    return 10;
   }
 
   @Override
-  protected boolean isValidStructureBlock(IBlockState blockState) {
+  protected boolean isValidStructureBlock(World world, BlockPos pos, IBlockState blockState, EnumFacing facing) {
 
     for (BlockMetaMatcher matcher : VALID_STRUCTURE_BLOCK_LIST) {
 

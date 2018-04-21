@@ -10,7 +10,7 @@ public class TileActiveLogPile
     extends TileActivePileBase {
 
   @Override
-  protected FluidStack getFluidProducedPerItem() {
+  protected FluidStack getFluidProducedPerBurnStage() {
 
     return FluidRegistry.getFluidStack(ModuleFluids.WOOD_TAR.getName(), 50);
   }
@@ -22,15 +22,16 @@ public class TileActiveLogPile
   }
 
   @Override
-  protected IBlockState getResultingBlockState() {
+  protected void onAllBurnStagesComplete() {
 
-    return ModuleCharcoal.Blocks.LOG_PILE_ASH.getDefaultState();
+    IBlockState state = ModuleCharcoal.Blocks.LOG_PILE_ASH.getDefaultState();
+    this.world.setBlockState(this.pos, state);
   }
 
   @Override
   protected int getTotalStages() {
 
-    return 9;
+    return 10;
   }
 
 }
