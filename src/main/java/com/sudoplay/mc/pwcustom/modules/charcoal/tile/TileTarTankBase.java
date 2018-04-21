@@ -1,6 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
+import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -25,7 +28,18 @@ public abstract class TileTarTankBase
 
   /* package */ TileTarTankBase() {
 
-    this.fluidTank = new FluidTank(this.getTankCapacity());
+    this.fluidTank = new FluidTank(this.getTankCapacity()) {
+
+      @Override
+      protected void onContentsChanged() {
+
+        TileTarTankBase tileTarTankBase = TileTarTankBase.this;
+
+        if (!tileTarTankBase.world.isRemote) {
+          BlockHelper.notifyBlockUpdate(tileTarTankBase.world, tileTarTankBase.pos);
+        }
+      }
+    };
     this.fluidTank.setCanFill(false);
   }
 
@@ -107,6 +121,26 @@ public abstract class TileTarTankBase
 
     super.readFromNBT(compound);
     this.fluidTank.readFromNBT(compound.getCompoundTag("fluidTank"));
+  }
+
+  @Nonnull
+  @Override
+  public NBTTagCompound getUpdateTag() {
+
+    return this.writeToNBT(new NBTTagCompound());
+  }
+
+  @Nullable
+  @Override
+  public SPacketUpdateTileEntity getUpdatePacket() {
+
+    return new SPacketUpdateTileEntity(this.pos, -1, this.getUpdateTag());
+  }
+
+  @Override
+  public void onDataPacket(NetworkManager networkManager, SPacketUpdateTileEntity packet) {
+
+    this.readFromNBT(packet.getNbtCompound());
   }
 
   protected abstract List<BlockPos> getCollectionSourcePositions(World world, BlockPos origin);
