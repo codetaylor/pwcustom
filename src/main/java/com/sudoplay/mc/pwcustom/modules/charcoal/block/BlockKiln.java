@@ -43,7 +43,7 @@ public class BlockKiln
   public static final String NAME = "kiln";
 
   public static final IProperty<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class);
-  public static final AxisAlignedBB AABB_EMPTY = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
+  public static final AxisAlignedBB AABB_EMPTY = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.1875D, 1.0D);
   public static final AxisAlignedBB AABB_THATCH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 10D / 16D, 1.0D);
 
   public BlockKiln() {
