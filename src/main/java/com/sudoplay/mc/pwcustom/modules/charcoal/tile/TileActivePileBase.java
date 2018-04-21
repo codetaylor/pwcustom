@@ -56,14 +56,7 @@ public abstract class TileActivePileBase
   @Override
   protected void onUpdate() {
 
-    if (this.fluidTank.getFluidAmount() > 0) {
-      TileEntity tileEntity = this.world.getTileEntity(this.pos.offset(EnumFacing.DOWN));
-
-      if (tileEntity instanceof TileActivePileBase) {
-        TileActivePileBase down = (TileActivePileBase) tileEntity;
-        this.fluidTank.drain(down.fluidTank.fill(this.fluidTank.getFluid(), true), true);
-      }
-    }
+    this.pushTarDown();
   }
 
   @Override
@@ -73,6 +66,7 @@ public abstract class TileActivePileBase
         this.getFluidProducedPerBurnStage(),
         true
     );
+    this.pushTarDown();
   }
 
   @Override
@@ -105,6 +99,22 @@ public abstract class TileActivePileBase
   protected boolean isActive() {
 
     return true;
+  }
+
+  private void pushTarDown() {
+
+    if (this.fluidTank.getFluidAmount() > 0) {
+      TileEntity tileEntity = this.world.getTileEntity(this.pos.offset(EnumFacing.DOWN));
+
+      if (tileEntity instanceof TileActivePileBase) {
+        TileActivePileBase down = (TileActivePileBase) tileEntity;
+        this.fluidTank.drain(down.fluidTank.fillInternal(this.fluidTank.getFluid(), true), true);
+
+      } else if (tileEntity instanceof TileTarCollector) {
+        TileTarCollector down = (TileTarCollector) tileEntity;
+        this.fluidTank.drain(down.fluidTank.fillInternal(this.fluidTank.getFluid(), true), true);
+      }
+    }
   }
 
   /**

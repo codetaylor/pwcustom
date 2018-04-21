@@ -25,6 +25,7 @@ public abstract class TileBurnableBase
 
     this.remainingStages = this.getTotalStages();
     this.invalidTicks = 0;
+    this.reset();
   }
 
   @Override
@@ -62,19 +63,16 @@ public abstract class TileBurnableBase
       }
     }
 
-    if (this.burnTimeTicksPerStage > 0) {
+    if (this.remainingStages <= 0) {
+      this.onAllBurnStagesComplete();
+
+    } else if (this.burnTimeTicksPerStage > 0) {
       this.burnTimeTicksPerStage -= 1;
 
     } else {
-
-      if (this.remainingStages > 0) {
-        this.remainingStages -= 1;
-        this.onBurnStageComplete();
-        this.reset();
-
-      } else {
-        this.onAllBurnStagesComplete();
-      }
+      this.remainingStages -= 1;
+      this.onBurnStageComplete();
+      this.reset();
     }
   }
 
