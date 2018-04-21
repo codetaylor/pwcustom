@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
+import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
@@ -22,12 +23,15 @@ import javax.annotation.Nullable;
 
 public class TileKiln
     extends TileBurnableBase
-    implements ITickable {
+    implements ITickable,
+    IProgressProvider {
 
   private ItemStackHandler stackHandler;
   private boolean active;
 
+  // transient
   private EntityItem entityItem;
+  private int ticksSinceLastClientSync;
 
   public TileKiln() {
 
@@ -71,6 +75,21 @@ public class TileKiln
   }
 
   @Override
+  public float getProgress() {
+
+    if (!this.isActive()) {
+      return 0;
+    }
+
+    int totalBurnTimeTicks = this.getTotalBurnTimeTicks();
+    int totalStages = this.getTotalStages();
+    int burnTimePerStage = totalBurnTimeTicks / totalStages;
+    float progress = ((this.remainingStages - 1) * burnTimePerStage + this.burnTimeTicksPerStage) / (float) totalBurnTimeTicks;
+
+    return 1f - progress;
+  }
+
+  @Override
   protected boolean isActive() {
 
     return this.active;
@@ -78,7 +97,13 @@ public class TileKiln
 
   @Override
   protected void onUpdate() {
-    //
+
+    this.ticksSinceLastClientSync += 1;
+
+    if (this.ticksSinceLastClientSync >= 20) {
+      this.ticksSinceLastClientSync = 0;
+      BlockHelper.notifyBlockUpdate(this.world, this.pos);
+    }
   }
 
   @Override
