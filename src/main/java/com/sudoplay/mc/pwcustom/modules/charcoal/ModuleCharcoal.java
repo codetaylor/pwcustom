@@ -9,6 +9,7 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.FuelHandler;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.*;
+import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -116,6 +117,40 @@ public class ModuleCharcoal
     );
 
     GameRegistry.registerFuelHandler(new FuelHandler());
+
+    // ------------------------------------------------------------------------
+    // - Refractory Blocks
+    // ------------------------------------------------------------------------
+
+    {
+      Registries.REFRACTORY_BLOCK_LIST.add(new BlockMetaMatcher(
+          ModuleCharcoal.Blocks.REFRACTORY_BRICK,
+          0
+      ));
+      Registries.REFRACTORY_BLOCK_LIST.add(new BlockMetaMatcher(
+          ModuleCharcoal.Blocks.TAR_COLLECTOR,
+          BlockTarCollector.EnumType.BRICK.getMeta()
+      ));
+      Registries.REFRACTORY_BLOCK_LIST.add(new BlockMetaMatcher(
+          ModuleCharcoal.Blocks.TAR_DRAIN,
+          BlockTarDrain.EnumType.BRICK.getMeta()
+      ));
+    }
+
+    // ------------------------------------------------------------------------
+    // - Additional Valid Coke Oven Structure Blocks
+    // ------------------------------------------------------------------------
+
+    {
+      Registries.COKE_OVEN_VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(
+          ModuleCharcoal.Blocks.COAL_PILE_ACTIVE,
+          0
+      ));
+      Registries.COKE_OVEN_VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(
+          ModuleCharcoal.Blocks.COAL_PILE_ASH,
+          0
+      ));
+    }
   }
 
   @Override
@@ -171,9 +206,10 @@ public class ModuleCharcoal
 
     super.onRegisterRecipesEvent(event);
 
-    KilnRecipe.RECIPE_LIST.add(new KilnRecipe(
+    Registries.KILN_RECIPE_LIST.add(new KilnRecipe(
         Ingredient.fromStacks(new ItemStack(Items.REFRACTORY_CLAY_BALL)),
         new ItemStack(Items.REFRACTORY_BRICK),
+        0.33f,
         new ItemStack[]{
             new ItemStack(Items.POTTERY_FRAGMENTS),
             new ItemStack(Items.POTTERY_SHARD)

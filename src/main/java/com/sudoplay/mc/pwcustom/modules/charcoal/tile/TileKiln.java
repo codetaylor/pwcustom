@@ -2,8 +2,10 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
+import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -246,11 +248,30 @@ public class TileKiln
 
     if (recipe != null) {
       ItemStack output = recipe.getOutput();
-      output.setCount(input.getCount());
+      output.setCount(1);
       this.stackHandler.setStackInSlot(0, ItemStack.EMPTY);
 
-      // TODO: broken stuff, less broken stuff if surrounded by refractory brick
-      this.insertOutputItem(output);
+      ItemStack[] failureItems = recipe.getFailureItems();
+      float failureChance = recipe.getFailureChance();
+      failureChance *= (1f - this.countRefractoryBlocks() / 5f);
+
+      for (int i = 0; i < input.getCount(); i++) {
+
+        if (Util.RANDOM.nextFloat() < failureChance) {
+
+          if (failureItems.length > 0) {
+            ItemStack failureItemStack = failureItems[Util.RANDOM.nextInt(failureItems.length)].copy();
+            failureItemStack.setCount(1);
+            this.insertOutputItem(failureItemStack);
+
+          } else {
+            this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.WOOD_ASH, input.getCount(), 0));
+          }
+
+        } else {
+          this.insertOutputItem(output.copy());
+        }
+      }
     }
 
     this.setActive(false);
@@ -258,6 +279,38 @@ public class TileKiln
         .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.COMPLETE);
     this.world.setBlockState(this.pos, blockState);
     this.world.setBlockToAir(this.pos.up());
+  }
+
+  private int countRefractoryBlocks() {
+
+    int result = 0;
+
+    for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+
+      BlockPos offset = this.pos.offset(facing);
+
+      if (this.isRefractoryBlock(this.world.getBlockState(offset))) {
+        result += 1;
+      }
+    }
+
+    if (this.isRefractoryBlock(this.world.getBlockState(this.pos.up()))) {
+      result += 1;
+    }
+
+    return result;
+  }
+
+  private boolean isRefractoryBlock(IBlockState blockState) {
+
+    for (BlockMetaMatcher matcher : Registries.REFRACTORY_BLOCK_LIST) {
+
+      if (matcher.test(blockState)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private void insertOutputItem(ItemStack output) {

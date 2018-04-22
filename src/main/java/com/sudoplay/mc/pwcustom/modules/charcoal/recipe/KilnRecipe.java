@@ -1,24 +1,18 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.recipe;
 
+import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.math.MathHelper;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class KilnRecipe {
-
-  public static final List<KilnRecipe> RECIPE_LIST;
-
-  static {
-    RECIPE_LIST = new ArrayList<>();
-  }
 
   @Nullable
   public static KilnRecipe getRecipe(ItemStack input) {
 
-    for (KilnRecipe recipe : RECIPE_LIST) {
+    for (KilnRecipe recipe : Registries.KILN_RECIPE_LIST) {
 
       if (recipe.matches(input)) {
         return recipe;
@@ -30,12 +24,14 @@ public class KilnRecipe {
 
   private final Ingredient input;
   private final ItemStack output;
+  private final float failureChance;
   private final ItemStack[] failureItems;
 
-  public KilnRecipe(Ingredient input, ItemStack output, ItemStack[] failureItems) {
+  public KilnRecipe(Ingredient input, ItemStack output, float failureChance, ItemStack[] failureItems) {
 
     this.input = input;
     this.output = output;
+    this.failureChance = MathHelper.clamp(failureChance, 0, 1);
     this.failureItems = failureItems;
   }
 
@@ -47,6 +43,11 @@ public class KilnRecipe {
   public ItemStack getOutput() {
 
     return this.output.copy();
+  }
+
+  public float getFailureChance() {
+
+    return this.failureChance;
   }
 
   public ItemStack[] getFailureItems() {
