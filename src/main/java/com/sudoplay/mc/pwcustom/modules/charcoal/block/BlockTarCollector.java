@@ -124,7 +124,8 @@ public class BlockTarCollector
 
     TileEntity tileEntity = world.getTileEntity(pos);
 
-    if (tileEntity instanceof TileTarCollector) {
+    if (tileEntity instanceof TileTarCollector
+        && facing == EnumFacing.UP) {
 
       if (world.isRemote) {
         return player.getHeldItem(hand).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);

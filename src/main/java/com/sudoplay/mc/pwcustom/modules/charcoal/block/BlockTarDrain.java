@@ -149,7 +149,8 @@ public class BlockTarDrain
 
     TileEntity tileEntity = world.getTileEntity(pos);
 
-    if (tileEntity instanceof TileTarDrain) {
+    if (tileEntity instanceof TileTarDrain
+        && facing == state.getValue(FACING)) {
 
       if (world.isRemote) {
         return player.getHeldItem(hand).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);

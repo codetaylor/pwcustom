@@ -5,13 +5,10 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,24 +43,6 @@ public abstract class TileTarTankBase
   public FluidTank getFluidTank() {
 
     return this.fluidTank;
-  }
-
-  @Override
-  public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-
-    return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-  }
-
-  @Nullable
-  @Override
-  public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-
-    if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-      //noinspection unchecked
-      return (T) this.fluidTank;
-    }
-
-    return super.getCapability(capability, facing);
   }
 
   @Override
