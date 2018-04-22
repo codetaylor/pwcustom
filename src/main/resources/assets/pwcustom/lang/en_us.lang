@@ -390,6 +390,7 @@ item.pwcustom.flint.clay.ball.name=Flint Clay
 item.pwcustom.refractory.clay.ball.name=Refractory Clay
 item.pwcustom.refractory.brick.name=Refractory Brick
 item.pwcustom.pottery.fragments.name=Pottery Fragments
+item.pwcustom.pottery.shard.name=Pottery Shard
 
 tile.pwcustom.coal_pile_ash.name=Coal Ash Block
 tile.pwcustom.thatch.name=Thatch Block
