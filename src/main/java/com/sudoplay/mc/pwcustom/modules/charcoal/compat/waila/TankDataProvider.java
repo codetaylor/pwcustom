@@ -68,7 +68,7 @@ public class TankDataProvider
           ));
 
         } else {
-          tooltip.add(Util.translate("gui." + ModuleCharcoal.MOD_ID + ".waila.tank.empty"));
+          tooltip.add(Util.translate("gui." + ModuleCharcoal.MOD_ID + ".waila.empty"));
         }
       }
     }

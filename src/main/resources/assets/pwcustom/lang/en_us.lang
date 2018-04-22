@@ -411,5 +411,4 @@ tile.pwcustom.kiln.name=Pit Kiln
 # Waila plugin
 gui.pwcustom.waila.tank.fluid=Liquid: %s
 gui.pwcustom.waila.tank.amount=Amount: %d / %d mb
-gui.pwcustom.waila.tank.empty=Empty
-gui.pwcustom.waila.casting.progress=Progress: %s
+gui.pwcustom.waila.empty=Empty
