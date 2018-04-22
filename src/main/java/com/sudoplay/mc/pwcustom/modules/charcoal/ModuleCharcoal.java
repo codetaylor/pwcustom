@@ -9,17 +9,12 @@ import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.FuelHandler;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.*;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
@@ -75,6 +70,11 @@ public class ModuleCharcoal
 
     this.setRegistry(new Registry(MOD_ID, CREATIVE_TAB));
     this.enableAutoRegistry();
+
+    this.registerIntegrationPlugin(
+        "crafttweaker",
+        "com.sudoplay.mc.pwcustom.modules.charcoal.compat.crafttweaker.ZenPitKiln"
+    );
   }
 
   @Override
@@ -217,21 +217,5 @@ public class ModuleCharcoal
           new TESRKiln()
       );
     });
-  }
-
-  @Override
-  public void onRegisterRecipesEvent(RegistryEvent.Register<IRecipe> event) {
-
-    super.onRegisterRecipesEvent(event);
-
-    Registries.KILN_RECIPE_LIST.add(new KilnRecipe(
-        Ingredient.fromStacks(new ItemStack(Items.REFRACTORY_CLAY_BALL)),
-        new ItemStack(Items.REFRACTORY_BRICK),
-        0.33f,
-        new ItemStack[]{
-            new ItemStack(Items.POTTERY_FRAGMENTS),
-            new ItemStack(Items.POTTERY_SHARD)
-        }
-    ));
   }
 }
