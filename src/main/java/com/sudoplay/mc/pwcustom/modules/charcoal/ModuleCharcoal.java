@@ -173,7 +173,11 @@ public class ModuleCharcoal
 
     KilnRecipe.RECIPE_LIST.add(new KilnRecipe(
         Ingredient.fromStacks(new ItemStack(Items.REFRACTORY_CLAY_BALL)),
-        new ItemStack(Items.REFRACTORY_BRICK)
+        new ItemStack(Items.REFRACTORY_BRICK),
+        new ItemStack[]{
+            new ItemStack(Items.POTTERY_FRAGMENTS),
+            new ItemStack(Items.POTTERY_SHARD)
+        }
     ));
   }
 }

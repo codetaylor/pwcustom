@@ -30,11 +30,13 @@ public class KilnRecipe {
 
   private final Ingredient input;
   private final ItemStack output;
+  private final ItemStack[] failureItems;
 
-  public KilnRecipe(Ingredient input, ItemStack output) {
+  public KilnRecipe(Ingredient input, ItemStack output, ItemStack[] failureItems) {
 
     this.input = input;
     this.output = output;
+    this.failureItems = failureItems;
   }
 
   public Ingredient getInput() {
@@ -45,6 +47,11 @@ public class KilnRecipe {
   public ItemStack getOutput() {
 
     return this.output.copy();
+  }
+
+  public ItemStack[] getFailureItems() {
+
+    return this.failureItems;
   }
 
   public boolean matches(ItemStack input) {

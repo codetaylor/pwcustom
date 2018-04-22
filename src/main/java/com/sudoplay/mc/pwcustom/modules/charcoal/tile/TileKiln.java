@@ -4,6 +4,7 @@ import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
+import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -27,6 +28,7 @@ public class TileKiln
     IProgressProvider {
 
   private ItemStackHandler stackHandler;
+  private ItemStackHandler outputStackHandler;
   private boolean active;
 
   // transient
@@ -50,12 +52,19 @@ public class TileKiln
       }
     };
 
+    this.outputStackHandler = new ItemStackHandler(9);
+
     this.setNeedStructureValidation();
   }
 
   public ItemStackHandler getStackHandler() {
 
     return this.stackHandler;
+  }
+
+  public ItemStackHandler getOutputStackHandler() {
+
+    return this.outputStackHandler;
   }
 
   public void setActive(boolean active) {
@@ -104,6 +113,21 @@ public class TileKiln
       this.ticksSinceLastClientSync = 0;
       BlockHelper.notifyBlockUpdate(this.world, this.pos);
     }
+
+    if (this.world.isRainingAt(this.pos)) {
+      // set back to wood state and douse fire
+      IBlockState blockState = ModuleCharcoal.Blocks.KILN.getDefaultState()
+          .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.WOOD);
+      this.world.setBlockState(this.pos, blockState);
+
+      BlockPos up = this.pos.up();
+
+      if (this.world.getBlockState(up).getBlock() == Blocks.FIRE) {
+        this.world.setBlockToAir(up);
+      }
+
+      this.setActive(false);
+    }
   }
 
   @Override
@@ -134,21 +158,39 @@ public class TileKiln
   @Override
   protected void onInvalidDelayExpired() {
 
-    // set block back to wood variant if it was active
+    // set blockstate to complete
+    // add failure items or ash
     // clear fire block above if it exists
 
-    this.setActive(false);
-    this.invalidTicks = 0;
+    ItemStack input = this.stackHandler.getStackInSlot(0);
+    KilnRecipe recipe = KilnRecipe.getRecipe(input);
 
-    IBlockState blockState = ModuleCharcoal.Blocks.KILN.getDefaultState()
-        .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.WOOD);
-    this.world.setBlockState(this.pos, blockState);
+    if (!input.isEmpty()
+        && recipe != null) {
+      ItemStack[] failureItems = recipe.getFailureItems();
 
-    BlockPos up = this.pos.up();
+      if (failureItems.length > 0) {
 
-    if (this.world.getBlockState(up).getBlock() == Blocks.FIRE) {
-      this.world.setBlockToAir(up);
+        for (int i = 0; i < input.getCount(); i++) {
+          ItemStack failureItemStack = failureItems[Util.RANDOM.nextInt(failureItems.length)].copy();
+          failureItemStack.setCount(1);
+          this.insertOutputItem(failureItemStack);
+        }
+
+      } else {
+        this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.WOOD_ASH, input.getCount(), 0));
+      }
+
+      ItemStack output = recipe.getOutput();
+      output.setCount(input.getCount());
+      this.stackHandler.setStackInSlot(0, ItemStack.EMPTY);
     }
+
+    this.setActive(false);
+    IBlockState blockState = ModuleCharcoal.Blocks.KILN.getDefaultState()
+        .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.COMPLETE);
+    this.world.setBlockState(this.pos, blockState);
+    this.world.setBlockToAir(this.pos.up());
   }
 
   @Override
@@ -163,10 +205,6 @@ public class TileKiln
 
     if (selfBlockState.getValue(BlockKiln.VARIANT) != BlockKiln.EnumType.WOOD
         && selfBlockState.getValue(BlockKiln.VARIANT) != BlockKiln.EnumType.ACTIVE) {
-      return false;
-    }
-
-    if (this.world.isRainingAt(this.pos)) {
       return false;
     }
 
@@ -209,7 +247,10 @@ public class TileKiln
     if (recipe != null) {
       ItemStack output = recipe.getOutput();
       output.setCount(input.getCount());
-      this.stackHandler.setStackInSlot(0, output);
+      this.stackHandler.setStackInSlot(0, ItemStack.EMPTY);
+
+      // TODO: broken stuff, less broken stuff if surrounded by refractory brick
+      this.insertOutputItem(output);
     }
 
     this.setActive(false);
@@ -217,6 +258,13 @@ public class TileKiln
         .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.COMPLETE);
     this.world.setBlockState(this.pos, blockState);
     this.world.setBlockToAir(this.pos.up());
+  }
+
+  private void insertOutputItem(ItemStack output) {
+
+    for (int i = 0; i < 9 && !output.isEmpty(); i++) {
+      output = this.outputStackHandler.insertItem(i, output, false);
+    }
   }
 
   @Override
@@ -252,6 +300,7 @@ public class TileKiln
 
     super.writeToNBT(compound);
     compound.setTag("stackHandler", this.stackHandler.serializeNBT());
+    compound.setTag("outputStackHandler", this.outputStackHandler.serializeNBT());
     compound.setBoolean("active", this.active);
     return compound;
   }
@@ -261,6 +310,7 @@ public class TileKiln
 
     super.readFromNBT(compound);
     this.stackHandler.deserializeNBT(compound.getCompoundTag("stackHandler"));
+    this.outputStackHandler.deserializeNBT(compound.getCompoundTag("outputStackHandler"));
     this.active = compound.getBoolean("active");
   }
 
