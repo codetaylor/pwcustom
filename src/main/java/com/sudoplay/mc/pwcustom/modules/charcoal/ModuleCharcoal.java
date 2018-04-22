@@ -49,6 +49,7 @@ public class ModuleCharcoal
     public static final BlockTarDrain TAR_DRAIN = new BlockTarDrain();
     public static final BlockRefractoryBrick REFRACTORY_BRICK = new BlockRefractoryBrick();
     public static final BlockKiln KILN = new BlockKiln();
+    public static final BlockIgniter IGNITER = new BlockIgniter();
   }
 
   public static final class Items {
@@ -104,6 +105,7 @@ public class ModuleCharcoal
     registry.registerBlockWithItem(Blocks.TAR_COLLECTOR, BlockTarCollector.NAME);
     registry.registerBlockWithItem(Blocks.TAR_DRAIN, BlockTarDrain.NAME);
     registry.registerBlockWithItem(Blocks.REFRACTORY_BRICK, BlockRefractoryBrick.NAME);
+    registry.registerBlockWithItem(Blocks.IGNITER, BlockIgniter.NAME);
 
     registry.registerItem(Items.WOOD_ASH, "wood_ash");
     registry.registerItem(Items.COAL_COKE, "coal_coke");
@@ -210,6 +212,12 @@ public class ModuleCharcoal
       ModelRegistrationHelper.registerVariantBlockItemModels(
           Blocks.TAR_DRAIN.getDefaultState(),
           BlockTarDrain.VARIANT
+      );
+
+      // igniter
+      ModelRegistrationHelper.registerVariantBlockItemModels(
+          Blocks.IGNITER.getDefaultState(),
+          BlockIgniter.VARIANT
       );
 
       ClientRegistry.bindTileEntitySpecialRenderer(

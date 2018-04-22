@@ -1,9 +1,11 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal;
 
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockIgniter;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockRefractoryBrick;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarCollector;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarDrain;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.config.Config;
 
 @Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + ".module.Charcoal")
@@ -79,8 +81,33 @@ public class ModuleCharcoalConfig {
     public String[] REFRACTORY_BRICKS = new String[]{
         ModuleCharcoal.MOD_ID + ":" + BlockRefractoryBrick.NAME,
         ModuleCharcoal.MOD_ID + ":" + BlockTarCollector.NAME + ":" + BlockTarCollector.EnumType.BRICK.getMeta(),
-        ModuleCharcoal.MOD_ID + ":" + BlockTarDrain.NAME + ":" + BlockTarDrain.EnumType.BRICK.getMeta()
+        ModuleCharcoal.MOD_ID + ":" + BlockTarDrain.NAME + ":" + this.getTarDrainMeta(EnumFacing.NORTH),
+        ModuleCharcoal.MOD_ID + ":" + BlockTarDrain.NAME + ":" + this.getTarDrainMeta(EnumFacing.EAST),
+        ModuleCharcoal.MOD_ID + ":" + BlockTarDrain.NAME + ":" + this.getTarDrainMeta(EnumFacing.SOUTH),
+        ModuleCharcoal.MOD_ID + ":" + BlockTarDrain.NAME + ":" + this.getTarDrainMeta(EnumFacing.WEST),
+        ModuleCharcoal.MOD_ID + ":" + BlockIgniter.NAME + ":" + this.getIgniterMeta(EnumFacing.NORTH),
+        ModuleCharcoal.MOD_ID + ":" + BlockIgniter.NAME + ":" + this.getIgniterMeta(EnumFacing.EAST),
+        ModuleCharcoal.MOD_ID + ":" + BlockIgniter.NAME + ":" + this.getIgniterMeta(EnumFacing.SOUTH),
+        ModuleCharcoal.MOD_ID + ":" + BlockIgniter.NAME + ":" + this.getIgniterMeta(EnumFacing.WEST)
     };
+
+    private int getTarDrainMeta(EnumFacing facing) {
+
+      return ModuleCharcoal.Blocks.TAR_DRAIN.getMetaFromState(
+          ModuleCharcoal.Blocks.TAR_DRAIN.getDefaultState()
+              .withProperty(BlockTarDrain.VARIANT, BlockTarDrain.EnumType.BRICK)
+              .withProperty(BlockTarDrain.FACING, facing)
+      );
+    }
+
+    private int getIgniterMeta(EnumFacing facing) {
+
+      return ModuleCharcoal.Blocks.IGNITER.getMetaFromState(
+          ModuleCharcoal.Blocks.IGNITER.getDefaultState()
+              .withProperty(BlockIgniter.VARIANT, BlockIgniter.EnumType.BRICK)
+              .withProperty(BlockIgniter.FACING, facing)
+      );
+    }
 
     @Config.Comment({
         "Fluid capacity of the tar collector in millibuckets"

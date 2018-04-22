@@ -399,12 +399,15 @@ tile.pwcustom.log_pile_ash.name=Wood Ash Block
 tile.pwcustom.log_pile.name=Log Pile
 
 tile.pwcustom.tar_collector.stone.name=Stone Tar Collector
-tile.pwcustom.tar_collector.brick.name=Refractory Brick Tar Collector
+tile.pwcustom.tar_collector.brick.name=Refractory Tar Collector
 
 tile.pwcustom.tar_drain.stone.name=Stone Tar Drain
-tile.pwcustom.tar_drain.brick.name=Refractory Brick Tar Drain
+tile.pwcustom.tar_drain.brick.name=Refractory Tar Drain
 
-tile.pwcustom.refractory_brick_block.name=Refractory Brick Block
+tile.pwcustom.igniter.stone.name=Stone Igniter
+tile.pwcustom.igniter.brick.name=Refractory Igniter
+
+tile.pwcustom.refractory_brick_block.name=Refractory Block
 
 tile.pwcustom.kiln.name=Pit Kiln
 

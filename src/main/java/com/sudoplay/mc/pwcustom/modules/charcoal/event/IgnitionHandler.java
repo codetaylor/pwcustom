@@ -58,7 +58,7 @@ public class IgnitionHandler {
     }
   }
 
-  private static void igniteCoalBlocks(World world, BlockPos pos) {
+  public static void igniteCoalBlocks(World world, BlockPos pos) {
 
     FloodFill.apply(
         world,
@@ -69,7 +69,7 @@ public class IgnitionHandler {
     );
   }
 
-  private static void igniteLogPiles(World world, BlockPos pos) {
+  public static void igniteLogPiles(World world, BlockPos pos) {
 
     FloodFill.apply(
         world,
