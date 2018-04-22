@@ -20,7 +20,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ProgressDataProvider
+public class PitKilnDataProvider
     implements IWailaDataProvider {
 
   @Nonnull
@@ -66,6 +66,7 @@ public class ProgressDataProvider
 
       if (recipe != null) {
         output = recipe.getOutput();
+        output.setCount(input.getCount());
       }
 
       if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.COMPLETE) {
