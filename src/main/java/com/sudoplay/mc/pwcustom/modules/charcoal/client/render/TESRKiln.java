@@ -33,6 +33,7 @@ public class TESRKiln
 
       if (!stack.isEmpty()) {
         EntityItem item = te.getEntityItem();
+        item.hoverStart = -2;
 
         RenderHelper.enableStandardItemLighting();
         GlStateManager.enableLighting();
