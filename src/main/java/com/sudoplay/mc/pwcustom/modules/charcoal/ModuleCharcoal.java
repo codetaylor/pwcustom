@@ -56,6 +56,7 @@ public class ModuleCharcoal
     public static final Item FLINT_CLAY_BALL = new Item();
     public static final Item REFRACTORY_CLAY_BALL = new Item();
     public static final Item REFRACTORY_BRICK = new Item();
+    public static final Item POTTERY_FRAGMENTS = new Item();
   }
 
   public ModuleCharcoal() {
@@ -102,6 +103,7 @@ public class ModuleCharcoal
     registry.registerItem(Items.REFRACTORY_CLAY_BALL, "refractory_clay_ball");
     registry.registerItem(Items.REFRACTORY_BRICK, "refractory_brick");
     registry.registerItem(new ItemBlock(Blocks.KILN), Blocks.KILN.getRegistryName());
+    registry.registerItem(Items.POTTERY_FRAGMENTS, "pottery_fragments");
 
     registry.registerTileEntities(
         TileActiveLogPile.class,
@@ -135,7 +137,8 @@ public class ModuleCharcoal
           Items.STRAW,
           Items.REFRACTORY_BRICK,
           Items.REFRACTORY_CLAY_BALL,
-          Items.FLINT_CLAY_BALL
+          Items.FLINT_CLAY_BALL,
+          Items.POTTERY_FRAGMENTS
       );
 
       ModelRegistrationHelper.registerBlockItemModel(Blocks.KILN.getDefaultState()
