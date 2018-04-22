@@ -105,6 +105,9 @@ public class PitKilnDataProvider
 
           if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.WOOD) {
             tooltip.add(Util.translate("gui." + ModuleCharcoal.MOD_ID + ".waila.kiln.pit.ready"));
+
+          } else if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.ACTIVE) {
+            tooltip.add(Util.translate("gui." + ModuleCharcoal.MOD_ID + ".waila.kiln.pit.active"));
           }
 
           renderString.append(WailaUtil.getStackRenderString(input));
