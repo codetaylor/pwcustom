@@ -1,8 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -17,13 +17,22 @@ public class TileActiveCoalPile
   @Override
   protected FluidStack getFluidProducedPerBurnStage() {
 
-    return FluidRegistry.getFluidStack(ModuleFluids.COAL_TAR.getName(), 50);
+    return FluidRegistry.getFluidStack(
+        ModuleCharcoalConfig.COAL_BLOCK.FLUID_PRODUCED,
+        ModuleCharcoalConfig.COAL_BLOCK.FLUID_PRODUCED_AMOUNT_MB
+    );
   }
 
   @Override
   protected int getTotalBurnTimeTicks() {
 
-    return 1000;
+    return ModuleCharcoalConfig.COAL_BLOCK.BURN_TIME_TICKS;
+  }
+
+  @Override
+  protected int getTotalStages() {
+
+    return ModuleCharcoalConfig.COAL_BLOCK.BURN_STAGES;
   }
 
   @Override
@@ -31,12 +40,6 @@ public class TileActiveCoalPile
 
     IBlockState state = ModuleCharcoal.Blocks.COAL_PILE_ASH.getDefaultState();
     this.world.setBlockState(this.pos, state);
-  }
-
-  @Override
-  protected int getTotalStages() {
-
-    return 10;
   }
 
   @Override

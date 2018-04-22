@@ -2,10 +2,10 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
-import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -23,6 +23,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 public class TileKiln
     extends TileBurnableBase
@@ -274,6 +275,9 @@ public class TileKiln
       }
     }
 
+    int ashCount = Util.RANDOM.nextInt(3) + 1;
+    this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.WOOD_ASH, ashCount));
+
     this.setActive(false);
     IBlockState blockState = ModuleCharcoal.Blocks.KILN.getDefaultState()
         .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.COMPLETE);
@@ -303,7 +307,7 @@ public class TileKiln
 
   private boolean isRefractoryBlock(IBlockState blockState) {
 
-    for (BlockMetaMatcher matcher : Registries.REFRACTORY_BLOCK_LIST) {
+    for (Predicate<IBlockState> matcher : Registries.REFRACTORY_BLOCK_LIST) {
 
       if (matcher.test(blockState)) {
         return true;
@@ -323,7 +327,7 @@ public class TileKiln
   @Override
   protected int getTotalBurnTimeTicks() {
 
-    return 1000;
+    return ModuleCharcoalConfig.PIT_KILN.BURN_TIME_TICKS;
   }
 
   @Override

@@ -1,6 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal;
 
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
+import com.codetaylor.mc.athenaeum.parser.recipe.item.MalformedRecipeItemException;
+import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.codetaylor.mc.athenaeum.registry.Registry;
 import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
@@ -10,6 +12,7 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.init.FuelHandler;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.*;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
+import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -20,14 +23,19 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ModuleCharcoal
     extends ModuleBase {
 
   public static final String MOD_ID = ModPWCustom.MOD_ID;
   public static final CreativeTabs CREATIVE_TAB = ModPWCustom.CREATIVE_TAB;
+
+  public static final Logger LOGGER = LogManager.getLogger(MOD_ID + "." + ModuleCharcoal.class.getSimpleName());
 
   static {
     FluidRegistry.enableUniversalBucket();
@@ -117,24 +125,26 @@ public class ModuleCharcoal
     );
 
     GameRegistry.registerFuelHandler(new FuelHandler());
+  }
+
+  @Override
+  public void onPostInitializationEvent(FMLPostInitializationEvent event) {
+
+    super.onPostInitializationEvent(event);
+
+    RecipeItemParser parser = new RecipeItemParser();
 
     // ------------------------------------------------------------------------
     // - Refractory Blocks
     // ------------------------------------------------------------------------
 
-    {
-      Registries.REFRACTORY_BLOCK_LIST.add(new BlockMetaMatcher(
-          ModuleCharcoal.Blocks.REFRACTORY_BRICK,
-          0
-      ));
-      Registries.REFRACTORY_BLOCK_LIST.add(new BlockMetaMatcher(
-          ModuleCharcoal.Blocks.TAR_COLLECTOR,
-          BlockTarCollector.EnumType.BRICK.getMeta()
-      ));
-      Registries.REFRACTORY_BLOCK_LIST.add(new BlockMetaMatcher(
-          ModuleCharcoal.Blocks.TAR_DRAIN,
-          BlockTarDrain.EnumType.BRICK.getMeta()
-      ));
+    for (String blockString : ModuleCharcoalConfig.GENERAL.REFRACTORY_BRICKS) {
+      try {
+        Registries.REFRACTORY_BLOCK_LIST.add(Util.parseBlockStringWithWildcard(blockString, parser));
+
+      } catch (MalformedRecipeItemException e) {
+        LOGGER.error("", e);
+      }
     }
 
     // ------------------------------------------------------------------------
@@ -143,11 +153,19 @@ public class ModuleCharcoal
 
     {
       Registries.COKE_OVEN_VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(
-          ModuleCharcoal.Blocks.COAL_PILE_ACTIVE,
+          Blocks.COAL_PILE_ACTIVE,
           0
       ));
       Registries.COKE_OVEN_VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(
-          ModuleCharcoal.Blocks.COAL_PILE_ASH,
+          Blocks.COAL_PILE_ASH,
+          0
+      ));
+      Registries.COKE_OVEN_VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(
+          Blocks.LOG_PILE_ACTIVE,
+          0
+      ));
+      Registries.COKE_OVEN_VALID_STRUCTURE_BLOCK_LIST.add(new BlockMetaMatcher(
+          Blocks.LOG_PILE_ASH,
           0
       ));
     }

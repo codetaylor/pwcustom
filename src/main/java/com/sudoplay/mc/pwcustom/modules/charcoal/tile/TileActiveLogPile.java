@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -12,13 +12,22 @@ public class TileActiveLogPile
   @Override
   protected FluidStack getFluidProducedPerBurnStage() {
 
-    return FluidRegistry.getFluidStack(ModuleFluids.WOOD_TAR.getName(), 50);
+    return FluidRegistry.getFluidStack(
+        ModuleCharcoalConfig.LOG_PILE.FLUID_PRODUCED,
+        ModuleCharcoalConfig.LOG_PILE.FLUID_PRODUCED_AMOUNT_MB
+    );
   }
 
   @Override
   protected int getTotalBurnTimeTicks() {
 
-    return 1000;
+    return ModuleCharcoalConfig.LOG_PILE.BURN_TIME_TICKS;
+  }
+
+  @Override
+  protected int getTotalStages() {
+
+    return ModuleCharcoalConfig.LOG_PILE.BURN_STAGES;
   }
 
   @Override
@@ -26,12 +35,6 @@ public class TileActiveLogPile
 
     IBlockState state = ModuleCharcoal.Blocks.LOG_PILE_ASH.getDefaultState();
     this.world.setBlockState(this.pos, state);
-  }
-
-  @Override
-  protected int getTotalStages() {
-
-    return 10;
   }
 
 }

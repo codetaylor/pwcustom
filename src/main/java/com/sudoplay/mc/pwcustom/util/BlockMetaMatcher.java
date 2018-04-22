@@ -30,4 +30,13 @@ public class BlockMetaMatcher
     return (this.meta == OreDictionary.WILDCARD_VALUE)
         || (this.block.getStateFromMeta(this.meta) == blockState);
   }
+
+  @Override
+  public String toString() {
+
+    if (this.meta == OreDictionary.WILDCARD_VALUE) {
+      return block.getRegistryName() + ":*";
+    }
+    return block.getRegistryName() + ":" + this.meta;
+  }
 }

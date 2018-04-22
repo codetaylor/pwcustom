@@ -6,9 +6,8 @@ import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.sudoplay.mc.pwcustom.modules.veins.ModuleVeins;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinData;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinDataList;
-import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
+import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
@@ -79,22 +78,7 @@ public class VeinDataParser {
 
   private void parseToReplace(VeinData data, RecipeItemParser parser) throws MalformedRecipeItemException {
 
-    ParseResult parse = parser.parse(data.toReplace);
-    ResourceLocation resourceLocation = new ResourceLocation(parse.getDomain(), parse.getPath());
-    Block block = ForgeRegistries.BLOCKS.getValue(resourceLocation);
-
-    if (block == null) {
-      throw new IllegalArgumentException("Unable to locate block for [" + resourceLocation + "]");
-    }
-
-    int meta = parse.getMeta();
-
-    if (meta == OreDictionary.WILDCARD_VALUE) {
-      data._toReplace = BlockStateMatcher.forBlock(block);
-
-    } else {
-      data._toReplace = new BlockMetaMatcher(block, meta);
-    }
+    data._toReplace = Util.parseBlockStringWithWildcard(data.toReplace, parser);
   }
 
 }

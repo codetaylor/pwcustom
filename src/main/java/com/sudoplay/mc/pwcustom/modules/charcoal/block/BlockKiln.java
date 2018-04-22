@@ -5,7 +5,6 @@ import com.codetaylor.mc.athenaeum.spi.IVariant;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
-import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -235,6 +234,16 @@ public class BlockKiln
 
         if (heldItem.getItem() == Item.getItemFromBlock(ModuleCharcoal.Blocks.THATCH)) {
 
+          TileEntity tileEntity = world.getTileEntity(pos);
+
+          if (!(tileEntity instanceof TileKiln)) {
+            return false;
+          }
+
+          if (((TileKiln) tileEntity).getStackHandler().getStackInSlot(0).isEmpty()) {
+            return false;
+          }
+
           if (world.isRemote) {
             return true;
           }
@@ -248,14 +257,14 @@ public class BlockKiln
 
         } else {
 
-          if (world.isRemote) {
-            return true;
-          }
-
           TileEntity tileEntity = world.getTileEntity(pos);
 
           if (!(tileEntity instanceof TileKiln)) {
             return false;
+          }
+
+          if (world.isRemote) {
+            return true;
           }
 
           KilnRecipe recipe = KilnRecipe.getRecipe(heldItem);
@@ -359,10 +368,7 @@ public class BlockKiln
 
     EnumType type = state.getValue(VARIANT);
 
-    if (type == EnumType.COMPLETE) {
-      drops.add(new ItemStack(ModuleCharcoal.Items.WOOD_ASH, Util.RANDOM.nextInt(3) + 1, 0));
-
-    } else if (type == EnumType.WOOD || type == EnumType.ACTIVE) {
+    if (type == EnumType.WOOD || type == EnumType.ACTIVE) {
       drops.add(new ItemStack(ModuleCharcoal.Blocks.THATCH, 1, 0));
       drops.add(new ItemStack(Blocks.LOG, 3, 0));
 
