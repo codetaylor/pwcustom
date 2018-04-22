@@ -1,7 +1,7 @@
 [
 {
   "modid": "pwcustom",
-  "name": "PlanesWalker Modpack Custom Content",
+  "name": "PWCustom",
   "description": "Custom content for the PlanesWalker modpack.",
   "version": "${version}",
   "mcversion": "${mcversion}",
