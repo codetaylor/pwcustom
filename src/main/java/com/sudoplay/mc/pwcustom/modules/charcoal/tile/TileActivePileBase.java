@@ -55,8 +55,7 @@ public abstract class TileActivePileBase
 
   @Override
   protected void onUpdate() {
-
-    this.pushTarDown();
+    //
   }
 
   @Override
