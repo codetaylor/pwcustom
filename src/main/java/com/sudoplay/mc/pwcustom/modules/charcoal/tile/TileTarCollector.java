@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +47,7 @@ public class TileTarCollector
   @Override
   protected int getTankCapacity() {
 
-    return 8000;
+    return ModuleCharcoalConfig.GENERAL.TAR_COLLECTOR_CAPACITY;
   }
 
   @Nullable

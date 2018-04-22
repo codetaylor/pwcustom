@@ -1,6 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarDrain;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -66,7 +67,7 @@ public class TileTarDrain
   @Override
   protected int getTankCapacity() {
 
-    return 1000;
+    return ModuleCharcoalConfig.GENERAL.TAR_DRAIN_CAPACITY;
   }
 
   @Nullable

@@ -81,6 +81,16 @@ public class ModuleCharcoalConfig {
         ModuleCharcoal.MOD_ID + ":" + BlockTarCollector.NAME + ":" + BlockTarCollector.EnumType.BRICK.getMeta(),
         ModuleCharcoal.MOD_ID + ":" + BlockTarDrain.NAME + ":" + BlockTarDrain.EnumType.BRICK.getMeta()
     };
+
+    @Config.Comment({
+        "Fluid capacity of the tar collector in millibuckets"
+    })
+    public int TAR_COLLECTOR_CAPACITY = 8000;
+
+    @Config.Comment({
+        "Fluid capacity of the tar drain in millibuckets"
+    })
+    public int TAR_DRAIN_CAPACITY = 1000;
   }
 
 }
