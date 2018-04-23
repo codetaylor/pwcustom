@@ -16,15 +16,9 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class ZenPitKiln {
 
   @ZenMethod
-  public static void addRecipe(String name, IItemStack output, IIngredient input) {
+  public static void addRecipe(String name, IItemStack output, IIngredient input, int burnTimeTicks) {
 
-    ZenPitKiln.addRecipe(name, output, input, 0, new IItemStack[0]);
-  }
-
-  @ZenMethod
-  public static void addRecipe(String name, IItemStack output, IIngredient input, float failureChance) {
-
-    ZenPitKiln.addRecipe(name, output, input, failureChance, new IItemStack[0]);
+    ZenPitKiln.addRecipe(name, output, input, burnTimeTicks, 0, new IItemStack[0]);
   }
 
   @ZenMethod
@@ -32,6 +26,19 @@ public class ZenPitKiln {
       String name,
       IItemStack output,
       IIngredient input,
+      int burnTimeTicks,
+      float failureChance
+  ) {
+
+    ZenPitKiln.addRecipe(name, output, input, burnTimeTicks, failureChance, new IItemStack[0]);
+  }
+
+  @ZenMethod
+  public static void addRecipe(
+      String name,
+      IItemStack output,
+      IIngredient input,
+      int burnTimeTicks,
       float failureChance,
       IItemStack[] failureItems
   ) {
@@ -40,6 +47,7 @@ public class ZenPitKiln {
         name,
         CraftTweakerMC.getItemStack(output),
         CraftTweakerMC.getIngredient(input),
+        burnTimeTicks,
         failureChance,
         CraftTweakerMC.getItemStacks(failureItems)
     ));
@@ -49,8 +57,9 @@ public class ZenPitKiln {
       implements IAction {
 
     private final ItemStack output;
-    private String name;
+    private final String name;
     private final Ingredient input;
+    private final int burnTimeTicks;
     private final float failureChance;
     private final ItemStack[] failureItems;
 
@@ -58,6 +67,7 @@ public class ZenPitKiln {
         String name,
         ItemStack output,
         Ingredient input,
+        int burnTimeTicks,
         float failureChance,
         ItemStack[] failureItems
     ) {
@@ -65,6 +75,7 @@ public class ZenPitKiln {
       this.name = name;
       this.input = input;
       this.output = output;
+      this.burnTimeTicks = burnTimeTicks;
       this.failureChance = failureChance;
       this.failureItems = failureItems;
     }
@@ -76,6 +87,7 @@ public class ZenPitKiln {
           this.name,
           this.input,
           this.output,
+          this.burnTimeTicks,
           this.failureChance,
           this.failureItems
       ));

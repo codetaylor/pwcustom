@@ -269,6 +269,7 @@ public class BlockKiln
             // place the item into the kiln.
 
             ItemStackHandler stackHandler = ((TileKiln) tileEntity).getStackHandler();
+            ((TileKiln) tileEntity).setTotalBurnTimeTicks(recipe.getBurnTimeTicks());
             player.setHeldItem(hand, stackHandler.insertItem(0, heldItem, false));
             world.notifyBlockUpdate(pos, state, state, 2);
             return true;

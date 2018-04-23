@@ -2,7 +2,6 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
@@ -30,9 +29,12 @@ public class TileKiln
     implements ITickable,
     IProgressProvider {
 
+  private static final int DEFAULT_TOTAL_BURN_TIME_TICKS = 1000;
+
   private ItemStackHandler logStackHandler;
   private ItemStackHandler stackHandler;
   private ItemStackHandler outputStackHandler;
+  private int totalBurnTimeTicks;
   private boolean active;
 
   // transient
@@ -67,7 +69,10 @@ public class TileKiln
       }
     };
 
+    this.totalBurnTimeTicks = DEFAULT_TOTAL_BURN_TIME_TICKS;
+
     this.setNeedStructureValidation();
+    this.reset();
   }
 
   public ItemStackHandler getLogStackHandler() {
@@ -88,6 +93,12 @@ public class TileKiln
   public void setActive(boolean active) {
 
     this.active = active;
+  }
+
+  public void setTotalBurnTimeTicks(int totalBurnTimeTicks) {
+
+    this.totalBurnTimeTicks = totalBurnTimeTicks;
+    this.reset();
   }
 
   public EntityItem getEntityItem() {
@@ -342,7 +353,7 @@ public class TileKiln
   @Override
   protected int getTotalBurnTimeTicks() {
 
-    return ModuleCharcoalConfig.PIT_KILN.BURN_TIME_TICKS;
+    return this.totalBurnTimeTicks;
   }
 
   @Override
@@ -374,6 +385,7 @@ public class TileKiln
     compound.setTag("stackHandler", this.stackHandler.serializeNBT());
     compound.setTag("outputStackHandler", this.outputStackHandler.serializeNBT());
     compound.setTag("logStackHandler", this.logStackHandler.serializeNBT());
+    compound.setInteger("totalBurnTimeTicks", this.totalBurnTimeTicks);
     compound.setBoolean("active", this.active);
     return compound;
   }
@@ -385,6 +397,7 @@ public class TileKiln
     this.stackHandler.deserializeNBT(compound.getCompoundTag("stackHandler"));
     this.outputStackHandler.deserializeNBT(compound.getCompoundTag("outputStackHandler"));
     this.logStackHandler.deserializeNBT(compound.getCompoundTag("logStackHandler"));
+    this.totalBurnTimeTicks = compound.getInteger("totalBurnTimeTicks");
     this.active = compound.getBoolean("active");
   }
 

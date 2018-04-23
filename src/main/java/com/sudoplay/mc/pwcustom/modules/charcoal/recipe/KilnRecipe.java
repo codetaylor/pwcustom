@@ -29,15 +29,24 @@ public class KilnRecipe
   private final String name;
   private final Ingredient input;
   private final ItemStack output;
+  private final int burnTimeTicks;
   private final float failureChance;
   private final ItemStack[] failureItems;
 
-  public KilnRecipe(String name, Ingredient input, ItemStack output, float failureChance, ItemStack[] failureItems) {
+  public KilnRecipe(
+      String name,
+      Ingredient input,
+      ItemStack output,
+      int burnTimeTicks,
+      float failureChance,
+      ItemStack[] failureItems
+  ) {
 
     this.setRegistryName(new ResourceLocation(ModuleCharcoal.MOD_ID, name));
     this.name = name;
     this.input = input;
     this.output = output;
+    this.burnTimeTicks = burnTimeTicks;
     this.failureChance = MathHelper.clamp(failureChance, 0, 1);
     this.failureItems = failureItems;
   }
@@ -55,6 +64,11 @@ public class KilnRecipe
   public ItemStack getOutput() {
 
     return this.output.copy();
+  }
+
+  public int getBurnTimeTicks() {
+
+    return this.burnTimeTicks;
   }
 
   public float getFailureChance() {

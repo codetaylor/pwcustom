@@ -10,16 +10,6 @@ import net.minecraftforge.common.config.Config;
 @Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + ".module.Charcoal")
 public class ModuleCharcoalConfig {
 
-  public static PitKiln PIT_KILN = new PitKiln();
-
-  public static class PitKiln {
-
-    @Config.Comment({
-        "How many ticks to complete burning"
-    })
-    public int BURN_TIME_TICKS = 8000;
-  }
-
   public static General GENERAL = new General();
 
   public static class General {
