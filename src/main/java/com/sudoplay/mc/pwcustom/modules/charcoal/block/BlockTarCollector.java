@@ -142,7 +142,7 @@ public class BlockTarCollector
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {
 
-    return BlockRenderLayer.CUTOUT_MIPPED;
+    return BlockRenderLayer.CUTOUT;
   }
 
   public enum EnumType
