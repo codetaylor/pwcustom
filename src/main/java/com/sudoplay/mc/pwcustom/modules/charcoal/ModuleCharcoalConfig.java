@@ -7,7 +7,7 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarDrain;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.config.Config;
 
-@Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + ".module.Charcoal")
+@Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + "/" + ModuleCharcoal.MOD_ID + ".module.Charcoal")
 public class ModuleCharcoalConfig {
 
   public static General GENERAL = new General();

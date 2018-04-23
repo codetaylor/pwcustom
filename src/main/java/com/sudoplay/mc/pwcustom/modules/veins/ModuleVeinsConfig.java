@@ -2,7 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.veins;
 
 import net.minecraftforge.common.config.Config;
 
-@Config(modid = ModuleVeins.MOD_ID, name = ModuleVeins.MOD_ID + ".module.Veins")
+@Config(modid = ModuleVeins.MOD_ID, name = ModuleVeins.MOD_ID + "/" + ModuleVeins.MOD_ID + ".module.Veins")
 public class ModuleVeinsConfig {
 
   @Config.Comment({
