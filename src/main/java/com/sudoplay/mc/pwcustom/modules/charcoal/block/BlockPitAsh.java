@@ -60,8 +60,6 @@ public class BlockPitAsh
 
     if (tileEntity instanceof TilePitAsh) {
       ItemStackHandler stackHandler = ((TilePitAsh) tileEntity).getStackHandler();
-      StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(0), pos, 0);
-      stackHandler = ((TilePitAsh) tileEntity).getStackHandler();
 
       for (int i = 0; i < stackHandler.getSlots(); i++) {
         StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(i), pos, 0);
