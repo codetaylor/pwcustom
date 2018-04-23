@@ -4,62 +4,11 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockIgniter;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockRefractoryBrick;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarCollector;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarDrain;
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.config.Config;
 
 @Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + ".module.Charcoal")
 public class ModuleCharcoalConfig {
-
-  public static LogPile LOG_PILE = new LogPile();
-
-  public static class LogPile {
-
-    @Config.Comment({
-        "How many ticks to complete burning"
-    })
-    public int BURN_TIME_TICKS = 18000;
-
-    @Config.Comment({
-        "Total number of burn stages"
-    })
-    public int BURN_STAGES = 10;
-
-    @Config.Comment({
-        "The type of fluid produced during burning"
-    })
-    public String FLUID_PRODUCED = ModuleFluids.WOOD_TAR.getName();
-
-    @Config.Comment({
-        "The amount of fluid produced per burn stage in millibuckets"
-    })
-    public int FLUID_PRODUCED_AMOUNT_MB = 50;
-  }
-
-  public static CoalBlock COAL_BLOCK = new CoalBlock();
-
-  public static class CoalBlock {
-
-    @Config.Comment({
-        "How many ticks to complete burning"
-    })
-    public int BURN_TIME_TICKS = 36000;
-
-    @Config.Comment({
-        "Total number of burn stages"
-    })
-    public int BURN_STAGES = 10;
-
-    @Config.Comment({
-        "The type of fluid produced during burning"
-    })
-    public String FLUID_PRODUCED = ModuleFluids.COAL_TAR.getName();
-
-    @Config.Comment({
-        "The amount of fluid produced per burn stage in millibuckets"
-    })
-    public int FLUID_PRODUCED_AMOUNT_MB = 50;
-  }
 
   public static PitKiln PIT_KILN = new PitKiln();
 
