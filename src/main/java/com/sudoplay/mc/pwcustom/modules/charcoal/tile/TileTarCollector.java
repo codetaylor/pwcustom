@@ -54,8 +54,8 @@ public class TileTarCollector
   @Override
   protected FluidTank getCollectionSourceFluidTank(@Nullable TileEntity tileEntity) {
 
-    if (tileEntity instanceof TileActivePileBase) {
-      return ((TileActivePileBase) tileEntity).getFluidTank();
+    if (tileEntity instanceof TileActivePile) {
+      return ((TileActivePile) tileEntity).getFluidTank();
     }
 
     return null;

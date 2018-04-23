@@ -382,10 +382,9 @@ tile.fluid.wood_tar.name=Wood Tar
 fluid.coal_tar=Coal Tar
 tile.fluid.coal_tar.name=Coal Tar
 
-item.pwcustom.coal.ash.name=Coal Ash
 item.pwcustom.straw.name=Straw
 item.pwcustom.coal.coke.name=Coal Coke
-item.pwcustom.wood.ash.name=Wood Ash
+item.pwcustom.pit.ash.name=Pit Ash
 item.pwcustom.flint.clay.ball.name=Flint Clay
 item.pwcustom.refractory.clay.ball.name=Refractory Clay
 item.pwcustom.refractory.brick.name=Refractory Brick

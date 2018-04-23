@@ -2,7 +2,6 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
 import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.event.IgnitionHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -104,15 +103,12 @@ public class BlockIgniter
       IBlockState facingBlockState = world.getBlockState(offset);
       Block facingBlock = facingBlockState.getBlock();
 
-      if (facingBlock == ModuleCharcoal.Blocks.LOG_PILE) {
-        IgnitionHandler.igniteLogPiles(world, offset);
-
-      } else if (facingBlock == Blocks.COAL_BLOCK) {
-        IgnitionHandler.igniteCoalBlocks(world, offset);
-
-      } else if (facingBlock == Blocks.AIR
+      if (facingBlock == Blocks.AIR
           || facingBlock.isReplaceable(world, offset)) {
         world.setBlockState(offset, Blocks.FIRE.getDefaultState(), 3);
+
+      } else {
+        IgnitionHandler.igniteBlocks(world, offset, facingBlockState);
       }
     }
   }

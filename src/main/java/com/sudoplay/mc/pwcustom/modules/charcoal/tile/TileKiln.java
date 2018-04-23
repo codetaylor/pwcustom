@@ -94,7 +94,7 @@ public class TileKiln
     }
 
     int totalBurnTimeTicks = this.getTotalBurnTimeTicks();
-    int totalStages = this.getTotalStages();
+    int totalStages = this.getBurnStages();
     int burnTimePerStage = totalBurnTimeTicks / totalStages;
     float progress = ((this.remainingStages - 1) * burnTimePerStage + this.burnTimeTicksPerStage) / (float) totalBurnTimeTicks;
 
@@ -181,7 +181,7 @@ public class TileKiln
         }
 
       } else {
-        this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.WOOD_ASH, input.getCount(), 0));
+        this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.PIT_ASH, input.getCount(), 0));
       }
 
       ItemStack output = recipe.getOutput();
@@ -266,7 +266,7 @@ public class TileKiln
             this.insertOutputItem(failureItemStack);
 
           } else {
-            this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.WOOD_ASH, input.getCount(), 0));
+            this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.PIT_ASH, input.getCount(), 0));
           }
 
         } else {
@@ -276,7 +276,7 @@ public class TileKiln
     }
 
     int ashCount = Util.RANDOM.nextInt(3) + 1;
-    this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.WOOD_ASH, ashCount));
+    this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.PIT_ASH, ashCount));
 
     this.setActive(false);
     IBlockState blockState = ModuleCharcoal.Blocks.KILN.getDefaultState()
@@ -331,7 +331,7 @@ public class TileKiln
   }
 
   @Override
-  protected int getTotalStages() {
+  protected int getBurnStages() {
 
     return 1;
   }

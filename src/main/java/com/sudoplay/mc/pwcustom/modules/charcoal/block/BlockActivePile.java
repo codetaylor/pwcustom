@@ -1,35 +1,34 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActiveLogPile;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePileBase;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePile;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockLogPileActive
+public class BlockActivePile
     extends Block {
 
-  public static final String NAME = "log_pile_active";
+  public static final String NAME = "active_pile";
 
-  public BlockLogPileActive() {
+  public BlockActivePile() {
 
-    super(Material.WOOD);
+    super(Material.ROCK);
     this.setHardness(2);
-    this.setSoundType(SoundType.WOOD);
-    this.setHarvestLevel("axe", 0);
+    this.setSoundType(SoundType.STONE);
+    this.setHarvestLevel("pickaxe", 0);
   }
 
   @Override
@@ -39,8 +38,8 @@ public class BlockLogPileActive
 
     TileEntity tileEntity = worldIn.getTileEntity(pos);
 
-    if (tileEntity instanceof TileActivePileBase) {
-      ((TileActivePileBase) tileEntity).setNeedStructureValidation();
+    if (tileEntity instanceof TileActivePile) {
+      ((TileActivePile) tileEntity).setNeedStructureValidation();
     }
   }
 
@@ -91,6 +90,22 @@ public class BlockLogPileActive
   }
 
   @Override
+  public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+
+    TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+    if (tileEntity instanceof TileActivePile) {
+      ItemStackHandler stackHandler = ((TileActivePile) tileEntity).getOutput();
+
+      for (int i = 0; i < stackHandler.getSlots(); i++) {
+        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stackHandler.getStackInSlot(i));
+      }
+    }
+
+    super.breakBlock(worldIn, pos, state);
+  }
+
+  @Override
   public boolean canSilkHarvest(
       World world, BlockPos pos, @Nonnull IBlockState state, EntityPlayer player
   ) {
@@ -98,11 +113,10 @@ public class BlockLogPileActive
     return false;
   }
 
-  @Nonnull
   @Override
-  public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+  public int quantityDropped(IBlockState state, int fortune, Random random) {
 
-    return Item.getItemFromBlock(ModuleCharcoal.Blocks.LOG_PILE);
+    return 0;
   }
 
   @Override
@@ -121,6 +135,6 @@ public class BlockLogPileActive
   @Override
   public TileEntity createTileEntity(World world, IBlockState state) {
 
-    return new TileActiveLogPile();
+    return new TileActivePile();
   }
 }

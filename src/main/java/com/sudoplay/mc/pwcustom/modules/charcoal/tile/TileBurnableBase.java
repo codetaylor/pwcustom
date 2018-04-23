@@ -23,7 +23,7 @@ public abstract class TileBurnableBase
 
   public TileBurnableBase() {
 
-    this.remainingStages = this.getTotalStages();
+    this.remainingStages = this.getBurnStages();
     this.invalidTicks = 0;
     this.reset();
   }
@@ -78,7 +78,7 @@ public abstract class TileBurnableBase
 
   protected void reset() {
 
-    this.burnTimeTicksPerStage = this.getTotalBurnTimeTicks() / this.getTotalStages();
+    this.burnTimeTicksPerStage = this.getTotalBurnTimeTicks() / this.getBurnStages();
   }
 
   protected boolean isStructureValid() {
@@ -177,6 +177,6 @@ public abstract class TileBurnableBase
   /**
    * @return the total number of burn stages
    */
-  protected abstract int getTotalStages();
+  protected abstract int getBurnStages();
 
 }

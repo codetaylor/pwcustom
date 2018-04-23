@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "pwcustom:blocks/coal_block_active"
+    "all": "pwcustom:blocks/active_pile"
   }
 }

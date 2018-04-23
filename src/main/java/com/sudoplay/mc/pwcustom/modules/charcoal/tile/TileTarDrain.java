@@ -77,8 +77,8 @@ public class TileTarDrain
     if (tileEntity instanceof TileTarCollector) {
       return ((TileTarCollector) tileEntity).getFluidTank();
 
-    } else if (tileEntity instanceof TileActivePileBase) {
-      return ((TileActivePileBase) tileEntity).getFluidTank();
+    } else if (tileEntity instanceof TileActivePile) {
+      return ((TileActivePile) tileEntity).getFluidTank();
     }
 
     return null;

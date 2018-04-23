@@ -16,21 +16,28 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class ZenPitKiln {
 
   @ZenMethod
-  public static void addRecipe(IItemStack output, IIngredient input) {
+  public static void addRecipe(String name, IItemStack output, IIngredient input) {
 
-    ZenPitKiln.addRecipe(output, input, 0, new IItemStack[0]);
+    ZenPitKiln.addRecipe(name, output, input, 0, new IItemStack[0]);
   }
 
   @ZenMethod
-  public static void addRecipe(IItemStack output, IIngredient input, float failureChance) {
+  public static void addRecipe(String name, IItemStack output, IIngredient input, float failureChance) {
 
-    ZenPitKiln.addRecipe(output, input, failureChance, new IItemStack[0]);
+    ZenPitKiln.addRecipe(name, output, input, failureChance, new IItemStack[0]);
   }
 
   @ZenMethod
-  public static void addRecipe(IItemStack output, IIngredient input, float failureChance, IItemStack[] failureItems) {
+  public static void addRecipe(
+      String name,
+      IItemStack output,
+      IIngredient input,
+      float failureChance,
+      IItemStack[] failureItems
+  ) {
 
     CraftTweaker.LATE_ACTIONS.add(new AddRecipe(
+        name,
         CraftTweakerMC.getItemStack(output),
         CraftTweakerMC.getIngredient(input),
         failureChance,
@@ -42,17 +49,20 @@ public class ZenPitKiln {
       implements IAction {
 
     private final ItemStack output;
+    private String name;
     private final Ingredient input;
     private final float failureChance;
     private final ItemStack[] failureItems;
 
     public AddRecipe(
+        String name,
         ItemStack output,
         Ingredient input,
         float failureChance,
         ItemStack[] failureItems
     ) {
 
+      this.name = name;
       this.input = input;
       this.output = output;
       this.failureChance = failureChance;
@@ -62,7 +72,13 @@ public class ZenPitKiln {
     @Override
     public void apply() {
 
-      Registries.KILN_RECIPE_LIST.add(new KilnRecipe(this.input, this.output, this.failureChance, this.failureItems));
+      Registries.KILN_RECIPE.register(new KilnRecipe(
+          this.name,
+          this.input,
+          this.output,
+          this.failureChance,
+          this.failureItems
+      ));
     }
 
     @Override

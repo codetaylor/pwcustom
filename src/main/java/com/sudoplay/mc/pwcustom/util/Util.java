@@ -5,17 +5,13 @@ import com.codetaylor.mc.athenaeum.parser.recipe.item.ParseResult;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockStateMatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.Random;
-import java.util.function.Predicate;
 
 /**
  * Some stuff from:
@@ -44,7 +40,7 @@ public class Util {
     return I18n.translateToLocal(I18n.translateToLocal(String.format(key, (Object[]) pars)).trim()).trim();
   }
 
-  public static Predicate<IBlockState> parseBlockStringWithWildcard(
+  public static BlockMetaMatcher parseBlockStringWithWildcard(
       String blockString,
       RecipeItemParser parser
   ) throws MalformedRecipeItemException {
@@ -58,13 +54,7 @@ public class Util {
     }
 
     int meta = parse.getMeta();
-
-    if (meta == OreDictionary.WILDCARD_VALUE) {
-      return BlockStateMatcher.forBlock(block);
-
-    } else {
-      return new BlockMetaMatcher(block, meta);
-    }
+    return new BlockMetaMatcher(block, meta);
   }
 
   private Util() {
