@@ -107,7 +107,10 @@ public class PitKilnDataProvider
             tooltip.add(Util.translate("gui." + ModuleCharcoal.MOD_ID + ".waila.kiln.pit.ready"));
 
           } else if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.ACTIVE) {
-            tooltip.add(Util.translate("gui." + ModuleCharcoal.MOD_ID + ".waila.kiln.pit.active"));
+            tooltip.add(Util.translateFormatted(
+                "gui." + ModuleCharcoal.MOD_ID + ".waila.kiln.pit.active",
+                Util.DF_PERCENT.format(progress)
+            ));
           }
 
           renderString.append(WailaUtil.getStackRenderString(input));
