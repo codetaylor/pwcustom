@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "AAA",
-    "ABA",
-    "AAA"
+    "ACA",
+    "CBC",
+    "ACA"
   ],
   "key": {
     "A": {
@@ -11,6 +11,9 @@
     },
     "B": {
       "item": "pwcustom:flint_clay_ball"
+    },
+    "C": {
+      "item": "pwcustom:slaked_lime"
     }
   },
   "result": {
