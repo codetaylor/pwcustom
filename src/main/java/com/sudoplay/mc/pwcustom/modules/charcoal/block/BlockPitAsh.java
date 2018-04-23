@@ -1,12 +1,12 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
+import com.codetaylor.mc.athenaeum.util.StackHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TilePitAsh;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -60,11 +60,11 @@ public class BlockPitAsh
 
     if (tileEntity instanceof TilePitAsh) {
       ItemStackHandler stackHandler = ((TilePitAsh) tileEntity).getStackHandler();
-      InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stackHandler.getStackInSlot(0));
+      StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(0), pos, 0);
       stackHandler = ((TilePitAsh) tileEntity).getStackHandler();
 
       for (int i = 0; i < stackHandler.getSlots(); i++) {
-        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stackHandler.getStackInSlot(i));
+        StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(i), pos, 0);
       }
     }
 

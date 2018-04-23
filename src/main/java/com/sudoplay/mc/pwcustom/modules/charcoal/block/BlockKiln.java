@@ -2,6 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
 import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
+import com.codetaylor.mc.athenaeum.util.StackHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
@@ -281,9 +282,8 @@ public class BlockKiln
           }
 
           // Pop all the kiln contents into the world.
+          // This will happen when the block is destroyed.
 
-          //ItemStackHandler stackHandler = ((TileKiln) tileEntity).getStackHandler();
-          //InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), stackHandler.getStackInSlot(0));
           world.destroyBlock(pos, true);
           return true;
         }
@@ -342,11 +342,11 @@ public class BlockKiln
 
     if (tileEntity instanceof TileKiln) {
       ItemStackHandler stackHandler = ((TileKiln) tileEntity).getStackHandler();
-      InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stackHandler.getStackInSlot(0));
+      StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(0), pos);
       stackHandler = ((TileKiln) tileEntity).getOutputStackHandler();
 
       for (int i = 0; i < stackHandler.getSlots(); i++) {
-        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stackHandler.getStackInSlot(i));
+        StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(i), pos);
       }
     }
 

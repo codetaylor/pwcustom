@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
+import com.codetaylor.mc.athenaeum.util.StackHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePile;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -98,7 +99,7 @@ public class BlockActivePile
       ItemStackHandler stackHandler = ((TileActivePile) tileEntity).getOutput();
 
       for (int i = 0; i < stackHandler.getSlots(); i++) {
-        InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), stackHandler.getStackInSlot(i));
+        StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(i), pos, 0);
       }
     }
 
