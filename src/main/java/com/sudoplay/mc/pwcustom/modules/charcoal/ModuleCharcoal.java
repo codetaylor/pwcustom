@@ -60,6 +60,7 @@ public class ModuleCharcoal
     public static final BlockPitAsh PIT_ASH_BLOCK = new BlockPitAsh();
     public static final BlockActivePile ACTIVE_PILE = new BlockActivePile();
     public static final BlockRefractoryDoor REFRACTORY_DOOR = new BlockRefractoryDoor();
+    public static final BlockLimestone LIMESTONE = new BlockLimestone();
   }
 
   public static final class Items {
@@ -73,6 +74,8 @@ public class ModuleCharcoal
     public static final Item POTTERY_FRAGMENTS = new Item();
     public static final Item POTTERY_SHARD = new Item();
     public static final Item REFRACTORY_DOOR = new ItemDoor(Blocks.REFRACTORY_DOOR);
+    public static final Item QUICKLIME = new Item();
+    public static final Item SLAKED_LIME = new Item();
   }
 
   public ModuleCharcoal() {
@@ -136,6 +139,7 @@ public class ModuleCharcoal
     registry.registerBlockWithItem(Blocks.TAR_DRAIN, BlockTarDrain.NAME);
     registry.registerBlockWithItem(Blocks.REFRACTORY_BRICK, BlockRefractoryBrick.NAME);
     registry.registerBlockWithItem(Blocks.IGNITER, BlockIgniter.NAME);
+    registry.registerBlockWithItem(Blocks.LIMESTONE, BlockLimestone.NAME);
 
     registry.registerItem(Items.PIT_ASH, "pit_ash");
     registry.registerItem(Items.COAL_COKE, "coal_coke");
@@ -147,6 +151,8 @@ public class ModuleCharcoal
     registry.registerItem(Items.POTTERY_FRAGMENTS, "pottery_fragments");
     registry.registerItem(Items.POTTERY_SHARD, "pottery_shard");
     registry.registerItem(Items.REFRACTORY_DOOR, "refractory_door");
+    registry.registerItem(Items.QUICKLIME, "quicklime");
+    registry.registerItem(Items.SLAKED_LIME, "slaked_lime");
 
     registry.registerTileEntities(
         TileTarCollector.class,
@@ -168,7 +174,8 @@ public class ModuleCharcoal
           Blocks.LOG_PILE,
           Blocks.COAL_COKE_BLOCK,
           Blocks.THATCH,
-          Blocks.REFRACTORY_BRICK
+          Blocks.REFRACTORY_BRICK,
+          Blocks.LIMESTONE
       );
 
       ModelRegistrationHelper.registerItemModels(
@@ -180,7 +187,9 @@ public class ModuleCharcoal
           Items.FLINT_CLAY_BALL,
           Items.POTTERY_FRAGMENTS,
           Items.POTTERY_SHARD,
-          Items.REFRACTORY_DOOR
+          Items.REFRACTORY_DOOR,
+          Items.QUICKLIME,
+          Items.SLAKED_LIME
       );
 
       ModelLoader.setCustomStateMapper(
