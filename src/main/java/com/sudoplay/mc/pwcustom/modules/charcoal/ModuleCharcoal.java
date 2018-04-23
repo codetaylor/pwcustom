@@ -9,6 +9,7 @@ import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.FuelHandler;
+import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemQuicklime;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.*;
@@ -74,7 +75,7 @@ public class ModuleCharcoal
     public static final Item POTTERY_FRAGMENTS = new Item();
     public static final Item POTTERY_SHARD = new Item();
     public static final Item REFRACTORY_DOOR = new ItemDoor(Blocks.REFRACTORY_DOOR);
-    public static final Item QUICKLIME = new Item();
+    public static final Item QUICKLIME = new ItemQuicklime();
     public static final Item SLAKED_LIME = new Item();
   }
 
