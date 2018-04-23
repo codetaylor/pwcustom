@@ -2,6 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockRefractoryDoor;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
@@ -253,11 +254,24 @@ public class TileActivePile
         }
       }
 
-      return false;
+      return this.isValidRefractoryDoor(blockState, facing);
 
     } else {
-      return super.isValidStructureBlock(world, pos, blockState, facing);
+      return super.isValidStructureBlock(world, pos, blockState, facing)
+          || this.isValidRefractoryDoor(blockState, facing);
     }
+  }
+
+  private boolean isValidRefractoryDoor(IBlockState blockState, EnumFacing facing) {
+
+    if (blockState.getBlock() == ModuleCharcoal.Blocks.REFRACTORY_DOOR) {
+
+      if (!blockState.getValue(BlockRefractoryDoor.OPEN)
+          && blockState.getValue(BlockRefractoryDoor.FACING) == facing.getOpposite()) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @Nonnull

@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_top_rh",
+    "textures": {
+        "bottom": "pwcustom:blocks/door_refractory_lower",
+        "top": "pwcustom:blocks/door_refractory_upper"
+    }
+}

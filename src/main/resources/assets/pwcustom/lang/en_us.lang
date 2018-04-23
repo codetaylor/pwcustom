@@ -377,10 +377,18 @@ tile.pwcustom.ore_gravel.redstone.name=Redstone Gravel
 tile.pwcustom.ore_gravel.quartz.name=Quartz Gravel
 tile.pwcustom.ore_gravel.ender.name=Ender Gravel
 
+#------------------------------------------------------------------------------
+# Charcoal Module
+#------------------------------------------------------------------------------
+
+# --- Fluids
+
 fluid.wood_tar=Wood Tar
 tile.fluid.wood_tar.name=Wood Tar
 fluid.coal_tar=Coal Tar
 tile.fluid.coal_tar.name=Coal Tar
+
+# --- Items
 
 item.pwcustom.straw.name=Straw
 item.pwcustom.coal.coke.name=Coal Coke
@@ -390,27 +398,26 @@ item.pwcustom.refractory.clay.ball.name=Refractory Clay
 item.pwcustom.refractory.brick.name=Refractory Brick
 item.pwcustom.pottery.fragments.name=Pottery Fragments
 item.pwcustom.pottery.shard.name=Pottery Shard
+item.pwcustom.refractory.door.name=Refractory Door
+
+# --- Tiles
 
 tile.pwcustom.coal_pile_ash.name=Coal Ash Block
 tile.pwcustom.thatch.name=Thatch Block
 tile.pwcustom.coal_coke_block.name=Coal Coke Block
 tile.pwcustom.log_pile_ash.name=Wood Ash Block
 tile.pwcustom.log_pile.name=Log Pile
-
 tile.pwcustom.tar_collector.stone.name=Stone Tar Collector
 tile.pwcustom.tar_collector.brick.name=Refractory Tar Collector
-
 tile.pwcustom.tar_drain.stone.name=Stone Tar Drain
 tile.pwcustom.tar_drain.brick.name=Refractory Tar Drain
-
 tile.pwcustom.igniter.stone.name=Stone Igniter
 tile.pwcustom.igniter.brick.name=Refractory Igniter
-
 tile.pwcustom.refractory_brick_block.name=Refractory Block
-
 tile.pwcustom.kiln.name=Pit Kiln
 
-# Waila plugin
+# --- Waila plugin
+
 gui.pwcustom.waila.tank.fluid=Liquid: %s
 gui.pwcustom.waila.tank.amount=Amount: %d / %d mb
 gui.pwcustom.waila.kiln.pit.ready=Ready

@@ -14,10 +14,14 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.*;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import com.sudoplay.mc.pwcustom.util.Util;
+import net.minecraft.block.BlockDoor;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemDoor;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -55,6 +59,7 @@ public class ModuleCharcoal
     public static final BlockIgniter IGNITER = new BlockIgniter();
     public static final BlockPitAsh PIT_ASH_BLOCK = new BlockPitAsh();
     public static final BlockActivePile ACTIVE_PILE = new BlockActivePile();
+    public static final BlockRefractoryDoor REFRACTORY_DOOR = new BlockRefractoryDoor();
   }
 
   public static final class Items {
@@ -67,6 +72,7 @@ public class ModuleCharcoal
     public static final Item REFRACTORY_BRICK = new Item();
     public static final Item POTTERY_FRAGMENTS = new Item();
     public static final Item POTTERY_SHARD = new Item();
+    public static final Item REFRACTORY_DOOR = new ItemDoor(Blocks.REFRACTORY_DOOR);
   }
 
   public ModuleCharcoal() {
@@ -121,6 +127,7 @@ public class ModuleCharcoal
     registry.registerBlock(Blocks.ACTIVE_PILE, BlockActivePile.NAME);
     registry.registerBlock(Blocks.KILN, BlockKiln.NAME);
     registry.registerBlock(Blocks.PIT_ASH_BLOCK, BlockPitAsh.NAME);
+    registry.registerBlock(Blocks.REFRACTORY_DOOR, "refractory_door");
 
     registry.registerBlockWithItem(Blocks.LOG_PILE, BlockLogPile.NAME);
     registry.registerBlockWithItem(Blocks.COAL_COKE_BLOCK, BlockCoalCokeBlock.NAME);
@@ -139,6 +146,7 @@ public class ModuleCharcoal
     registry.registerItem(new ItemBlock(Blocks.KILN), Blocks.KILN.getRegistryName());
     registry.registerItem(Items.POTTERY_FRAGMENTS, "pottery_fragments");
     registry.registerItem(Items.POTTERY_SHARD, "pottery_shard");
+    registry.registerItem(Items.REFRACTORY_DOOR, "refractory_door");
 
     registry.registerTileEntities(
         TileTarCollector.class,
@@ -149,6 +157,63 @@ public class ModuleCharcoal
     );
 
     GameRegistry.registerFuelHandler(new FuelHandler());
+  }
+
+  @Override
+  public void onClientRegister(Registry registry) {
+
+    registry.registerClientModelRegistrationStrategy(() -> {
+
+      ModelRegistrationHelper.registerBlockItemModels(
+          Blocks.LOG_PILE,
+          Blocks.COAL_COKE_BLOCK,
+          Blocks.THATCH,
+          Blocks.REFRACTORY_BRICK
+      );
+
+      ModelRegistrationHelper.registerItemModels(
+          Items.PIT_ASH,
+          Items.COAL_COKE,
+          Items.STRAW,
+          Items.REFRACTORY_BRICK,
+          Items.REFRACTORY_CLAY_BALL,
+          Items.FLINT_CLAY_BALL,
+          Items.POTTERY_FRAGMENTS,
+          Items.POTTERY_SHARD,
+          Items.REFRACTORY_DOOR
+      );
+
+      ModelLoader.setCustomStateMapper(
+          Blocks.REFRACTORY_DOOR,
+          (new StateMap.Builder()).ignore(BlockDoor.POWERED).build()
+      );
+
+      ModelRegistrationHelper.registerBlockItemModel(Blocks.KILN.getDefaultState()
+          .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.EMPTY));
+
+      // tar collector
+      ModelRegistrationHelper.registerVariantBlockItemModels(
+          Blocks.TAR_COLLECTOR.getDefaultState(),
+          BlockTarCollector.VARIANT
+      );
+
+      // tar drain
+      ModelRegistrationHelper.registerVariantBlockItemModels(
+          Blocks.TAR_DRAIN.getDefaultState(),
+          BlockTarDrain.VARIANT
+      );
+
+      // igniter
+      ModelRegistrationHelper.registerVariantBlockItemModels(
+          Blocks.IGNITER.getDefaultState(),
+          BlockIgniter.VARIANT
+      );
+
+      ClientRegistry.bindTileEntitySpecialRenderer(
+          TileKiln.class,
+          new TESRKiln()
+      );
+    });
   }
 
   @Override
@@ -185,56 +250,5 @@ public class ModuleCharcoal
           0
       ));
     }
-  }
-
-  @Override
-  public void onClientRegister(Registry registry) {
-
-    registry.registerClientModelRegistrationStrategy(() -> {
-
-      ModelRegistrationHelper.registerBlockItemModels(
-          Blocks.LOG_PILE,
-          Blocks.COAL_COKE_BLOCK,
-          Blocks.THATCH,
-          Blocks.REFRACTORY_BRICK
-      );
-
-      ModelRegistrationHelper.registerItemModels(
-          Items.PIT_ASH,
-          Items.COAL_COKE,
-          Items.STRAW,
-          Items.REFRACTORY_BRICK,
-          Items.REFRACTORY_CLAY_BALL,
-          Items.FLINT_CLAY_BALL,
-          Items.POTTERY_FRAGMENTS,
-          Items.POTTERY_SHARD
-      );
-
-      ModelRegistrationHelper.registerBlockItemModel(Blocks.KILN.getDefaultState()
-          .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.EMPTY));
-
-      // tar collector
-      ModelRegistrationHelper.registerVariantBlockItemModels(
-          Blocks.TAR_COLLECTOR.getDefaultState(),
-          BlockTarCollector.VARIANT
-      );
-
-      // tar drain
-      ModelRegistrationHelper.registerVariantBlockItemModels(
-          Blocks.TAR_DRAIN.getDefaultState(),
-          BlockTarDrain.VARIANT
-      );
-
-      // igniter
-      ModelRegistrationHelper.registerVariantBlockItemModels(
-          Blocks.IGNITER.getDefaultState(),
-          BlockIgniter.VARIANT
-      );
-
-      ClientRegistry.bindTileEntitySpecialRenderer(
-          TileKiln.class,
-          new TESRKiln()
-      );
-    });
   }
 }
