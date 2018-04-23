@@ -13,6 +13,7 @@ import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.mc1120.CraftTweaker;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -88,8 +89,7 @@ public class ZenBurn {
       try {
         BlockMetaMatcher blockMetaMatcher = Util.parseBlockStringWithWildcard(this.blockString, new RecipeItemParser());
 
-        Registries.BURN_RECIPE.register(new BurnRecipe(
-            this.name,
+        BurnRecipe recipe = new BurnRecipe(
             this.output,
             blockMetaMatcher,
             this.burnStages,
@@ -98,7 +98,8 @@ public class ZenBurn {
             this.failureChance,
             this.failureItems,
             this.requiresRefractoryBlocks
-        ));
+        );
+        Registries.BURN_RECIPE.register(recipe.setRegistryName(new ResourceLocation("crafttweaker", this.name)));
 
       } catch (MalformedRecipeItemException e) {
         CraftTweakerAPI.logError("", e);

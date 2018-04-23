@@ -9,6 +9,7 @@ import crafttweaker.api.minecraft.CraftTweakerMC;
 import crafttweaker.mc1120.CraftTweaker;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -83,14 +84,14 @@ public class ZenPitKiln {
     @Override
     public void apply() {
 
-      Registries.KILN_RECIPE.register(new KilnRecipe(
-          this.name,
+      KilnRecipe recipe = new KilnRecipe(
           this.input,
           this.output,
           this.burnTimeTicks,
           this.failureChance,
           this.failureItems
-      ));
+      );
+      Registries.KILN_RECIPE.register(recipe.setRegistryName(new ResourceLocation("crafttweaker", this.name)));
     }
 
     @Override

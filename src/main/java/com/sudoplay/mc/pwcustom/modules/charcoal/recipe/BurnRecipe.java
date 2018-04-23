@@ -1,11 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.recipe;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
@@ -28,7 +26,6 @@ public class BurnRecipe
     return null;
   }
 
-  private final String name;
   private final BlockMetaMatcher inputMatcher;
   private final ItemStack output;
   private final int burnStages;
@@ -39,7 +36,6 @@ public class BurnRecipe
   private final boolean requiresRefractoryBlocks;
 
   public BurnRecipe(
-      String name,
       ItemStack output,
       BlockMetaMatcher inputMatcher,
       int burnStages,
@@ -50,7 +46,6 @@ public class BurnRecipe
       boolean requiresRefractoryBlocks
   ) {
 
-    this.name = name;
     this.inputMatcher = inputMatcher;
     this.output = output;
     this.burnStages = burnStages;
@@ -59,13 +54,6 @@ public class BurnRecipe
     this.failureChance = failureChance;
     this.failureItems = failureItems;
     this.requiresRefractoryBlocks = requiresRefractoryBlocks;
-
-    this.setRegistryName(new ResourceLocation(ModuleCharcoal.MOD_ID, name));
-  }
-
-  public String getName() {
-
-    return this.name;
   }
 
   public Predicate<IBlockState> getInputMatcher() {
