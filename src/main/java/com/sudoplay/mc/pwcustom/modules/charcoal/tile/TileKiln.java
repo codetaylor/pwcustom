@@ -30,6 +30,7 @@ public class TileKiln
     implements ITickable,
     IProgressProvider {
 
+  private ItemStackHandler logStackHandler;
   private ItemStackHandler stackHandler;
   private ItemStackHandler outputStackHandler;
   private boolean active;
@@ -57,7 +58,21 @@ public class TileKiln
 
     this.outputStackHandler = new ItemStackHandler(9);
 
+    this.logStackHandler = new ItemStackHandler(1) {
+
+      @Override
+      protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+
+        return 3;
+      }
+    };
+
     this.setNeedStructureValidation();
+  }
+
+  public ItemStackHandler getLogStackHandler() {
+
+    return this.logStackHandler;
   }
 
   public ItemStackHandler getStackHandler() {
@@ -358,6 +373,7 @@ public class TileKiln
     super.writeToNBT(compound);
     compound.setTag("stackHandler", this.stackHandler.serializeNBT());
     compound.setTag("outputStackHandler", this.outputStackHandler.serializeNBT());
+    compound.setTag("logStackHandler", this.logStackHandler.serializeNBT());
     compound.setBoolean("active", this.active);
     return compound;
   }
@@ -368,6 +384,7 @@ public class TileKiln
     super.readFromNBT(compound);
     this.stackHandler.deserializeNBT(compound.getCompoundTag("stackHandler"));
     this.outputStackHandler.deserializeNBT(compound.getCompoundTag("outputStackHandler"));
+    this.logStackHandler.deserializeNBT(compound.getCompoundTag("logStackHandler"));
     this.active = compound.getBoolean("active");
   }
 

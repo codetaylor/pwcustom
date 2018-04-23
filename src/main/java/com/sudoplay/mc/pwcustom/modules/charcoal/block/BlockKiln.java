@@ -2,6 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
 import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
+import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.codetaylor.mc.athenaeum.util.StackHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
@@ -15,9 +16,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -227,6 +226,12 @@ public class BlockKiln
       float hitZ
   ) {
 
+    TileEntity tileEntity = world.getTileEntity(pos);
+
+    if (!(tileEntity instanceof TileKiln)) {
+      return false;
+    }
+
     ItemStack heldItem = player.getHeldItem(hand);
 
     switch (state.getValue(VARIANT)) {
@@ -234,12 +239,6 @@ public class BlockKiln
       case EMPTY:
 
         if (heldItem.getItem() == Item.getItemFromBlock(ModuleCharcoal.Blocks.THATCH)) {
-
-          TileEntity tileEntity = world.getTileEntity(pos);
-
-          if (!(tileEntity instanceof TileKiln)) {
-            return false;
-          }
 
           if (((TileKiln) tileEntity).getStackHandler().getStackInSlot(0).isEmpty()) {
             return false;
@@ -257,12 +256,6 @@ public class BlockKiln
           return true;
 
         } else {
-
-          TileEntity tileEntity = world.getTileEntity(pos);
-
-          if (!(tileEntity instanceof TileKiln)) {
-            return false;
-          }
 
           if (world.isRemote) {
             return true;
@@ -309,8 +302,11 @@ public class BlockKiln
             }
 
             heldItem.setCount(heldItem.getCount() - 3);
+            ((TileKiln) tileEntity).getLogStackHandler()
+                .insertItem(0, new ItemStack(heldItem.getItem(), 3, heldItem.getMetadata()), false);
             world.setBlockState(pos, this.getDefaultState().withProperty(VARIANT, EnumType.WOOD));
             world.playSound(null, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1, 1);
+            BlockHelper.notifyBlockUpdate(world, pos);
             return true;
           }
         }
@@ -348,6 +344,12 @@ public class BlockKiln
       for (int i = 0; i < stackHandler.getSlots(); i++) {
         StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(i), pos);
       }
+
+      // Pop the used wood into the world.
+      if (state.getValue(VARIANT) == EnumType.WOOD) {
+        stackHandler = ((TileKiln) tileEntity).getLogStackHandler();
+        StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(0), pos);
+      }
     }
 
     super.breakBlock(worldIn, pos, state);
@@ -356,7 +358,10 @@ public class BlockKiln
   @Override
   public int quantityDropped(IBlockState state, int fortune, Random random) {
 
-    if (state.getValue(VARIANT) == EnumType.COMPLETE) {
+    EnumType type = state.getValue(VARIANT);
+
+    if (type == EnumType.COMPLETE
+        || type == EnumType.ACTIVE) {
       return 0;
     }
 
@@ -368,9 +373,8 @@ public class BlockKiln
 
     EnumType type = state.getValue(VARIANT);
 
-    if (type == EnumType.WOOD || type == EnumType.ACTIVE) {
+    if (type == EnumType.WOOD) {
       drops.add(new ItemStack(ModuleCharcoal.Blocks.THATCH, 1, 0));
-      drops.add(new ItemStack(Blocks.LOG, 3, 0));
 
     } else if (type == EnumType.THATCH) {
       drops.add(new ItemStack(ModuleCharcoal.Blocks.THATCH, 1, 0));
