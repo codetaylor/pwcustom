@@ -34,6 +34,7 @@ public class BurnRecipe
   private final float failureChance;
   private final ItemStack[] failureItems;
   private final boolean requiresRefractoryBlocks;
+  private final boolean fluidLevelAffectsFailureChance;
 
   public BurnRecipe(
       ItemStack output,
@@ -43,7 +44,8 @@ public class BurnRecipe
       FluidStack fluidProduced,
       float failureChance,
       ItemStack[] failureItems,
-      boolean requiresRefractoryBlocks
+      boolean requiresRefractoryBlocks,
+      boolean fluidLevelAffectsFailureChance
   ) {
 
     this.inputMatcher = inputMatcher;
@@ -54,6 +56,7 @@ public class BurnRecipe
     this.failureChance = failureChance;
     this.failureItems = failureItems;
     this.requiresRefractoryBlocks = requiresRefractoryBlocks;
+    this.fluidLevelAffectsFailureChance = fluidLevelAffectsFailureChance;
   }
 
   public Predicate<IBlockState> getInputMatcher() {
@@ -94,6 +97,11 @@ public class BurnRecipe
   public boolean requiresRefractoryBlocks() {
 
     return this.requiresRefractoryBlocks;
+  }
+
+  public boolean doesFluidLevelAffectsFailureChance() {
+
+    return this.fluidLevelAffectsFailureChance;
   }
 
   public boolean matches(IBlockState input) {

@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 public class TileActivePile
     extends TileBurnableBase {
 
-  private static final int DEFAULT_MAX_FLUID_LEVEL = 1000;
+  private static final int DEFAULT_MAX_FLUID_LEVEL = 500;
   private static final int DEFAULT_TOTAL_BURN_TIME_TICKS = 1000;
   private static final int DEFAULT_BURN_STAGES = 1;
   private static final int MAX_FLUID_PUSH_DEPTH = 5;
@@ -178,6 +178,10 @@ public class TileActivePile
     ItemStack output = recipe.getOutput();
     float failureChance = recipe.getFailureChance();
     ItemStack[] failureItems = recipe.getFailureItems();
+
+    if (recipe.doesFluidLevelAffectsFailureChance()) {
+      failureChance += (1 - failureChance) * (this.fluidTank.getFluidAmount() / (float) this.fluidTank.getCapacity());
+    }
 
     if (Util.RANDOM.nextFloat() < failureChance) {
 

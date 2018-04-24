@@ -31,7 +31,8 @@ public class ZenBurn {
       ILiquidStack fluidProduced,
       float failureChance,
       IItemStack[] failureItems,
-      boolean requiresRefractoryBlocks
+      boolean requiresRefractoryBlocks,
+      boolean fluidLevelAffectsFailureChance
   ) {
 
     CraftTweaker.LATE_ACTIONS.add(new AddRecipe(
@@ -43,7 +44,8 @@ public class ZenBurn {
         CraftTweakerMC.getLiquidStack(fluidProduced),
         failureChance,
         CraftTweakerMC.getItemStacks(failureItems),
-        requiresRefractoryBlocks
+        requiresRefractoryBlocks,
+        fluidLevelAffectsFailureChance
     ));
   }
 
@@ -59,6 +61,7 @@ public class ZenBurn {
     private final float failureChance;
     private final ItemStack[] failureItems;
     private final boolean requiresRefractoryBlocks;
+    private final boolean fluidLevelAffectsFailureChance;
 
     public AddRecipe(
         String name,
@@ -69,7 +72,8 @@ public class ZenBurn {
         FluidStack fluidProduced,
         float failureChance,
         ItemStack[] failureItems,
-        boolean requiresRefractoryBlocks
+        boolean requiresRefractoryBlocks,
+        boolean fluidLevelAffectsFailureChance
     ) {
 
       this.name = name;
@@ -81,6 +85,7 @@ public class ZenBurn {
       this.failureChance = failureChance;
       this.failureItems = failureItems;
       this.requiresRefractoryBlocks = requiresRefractoryBlocks;
+      this.fluidLevelAffectsFailureChance = fluidLevelAffectsFailureChance;
     }
 
     @Override
@@ -97,7 +102,8 @@ public class ZenBurn {
             this.fluidProduced,
             this.failureChance,
             this.failureItems,
-            this.requiresRefractoryBlocks
+            this.requiresRefractoryBlocks,
+            this.fluidLevelAffectsFailureChance
         );
         Registries.BURN_RECIPE.register(recipe.setRegistryName(new ResourceLocation("crafttweaker", this.name)));
 
