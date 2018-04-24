@@ -79,6 +79,7 @@ public class BurnRecipe
     return this.totalBurnTimeTicks;
   }
 
+  @Nullable
   public FluidStack getFluidProduced() {
 
     return this.fluidProduced;

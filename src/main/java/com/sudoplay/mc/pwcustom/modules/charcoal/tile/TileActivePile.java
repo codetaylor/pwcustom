@@ -140,16 +140,14 @@ public class TileActivePile
 
     // --- Fill Fluid ---
 
-    FluidStack fluidProduced = null;
     FluidStack fluidStack = recipe.getFluidProduced();
 
     if (fluidStack != null) {
-      fluidProduced = fluidStack.copy();
-    }
+      FluidStack fluidProduced = fluidStack.copy();
 
-    if (fluidProduced != null
-        && fluidProduced.amount > 0) {
-      this.fluidTank.fill(fluidProduced, true);
+      if (fluidProduced.amount > 0) {
+        this.fluidTank.fill(fluidProduced, true);
+      }
     }
 
     // --- Push Fluid Down ---
