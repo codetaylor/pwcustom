@@ -21,6 +21,12 @@ import java.util.List;
 public class TileTarDrain
     extends TileTarTankBase {
 
+  public TileTarDrain() {
+
+    super();
+    this.fluidTank.setCanFill(false);
+  }
+
   @Override
   protected int getTankCapacity() {
 

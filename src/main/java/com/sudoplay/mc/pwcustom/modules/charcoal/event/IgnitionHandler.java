@@ -5,6 +5,7 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePile;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarCollector;
 import com.sudoplay.mc.pwcustom.modules.charcoal.util.FloodFill;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -90,6 +92,19 @@ public class IgnitionHandler {
 
           if (tileEntity instanceof TileKiln) {
             ((TileKiln) tileEntity).setActive(true);
+          }
+        }
+
+      } else if (facing == EnumFacing.DOWN
+          && block == ModuleCharcoal.Blocks.TAR_COLLECTOR) {
+
+        TileEntity tileEntity = world.getTileEntity(offset);
+
+        if (tileEntity instanceof TileTarCollector) {
+          FluidTank fluidTank = ((TileTarCollector) tileEntity).getFluidTank();
+
+          if (fluidTank.getFluidAmount() > 0) {
+            ((TileTarCollector) tileEntity).setBurning(true);
           }
         }
 

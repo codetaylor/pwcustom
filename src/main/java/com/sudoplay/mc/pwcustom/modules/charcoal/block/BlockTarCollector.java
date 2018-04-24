@@ -18,6 +18,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -139,6 +140,19 @@ public class BlockTarCollector
 
     return FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)
         || FluidUtil.getFluidHandler(heldItem) != null;
+  }
+
+  @Override
+  public boolean isFireSource(World world, BlockPos pos, EnumFacing side) {
+
+    TileEntity tileEntity = world.getTileEntity(pos);
+
+    if (tileEntity instanceof TileTarCollector) {
+      return side == EnumFacing.UP
+          && ((TileTarCollector) tileEntity).isBurning();
+    }
+
+    return super.isFireSource(world, pos, side);
   }
 
   @Nonnull

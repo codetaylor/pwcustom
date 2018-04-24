@@ -1,8 +1,12 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.config.Config;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + "/" + ModuleCharcoal.MOD_ID + ".module.Charcoal")
 public class ModuleCharcoalConfig {
@@ -25,6 +29,14 @@ public class ModuleCharcoalConfig {
         "The maximum fluid capacity of an active pile in mb"
     })
     public int ACTIVE_PILE_MAX_FLUID_CAPACITY = 500;
+
+    @Config.Comment({
+        "The duration in ticks that different fluids will burn in the Tar Collector"
+    })
+    public Map<String, Integer> FLUID_BURN_TICKS = new HashMap<String, Integer>() {{
+      this.put(ModuleFluids.WOOD_TAR.getName(), 20);
+      this.put(ModuleFluids.COAL_TAR.getName(), 40);
+    }};
   }
 
   public static General GENERAL = new General();

@@ -34,7 +34,6 @@ public abstract class TileTarTankBase
   /* package */ TileTarTankBase() {
 
     this.fluidTank = new FluidTankBase<>(this.getTankCapacity(), this);
-    this.fluidTank.setCanFill(false);
   }
 
   public FluidTank getFluidTank() {
