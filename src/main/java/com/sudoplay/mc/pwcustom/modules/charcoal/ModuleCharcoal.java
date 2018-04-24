@@ -1,11 +1,14 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal;
 
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
+import com.codetaylor.mc.athenaeum.network.IPacketRegistry;
+import com.codetaylor.mc.athenaeum.network.IPacketService;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.MalformedRecipeItemException;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.codetaylor.mc.athenaeum.registry.Registry;
 import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
+import com.sudoplay.mc.pwcustom.library.fluid.CPacketFluidUpdate;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.FuelHandler;
@@ -33,6 +36,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -48,6 +52,8 @@ public class ModuleCharcoal
   static {
     FluidRegistry.enableUniversalBucket();
   }
+
+  public static IPacketService PACKET_SERVICE;
 
   public static final class Blocks {
 
@@ -89,6 +95,8 @@ public class ModuleCharcoal
     this.setRegistry(new Registry(MOD_ID, CREATIVE_TAB));
     this.enableAutoRegistry();
 
+    PACKET_SERVICE = this.enableNetwork();
+
     MinecraftForge.EVENT_BUS.register(this);
 
     this.registerIntegrationPlugin(
@@ -126,6 +134,12 @@ public class ModuleCharcoal
         "register",
         "com.sudoplay.mc.pwcustom.modules.charcoal.compat.waila.WailaRegistrar.wailaCallback"
     );
+  }
+
+  @Override
+  public void onNetworkRegister(IPacketRegistry registry) {
+
+    registry.register(CPacketFluidUpdate.class, CPacketFluidUpdate.class, Side.CLIENT);
   }
 
   @Override

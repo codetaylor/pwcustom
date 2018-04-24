@@ -1,6 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
-import com.codetaylor.mc.athenaeum.util.BlockHelper;
+import com.sudoplay.mc.pwcustom.library.fluid.CPacketFluidUpdate;
+import com.sudoplay.mc.pwcustom.library.fluid.FluidTankBase;
+import com.sudoplay.mc.pwcustom.library.fluid.IFluidTankUpdateListener;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -8,7 +11,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,16 +22,18 @@ import java.util.List;
 
 public abstract class TileTarTankBase
     extends TileEntity
-    implements ITickable {
+    implements ITickable,
+    CPacketFluidUpdate.IFluidUpdatePacketConsumer,
+    IFluidTankUpdateListener {
 
   private static final int UPDATE_DELAY_TICKS = 5;
 
-  protected FluidTank fluidTank;
+  protected FluidTankBase<TileTarTankBase> fluidTank;
   protected int ticksUntilNextUpdate;
 
   /* package */ TileTarTankBase() {
 
-    this.fluidTank = new FluidTank(this.getTankCapacity());
+    this.fluidTank = new FluidTankBase<>(this.getTankCapacity(), this);
     this.fluidTank.setCanFill(false);
   }
 
@@ -57,7 +65,6 @@ public abstract class TileTarTankBase
     }
 
     List<BlockPos> sourcePositions = this.getCollectionSourcePositions(world, pos);
-    int fluidAmount = this.fluidTank.getFluidAmount();
 
     for (BlockPos sourcePosition : sourcePositions) {
       TileEntity tileEntity = world.getTileEntity(sourcePosition);
@@ -67,18 +74,37 @@ public abstract class TileTarTankBase
         this.collect(sourceFluidTank, fluidTank);
       }
     }
-
-    if (fluidAmount != this.fluidTank.getFluidAmount()
-        && !this.world.isRemote) {
-
-      BlockHelper.notifyBlockUpdate(this.world, this.pos);
-    }
   }
 
   private void collect(FluidTank source, FluidTank target) {
 
     if (source.getFluidAmount() > 0) {
       source.drain(target.fillInternal(source.getFluid(), true), true);
+    }
+  }
+
+  @SideOnly(Side.CLIENT)
+  @Override
+  public void onFluidUpdatePacket(CPacketFluidUpdate packet) {
+
+    FluidStack fluidStack = packet.getFluidStack();
+
+    if (this instanceof TileTarDrain) {
+      if (fluidStack != null) {
+        System.out.println("Amount: " + fluidStack.amount);
+
+      } else {
+        System.out.println("Amount: null");
+      }
+    }
+    this.fluidTank.setFluid(fluidStack);
+  }
+
+  @Override
+  public void onTankContentsChanged(FluidTank fluidTank) {
+
+    if (!this.world.isRemote) {
+      ModuleCharcoal.PACKET_SERVICE.sendToAllAround(new CPacketFluidUpdate(this.pos, fluidTank.getFluid()), this);
     }
   }
 
