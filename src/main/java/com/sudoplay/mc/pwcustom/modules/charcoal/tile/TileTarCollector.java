@@ -40,7 +40,6 @@ public class TileTarCollector
   @Override
   protected List<BlockPos> getCollectionSourcePositions(World world, BlockPos origin) {
 
-    //return Collections.singletonList(origin.up());
     return Collections.emptyList();
   }
 
