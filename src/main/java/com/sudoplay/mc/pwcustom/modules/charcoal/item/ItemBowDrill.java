@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.item;
 
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.event.IgnitionHandler;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,7 +32,7 @@ public class ItemBowDrill
   @Override
   public int getMaxItemUseDuration(ItemStack stack) {
 
-    return 30;
+    return ModuleCharcoalConfig.GENERAL.BOW_DRILL_DURABILITY;
   }
 
   @Nonnull

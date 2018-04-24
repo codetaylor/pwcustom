@@ -75,6 +75,11 @@ public class ModuleCharcoalConfig {
         "Fluid capacity of the tar drain in millibuckets"
     })
     public int TAR_DRAIN_CAPACITY = 1000;
+
+    @Config.Comment({
+        "The durability of the bow drill"
+    })
+    public int BOW_DRILL_DURABILITY = 16;
   }
 
 }
