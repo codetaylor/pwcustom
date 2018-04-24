@@ -80,6 +80,11 @@ public class ModuleCharcoalConfig {
         "The durability of the bow drill"
     })
     public int BOW_DRILL_DURABILITY = 16;
+
+    @Config.Comment({
+        "Defines how many ticks it takes to start a fire while using the bow drill"
+    })
+    public int BOW_DRILL_USE_DURATION = 60;
   }
 
 }

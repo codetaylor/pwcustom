@@ -32,7 +32,7 @@ public class ItemBowDrill
   @Override
   public int getMaxItemUseDuration(ItemStack stack) {
 
-    return 30;
+    return ModuleCharcoalConfig.GENERAL.BOW_DRILL_USE_DURATION;
   }
 
   @Nonnull
