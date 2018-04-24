@@ -1,6 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockRefractoryDoor;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
@@ -15,6 +16,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -182,6 +184,12 @@ public class TileActivePile
     if (recipe.doesFluidLevelAffectsFailureChance()) {
       failureChance += (1 - failureChance) * (this.fluidTank.getFluidAmount() / (float) this.fluidTank.getCapacity());
     }
+
+    failureChance = MathHelper.clamp(
+        failureChance,
+        ModuleCharcoalConfig.REFRACTORY.MIN_FAILURE_CHANCE,
+        ModuleCharcoalConfig.REFRACTORY.MAX_FAILURE_CHANCE
+    );
 
     if (Util.RANDOM.nextFloat() < failureChance) {
 

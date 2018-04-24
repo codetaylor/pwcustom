@@ -10,6 +10,21 @@ import net.minecraftforge.common.config.Config;
 @Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + "/" + ModuleCharcoal.MOD_ID + ".module.Charcoal")
 public class ModuleCharcoalConfig {
 
+  public static Refractory REFRACTORY = new Refractory();
+
+  public static class Refractory {
+
+    @Config.Comment({
+        "Maximum chance for a recipe item to fail conversion."
+    })
+    public float MAX_FAILURE_CHANCE = 0.95f;
+
+    @Config.Comment({
+        "Minimum chance for a recipe item to fail conversion."
+    })
+    public float MIN_FAILURE_CHANCE = 0.05f;
+  }
+
   public static General GENERAL = new General();
 
   public static class General {
