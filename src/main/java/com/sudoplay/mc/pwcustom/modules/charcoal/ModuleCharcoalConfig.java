@@ -1,9 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockIgniter;
-import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockRefractoryBrick;
-import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarCollector;
-import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarDrain;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.config.Config;
 
@@ -42,7 +39,8 @@ public class ModuleCharcoalConfig {
         ModuleCharcoal.MOD_ID + ":" + BlockIgniter.NAME + ":" + this.getIgniterMeta(EnumFacing.NORTH),
         ModuleCharcoal.MOD_ID + ":" + BlockIgniter.NAME + ":" + this.getIgniterMeta(EnumFacing.EAST),
         ModuleCharcoal.MOD_ID + ":" + BlockIgniter.NAME + ":" + this.getIgniterMeta(EnumFacing.SOUTH),
-        ModuleCharcoal.MOD_ID + ":" + BlockIgniter.NAME + ":" + this.getIgniterMeta(EnumFacing.WEST)
+        ModuleCharcoal.MOD_ID + ":" + BlockIgniter.NAME + ":" + this.getIgniterMeta(EnumFacing.WEST),
+        ModuleCharcoal.MOD_ID + ":" + BlockRefractoryGlass.NAME + ":*"
     };
 
     private int getTarDrainMeta(EnumFacing facing) {

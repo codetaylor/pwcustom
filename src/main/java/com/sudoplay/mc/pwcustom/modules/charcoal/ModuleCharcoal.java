@@ -62,6 +62,7 @@ public class ModuleCharcoal
     public static final BlockActivePile ACTIVE_PILE = new BlockActivePile();
     public static final BlockRefractoryDoor REFRACTORY_DOOR = new BlockRefractoryDoor();
     public static final BlockLimestone LIMESTONE = new BlockLimestone();
+    public static final BlockRefractoryGlass REFRACTORY_GLASS = new BlockRefractoryGlass();
   }
 
   public static final class Items {
@@ -141,6 +142,7 @@ public class ModuleCharcoal
     registry.registerBlockWithItem(Blocks.REFRACTORY_BRICK, BlockRefractoryBrick.NAME);
     registry.registerBlockWithItem(Blocks.IGNITER, BlockIgniter.NAME);
     registry.registerBlockWithItem(Blocks.LIMESTONE, BlockLimestone.NAME);
+    registry.registerBlockWithItem(Blocks.REFRACTORY_GLASS, BlockRefractoryGlass.NAME);
 
     registry.registerItem(Items.PIT_ASH, "pit_ash");
     registry.registerItem(Items.COAL_COKE, "coal_coke");
@@ -176,7 +178,8 @@ public class ModuleCharcoal
           Blocks.COAL_COKE_BLOCK,
           Blocks.THATCH,
           Blocks.REFRACTORY_BRICK,
-          Blocks.LIMESTONE
+          Blocks.LIMESTONE,
+          Blocks.REFRACTORY_GLASS
       );
 
       ModelRegistrationHelper.registerItemModels(

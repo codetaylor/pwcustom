@@ -418,6 +418,7 @@ tile.pwcustom.igniter.brick.name=Refractory Igniter
 tile.pwcustom.refractory_brick_block.name=Refractory Block
 tile.pwcustom.kiln.name=Pit Kiln
 tile.pwcustom.limestone.name=Limestone
+tile.pwcustom.refractory_glass.name=Refractory Glass
 
 # --- Waila plugin
 
