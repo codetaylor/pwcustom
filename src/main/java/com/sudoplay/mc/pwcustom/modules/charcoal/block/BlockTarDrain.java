@@ -23,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -149,18 +150,20 @@ public class BlockTarDrain
 
     TileEntity tileEntity = world.getTileEntity(pos);
 
-    if (tileEntity instanceof TileTarDrain
-        && facing == state.getValue(FACING)) {
-
-      if (world.isRemote) {
-        return player.getHeldItem(hand).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
-
-      } else {
-        return FluidUtil.interactWithFluidHandler(player, hand, ((TileTarDrain) tileEntity).getFluidTank());
-      }
+    if (tileEntity == null) {
+      return false;
     }
 
-    return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
+    IFluidHandler fluidHandler = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
+
+    if (fluidHandler == null) {
+      return false;
+    }
+
+    ItemStack heldItem = player.getHeldItem(hand);
+
+    return FluidUtil.interactWithFluidHandler(player, hand, fluidHandler)
+        || FluidUtil.getFluidHandler(heldItem) != null;
   }
 
   @Nonnull
