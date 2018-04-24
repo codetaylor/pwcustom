@@ -88,15 +88,6 @@ public abstract class TileTarTankBase
   public void onFluidUpdatePacket(CPacketFluidUpdate packet) {
 
     FluidStack fluidStack = packet.getFluidStack();
-
-    if (this instanceof TileTarDrain) {
-      if (fluidStack != null) {
-        System.out.println("Amount: " + fluidStack.amount);
-
-      } else {
-        System.out.println("Amount: null");
-      }
-    }
     this.fluidTank.setFluid(fluidStack);
   }
 
