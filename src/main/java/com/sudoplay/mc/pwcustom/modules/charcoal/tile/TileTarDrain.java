@@ -22,6 +22,12 @@ public class TileTarDrain
     extends TileTarTankBase {
 
   @Override
+  protected int getTankCapacity() {
+
+    return ModuleCharcoalConfig.GENERAL.TAR_DRAIN_CAPACITY;
+  }
+
+  @Override
   public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
 
     return (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
@@ -62,12 +68,6 @@ public class TileTarDrain
     }
 
     return result;
-  }
-
-  @Override
-  protected int getTankCapacity() {
-
-    return ModuleCharcoalConfig.GENERAL.TAR_DRAIN_CAPACITY;
   }
 
   @Nullable
