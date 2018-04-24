@@ -9,6 +9,7 @@ import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.FuelHandler;
+import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemBowDrill;
 import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemQuicklime;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
@@ -78,6 +79,7 @@ public class ModuleCharcoal
     public static final Item REFRACTORY_DOOR = new ItemDoor(Blocks.REFRACTORY_DOOR);
     public static final Item QUICKLIME = new ItemQuicklime();
     public static final Item SLAKED_LIME = new Item();
+    public static final ItemBowDrill BOW_DRILL = new ItemBowDrill();
   }
 
   public ModuleCharcoal() {
@@ -156,6 +158,7 @@ public class ModuleCharcoal
     registry.registerItem(Items.REFRACTORY_DOOR, "refractory_door");
     registry.registerItem(Items.QUICKLIME, "quicklime");
     registry.registerItem(Items.SLAKED_LIME, "slaked_lime");
+    registry.registerItem(Items.BOW_DRILL, ItemBowDrill.NAME);
 
     registry.registerTileEntities(
         TileTarCollector.class,
@@ -193,7 +196,8 @@ public class ModuleCharcoal
           Items.POTTERY_SHARD,
           Items.REFRACTORY_DOOR,
           Items.QUICKLIME,
-          Items.SLAKED_LIME
+          Items.SLAKED_LIME,
+          Items.BOW_DRILL
       );
 
       ModelLoader.setCustomStateMapper(

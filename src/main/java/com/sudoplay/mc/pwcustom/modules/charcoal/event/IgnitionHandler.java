@@ -60,13 +60,14 @@ public class IgnitionHandler {
         }
 
       } else {
-        IgnitionHandler.igniteBlocks(world, offset, blockState);
+        IgnitionHandler.igniteBlocks(world, offset);
       }
     }
   }
 
-  public static void igniteBlocks(World world, BlockPos pos, IBlockState blockState) {
+  public static void igniteBlocks(World world, BlockPos pos) {
 
+    IBlockState blockState = world.getBlockState(pos);
     BurnRecipe recipe = BurnRecipe.getRecipe(blockState);
 
     if (recipe != null) {

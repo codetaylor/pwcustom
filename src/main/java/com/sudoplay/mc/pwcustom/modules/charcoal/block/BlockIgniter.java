@@ -4,6 +4,7 @@ import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.event.IgnitionHandler;
+import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -104,26 +105,18 @@ public class BlockIgniter
       IBlockState facingBlockState = world.getBlockState(offset);
       Block facingBlock = facingBlockState.getBlock();
 
-      if (this.canSetFire(world, offset)) {
+      if (Util.canSetFire(world, offset)) {
         world.setBlockState(offset, Blocks.FIRE.getDefaultState(), 3);
 
       } else if (facingBlock == ModuleCharcoal.Blocks.KILN
           && facingBlockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.WOOD
-          && this.canSetFire(world, offset.up())) {
+          && Util.canSetFire(world, offset.up())) {
         world.setBlockState(offset.up(), Blocks.FIRE.getDefaultState(), 3);
 
       } else {
-        IgnitionHandler.igniteBlocks(world, offset, facingBlockState);
+        IgnitionHandler.igniteBlocks(world, offset);
       }
     }
-  }
-
-  public boolean canSetFire(World world, BlockPos pos) {
-
-    Block block = world.getBlockState(pos).getBlock();
-
-    return block == Blocks.AIR
-        || block.isReplaceable(world, pos);
   }
 
   @Nonnull
