@@ -33,7 +33,7 @@ public class TileActivePile
   private static final int DEFAULT_MAX_FLUID_LEVEL = 500;
   private static final int DEFAULT_TOTAL_BURN_TIME_TICKS = 1000;
   private static final int DEFAULT_BURN_STAGES = 1;
-  private static final int MAX_FLUID_PUSH_DEPTH = 5;
+  private static final int MAX_FLUID_PUSH_DEPTH = 3;
 
   private FluidTank fluidTank;
   private ResourceLocation recipeKey;
