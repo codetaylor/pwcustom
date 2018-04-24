@@ -15,11 +15,14 @@ public abstract class TileBurnableBase
     implements ITickable {
 
   private static final int DEFAULT_MAX_INVALID_TICKS = 100;
+  private static final int DEFAULT_STRUCTURE_VALIDATION_INTERVAL = 20;
 
   protected boolean needStructureValidation;
   protected int burnTimeTicksPerStage;
   protected int invalidTicks;
   protected int remainingStages;
+
+  protected int nextStructureValidationTicks;
 
   public TileBurnableBase() {
 
@@ -41,11 +44,21 @@ public abstract class TileBurnableBase
 
     this.onUpdate();
 
+    if (!this.needStructureValidation) {
+      this.nextStructureValidationTicks -= 1;
+
+      if (this.nextStructureValidationTicks <= 0) {
+        this.nextStructureValidationTicks = DEFAULT_STRUCTURE_VALIDATION_INTERVAL;
+        this.setNeedStructureValidation();
+      }
+    }
+
     if (this.needStructureValidation) {
 
       if (this.isStructureValid()) {
         this.invalidTicks = 0;
         this.needStructureValidation = false;
+        this.nextStructureValidationTicks = DEFAULT_STRUCTURE_VALIDATION_INTERVAL;
       }
     }
 
@@ -78,6 +91,7 @@ public abstract class TileBurnableBase
 
   protected void reset() {
 
+    this.setNeedStructureValidation();
     this.burnTimeTicksPerStage = this.getTotalBurnTimeTicks() / this.getBurnStages();
   }
 
