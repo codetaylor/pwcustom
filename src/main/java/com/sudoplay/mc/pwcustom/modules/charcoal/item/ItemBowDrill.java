@@ -25,14 +25,14 @@ public class ItemBowDrill
 
   public ItemBowDrill() {
 
-    this.setMaxDamage(16);
+    this.setMaxDamage(ModuleCharcoalConfig.GENERAL.BOW_DRILL_DURABILITY);
     this.setMaxStackSize(1);
   }
 
   @Override
   public int getMaxItemUseDuration(ItemStack stack) {
 
-    return ModuleCharcoalConfig.GENERAL.BOW_DRILL_DURABILITY;
+    return 30;
   }
 
   @Nonnull
