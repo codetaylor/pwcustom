@@ -11,7 +11,6 @@ import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.library.fluid.CPacketFluidUpdate;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKiln;
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.FuelHandler;
 import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemBowDrill;
 import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemQuicklime;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
@@ -35,7 +34,6 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.RegistryBuilder;
 import org.apache.logging.log4j.LogManager;
@@ -181,8 +179,6 @@ public class ModuleCharcoal
         TilePitAsh.class,
         TileActivePile.class
     );
-
-    GameRegistry.registerFuelHandler(new FuelHandler());
   }
 
   @Override
