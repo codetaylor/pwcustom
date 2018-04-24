@@ -184,8 +184,8 @@ public class TileActivePile
 
     failureChance = MathHelper.clamp(
         failureChance,
-        ModuleCharcoalConfig.REFRACTORY.MIN_FAILURE_CHANCE,
-        ModuleCharcoalConfig.REFRACTORY.MAX_FAILURE_CHANCE
+        (float) ModuleCharcoalConfig.REFRACTORY.MIN_FAILURE_CHANCE,
+        (float) ModuleCharcoalConfig.REFRACTORY.MAX_FAILURE_CHANCE
     );
 
     if (Util.RANDOM.nextFloat() < failureChance) {

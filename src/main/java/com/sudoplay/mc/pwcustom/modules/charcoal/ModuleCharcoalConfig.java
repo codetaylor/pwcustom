@@ -14,12 +14,12 @@ public class ModuleCharcoalConfig {
     @Config.Comment({
         "Maximum chance for a recipe item to fail conversion."
     })
-    public float MAX_FAILURE_CHANCE = 0.95f;
+    public double MAX_FAILURE_CHANCE = 0.95;
 
     @Config.Comment({
         "Minimum chance for a recipe item to fail conversion."
     })
-    public float MIN_FAILURE_CHANCE = 0.05f;
+    public double MIN_FAILURE_CHANCE = 0.05;
 
     @Config.Comment({
         "The maximum fluid capacity of an active pile in mb"
