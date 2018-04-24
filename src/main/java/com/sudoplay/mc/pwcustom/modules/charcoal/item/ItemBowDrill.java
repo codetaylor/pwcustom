@@ -77,10 +77,7 @@ public class ItemBowDrill
     if (rayTraceResult == null
         || rayTraceResult.typeOfHit != RayTraceResult.Type.BLOCK) {
 
-      if (!world.isRemote) {
-        player.stopActiveHand();
-      }
-
+      player.stopActiveHand();
       return;
     }
 
