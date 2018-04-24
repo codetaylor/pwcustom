@@ -6,10 +6,13 @@ import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.text.DecimalFormat;
@@ -76,6 +79,19 @@ public class Util {
 
     return world.getBlockState(pos).getMaterial().isLiquid();
   }
+
+  public static boolean isFluidBucket(ItemStack fuel, String name) {
+
+    FluidStack fluidStack = FluidRegistry.getFluidStack(name, 1000);
+
+    if (fluidStack == null) {
+      return false;
+    }
+
+    FluidStack candidate = FluidStack.loadFluidStackFromNBT(fuel.getTagCompound());
+    return fluidStack.isFluidStackIdentical(candidate);
+  }
+
 
   private Util() {
     //
