@@ -30,7 +30,6 @@ import java.util.function.Predicate;
 public class TileActivePile
     extends TileBurnableBase {
 
-  private static final int DEFAULT_MAX_FLUID_LEVEL = 500;
   private static final int DEFAULT_TOTAL_BURN_TIME_TICKS = 1000;
   private static final int DEFAULT_BURN_STAGES = 1;
   private static final int MAX_FLUID_PUSH_DEPTH = 3;
@@ -95,7 +94,7 @@ public class TileActivePile
 
   protected int getMaxFluidLevel() {
 
-    return DEFAULT_MAX_FLUID_LEVEL;
+    return ModuleCharcoalConfig.REFRACTORY.ACTIVE_PILE_MAX_FLUID_CAPACITY;
   }
 
   @Override
