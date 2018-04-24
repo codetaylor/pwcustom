@@ -6,15 +6,23 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePile;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.util.FloodFill;
+import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -24,6 +32,32 @@ import java.util.function.Predicate;
 public class IgnitionHandler {
 
   public static final int BLOCK_IGNITION_LIMIT = 27;
+
+  @SubscribeEvent(priority = EventPriority.LOWEST)
+  public static void onRightClickBlockEvent(PlayerInteractEvent.RightClickBlock event) {
+
+    ItemStack itemStack = event.getItemStack();
+    BlockPos pos = event.getPos();
+    World world = event.getWorld();
+
+    Item item = itemStack.getItem();
+
+    if (item == Items.FLINT_AND_STEEL) {
+
+      if (IgnitionHandler.igniteBlocks(world, pos)) {
+        world.playSound(
+            null,
+            pos,
+            SoundEvents.ITEM_FLINTANDSTEEL_USE,
+            SoundCategory.BLOCKS,
+            1.0F,
+            Util.RANDOM.nextFloat() * 0.4F + 0.8F
+        );
+
+        event.setUseItem(Event.Result.ALLOW);
+      }
+    }
+  }
 
   @SubscribeEvent(priority = EventPriority.LOWEST)
   public static void onNeighborNotifyEvent(BlockEvent.NeighborNotifyEvent event) {
@@ -65,16 +99,17 @@ public class IgnitionHandler {
     }
   }
 
-  public static void igniteBlocks(World world, BlockPos pos) {
+  public static boolean igniteBlocks(World world, BlockPos pos) {
 
     IBlockState blockState = world.getBlockState(pos);
     BurnRecipe recipe = BurnRecipe.getRecipe(blockState);
+    boolean result = false;
 
     if (recipe != null) {
 
       Predicate<IBlockState> predicate = recipe.getInputMatcher();
 
-      FloodFill.apply(
+      result = FloodFill.apply(
           world,
           pos,
           (w, p) -> predicate.test(w.getBlockState(p)),
@@ -89,6 +124,8 @@ public class IgnitionHandler {
           BLOCK_IGNITION_LIMIT
       );
     }
+
+    return result;
   }
 
 }
