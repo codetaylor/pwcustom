@@ -62,10 +62,19 @@ public class Util {
 
   public static boolean canSetFire(World world, BlockPos pos) {
 
+    if (Util.isLiquid(world, pos)) {
+      return false;
+    }
+
     Block block = world.getBlockState(pos).getBlock();
 
     return block == Blocks.AIR
         || block.isReplaceable(world, pos);
+  }
+
+  public static boolean isLiquid(World world, BlockPos pos) {
+
+    return world.getBlockState(pos).getMaterial().isLiquid();
   }
 
   private Util() {
