@@ -101,7 +101,7 @@ public abstract class TileBurnableBase
 
       BlockPos offset = this.pos.offset(facing);
 
-      if (!this.isValidStructureBlock(this.world, offset, this.world.getBlockState(offset), facing.getOpposite())) {
+      if (!this.isValidStructureBlock(this.world, offset, this.world.getBlockState(offset), facing)) {
         return false;
       }
     }
@@ -110,8 +110,8 @@ public abstract class TileBurnableBase
 
   protected boolean isValidStructureBlock(World world, BlockPos pos, IBlockState blockState, EnumFacing facing) {
 
-    return blockState.isSideSolid(world, pos, facing) &&
-        !blockState.getBlock().isFlammable(world, pos, facing);
+    return blockState.isSideSolid(world, pos, facing.getOpposite()) &&
+        !blockState.getBlock().isFlammable(world, pos, facing.getOpposite());
   }
 
   @Nonnull
