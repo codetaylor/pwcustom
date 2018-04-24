@@ -6,6 +6,7 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockRefractoryDoor;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -232,6 +233,7 @@ public class TileActivePile
   @Override
   protected boolean isValidStructureBlock(World world, BlockPos pos, IBlockState blockState, EnumFacing facing) {
 
+    blockState = blockState.getActualState(world, pos);
     BurnRecipe recipe = Registries.BURN_RECIPE.getValue(this.recipeKey);
 
     if (recipe == null) {
@@ -267,7 +269,17 @@ public class TileActivePile
     if (blockState.getBlock() == ModuleCharcoal.Blocks.REFRACTORY_DOOR) {
 
       if (!blockState.getValue(BlockRefractoryDoor.OPEN)
-          && blockState.getValue(BlockRefractoryDoor.FACING) == facing.getOpposite()) {
+          && blockState.getValue(BlockRefractoryDoor.FACING) == facing) {
+        return true;
+
+      } else if (blockState.getValue(BlockRefractoryDoor.OPEN)
+          && blockState.getValue(BlockRefractoryDoor.HINGE) == BlockDoor.EnumHingePosition.LEFT
+          && blockState.getValue(BlockRefractoryDoor.FACING) == facing.rotateYCCW()) {
+        return true;
+
+      } else if (blockState.getValue(BlockRefractoryDoor.OPEN)
+          && blockState.getValue(BlockRefractoryDoor.HINGE) == BlockDoor.EnumHingePosition.RIGHT
+          && blockState.getValue(BlockRefractoryDoor.FACING) == facing.rotateY()) {
         return true;
       }
     }
