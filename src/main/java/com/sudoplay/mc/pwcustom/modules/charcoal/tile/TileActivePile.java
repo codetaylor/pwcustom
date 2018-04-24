@@ -250,27 +250,29 @@ public class TileActivePile
       return false;
     }
 
+    for (Predicate<IBlockState> matcher : Registries.COKE_OVEN_VALID_STRUCTURE_BLOCK_LIST) {
+
+      if (matcher.test(blockState)) {
+        return true;
+      }
+    }
+
+    for (Predicate<IBlockState> matcher : Registries.REFRACTORY_BLOCK_LIST) {
+
+      if (matcher.test(blockState)) {
+        return true;
+      }
+    }
+
+    if (this.isValidRefractoryDoor(blockState, facing)) {
+      return true;
+    }
+
     if (recipe.requiresRefractoryBlocks()) {
-
-      for (Predicate<IBlockState> matcher : Registries.COKE_OVEN_VALID_STRUCTURE_BLOCK_LIST) {
-
-        if (matcher.test(blockState)) {
-          return true;
-        }
-      }
-
-      for (Predicate<IBlockState> matcher : Registries.REFRACTORY_BLOCK_LIST) {
-
-        if (matcher.test(blockState)) {
-          return true;
-        }
-      }
-
-      return this.isValidRefractoryDoor(blockState, facing);
+      return false;
 
     } else {
-      return super.isValidStructureBlock(world, pos, blockState, facing)
-          || this.isValidRefractoryDoor(blockState, facing);
+      return super.isValidStructureBlock(world, pos, blockState, facing);
     }
   }
 
