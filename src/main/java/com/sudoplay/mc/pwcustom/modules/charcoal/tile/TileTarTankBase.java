@@ -18,25 +18,14 @@ public abstract class TileTarTankBase
     extends TileEntity
     implements ITickable {
 
-  private static final int UPDATE_DELAY_TICKS = 20;
+  private static final int UPDATE_DELAY_TICKS = 5;
 
   protected FluidTank fluidTank;
   protected int ticksUntilNextUpdate;
 
   /* package */ TileTarTankBase() {
 
-    this.fluidTank = new FluidTank(this.getTankCapacity()) {
-
-      @Override
-      protected void onContentsChanged() {
-
-        TileTarTankBase tileTarTankBase = TileTarTankBase.this;
-
-        if (!tileTarTankBase.world.isRemote) {
-          BlockHelper.notifyBlockUpdate(tileTarTankBase.world, tileTarTankBase.pos);
-        }
-      }
-    };
+    this.fluidTank = new FluidTank(this.getTankCapacity());
     this.fluidTank.setCanFill(false);
   }
 
@@ -68,6 +57,7 @@ public abstract class TileTarTankBase
     }
 
     List<BlockPos> sourcePositions = this.getCollectionSourcePositions(world, pos);
+    int fluidAmount = this.fluidTank.getFluidAmount();
 
     for (BlockPos sourcePosition : sourcePositions) {
       TileEntity tileEntity = world.getTileEntity(sourcePosition);
@@ -76,6 +66,12 @@ public abstract class TileTarTankBase
       if (sourceFluidTank != null) {
         this.collect(sourceFluidTank, fluidTank);
       }
+    }
+
+    if (fluidAmount != this.fluidTank.getFluidAmount()
+        && !this.world.isRemote) {
+
+      BlockHelper.notifyBlockUpdate(this.world, this.pos);
     }
   }
 
