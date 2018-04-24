@@ -21,7 +21,7 @@ public class FloodFill {
     void execute(World world, BlockPos pos);
   }
 
-  public static void apply(
+  public static boolean apply(
       World world,
       BlockPos pos,
       ICandidatePredicate candidatePredicate,
@@ -31,6 +31,7 @@ public class FloodFill {
 
     Deque<BlockPos> candidateQueue = new ArrayDeque<>();
     Set<BlockPos> visitedSet = new HashSet<>();
+    boolean result = false;
 
     candidateQueue.offer(pos);
 
@@ -40,6 +41,8 @@ public class FloodFill {
       visitedSet.add(candidatePos);
 
       if (candidatePredicate.apply(world, candidatePos)) {
+        result = true;
+
         // perform action
         action.execute(world, candidatePos);
 
@@ -56,6 +59,8 @@ public class FloodFill {
         }
       }
     }
+
+    return result;
   }
 
   private FloodFill() {
