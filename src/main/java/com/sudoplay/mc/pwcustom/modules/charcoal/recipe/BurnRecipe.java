@@ -82,7 +82,11 @@ public class BurnRecipe
   @Nullable
   public FluidStack getFluidProduced() {
 
-    return this.fluidProduced;
+    if (this.fluidProduced != null) {
+      return this.fluidProduced.copy();
+    }
+
+    return null;
   }
 
   public float getFailureChance() {
