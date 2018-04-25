@@ -11,6 +11,7 @@ import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.library.fluid.CPacketFluidUpdate;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRTarCollector;
 import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemBowDrill;
 import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemQuicklime;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
@@ -239,6 +240,10 @@ public class ModuleCharcoal
       ClientRegistry.bindTileEntitySpecialRenderer(
           TileKiln.class,
           new TESRKiln()
+      );
+      ClientRegistry.bindTileEntitySpecialRenderer(
+          TileTarCollector.class,
+          new TESRTarCollector()
       );
     });
   }
