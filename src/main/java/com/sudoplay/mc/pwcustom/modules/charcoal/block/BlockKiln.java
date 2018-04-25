@@ -4,7 +4,7 @@ import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.codetaylor.mc.athenaeum.util.StackHelper;
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
 import net.minecraft.block.Block;
@@ -238,7 +238,7 @@ public class BlockKiln
 
       case EMPTY:
 
-        if (heldItem.getItem() == Item.getItemFromBlock(ModuleCharcoal.Blocks.THATCH)) {
+        if (heldItem.getItem() == Item.getItemFromBlock(ModuleBlocks.THATCH)) {
 
           if (((TileKiln) tileEntity).getStackHandler().getStackInSlot(0).isEmpty()) {
             return false;
@@ -375,10 +375,10 @@ public class BlockKiln
     EnumType type = state.getValue(VARIANT);
 
     if (type == EnumType.WOOD) {
-      drops.add(new ItemStack(ModuleCharcoal.Blocks.THATCH, 1, 0));
+      drops.add(new ItemStack(ModuleBlocks.THATCH, 1, 0));
 
     } else if (type == EnumType.THATCH) {
-      drops.add(new ItemStack(ModuleCharcoal.Blocks.THATCH, 1, 0));
+      drops.add(new ItemStack(ModuleBlocks.THATCH, 1, 0));
     }
 
     super.getDrops(drops, world, pos, state, fortune);

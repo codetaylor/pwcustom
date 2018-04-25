@@ -1,6 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -48,6 +48,6 @@ public class BlockRefractoryDoor
 
   public Item getItem() {
 
-    return ModuleCharcoal.Items.REFRACTORY_DOOR;
+    return Item.getItemFromBlock(ModuleBlocks.REFRACTORY_DOOR);
   }
 }

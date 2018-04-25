@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.event;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePile;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
@@ -84,7 +84,7 @@ public class IgnitionHandler {
       Block block = blockState.getBlock();
 
       if (facing == EnumFacing.DOWN
-          && block == ModuleCharcoal.Blocks.KILN) {
+          && block == ModuleBlocks.KILN) {
 
         if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.WOOD) {
           world.setBlockState(offset, blockState.withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.ACTIVE));
@@ -96,7 +96,7 @@ public class IgnitionHandler {
         }
 
       } else if (facing == EnumFacing.DOWN
-          && block == ModuleCharcoal.Blocks.TAR_COLLECTOR) {
+          && block == ModuleBlocks.TAR_COLLECTOR) {
 
         TileEntity tileEntity = world.getTileEntity(offset);
 
@@ -129,7 +129,7 @@ public class IgnitionHandler {
           pos,
           (w, p) -> predicate.test(w.getBlockState(p)),
           (w, p) -> {
-            w.setBlockState(p, ModuleCharcoal.Blocks.ACTIVE_PILE.getDefaultState());
+            w.setBlockState(p, ModuleBlocks.ACTIVE_PILE.getDefaultState());
             TileEntity tileEntity = w.getTileEntity(p);
 
             if (tileEntity instanceof TileActivePile) {

@@ -2,8 +2,8 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
 import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.event.IgnitionHandler;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarCollector;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
@@ -110,12 +110,12 @@ public class BlockIgniter
       if (Util.canSetFire(world, offset)) {
         world.setBlockState(offset, Blocks.FIRE.getDefaultState(), 3);
 
-      } else if (facingBlock == ModuleCharcoal.Blocks.KILN
+      } else if (facingBlock == ModuleBlocks.KILN
           && facingBlockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.WOOD
           && Util.canSetFire(world, offset.up())) {
         world.setBlockState(offset.up(), Blocks.FIRE.getDefaultState(), 3);
 
-      } else if (facingBlock == ModuleCharcoal.Blocks.TAR_COLLECTOR
+      } else if (facingBlock == ModuleBlocks.TAR_COLLECTOR
           && Util.canSetFire(world, offset.up())) {
 
         TileEntity tileEntity = world.getTileEntity(offset);

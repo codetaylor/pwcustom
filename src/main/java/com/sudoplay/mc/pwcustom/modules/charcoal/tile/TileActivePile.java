@@ -1,9 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockRefractoryDoor;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
@@ -220,7 +220,7 @@ public class TileActivePile
       }
     }
 
-    IBlockState state = ModuleCharcoal.Blocks.PIT_ASH_BLOCK.getDefaultState();
+    IBlockState state = ModuleBlocks.PIT_ASH_BLOCK.getDefaultState();
     this.world.setBlockState(this.pos, state);
     TileEntity tileEntity = this.world.getTileEntity(this.pos);
 
@@ -277,7 +277,7 @@ public class TileActivePile
 
   private boolean isValidRefractoryDoor(IBlockState blockState, EnumFacing facing) {
 
-    if (blockState.getBlock() == ModuleCharcoal.Blocks.REFRACTORY_DOOR) {
+    if (blockState.getBlock() == ModuleBlocks.REFRACTORY_DOOR) {
 
       if (!blockState.getValue(BlockRefractoryDoor.OPEN)
           && blockState.getValue(BlockRefractoryDoor.FACING) == facing) {

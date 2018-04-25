@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.client.render;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -26,7 +26,7 @@ public class TESRKiln
     World world = te.getWorld();
     IBlockState blockState = world.getBlockState(te.getPos());
 
-    if (blockState.getBlock() == ModuleCharcoal.Blocks.KILN
+    if (blockState.getBlock() == ModuleBlocks.KILN
         && blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.EMPTY) {
 
       ItemStack stack = te.getStackHandler().getStackInSlot(0);

@@ -1,6 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.item;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +27,7 @@ public class ItemQuicklime
     ItemStack heldItem = player.getHeldItem(hand);
 
     if (!heldItem.isEmpty()
-        && heldItem.getItem() == ModuleCharcoal.Items.QUICKLIME) {
+        && heldItem.getItem() == ModuleItems.QUICKLIME) {
 
       RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
@@ -44,8 +44,8 @@ public class ItemQuicklime
         if (world.getBlockState(blockPos).getMaterial() == Material.WATER) {
           this.playSplashSound(world, player);
 
-          ItemStack itemStack = new ItemStack(ModuleCharcoal.Items.QUICKLIME, heldItem.getCount() - 1);
-          player.addItemStackToInventory(new ItemStack(ModuleCharcoal.Items.SLAKED_LIME));
+          ItemStack itemStack = new ItemStack(ModuleItems.QUICKLIME, heldItem.getCount() - 1);
+          player.addItemStackToInventory(new ItemStack(ModuleItems.SLAKED_LIME));
           world.setBlockToAir(blockPos);
 
           return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);

@@ -1,7 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.event;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,10 +18,10 @@ public class FuelHandler {
 
     ItemStack fuel = event.getItemStack();
 
-    if (fuel.getItem() == ModuleCharcoal.Items.COAL_COKE) {
+    if (fuel.getItem() == ModuleItems.COAL_COKE) {
       event.setBurnTime(3200);
 
-    } else if (fuel.getItem() == Item.getItemFromBlock(ModuleCharcoal.Blocks.COAL_COKE_BLOCK)) {
+    } else if (fuel.getItem() == Item.getItemFromBlock(ModuleBlocks.COAL_COKE_BLOCK)) {
       event.setBurnTime(3200 * 10);
 
     } else if (Util.isFluidBucket(fuel, ModuleFluids.WOOD_TAR.getName())) {
@@ -29,10 +30,10 @@ public class FuelHandler {
     } else if (Util.isFluidBucket(fuel, ModuleFluids.COAL_TAR.getName())) {
       event.setBurnTime(6400);
 
-    } else if (fuel.getItem() == Item.getItemFromBlock(ModuleCharcoal.Blocks.THATCH)) {
+    } else if (fuel.getItem() == Item.getItemFromBlock(ModuleBlocks.THATCH)) {
       event.setBurnTime(200);
 
-    } else if (fuel.getItem() == ModuleCharcoal.Items.STRAW) {
+    } else if (fuel.getItem() == ModuleItems.STRAW) {
       event.setBurnTime(50);
     }
   }

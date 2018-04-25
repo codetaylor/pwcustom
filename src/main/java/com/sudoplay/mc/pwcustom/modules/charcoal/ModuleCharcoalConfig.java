@@ -1,6 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.config.Config;
@@ -67,8 +68,8 @@ public class ModuleCharcoalConfig {
 
     private int getTarDrainMeta(EnumFacing facing) {
 
-      return ModuleCharcoal.Blocks.TAR_DRAIN.getMetaFromState(
-          ModuleCharcoal.Blocks.TAR_DRAIN.getDefaultState()
+      return ModuleBlocks.TAR_DRAIN.getMetaFromState(
+          ModuleBlocks.TAR_DRAIN.getDefaultState()
               .withProperty(BlockTarDrain.VARIANT, BlockTarDrain.EnumType.BRICK)
               .withProperty(BlockTarDrain.FACING, facing)
       );
@@ -76,8 +77,8 @@ public class ModuleCharcoalConfig {
 
     private int getIgniterMeta(EnumFacing facing) {
 
-      return ModuleCharcoal.Blocks.IGNITER.getMetaFromState(
-          ModuleCharcoal.Blocks.IGNITER.getDefaultState()
+      return ModuleBlocks.IGNITER.getMetaFromState(
+          ModuleBlocks.IGNITER.getDefaultState()
               .withProperty(BlockIgniter.VARIANT, BlockIgniter.EnumType.BRICK)
               .withProperty(BlockIgniter.FACING, facing)
       );

@@ -1,8 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockTarDrain;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -58,7 +58,7 @@ public class TileTarDrain
 
     IBlockState blockState = world.getBlockState(origin);
 
-    if (blockState.getBlock() != ModuleCharcoal.Blocks.TAR_DRAIN) {
+    if (blockState.getBlock() != ModuleBlocks.TAR_DRAIN) {
       return Collections.emptyList();
     }
 

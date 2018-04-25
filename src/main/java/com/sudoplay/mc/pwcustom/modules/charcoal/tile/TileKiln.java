@@ -1,9 +1,10 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
@@ -145,7 +146,7 @@ public class TileKiln
 
     if (this.world.isRainingAt(this.pos)) {
       // set back to wood state and douse fire
-      IBlockState blockState = ModuleCharcoal.Blocks.KILN.getDefaultState()
+      IBlockState blockState = ModuleBlocks.KILN.getDefaultState()
           .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.WOOD);
       this.world.setBlockState(this.pos, blockState);
 
@@ -207,7 +208,7 @@ public class TileKiln
         }
 
       } else {
-        this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.PIT_ASH, input.getCount(), 0));
+        this.insertOutputItem(new ItemStack(ModuleItems.PIT_ASH, input.getCount(), 0));
       }
 
       ItemStack output = recipe.getOutput();
@@ -216,7 +217,7 @@ public class TileKiln
     }
 
     this.setActive(false);
-    IBlockState blockState = ModuleCharcoal.Blocks.KILN.getDefaultState()
+    IBlockState blockState = ModuleBlocks.KILN.getDefaultState()
         .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.COMPLETE);
     this.world.setBlockState(this.pos, blockState);
     this.world.setBlockToAir(this.pos.up());
@@ -292,7 +293,7 @@ public class TileKiln
             this.insertOutputItem(failureItemStack);
 
           } else {
-            this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.PIT_ASH, input.getCount(), 0));
+            this.insertOutputItem(new ItemStack(ModuleItems.PIT_ASH, input.getCount(), 0));
           }
 
         } else {
@@ -302,10 +303,10 @@ public class TileKiln
     }
 
     int ashCount = Util.RANDOM.nextInt(3) + 1;
-    this.insertOutputItem(new ItemStack(ModuleCharcoal.Items.PIT_ASH, ashCount));
+    this.insertOutputItem(new ItemStack(ModuleItems.PIT_ASH, ashCount));
 
     this.setActive(false);
-    IBlockState blockState = ModuleCharcoal.Blocks.KILN.getDefaultState()
+    IBlockState blockState = ModuleBlocks.KILN.getDefaultState()
         .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.COMPLETE);
     this.world.setBlockState(this.pos, blockState);
     this.world.setBlockToAir(this.pos.up());
