@@ -4,6 +4,7 @@ import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.event.IgnitionHandler;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarCollector;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,6 +17,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -112,6 +114,18 @@ public class BlockIgniter
           && facingBlockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.WOOD
           && Util.canSetFire(world, offset.up())) {
         world.setBlockState(offset.up(), Blocks.FIRE.getDefaultState(), 3);
+
+      } else if (facingBlock == ModuleCharcoal.Blocks.TAR_COLLECTOR
+          && Util.canSetFire(world, offset.up())) {
+
+        TileEntity tileEntity = world.getTileEntity(offset);
+
+        if (tileEntity instanceof TileTarCollector) {
+
+          if (((TileTarCollector) tileEntity).isFlammable()) {
+            ((TileTarCollector) tileEntity).setBurning(true);
+          }
+        }
 
       } else {
         IgnitionHandler.igniteBlocks(world, offset);
