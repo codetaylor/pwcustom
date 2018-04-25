@@ -8,7 +8,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
-import java.util.function.Predicate;
 
 public class BurnRecipe
     extends IForgeRegistryEntry.Impl<BurnRecipe> {
@@ -59,7 +58,7 @@ public class BurnRecipe
     this.fluidLevelAffectsFailureChance = fluidLevelAffectsFailureChance;
   }
 
-  public Predicate<IBlockState> getInputMatcher() {
+  public BlockMetaMatcher getInputMatcher() {
 
     return this.inputMatcher;
   }
