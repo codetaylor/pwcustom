@@ -5,6 +5,8 @@ import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemBowDrill;
 import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemQuicklime;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemDoor;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -21,6 +23,7 @@ public class ModuleItems {
   public static final Item QUICKLIME = new ItemQuicklime();
   public static final Item SLAKED_LIME = new Item();
   public static final ItemBowDrill BOW_DRILL = new ItemBowDrill();
+  public static final ItemDoor REFRACTORY_DOOR = new ItemDoor(ModuleBlocks.REFRACTORY_DOOR);
 
   public static void onRegister(Registry registry) {
 
@@ -35,10 +38,14 @@ public class ModuleItems {
     registry.registerItem(ModuleItems.QUICKLIME, "quicklime");
     registry.registerItem(ModuleItems.SLAKED_LIME, "slaked_lime");
     registry.registerItem(ModuleItems.BOW_DRILL, ItemBowDrill.NAME);
+
+    registry.registerItem(ModuleItems.REFRACTORY_DOOR, ModuleBlocks.REFRACTORY_DOOR.getRegistryName());
+    registry.registerItem(new ItemBlock(ModuleBlocks.KILN), ModuleBlocks.KILN.getRegistryName());
+
   }
 
   @SideOnly(Side.CLIENT)
-  public static final void onClientRegister(Registry registry) {
+  public static void onClientRegister(Registry registry) {
 
     registry.registerClientModelRegistrationStrategy(() -> {
 
@@ -53,7 +60,8 @@ public class ModuleItems {
           ModuleItems.POTTERY_SHARD,
           ModuleItems.QUICKLIME,
           ModuleItems.SLAKED_LIME,
-          ModuleItems.BOW_DRILL
+          ModuleItems.BOW_DRILL,
+          ModuleItems.REFRACTORY_DOOR
       );
     });
   }

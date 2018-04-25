@@ -8,8 +8,6 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRTarCollector;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.*;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemDoor;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,6 +33,8 @@ public class ModuleBlocks {
 
     registry.registerBlock(ModuleBlocks.ACTIVE_PILE, BlockActivePile.NAME);
     registry.registerBlock(ModuleBlocks.PIT_ASH_BLOCK, BlockPitAsh.NAME);
+    registry.registerBlock(ModuleBlocks.KILN, BlockKiln.NAME);
+    registry.registerBlock(ModuleBlocks.REFRACTORY_DOOR, BlockRefractoryDoor.NAME);
 
     registry.registerBlockWithItem(ModuleBlocks.LOG_PILE, BlockLogPile.NAME);
     registry.registerBlockWithItem(ModuleBlocks.COAL_COKE_BLOCK, BlockCoalCokeBlock.NAME);
@@ -45,14 +45,6 @@ public class ModuleBlocks {
     registry.registerBlockWithItem(ModuleBlocks.IGNITER, BlockIgniter.NAME);
     registry.registerBlockWithItem(ModuleBlocks.LIMESTONE, BlockLimestone.NAME);
     registry.registerBlockWithItem(ModuleBlocks.REFRACTORY_GLASS, BlockRefractoryGlass.NAME);
-
-    // Kiln
-    registry.registerBlock(ModuleBlocks.KILN, BlockKiln.NAME);
-    registry.registerItem(new ItemBlock(ModuleBlocks.KILN), ModuleBlocks.KILN.getRegistryName());
-
-    // Refractory Door
-    registry.registerBlock(ModuleBlocks.REFRACTORY_DOOR, "refractory_door");
-    registry.registerItem(new ItemDoor(REFRACTORY_DOOR), "refractory_door");
 
     registry.registerTileEntities(
         TileTarCollector.class,

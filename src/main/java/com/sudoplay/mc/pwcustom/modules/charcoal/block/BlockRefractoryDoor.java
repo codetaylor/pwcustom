@@ -1,6 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -17,6 +17,8 @@ import java.util.Random;
 
 public class BlockRefractoryDoor
     extends BlockDoor {
+
+  public static final String NAME = "refractory_door";
 
   public BlockRefractoryDoor() {
 
@@ -48,6 +50,6 @@ public class BlockRefractoryDoor
 
   public Item getItem() {
 
-    return Item.getItemFromBlock(ModuleBlocks.REFRACTORY_DOOR);
+    return ModuleItems.REFRACTORY_DOOR;
   }
 }
