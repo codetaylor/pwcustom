@@ -100,12 +100,6 @@ public class BlockTarCollector
     return true;
   }
 
-  @Override
-  public boolean isOpaqueCube(IBlockState state) {
-
-    return true;
-  }
-
   @Nullable
   @Override
   public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
