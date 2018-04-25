@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom;
 
 import com.codetaylor.mc.athenaeum.module.ModuleManager;
-import com.sudoplay.mc.pwcustom.modules.blocks.ModuleBlocks;
+import com.sudoplay.mc.pwcustom.modules.block.ModuleBlock;
 import com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.craftingparts.ModuleCraftingParts;
@@ -51,7 +51,7 @@ public class ModPWCustom {
         ModuleToolParts.class,
         ModuleCasts.class,
         ModuleEnchanting.class,
-        ModuleBlocks.class,
+        ModuleBlock.class,
         ModuleCraftingParts.class,
         ModuleTools.class,
         ModuleVeins.class,

@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.blocks.block;
+package com.sudoplay.mc.pwcustom.modules.block.block;
 
 import net.minecraft.block.BlockGravel;
 import net.minecraft.block.SoundType;

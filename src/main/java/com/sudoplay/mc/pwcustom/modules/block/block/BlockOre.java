@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.modules.blocks.block;
+package com.sudoplay.mc.pwcustom.modules.block.block;
 
 import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
