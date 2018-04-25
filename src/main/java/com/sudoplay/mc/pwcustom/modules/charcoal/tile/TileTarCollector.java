@@ -126,10 +126,12 @@ public class TileTarCollector
           this.extinguishTicksRemaining = DEFAULT_TICKS_TO_EXTINGUISH;
           return;
         }
+
+      } else {
+        this.extinguishTicksRemaining = DEFAULT_TICKS_TO_EXTINGUISH;
       }
 
       this.burnTicksRemaining -= 1;
-      this.extinguishTicksRemaining = DEFAULT_TICKS_TO_EXTINGUISH;
 
       for (EnumFacing facing : EnumFacing.VALUES) {
         this.tryCatchFire(this.world, this.pos.offset(facing.getOpposite()), 100, Util.RANDOM, facing);
