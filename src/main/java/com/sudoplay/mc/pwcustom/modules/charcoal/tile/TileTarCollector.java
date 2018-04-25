@@ -179,7 +179,7 @@ public class TileTarCollector
     double centerY = this.pos.getY() + 1;
     double centerZ = this.pos.getZ() + 0.5;
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < ModuleCharcoalConfig.REFRACTORY.BURNING_COLLECTOR_SMOKE_PARTICLES; i++) {
       spawnParticles(centerX, centerY, centerZ, EnumParticleTypes.SMOKE_LARGE);
     }
 

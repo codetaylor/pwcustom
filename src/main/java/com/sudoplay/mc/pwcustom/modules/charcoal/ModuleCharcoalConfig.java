@@ -37,6 +37,11 @@ public class ModuleCharcoalConfig {
       this.put(ModuleFluids.WOOD_TAR.getName(), 20);
       this.put(ModuleFluids.COAL_TAR.getName(), 40);
     }};
+
+    @Config.Comment({
+        "How many smoke particles a burning collector will emit per tick"
+    })
+    public int BURNING_COLLECTOR_SMOKE_PARTICLES = 10;
   }
 
   public static General GENERAL = new General();
