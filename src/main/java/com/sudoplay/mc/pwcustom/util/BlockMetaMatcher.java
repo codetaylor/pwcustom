@@ -39,4 +39,14 @@ public class BlockMetaMatcher
     }
     return block.getRegistryName() + ":" + this.meta;
   }
+
+  public Block getBlock() {
+
+    return this.block;
+  }
+
+  public int getMeta() {
+
+    return this.meta;
+  }
 }
