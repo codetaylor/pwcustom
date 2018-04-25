@@ -428,3 +428,7 @@ gui.pwcustom.waila.kiln.pit.active=Firing: %s
 gui.pwcustom.waila.kiln.pit.finished=Finished
 gui.pwcustom.waila.empty=Empty
 gui.pwcustom.waila.result=Result:
+
+# --- JEI plugin
+
+gui.pwcustom.jei.category.kiln.pit=Pit Kiln Firing

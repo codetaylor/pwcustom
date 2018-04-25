@@ -63,6 +63,11 @@ public class ModuleCharcoal
         "crafttweaker",
         "com.sudoplay.mc.pwcustom.modules.charcoal.compat.crafttweaker.ZenBurn"
     );
+
+    this.registerIntegrationPlugin(
+        "jei",
+        "com.sudoplay.mc.pwcustom.modules.charcoal.compat.jei.PluginJEI"
+    );
   }
 
   @SubscribeEvent
