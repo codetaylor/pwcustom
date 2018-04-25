@@ -4,7 +4,7 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockRefractoryDoor;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitBurnRecipe;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
@@ -55,7 +55,7 @@ public class TileActivePile
     return this.output;
   }
 
-  public void setRecipe(BurnRecipe recipe) {
+  public void setRecipe(PitBurnRecipe recipe) {
 
     this.recipeKey = recipe.getRegistryName();
 
@@ -69,10 +69,10 @@ public class TileActivePile
   @Override
   protected int getTotalBurnTimeTicks() {
 
-    BurnRecipe recipe = Registries.BURN_RECIPE.getValue(this.recipeKey);
+    PitBurnRecipe recipe = Registries.BURN_RECIPE.getValue(this.recipeKey);
 
     if (recipe != null) {
-      return recipe.getTotalBurnTimeTicks();
+      return recipe.getTimeTicks();
 
     } else {
       return DEFAULT_TOTAL_BURN_TIME_TICKS;
@@ -82,7 +82,7 @@ public class TileActivePile
   @Override
   protected int getBurnStages() {
 
-    BurnRecipe recipe = Registries.BURN_RECIPE.getValue(this.recipeKey);
+    PitBurnRecipe recipe = Registries.BURN_RECIPE.getValue(this.recipeKey);
 
     if (recipe != null) {
       return recipe.getBurnStages();
@@ -131,7 +131,7 @@ public class TileActivePile
   @Override
   protected void onBurnStageComplete() {
 
-    BurnRecipe recipe = Registries.BURN_RECIPE.getValue(this.recipeKey);
+    PitBurnRecipe recipe = Registries.BURN_RECIPE.getValue(this.recipeKey);
 
     if (recipe == null) {
       return;
@@ -243,7 +243,7 @@ public class TileActivePile
   protected boolean isValidStructureBlock(World world, BlockPos pos, IBlockState blockState, EnumFacing facing) {
 
     blockState = blockState.getActualState(world, pos);
-    BurnRecipe recipe = Registries.BURN_RECIPE.getValue(this.recipeKey);
+    PitBurnRecipe recipe = Registries.BURN_RECIPE.getValue(this.recipeKey);
 
     if (recipe == null) {
       return false;

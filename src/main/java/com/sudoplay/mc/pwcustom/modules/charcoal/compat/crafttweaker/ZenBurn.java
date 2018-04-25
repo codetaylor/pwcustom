@@ -3,7 +3,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.compat.crafttweaker;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.MalformedRecipeItemException;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitBurnRecipe;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import com.sudoplay.mc.pwcustom.util.Util;
 import crafttweaker.CraftTweakerAPI;
@@ -94,7 +94,7 @@ public class ZenBurn {
       try {
         BlockMetaMatcher blockMetaMatcher = Util.parseBlockStringWithWildcard(this.blockString, new RecipeItemParser());
 
-        BurnRecipe recipe = new BurnRecipe(
+        PitBurnRecipe recipe = new PitBurnRecipe(
             this.output,
             blockMetaMatcher,
             this.burnStages,

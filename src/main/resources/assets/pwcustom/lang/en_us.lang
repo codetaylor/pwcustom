@@ -432,3 +432,5 @@ gui.pwcustom.waila.result=Result:
 # --- JEI plugin
 
 gui.pwcustom.jei.category.kiln.pit=Pit Firing
+gui.pwcustom.jei.category.burn.pit=Pit Burning
+gui.pwcustom.jei.category.burn.refractory=Refractory Burning

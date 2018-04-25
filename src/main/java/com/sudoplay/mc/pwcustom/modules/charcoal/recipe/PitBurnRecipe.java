@@ -9,13 +9,14 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class BurnRecipe
-    extends IForgeRegistryEntry.Impl<BurnRecipe> {
+public class PitBurnRecipe
+    extends IForgeRegistryEntry.Impl<PitBurnRecipe>
+    implements IRecipeTimed {
 
   @Nullable
-  public static BurnRecipe getRecipe(IBlockState input) {
+  public static PitBurnRecipe getRecipe(IBlockState input) {
 
-    for (BurnRecipe recipe : Registries.BURN_RECIPE) {
+    for (PitBurnRecipe recipe : Registries.BURN_RECIPE) {
 
       if (recipe.matches(input)) {
         return recipe;
@@ -35,7 +36,7 @@ public class BurnRecipe
   private final boolean requiresRefractoryBlocks;
   private final boolean fluidLevelAffectsFailureChance;
 
-  public BurnRecipe(
+  public PitBurnRecipe(
       ItemStack output,
       BlockMetaMatcher inputMatcher,
       int burnStages,
@@ -73,7 +74,8 @@ public class BurnRecipe
     return this.burnStages;
   }
 
-  public int getTotalBurnTimeTicks() {
+  @Override
+  public int getTimeTicks() {
 
     return this.totalBurnTimeTicks;
   }

@@ -1,8 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.compat.jei;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -11,12 +10,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class JEIRecipeWrapperPitKiln
-    implements IRecipeWrapper {
+    extends JEIRecipeWrapperTimed {
 
   private final List<List<ItemStack>> inputs;
   private final ItemStack output;
 
-  public JEIRecipeWrapperPitKiln(KilnRecipe recipe) {
+  public JEIRecipeWrapperPitKiln(PitKilnRecipe recipe) {
+
+    super(recipe);
 
     this.inputs = Collections.singletonList(Arrays.asList(recipe.getInput().getMatchingStacks()));
     this.output = recipe.getOutput();

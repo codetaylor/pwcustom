@@ -8,13 +8,14 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class KilnRecipe
-    extends IForgeRegistryEntry.Impl<KilnRecipe> {
+public class PitKilnRecipe
+    extends IForgeRegistryEntry.Impl<PitKilnRecipe>
+    implements IRecipeTimed {
 
   @Nullable
-  public static KilnRecipe getRecipe(ItemStack input) {
+  public static PitKilnRecipe getRecipe(ItemStack input) {
 
-    for (KilnRecipe recipe : Registries.KILN_RECIPE) {
+    for (PitKilnRecipe recipe : Registries.KILN_RECIPE) {
 
       if (recipe.matches(input)) {
         return recipe;
@@ -30,7 +31,7 @@ public class KilnRecipe
   private final float failureChance;
   private final ItemStack[] failureItems;
 
-  public KilnRecipe(
+  public PitKilnRecipe(
       Ingredient input,
       ItemStack output,
       int burnTimeTicks,
@@ -55,7 +56,8 @@ public class KilnRecipe
     return this.output.copy();
   }
 
-  public int getBurnTimeTicks() {
+  @Override
+  public int getTimeTicks() {
 
     return this.burnTimeTicks;
   }

@@ -2,7 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.compat.waila;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
 import com.sudoplay.mc.pwcustom.util.Util;
 import mcp.mobius.waila.api.IWailaConfigHandler;
@@ -59,7 +59,7 @@ public class PitKilnDataProvider
       float progress = tileKiln.getProgress();
       ItemStackHandler stackHandler = tileKiln.getStackHandler();
       ItemStack input = stackHandler.getStackInSlot(0);
-      KilnRecipe recipe = KilnRecipe.getRecipe(input);
+      PitKilnRecipe recipe = PitKilnRecipe.getRecipe(input);
       ItemStack output = ItemStack.EMPTY;
 
       StringBuilder renderString = new StringBuilder();

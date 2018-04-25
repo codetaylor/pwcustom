@@ -2,7 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.event;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitBurnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePile;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarCollector;
@@ -117,7 +117,7 @@ public class IgnitionHandler {
   public static boolean igniteBlocks(World world, BlockPos pos) {
 
     IBlockState blockState = world.getBlockState(pos);
-    BurnRecipe recipe = BurnRecipe.getRecipe(blockState);
+    PitBurnRecipe recipe = PitBurnRecipe.getRecipe(blockState);
     boolean result = false;
 
     if (recipe != null) {

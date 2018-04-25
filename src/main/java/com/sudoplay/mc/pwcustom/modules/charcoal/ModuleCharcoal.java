@@ -10,8 +10,8 @@ import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.library.fluid.CPacketFluidUpdate;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.BurnRecipe;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitBurnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
 import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.creativetab.CreativeTabs;
@@ -73,14 +73,14 @@ public class ModuleCharcoal
   @SubscribeEvent
   public void onNewRegistryEvent(RegistryEvent.NewRegistry event) {
 
-    new RegistryBuilder<BurnRecipe>()
+    new RegistryBuilder<PitBurnRecipe>()
         .setName(new ResourceLocation(MOD_ID, "pit_recipe"))
-        .setType(BurnRecipe.class)
+        .setType(PitBurnRecipe.class)
         .create();
 
-    new RegistryBuilder<KilnRecipe>()
+    new RegistryBuilder<PitKilnRecipe>()
         .setName(new ResourceLocation(MOD_ID, "kiln_recipe"))
-        .setType(KilnRecipe.class)
+        .setType(PitKilnRecipe.class)
         .create();
   }
 

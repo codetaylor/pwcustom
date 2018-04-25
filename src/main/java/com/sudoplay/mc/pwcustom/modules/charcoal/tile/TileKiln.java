@@ -5,7 +5,7 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -193,7 +193,7 @@ public class TileKiln
     // clear fire block above if it exists
 
     ItemStack input = this.stackHandler.getStackInSlot(0);
-    KilnRecipe recipe = KilnRecipe.getRecipe(input);
+    PitKilnRecipe recipe = PitKilnRecipe.getRecipe(input);
 
     if (!input.isEmpty()
         && recipe != null) {
@@ -272,7 +272,7 @@ public class TileKiln
     // set stack handler items to recipe result
 
     ItemStack input = this.stackHandler.getStackInSlot(0);
-    KilnRecipe recipe = KilnRecipe.getRecipe(input);
+    PitKilnRecipe recipe = PitKilnRecipe.getRecipe(input);
 
     if (recipe != null) {
       ItemStack output = recipe.getOutput();

@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.compat.crafttweaker;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
@@ -84,7 +84,7 @@ public class ZenPitKiln {
     @Override
     public void apply() {
 
-      KilnRecipe recipe = new KilnRecipe(
+      PitKilnRecipe recipe = new PitKilnRecipe(
           this.input,
           this.output,
           this.burnTimeTicks,
