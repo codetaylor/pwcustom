@@ -6,7 +6,8 @@
   ],
   "key": {
     "A": {
-      "item": "pwcustom:straw"
+      "item": "pwcustom:module_charcoal_material",
+      "data": 2
     }
   },
   "result": {

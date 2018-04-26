@@ -3,6 +3,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.event;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleFluids;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
+import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemMaterial;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,7 +19,8 @@ public class FuelHandler {
 
     ItemStack fuel = event.getItemStack();
 
-    if (fuel.getItem() == ModuleItems.COAL_COKE) {
+    if (fuel.getItem() == ModuleItems.MATERIAL
+        && fuel.getMetadata() == ItemMaterial.EnumType.COAL_COKE.getMeta()) {
       event.setBurnTime(3200);
 
     } else if (fuel.getItem() == Item.getItemFromBlock(ModuleBlocks.COAL_COKE_BLOCK)) {
@@ -33,7 +35,8 @@ public class FuelHandler {
     } else if (fuel.getItem() == Item.getItemFromBlock(ModuleBlocks.THATCH)) {
       event.setBurnTime(200);
 
-    } else if (fuel.getItem() == ModuleItems.STRAW) {
+    } else if (fuel.getItem() == ModuleItems.MATERIAL
+        && fuel.getMetadata() == ItemMaterial.EnumType.STRAW.getMeta()) {
       event.setBurnTime(50);
     }
   }

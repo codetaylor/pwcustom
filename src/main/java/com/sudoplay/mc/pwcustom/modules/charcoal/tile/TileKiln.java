@@ -4,7 +4,7 @@ import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
+import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemMaterial;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
 import com.sudoplay.mc.pwcustom.util.Util;
 import net.minecraft.block.Block;
@@ -208,7 +208,7 @@ public class TileKiln
         }
 
       } else {
-        this.insertOutputItem(new ItemStack(ModuleItems.PIT_ASH, input.getCount(), 0));
+        this.insertOutputItem(ItemMaterial.EnumType.PIT_ASH.asStack(input.getCount()));
       }
 
       ItemStack output = recipe.getOutput();
@@ -293,7 +293,7 @@ public class TileKiln
             this.insertOutputItem(failureItemStack);
 
           } else {
-            this.insertOutputItem(new ItemStack(ModuleItems.PIT_ASH, input.getCount(), 0));
+            this.insertOutputItem(ItemMaterial.EnumType.PIT_ASH.asStack(input.getCount()));
           }
 
         } else {
@@ -303,7 +303,7 @@ public class TileKiln
     }
 
     int ashCount = Util.RANDOM.nextInt(3) + 1;
-    this.insertOutputItem(new ItemStack(ModuleItems.PIT_ASH, ashCount));
+    this.insertOutputItem(ItemMaterial.EnumType.PIT_ASH.asStack(ashCount));
 
     this.setActive(false);
     IBlockState blockState = ModuleBlocks.KILN.getDefaultState()

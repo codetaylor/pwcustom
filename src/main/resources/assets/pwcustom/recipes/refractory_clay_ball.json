@@ -7,18 +7,21 @@
   ],
   "key": {
     "A": {
-      "item": "pwcustom:pit_ash"
+      "item": "pwcustom:module_charcoal_material",
+      "data": 0
     },
     "B": {
-      "item": "pwcustom:flint_clay_ball"
+      "item": "pwcustom:module_charcoal_material",
+      "data": 3
     },
     "C": {
-      "item": "pwcustom:slaked_lime"
+      "item": "pwcustom:module_charcoal_material",
+      "data": 8
     }
   },
   "result": {
-    "item": "pwcustom:refractory_clay_ball",
+    "item": "pwcustom:module_charcoal_material",
     "count": 4,
-    "data": 0
+    "data": 4
   }
 }

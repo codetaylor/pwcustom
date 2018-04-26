@@ -20,6 +20,8 @@ import javax.annotation.Nonnull;
 public class ItemQuicklime
     extends Item {
 
+  public static final String NAME = "quicklime";
+
   @Nonnull
   @Override
   public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, @Nonnull EnumHand hand) {
@@ -45,7 +47,7 @@ public class ItemQuicklime
           this.playSplashSound(world, player);
 
           ItemStack itemStack = new ItemStack(ModuleItems.QUICKLIME, heldItem.getCount() - 1);
-          player.addItemStackToInventory(new ItemStack(ModuleItems.SLAKED_LIME));
+          player.addItemStackToInventory(ItemMaterial.EnumType.SLAKED_LIME.asStack());
           world.setBlockToAir(blockPos);
 
           return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
