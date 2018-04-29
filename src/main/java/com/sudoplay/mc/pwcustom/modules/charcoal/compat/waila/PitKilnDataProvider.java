@@ -4,7 +4,7 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
-import com.sudoplay.mc.pwcustom.util.Util;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;

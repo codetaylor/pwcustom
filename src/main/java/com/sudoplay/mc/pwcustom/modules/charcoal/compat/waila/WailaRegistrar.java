@@ -3,7 +3,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.compat.waila;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.IProgressProvider;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarTankBase;
-import com.sudoplay.mc.pwcustom.util.Util;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import mcp.mobius.waila.api.IWailaRegistrar;
 
 public class WailaRegistrar {

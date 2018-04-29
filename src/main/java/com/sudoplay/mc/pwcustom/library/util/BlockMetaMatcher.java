@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.util;
+package com.sudoplay.mc.pwcustom.library.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

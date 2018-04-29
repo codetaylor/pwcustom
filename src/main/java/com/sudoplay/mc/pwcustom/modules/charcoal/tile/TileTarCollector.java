@@ -2,7 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
-import com.sudoplay.mc.pwcustom.util.Util;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import net.minecraft.block.BlockFire;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.state.IBlockState;

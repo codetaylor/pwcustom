@@ -2,7 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.item;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.event.IgnitionHandler;
-import com.sudoplay.mc.pwcustom.util.Util;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

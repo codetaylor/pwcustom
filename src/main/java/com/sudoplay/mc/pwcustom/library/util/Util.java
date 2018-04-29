@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.util;
+package com.sudoplay.mc.pwcustom.library.util;
 
 import com.codetaylor.mc.athenaeum.parser.recipe.item.MalformedRecipeItemException;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.ParseResult;

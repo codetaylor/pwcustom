@@ -4,8 +4,8 @@ import com.codetaylor.mc.athenaeum.parser.recipe.item.MalformedRecipeItemExcepti
 import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitBurnRecipe;
-import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
-import com.sudoplay.mc.pwcustom.util.Util;
+import com.sudoplay.mc.pwcustom.library.util.BlockMetaMatcher;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IItemStack;

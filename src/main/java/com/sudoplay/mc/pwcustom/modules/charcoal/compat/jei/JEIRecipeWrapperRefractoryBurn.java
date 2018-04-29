@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.compat.jei;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitBurnRecipe;
-import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
+import com.sudoplay.mc.pwcustom.library.util.BlockMetaMatcher;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

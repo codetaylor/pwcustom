@@ -6,7 +6,7 @@ import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.sudoplay.mc.pwcustom.modules.veins.ModuleVeins;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinData;
 import com.sudoplay.mc.pwcustom.modules.veins.data.VeinDataList;
-import com.sudoplay.mc.pwcustom.util.Util;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;

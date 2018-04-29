@@ -7,7 +7,7 @@ import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePile;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarCollector;
 import com.sudoplay.mc.pwcustom.modules.charcoal.util.FloodFill;
-import com.sudoplay.mc.pwcustom.util.Util;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;

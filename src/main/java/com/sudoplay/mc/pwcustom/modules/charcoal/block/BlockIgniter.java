@@ -5,7 +5,7 @@ import com.codetaylor.mc.athenaeum.spi.IVariant;
 import com.sudoplay.mc.pwcustom.modules.charcoal.event.IgnitionHandler;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarCollector;
-import com.sudoplay.mc.pwcustom.util.Util;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

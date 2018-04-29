@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.recipe;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
-import com.sudoplay.mc.pwcustom.util.BlockMetaMatcher;
+import com.sudoplay.mc.pwcustom.library.util.BlockMetaMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;

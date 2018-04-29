@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.item;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
-import com.sudoplay.mc.pwcustom.util.Util;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
