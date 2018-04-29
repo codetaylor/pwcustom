@@ -1,4 +1,4 @@
-package com.sudoplay.mc.pwcustom.material;
+package com.sudoplay.mc.pwcustom.modules.toolparts.item;
 
 import com.codetaylor.mc.athenaeum.reference.EnumMaterial;
 import com.codetaylor.mc.athenaeum.spi.ItemBase;
