@@ -28,12 +28,12 @@ public abstract class TileTarTankBase
 
   private static final int UPDATE_DELAY_TICKS = 5;
 
-  protected FluidTankBase<TileTarTankBase> fluidTank;
+  protected FluidTankBase fluidTank;
   protected int ticksUntilNextUpdate;
 
   /* package */ TileTarTankBase() {
 
-    this.fluidTank = new FluidTankBase<>(this.getTankCapacity(), this);
+    this.fluidTank = new FluidTankBase(this.getTankCapacity(), this);
   }
 
   public FluidTank getFluidTank() {
