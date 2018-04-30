@@ -5,6 +5,7 @@ import com.sudoplay.mc.pwcustom.modules.block.ModuleBlock;
 import com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
 import com.sudoplay.mc.pwcustom.modules.craftingparts.ModuleCraftingParts;
+import com.sudoplay.mc.pwcustom.modules.dumpt.ModuleDumpt;
 import com.sudoplay.mc.pwcustom.modules.enchanting.ModuleEnchanting;
 import com.sudoplay.mc.pwcustom.modules.portals.ModulePortals;
 import com.sudoplay.mc.pwcustom.modules.toolparts.ModuleToolParts;
@@ -56,7 +57,8 @@ public class ModPWCustom {
         ModuleTools.class,
         ModuleVeins.class,
         ModuleUtils.class,
-        ModuleCharcoal.class
+        ModuleCharcoal.class,
+        ModuleDumpt.class
     );
   }
 
