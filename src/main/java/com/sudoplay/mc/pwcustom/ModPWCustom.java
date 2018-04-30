@@ -12,6 +12,7 @@ import com.sudoplay.mc.pwcustom.modules.toolparts.ModuleToolParts;
 import com.sudoplay.mc.pwcustom.modules.tools.ModuleTools;
 import com.sudoplay.mc.pwcustom.modules.utils.ModuleUtils;
 import com.sudoplay.mc.pwcustom.modules.veins.ModuleVeins;
+import com.sudoplay.mc.pwcustom.modules.visibility.ModuleVisibility;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
@@ -58,7 +59,8 @@ public class ModPWCustom {
         ModuleVeins.class,
         ModuleUtils.class,
         ModuleCharcoal.class,
-        ModuleDumpt.class
+        ModuleDumpt.class,
+        ModuleVisibility.class
     );
   }
 
