@@ -2,11 +2,10 @@ package com.sudoplay.mc.pwcustom.modules.dumpt.profile;
 
 import com.sudoplay.mc.pwcustom.modules.dumpt.serializer.item.*;
 import com.sudoplay.mc.pwcustom.modules.dumpt.spi.profile.ExportProfileItemBase;
-import com.sudoplay.mc.pwcustom.modules.dumpt.spi.serializer.IElementSerializer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import scala.actors.threadpool.Arrays;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class ExportProfileFood
@@ -14,8 +13,7 @@ public class ExportProfileFood
 
   public ExportProfileFood() {
 
-    //noinspection unchecked
-    super(Arrays.asList(new IElementSerializer[]{
+    super(Arrays.asList(
         new SerializerItemName(),
         new SerializerItemDomain(),
         new SerializerItemPath(),
@@ -23,7 +21,7 @@ public class ExportProfileFood
         new SerializerItemFoodHealAmount(),
         new SerializerItemFoodSaturationModifier(),
         new SerializerItemStackSize()
-    }));
+    ));
   }
 
   @Override

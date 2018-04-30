@@ -8,10 +8,10 @@ import com.sudoplay.mc.pwcustom.modules.dumpt.spi.profile.ExportProfileBase;
 import com.sudoplay.mc.pwcustom.modules.dumpt.spi.serializer.IElementSerializer;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import scala.actors.threadpool.Arrays;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class ExportProfileBiome
