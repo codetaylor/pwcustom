@@ -6,7 +6,8 @@ import mezz.jei.api.IModRegistry;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientRegistry;
-import net.darkhax.gamestages.capabilities.PlayerDataHandler;
+import net.darkhax.gamestages.GameStageHelper;
+import net.darkhax.gamestages.data.IStageData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -55,7 +56,7 @@ public class PluginJEI
       final Collection<FluidStack> fluidWhitelist = new ArrayList<>();
 
       // Gets the client player's stage data
-      final PlayerDataHandler.IStageData stageData = PlayerDataHandler.getStageData(player);
+      final IStageData stageData = GameStageHelper.getPlayerData(player);
 
       // Loops through all the known stages
       for (final String key : ModuleVisibility.SORTED_STAGES.keySet()) {
@@ -64,7 +65,7 @@ public class PluginJEI
         final List<ItemStack> entries = ModuleVisibility.SORTED_STAGES.get(key);
 
         // If player has the stage, it is whitelisted.
-        if (stageData.hasUnlockedStage(key)) {
+        if (stageData.hasStage(key)) {
 
           itemWhitelist.addAll(ingredientHelper.expandSubtypes(entries));
         }
@@ -78,7 +79,7 @@ public class PluginJEI
 
       for (final String key : ModuleVisibility.FLUID_STAGES.keySet()) {
 
-        if (stageData.hasUnlockedStage(key)) {
+        if (stageData.hasStage(key)) {
 
           fluidWhitelist.addAll(ModuleVisibility.FLUID_STAGES.get(key));
         } else {

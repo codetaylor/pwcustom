@@ -8,8 +8,7 @@ import com.sudoplay.mc.pwcustom.modules.visibility.compat.jei.PluginJEI;
 import net.darkhax.bookshelf.lib.ItemStackMap;
 import net.darkhax.bookshelf.util.GameUtils;
 import net.darkhax.bookshelf.util.PlayerUtils;
-import net.darkhax.gamestages.event.GameStageEvent;
-import net.darkhax.gamestages.event.StageDataEvent;
+import net.darkhax.gamestages.event.StagesSyncedEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.creativetab.CreativeTabs;
@@ -66,17 +65,7 @@ public class ModuleVisibility
 
   @SideOnly(Side.CLIENT)
   @SubscribeEvent
-  public void onGameStageSync(StageDataEvent.SyncRecieved event) {
-
-    if (Loader.isModLoaded("jei") && GameUtils.isClient()) {
-
-      PluginJEI.syncHiddenItems(event.getEntityPlayer());
-    }
-  }
-
-  @SideOnly(Side.CLIENT)
-  @SubscribeEvent
-  public void onClientSync(GameStageEvent.ClientSync event) {
+  public void onClientSync(StagesSyncedEvent event) {
 
     if (Loader.isModLoaded("jei") && GameUtils.isClient()) {
 
