@@ -394,6 +394,8 @@ item.pwcustom.crafting_part.gear_manyullyn.name=Manyullyn Gear
 item.pwcustom.crafting_part.plate_manyullyn.name=Manyullyn Plate
 item.pwcustom.crafting_part.dust_manyullyn.name=Pulverized Manyullyn
 
+item.pwcustom.crafting_part.unfired_brick.name=Unfired Brick
+
 item.pwcustom.crude.axe.name=Crude Axe
 item.pwcustom.crude.hoe.name=Crude Hoe
 item.pwcustom.crude.pickaxe.name=Crude Pickaxe

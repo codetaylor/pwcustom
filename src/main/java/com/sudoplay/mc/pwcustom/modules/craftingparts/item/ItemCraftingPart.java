@@ -75,7 +75,8 @@ public class ItemCraftingPart
     DUST_ARDITE("dust_ardite", 25),
     GEAR_MANYULLYN("gear_manyullyn", 26),
     PLATE_MANYULLYN("plate_manyullyn", 27),
-    DUST_MANYULLYN("dust_manyullyn", 28)
+    DUST_MANYULLYN("dust_manyullyn", 28),
+    UNFIRED_BRICK("unfired_brick", 29)
     ;
 
     private static final EnumType[] META_LOOKUP = Stream

@@ -149,6 +149,11 @@
         "textures": {
           "layer0": "pwcustom:items/dust_manyullyn"
         }
+      },
+      "unfired_brick": {
+        "textures": {
+          "layer0": "pwcustom:items/unfired_brick"
+        }
       }
     }
   }
