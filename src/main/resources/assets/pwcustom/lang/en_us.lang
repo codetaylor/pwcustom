@@ -327,6 +327,7 @@ item.pwcustom.cast_clay.gear.name=Gear Cast (Clay)
 item.pwcustom.cast_clay.plate.name=Plate Cast (Clay)
 item.pwcustom.cast_clay.nugget.name=Nugget Cast (Clay)
 item.pwcustom.cast_clay.blank.name=Blank Cast (Clay)
+item.pwcustom.cast_clay.bucket.name=Bucket Cast (Clay)
 
 item.pwcustom.cast_clay_unfired.axe_head.name=Axe Head Cast (Unfired Clay)
 item.pwcustom.cast_clay_unfired.pickaxe_head.name=Pickaxe Head Cast (Unfired Clay)
@@ -349,6 +350,7 @@ item.pwcustom.cast_clay_unfired.gear.name=Gear Cast (Unfired Clay)
 item.pwcustom.cast_clay_unfired.plate.name=Plate Cast (Unfired Clay)
 item.pwcustom.cast_clay_unfired.nugget.name=Nugget Cast (Unfired Clay)
 item.pwcustom.cast_clay_unfired.blank.name=Blank Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.bucket.name=Bucket Cast (Unfired Clay)
 
 tile.pwcustom.soul_gravel.name=Soul Gravel
 tile.pwcustom.ore.fossil_ore.name=Fossil Ore
