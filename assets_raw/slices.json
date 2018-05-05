@@ -77,6 +77,7 @@
         { "target": "dust_manyullyn.png", "position": [6, 8] },
 
         { "target": "crafting_rune_uncommon.png", "position": [7, 0] },
+        { "target": "unfired_brick.png", "position": [7, 1] },
         { "target": "leather_cord.png", "position": [7, 2] },
         { "target": "hardened_leather_cord.png", "position": [7, 3] },
 
@@ -104,6 +105,7 @@
         { "target": "cast_plate_clay.png", "position": [9, 4] },
         { "target": "cast_nugget_clay.png", "position": [9, 5] },
         { "target": "cast_blank_clay.png", "position": [9, 6] },
+        { "target": "cast_bucket_clay.png", "position": [9, 7] },
 
         { "target": "crafting_rune_legendary.png", "position": [10, 0] },
         { "target": "cast_axe_head_clay_unfired.png", "position": [10, 2] },
@@ -129,6 +131,7 @@
         { "target": "cast_plate_clay_unfired.png", "position": [11, 4] },
         { "target": "cast_nugget_clay_unfired.png", "position": [11, 5] },
         { "target": "cast_blank_clay_unfired.png", "position": [11, 6] },
+        { "target": "cast_bucket_clay_unfired.png", "position": [11, 7] },
 
         { "target": "crude_hoe.png", "position": [12, 0] },
 

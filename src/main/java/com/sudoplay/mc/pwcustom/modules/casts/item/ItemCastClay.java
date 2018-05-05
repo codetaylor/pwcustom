@@ -65,7 +65,8 @@ public class ItemCastClay
     GEAR("gear", 17),
     PLATE("plate", 18),
     NUGGET("nugget", 19),
-    BLANK("blank", 20);
+    BLANK("blank", 20),
+    BUCKET("bucket", 21);
 
     private static final EnumType[] META_LOOKUP = Stream
         .of(EnumType.values())

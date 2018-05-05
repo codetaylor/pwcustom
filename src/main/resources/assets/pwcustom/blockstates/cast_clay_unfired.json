@@ -109,6 +109,11 @@
         "textures": {
           "layer0": "pwcustom:items/cast_blank_clay_unfired"
         }
+      },
+      "bucket": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_bucket_clay_unfired"
+        }
       }
     }
   }
