@@ -306,6 +306,50 @@ item.pwcustom.cast.ring.name=Ring Cast
 item.pwcustom.cast.paxel_head.name=Paxel Head Cast
 item.pwcustom.cast.shield.name=Shield Cast
 
+item.pwcustom.cast_clay.axe_head.name=Axe Head Cast (Clay)
+item.pwcustom.cast_clay.pickaxe_head.name=Pickaxe Head Cast (Clay)
+item.pwcustom.cast_clay.shovel_head.name=Shovel Head Cast (Clay)
+item.pwcustom.cast_clay.hoe_head.name=Hoe Head Cast (Clay)
+item.pwcustom.cast_clay.tool_rod.name=Tool Rod Cast (Clay)
+item.pwcustom.cast_clay.sword_blade.name=Sword Blade Cast (Clay)
+item.pwcustom.cast_clay.sword_guard.name=Sword Guard Cast (Clay)
+item.pwcustom.cast_clay.hammer_head.name=Hammer Head Cast (Clay)
+item.pwcustom.cast_clay.bow_limb.name=Bow Limb Cast (Clay)
+item.pwcustom.cast_clay.sickle_blade.name=Sickle Blade Cast (Clay)
+item.pwcustom.cast_clay.rod.name=Rod Cast (Clay)
+item.pwcustom.cast_clay.shear_blades.name=Shear Blades Cast (Clay)
+item.pwcustom.cast_clay.ring.name=Ring Cast (Clay)
+item.pwcustom.cast_clay.paxel_head.name=Paxel Head Cast (Clay)
+item.pwcustom.cast_clay.shield.name=Shield Cast (Clay)
+item.pwcustom.cast_clay.gem.name=Gem Cast (Clay)
+item.pwcustom.cast_clay.ingot.name=Ingot Cast (Clay)
+item.pwcustom.cast_clay.gear.name=Gear Cast (Clay)
+item.pwcustom.cast_clay.plate.name=Plate Cast (Clay)
+item.pwcustom.cast_clay.nugget.name=Nugget Cast (Clay)
+item.pwcustom.cast_clay.blank.name=Blank Cast (Clay)
+
+item.pwcustom.cast_clay_unfired.axe_head.name=Axe Head Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.pickaxe_head.name=Pickaxe Head Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.shovel_head.name=Shovel Head Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.hoe_head.name=Hoe Head Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.tool_rod.name=Tool Rod Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.sword_blade.name=Sword Blade Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.sword_guard.name=Sword Guard Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.hammer_head.name=Hammer Head Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.bow_limb.name=Bow Limb Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.sickle_blade.name=Sickle Blade Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.rod.name=Rod Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.shear_blades.name=Shear Blades Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.ring.name=Ring Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.paxel_head.name=Paxel Head Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.shield.name=Shield Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.gem.name=Gem Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.ingot.name=Ingot Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.gear.name=Gear Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.plate.name=Plate Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.nugget.name=Nugget Cast (Unfired Clay)
+item.pwcustom.cast_clay_unfired.blank.name=Blank Cast (Unfired Clay)
+
 tile.pwcustom.soul_gravel.name=Soul Gravel
 tile.pwcustom.ore.fossil_ore.name=Fossil Ore
 
@@ -333,6 +377,22 @@ item.pwcustom.crafting_part.hardened_leather_sheet.name=Hardened Leather Sheet
 item.pwcustom.crafting_part.hardened_leather_strips.name=Hardened Leather Straps
 item.pwcustom.crafting_part.hardened_leather_strip.name=Hardened Leather Strip
 item.pwcustom.crafting_part.hardened_leather_cord.name=Hardened Leather Cord
+
+item.pwcustom.crafting_part.gear_alubrass.name=Aluminum Brass Gear
+item.pwcustom.crafting_part.plate_alubrass.name=Aluminum Brass Plate
+item.pwcustom.crafting_part.dust_alubrass.name=Pulverized Aluminum Brass
+
+item.pwcustom.crafting_part.gear_cobalt.name=Cobalt Gear
+item.pwcustom.crafting_part.plate_cobalt.name=Cobalt Plate
+item.pwcustom.crafting_part.dust_cobalt.name=Pulverized Cobalt
+
+item.pwcustom.crafting_part.gear_ardite.name=Ardite Gear
+item.pwcustom.crafting_part.plate_ardite.name=Ardite Plate
+item.pwcustom.crafting_part.dust_ardite.name=Pulverized Ardite
+
+item.pwcustom.crafting_part.gear_manyullyn.name=Manyullyn Gear
+item.pwcustom.crafting_part.plate_manyullyn.name=Manyullyn Plate
+item.pwcustom.crafting_part.dust_manyullyn.name=Pulverized Manyullyn
 
 item.pwcustom.crude.axe.name=Crude Axe
 item.pwcustom.crude.hoe.name=Crude Hoe

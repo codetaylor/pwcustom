@@ -64,6 +64,18 @@ public class ItemCraftingPart
     HARDENED_LEATHER_STRIPS("hardened_leather_strips", 14),
     HARDENED_LEATHER_STRIP("hardened_leather_strip", 15),
     HARDENED_LEATHER_CORD("hardened_leather_cord", 16),
+    GEAR_ALUBRASS("gear_alubrass", 17),
+    PLATE_ALUBRASS("plate_alubrass", 18),
+    DUST_ALUBRASS("dust_alubrass", 19),
+    GEAR_COBALT("gear_cobalt", 20),
+    PLATE_COBALT("plate_cobalt", 21),
+    DUST_COBALT("dust_cobalt", 22),
+    GEAR_ARDITE("gear_ardite", 23),
+    PLATE_ARDITE("plate_ardite", 24),
+    DUST_ARDITE("dust_ardite", 25),
+    GEAR_MANYULLYN("gear_manyullyn", 26),
+    PLATE_MANYULLYN("plate_manyullyn", 27),
+    DUST_MANYULLYN("dust_manyullyn", 28)
     ;
 
     private static final EnumType[] META_LOOKUP = Stream

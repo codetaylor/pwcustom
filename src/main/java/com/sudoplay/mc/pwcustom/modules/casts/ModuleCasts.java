@@ -4,11 +4,15 @@ import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.modules.casts.item.ItemCast;
+import com.sudoplay.mc.pwcustom.modules.casts.item.ItemCastClay;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import static com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts.Items.CAST;
+import static com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts.Items.CAST_CLAY;
+import static com.sudoplay.mc.pwcustom.modules.casts.ModuleCasts.Items.CAST_CLAY_UNFIRED;
 
 public class ModuleCasts
     extends ModuleBase {
@@ -24,19 +28,19 @@ public class ModuleCasts
   @SuppressWarnings("WeakerAccess")
   public static class Items {
 
-    @GameRegistry.ObjectHolder(ModPWCustom.MOD_ID + ":" + ItemCast.NAME)
-    public static final ItemCast CAST;
+    public static final ItemCast CAST = new ItemCast();
+    public static final ItemCastClay CAST_CLAY = new ItemCastClay("cast_clay");
+    public static final ItemCastClay CAST_CLAY_UNFIRED = new ItemCastClay("cast_clay_unfired");
 
-    static {
-      CAST = null;
-    }
   }
 
   @Override
   public void onRegisterItemEvent(RegistryEvent.Register<Item> event) {
 
     event.getRegistry().registerAll(
-        new ItemCast()
+        Items.CAST,
+        Items.CAST_CLAY,
+        Items.CAST_CLAY_UNFIRED
     );
   }
 
@@ -44,9 +48,21 @@ public class ModuleCasts
   public void onClientRegisterModelsEvent(ModelRegistryEvent event) {
 
     ModelRegistrationHelper.registerVariantItemModels(
-        Items.CAST,
+        CAST,
         "variant",
         ItemCast.EnumType.values()
+    );
+
+    ModelRegistrationHelper.registerVariantItemModels(
+        CAST_CLAY,
+        "variant",
+        ItemCastClay.EnumType.values()
+    );
+
+    ModelRegistrationHelper.registerVariantItemModels(
+        CAST_CLAY_UNFIRED,
+        "variant",
+        ItemCastClay.EnumType.values()
     );
   }
 }

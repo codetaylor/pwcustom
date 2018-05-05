@@ -89,6 +89,66 @@
         "textures": {
           "layer0": "pwcustom:items/hardened_leather_cord"
         }
+      },
+      "gear_alubrass": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_alubrass"
+        }
+      },
+      "plate_alubrass": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_alubrass"
+        }
+      },
+      "dust_alubrass": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_alubrass"
+        }
+      },
+      "gear_cobalt": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_cobalt"
+        }
+      },
+      "plate_cobalt": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_cobalt"
+        }
+      },
+      "dust_cobalt": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_cobalt"
+        }
+      },
+      "gear_ardite": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_ardite"
+        }
+      },
+      "plate_ardite": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_ardite"
+        }
+      },
+      "dust_ardite": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_ardite"
+        }
+      },
+      "gear_manyullyn": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_manyullyn"
+        }
+      },
+      "plate_manyullyn": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_manyullyn"
+        }
+      },
+      "dust_manyullyn": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_manyullyn"
+        }
       }
     }
   }

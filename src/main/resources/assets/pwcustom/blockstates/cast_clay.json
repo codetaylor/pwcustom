@@ -1,0 +1,115 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "pwcustom:item/generated"
+  },
+  "variants": {
+    "variant": {
+      "axe_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_axe_head_clay"
+        }
+      },
+      "pickaxe_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_pickaxe_head_clay"
+        }
+      },
+      "shovel_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_shovel_head_clay"
+        }
+      },
+      "hoe_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_hoe_head_clay"
+        }
+      },
+      "tool_rod": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_tool_rod_clay"
+        }
+      },
+      "sword_blade": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_sword_blade_clay"
+        }
+      },
+      "sword_guard": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_sword_guard_clay"
+        }
+      },
+      "hammer_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_hammer_head_clay"
+        }
+      },
+      "bow_limb": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_bow_limb_clay"
+        }
+      },
+      "sickle_blade": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_sickle_blade_clay"
+        }
+      },
+      "rod": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_rod_clay"
+        }
+      },
+      "shear_blades": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_shear_blades_clay"
+        }
+      },
+      "ring": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_ring_clay"
+        }
+      },
+      "paxel_head": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_paxel_head_clay"
+        }
+      },
+      "shield": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_shield_clay"
+        }
+      },
+      "gem": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_gem_clay"
+        }
+      },
+      "ingot": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_ingot_clay"
+        }
+      },
+      "gear": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_gear_clay"
+        }
+      },
+      "plate": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_plate_clay"
+        }
+      },
+      "nugget": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_nugget_clay"
+        }
+      },
+      "blank": {
+        "textures": {
+          "layer0": "pwcustom:items/cast_blank_clay"
+        }
+      }
+    }
+  }
+}
