@@ -76,7 +76,28 @@ public class ItemCraftingPart
     GEAR_MANYULLYN("gear_manyullyn", 26),
     PLATE_MANYULLYN("plate_manyullyn", 27),
     DUST_MANYULLYN("dust_manyullyn", 28),
-    UNFIRED_BRICK("unfired_brick", 29)
+    UNFIRED_BRICK("unfired_brick", 29),
+    GEAR_MANASTEEL("gear_manasteel", 30),
+    PLATE_MANASTEEL("plate_manasteel", 31),
+    DUST_MANASTEEL("dust_manasteel", 32),
+    GEAR_TERRASTEEL("gear_terrasteel", 33),
+    PLATE_TERRASTEEL("plate_terrasteel", 34),
+    DUST_TERRASTEEL("dust_terrasteel", 35),
+    GEAR_ELEMENTIUM("gear_elementium", 36),
+    PLATE_ELEMENTIUM("plate_elementium", 37),
+    DUST_ELEMENTIUM("dust_elementium", 38),
+    GEAR_ABYSSALNITE("gear_abyssalnite", 39),
+    PLATE_ABYSSALNITE("plate_abyssalnite", 40),
+    DUST_ABYSSALNITE("dust_abyssalnite", 41),
+    GEAR_CORALIUM("gear_coralium", 42),
+    PLATE_CORALIUM("plate_coralium", 43),
+    DUST_CORALIUM("dust_coralium", 44),
+    GEAR_DREADIUM("gear_dreadium", 45),
+    PLATE_DREADIUM("plate_dreadium", 46),
+    DUST_DREADIUM("dust_dreadium", 47),
+    GEAR_ETHAXIUM("gear_ethaxium", 48),
+    PLATE_ETHAXIUM("plate_ethaxium", 49),
+    DUST_ETHAXIUM("dust_ethaxium", 50)
     ;
 
     private static final EnumType[] META_LOOKUP = Stream

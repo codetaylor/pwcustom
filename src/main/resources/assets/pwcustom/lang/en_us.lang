@@ -396,6 +396,34 @@ item.pwcustom.crafting_part.gear_manyullyn.name=Manyullyn Gear
 item.pwcustom.crafting_part.plate_manyullyn.name=Manyullyn Plate
 item.pwcustom.crafting_part.dust_manyullyn.name=Pulverized Manyullyn
 
+item.pwcustom.crafting_part.gear_manasteel.name=Manasteel Gear
+item.pwcustom.crafting_part.plate_manasteel.name=Manasteel Plate
+item.pwcustom.crafting_part.dust_manasteel.name=Pulverized Manasteel
+
+item.pwcustom.crafting_part.gear_terrasteel.name=Terrasteel Gear
+item.pwcustom.crafting_part.plate_terrasteel.name=Terrasteel Plate
+item.pwcustom.crafting_part.dust_terrasteel.name=Pulverized Terrasteel
+
+item.pwcustom.crafting_part.gear_elementium.name=Elementium Gear
+item.pwcustom.crafting_part.plate_elementium.name=Elementium Plate
+item.pwcustom.crafting_part.dust_elementium.name=Pulverized Elementium
+
+item.pwcustom.crafting_part.gear_abyssalnite.name=Abyssalnite Gear
+item.pwcustom.crafting_part.plate_abyssalnite.name=Abyssalnite Plate
+item.pwcustom.crafting_part.dust_abyssalnite.name=Pulverized Abyssalnite
+
+item.pwcustom.crafting_part.gear_coralium.name=Coralium Gear
+item.pwcustom.crafting_part.plate_coralium.name=Coralium Plate
+item.pwcustom.crafting_part.dust_coralium.name=Pulverized Coralium
+
+item.pwcustom.crafting_part.gear_dreadium.name=Dreadium Gear
+item.pwcustom.crafting_part.plate_dreadium.name=Dreadium Plate
+item.pwcustom.crafting_part.dust_dreadium.name=Pulverized Dreadium
+
+item.pwcustom.crafting_part.gear_ethaxium.name=Ethaxium Gear
+item.pwcustom.crafting_part.plate_ethaxium.name=Ethaxium Plate
+item.pwcustom.crafting_part.dust_ethaxium.name=Pulverized Ethaxium
+
 item.pwcustom.crafting_part.unfired_brick.name=Unfired Brick
 
 item.pwcustom.crude.axe.name=Crude Axe

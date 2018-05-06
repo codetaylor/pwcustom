@@ -154,6 +154,111 @@
         "textures": {
           "layer0": "pwcustom:items/unfired_brick"
         }
+      },
+      "gear_manasteel": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_manasteel"
+        }
+      },
+      "plate_manasteel": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_manasteel"
+        }
+      },
+      "dust_manasteel": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_manasteel"
+        }
+      },
+      "gear_terrasteel": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_terrasteel"
+        }
+      },
+      "plate_terrasteel": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_terrasteel"
+        }
+      },
+      "dust_terrasteel": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_terrasteel"
+        }
+      },
+      "gear_elementium": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_elementium"
+        }
+      },
+      "plate_elementium": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_elementium"
+        }
+      },
+      "dust_elementium": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_elementium"
+        }
+      },
+      "gear_abyssalnite": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_abyssalnite"
+        }
+      },
+      "plate_abyssalnite": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_abyssalnite"
+        }
+      },
+      "dust_abyssalnite": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_abyssalnite"
+        }
+      },
+      "gear_coralium": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_coralium"
+        }
+      },
+      "plate_coralium": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_coralium"
+        }
+      },
+      "dust_coralium": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_coralium"
+        }
+      },
+      "gear_dreadium": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_dreadium"
+        }
+      },
+      "plate_dreadium": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_dreadium"
+        }
+      },
+      "dust_dreadium": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_dreadium"
+        }
+      },
+      "gear_ethaxium": {
+        "textures": {
+          "layer0": "pwcustom:items/gear_ethaxium"
+        }
+      },
+      "plate_ethaxium": {
+        "textures": {
+          "layer0": "pwcustom:items/plate_ethaxium"
+        }
+      },
+      "dust_ethaxium": {
+        "textures": {
+          "layer0": "pwcustom:items/dust_ethaxium"
+        }
       }
     }
   }
