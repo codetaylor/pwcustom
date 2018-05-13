@@ -1,17 +1,22 @@
 package com.sudoplay.mc.pwcustom.modules.visibility.compat.jei;
 
 import com.sudoplay.mc.pwcustom.modules.visibility.ModuleVisibility;
+import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.ingredients.IIngredientBlacklist;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientRegistry;
+import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IRecipeCategory;
 import net.darkhax.gamestages.GameStageHelper;
 import net.darkhax.gamestages.data.IStageData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -23,6 +28,7 @@ public class PluginJEI
     implements IModPlugin {
 
   public static IIngredientBlacklist blacklist;
+  public static IRecipeRegistry recipeRegistry;
   public static IIngredientRegistry ingredientRegistry;
   public static IIngredientHelper<ItemStack> ingredientHelper;
 
@@ -32,6 +38,12 @@ public class PluginJEI
     blacklist = registry.getJeiHelpers().getIngredientBlacklist();
     ingredientRegistry = registry.getIngredientRegistry();
     ingredientHelper = ingredientRegistry.getIngredientHelper(ItemStack.class);
+  }
+
+  @Override
+  public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+
+    recipeRegistry = jeiRuntime.getRecipeRegistry();
   }
 
   @SideOnly(Side.CLIENT)
@@ -111,6 +123,45 @@ public class PluginJEI
       ModuleVisibility.LOGGER.info("Finished JEI Sync, took "
           + (System.currentTimeMillis() - time) + "ms. " + itemBlacklist
           .size() + " hidden, " + itemWhitelist.size() + " shown.");
+    }
+
+    processRecipes();
+  }
+
+  @SideOnly(Side.CLIENT)
+  public static void processRecipes() {
+
+    if (!FMLCommonHandler.instance().getEffectiveSide().isClient()) {
+      return;
+    }
+
+    if (PluginJEI.recipeRegistry == null
+        || PluginJEI.ingredientRegistry == null) {
+      return;
+    }
+
+    Collection<ItemStack> ingredients = PluginJEI.ingredientRegistry.getAllIngredients(ItemStack.class);
+    final Collection<ItemStack> itemBlacklist = new ArrayList<>();
+    final Collection<ItemStack> itemWhitelist = new ArrayList<>();
+
+    for (ItemStack ingredient : ingredients) {
+      IFocus<ItemStack> focus = PluginJEI.recipeRegistry.createFocus(IFocus.Mode.OUTPUT, ingredient);
+      List<IRecipeCategory> recipeCategories = PluginJEI.recipeRegistry.getRecipeCategories(focus);
+
+      if (recipeCategories.isEmpty()) {
+        itemBlacklist.add(ingredient);
+
+      } else {
+        itemWhitelist.add(ingredient);
+      }
+    }
+
+    if (!itemBlacklist.isEmpty()) {
+      PluginJEI.ingredientRegistry.removeIngredientsAtRuntime(ItemStack.class, itemBlacklist);
+    }
+
+    if (!itemWhitelist.isEmpty()) {
+      PluginJEI.ingredientRegistry.addIngredientsAtRuntime(ItemStack.class, itemWhitelist);
     }
   }
 }
