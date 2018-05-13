@@ -10,6 +10,7 @@ import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientRegistry;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IRecipeCategory;
+import mezz.jei.plugins.jei.info.IngredientInfoRecipe;
 import net.darkhax.gamestages.GameStageHelper;
 import net.darkhax.gamestages.data.IStageData;
 import net.minecraft.client.Minecraft;
@@ -147,12 +148,33 @@ public class PluginJEI
     for (ItemStack ingredient : ingredients) {
       IFocus<ItemStack> focus = PluginJEI.recipeRegistry.createFocus(IFocus.Mode.OUTPUT, ingredient);
       List<IRecipeCategory> recipeCategories = PluginJEI.recipeRegistry.getRecipeCategories(focus);
+      boolean isWhitelisted = false;
 
-      if (recipeCategories.isEmpty()) {
+      if (!recipeCategories.isEmpty()) {
+
+        categories:
+        for (IRecipeCategory recipeCategory : recipeCategories) {
+          List<Object> recipeCatalysts = PluginJEI.recipeRegistry.getRecipeCatalysts(recipeCategory);
+
+          if (!recipeCatalysts.isEmpty()) {
+
+            //noinspection unchecked
+            List recipeWrappers = PluginJEI.recipeRegistry.getRecipeWrappers(recipeCategory, focus);
+
+            for (Object recipeWrapper : recipeWrappers) {
+
+              if (!(recipeWrapper instanceof IngredientInfoRecipe)) {
+                itemWhitelist.add(ingredient);
+                isWhitelisted = true;
+                break categories;
+              }
+            }
+          }
+        }
+      }
+
+      if (!isWhitelisted) {
         itemBlacklist.add(ingredient);
-
-      } else {
-        itemWhitelist.add(ingredient);
       }
     }
 
