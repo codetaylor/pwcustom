@@ -17,7 +17,8 @@ public class CopyKeyHandler {
   @SubscribeEvent
   public void onToolTipEvent(ItemTooltipEvent event) {
 
-    if (Keyboard.isKeyDown(Keyboard.KEY_GRAVE)) {
+    if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)
+        && Keyboard.isKeyDown(Keyboard.KEY_C)) {
 
       if (this.keyDown) {
         return;
