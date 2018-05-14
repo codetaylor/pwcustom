@@ -3,6 +3,7 @@ package com.sudoplay.mc.pwcustom.modules.utils;
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
@@ -20,6 +21,8 @@ public class ModuleUtils
         "crafttweaker",
         "com.sudoplay.mc.pwcustom.modules.utils.ZenOreDictUtil"
     );
+
+    MinecraftForge.EVENT_BUS.register(new CopyKeyHandler());
   }
 
   @Override
@@ -31,4 +34,5 @@ public class ModuleUtils
       ZenOreDictUtil.apply();
     }
   }
+
 }
