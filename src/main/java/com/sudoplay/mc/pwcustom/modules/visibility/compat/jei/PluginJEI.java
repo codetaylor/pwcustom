@@ -1,6 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.visibility.compat.jei;
 
 import com.sudoplay.mc.pwcustom.modules.visibility.ModuleVisibility;
+import com.sudoplay.mc.pwcustom.modules.visibility.ModuleVisibilityConfig;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -138,6 +139,10 @@ public class PluginJEI
 
     if (PluginJEI.recipeRegistry == null
         || PluginJEI.ingredientRegistry == null) {
+      return;
+    }
+
+    if (!ModuleVisibilityConfig.ENABLE_JEI_VISIBILITY_CULLING) {
       return;
     }
 
