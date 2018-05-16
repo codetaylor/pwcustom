@@ -499,7 +499,7 @@ item.pwcustom.bow.drill.name=Bow Drill
 
 # --- Tiles
 
-tile.pwcustom.thatch.name=Thatch Block
+tile.pwcustom.thatch.name=Straw Block
 tile.pwcustom.coal_coke_block.name=Coal Coke Block
 tile.pwcustom.log_pile.name=Log Pile
 tile.pwcustom.tar_collector.stone.name=Stone Collector
