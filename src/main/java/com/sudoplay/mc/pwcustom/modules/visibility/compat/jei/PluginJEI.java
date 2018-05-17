@@ -34,6 +34,13 @@ public class PluginJEI
   public static IIngredientRegistry ingredientRegistry;
   public static IIngredientHelper<ItemStack> ingredientHelper;
 
+  public static final List<IIngredientRegistrationAction> INGREDIENT_REGISTRATION_ACTIONS = new ArrayList<>();
+
+  public interface IIngredientRegistrationAction {
+
+    void apply(IIngredientRegistry ingredientRegistry);
+  }
+
   @Override
   public void register(IModRegistry registry) {
 
@@ -46,6 +53,10 @@ public class PluginJEI
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 
     recipeRegistry = jeiRuntime.getRecipeRegistry();
+
+    for (IIngredientRegistrationAction action : INGREDIENT_REGISTRATION_ACTIONS) {
+      action.apply(ingredientRegistry);
+    }
   }
 
   @SideOnly(Side.CLIENT)
