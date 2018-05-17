@@ -52,6 +52,11 @@ public class ModuleVisibility
         "crafttweaker",
         "com.sudoplay.mc.pwcustom.modules.visibility.compat.crafttweaker.ZenVisibilityStages"
     );
+
+    this.registerIntegrationPlugin(
+        "crafttweaker",
+        "com.sudoplay.mc.pwcustom.modules.visibility.compat.crafttweaker.ZenJEITweaks"
+    );
   }
 
   @Override
