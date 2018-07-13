@@ -50,8 +50,8 @@ public class ModPWCustom {
     this.moduleManager = new ModuleManager(MOD_ID);
     this.moduleManager.registerModules(
         ModulePortals.class,
-        ModuleToolParts.class,
-        ModuleCasts.class,
+        //ModuleToolParts.class,
+        //ModuleCasts.class,
         ModuleEnchanting.class,
         ModuleBlock.class,
         ModuleCraftingParts.class,
@@ -59,8 +59,8 @@ public class ModPWCustom {
         ModuleVeins.class,
         ModuleUtils.class,
         ModuleCharcoal.class,
-        ModuleDumpt.class,
-        ModuleVisibility.class
+        ModuleDumpt.class
+        //ModuleVisibility.class
     );
   }
 
