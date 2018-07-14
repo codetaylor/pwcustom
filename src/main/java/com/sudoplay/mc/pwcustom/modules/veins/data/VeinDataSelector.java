@@ -1,8 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.veins.data;
 
 import com.codetaylor.mc.athenaeum.util.WeightedPicker;
-import com.sudoplay.mc.pwcustom.modules.veins.data.EnumListType;
-import com.sudoplay.mc.pwcustom.modules.veins.data.VeinData;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
@@ -42,37 +40,41 @@ public class VeinDataSelector {
       for (VeinData veinData : this.veinDataList) {
 
         if (veinData.dimensions.ids.length > 0) {
-
-          for (int id : veinData.dimensions.ids) {
-
-            if (dimensionId == id) {
-
-              if (veinData.dimensions.type == EnumListType.BLACKLIST) {
+          if (veinData.dimensions.type == EnumListType.BLACKLIST) {
+            // assert list does not contain dimension id
+            for (int id : veinData.dimensions.ids) {
+              if (dimensionId == id) {
                 continue veinData;
-
-              } else if (veinData.dimensions.type == EnumListType.WHITELIST) {
+              }
+            }
+          } else if (veinData.dimensions.type == EnumListType.WHITELIST) {
+            // assert list contains dimension id
+            boolean allowed = false;
+            for (int id : veinData.dimensions.ids) {
+              if (dimensionId == id) {
+                allowed = true;
                 break;
               }
+            }
+            if (!allowed) {
+              continue; // veinData
             }
           }
         }
 
         if (veinData.biomes.ids.size() > 0) {
-
           if (veinData.biomes.type == EnumListType.BLACKLIST) {
-
             if (veinData.biomes.ids.contains(biome.toString())) {
-              continue;
+              continue; // veinData
             }
-
           } else if (veinData.biomes.type == EnumListType.WHITELIST) {
-
             if (!veinData.biomes.ids.contains(biome.toString())) {
-              continue;
+              continue; // veinData
             }
           }
         }
 
+        // add to picker
         weightedPicker.add(veinData.weight, veinData);
       }
     }
