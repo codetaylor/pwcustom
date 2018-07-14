@@ -31,7 +31,7 @@ public class BlockGravelOre
     super(Material.ROCK);
     this.setHardness(0.6F);
     this.setSoundType(SoundType.GROUND);
-    //this.setHarvestLevel("shovel", 0);
+    this.setHarvestLevel("shovel", 0);
     this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumOreType.IRON));
   }
 
