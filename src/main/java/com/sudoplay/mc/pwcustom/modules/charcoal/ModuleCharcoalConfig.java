@@ -12,6 +12,19 @@ import java.util.Map;
 @Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + "/" + ModuleCharcoal.MOD_ID + ".module.Charcoal")
 public class ModuleCharcoalConfig {
 
+  public static PitKiln PIT_KILN = new PitKiln();
+
+  public static class PitKiln {
+
+    @Config.Comment({
+        "Reduces the duration of all recipes by this amount for each adjacent refractory block.",
+        "Range: [0, 0.2]",
+        "Default: 10% or 0.1"
+    })
+    public double REFRACTORY_BLOCK_TIME_BONUS = 0.1;
+
+  }
+
   public static Refractory REFRACTORY = new Refractory();
 
   public static class Refractory {

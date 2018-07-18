@@ -232,6 +232,7 @@ public class BlockKiln
       return false;
     }
 
+    TileKiln tileKiln = (TileKiln) tileEntity;
     ItemStack heldItem = player.getHeldItem(hand);
 
     switch (state.getValue(VARIANT)) {
@@ -240,7 +241,7 @@ public class BlockKiln
 
         if (heldItem.getItem() == Item.getItemFromBlock(ModuleBlocks.THATCH)) {
 
-          if (((TileKiln) tileEntity).getStackHandler().getStackInSlot(0).isEmpty()) {
+          if (tileKiln.getStackHandler().getStackInSlot(0).isEmpty()) {
             return false;
           }
 
@@ -266,10 +267,15 @@ public class BlockKiln
           if (recipe != null) {
 
             // If the item in the player's hand is valid input for a kiln recipe,
-            // place the item into the kiln.
+            // calculate the burn time and place the item into the kiln. The burn
+            // time is reduced for each adjacent refractory block.
 
-            ItemStackHandler stackHandler = ((TileKiln) tileEntity).getStackHandler();
-            ((TileKiln) tileEntity).setTotalBurnTimeTicks(recipe.getTimeTicks());
+            float modifier = 1.0f - tileKiln.countAdjacentRefractoryBlocks() * 0.1f;
+            int modifiedBurnTime = (int) (recipe.getTimeTicks() * modifier);
+            int burnTimeTicks = Math.max(1, modifiedBurnTime);
+
+            ItemStackHandler stackHandler = tileKiln.getStackHandler();
+            tileKiln.setTotalBurnTimeTicks(burnTimeTicks);
             player.setHeldItem(hand, stackHandler.insertItem(0, heldItem, false));
             world.notifyBlockUpdate(pos, state, state, 2);
             return true;
@@ -303,7 +309,7 @@ public class BlockKiln
             }
 
             heldItem.setCount(heldItem.getCount() - 3);
-            ((TileKiln) tileEntity).getLogStackHandler()
+            tileKiln.getLogStackHandler()
                 .insertItem(0, new ItemStack(heldItem.getItem(), 3, heldItem.getMetadata()), false);
             world.setBlockState(pos, this.getDefaultState().withProperty(VARIANT, EnumType.WOOD));
             world.playSound(null, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1, 1);
@@ -338,9 +344,10 @@ public class BlockKiln
     TileEntity tileEntity = worldIn.getTileEntity(pos);
 
     if (tileEntity instanceof TileKiln) {
-      ItemStackHandler stackHandler = ((TileKiln) tileEntity).getStackHandler();
+      TileKiln tileKiln = (TileKiln) tileEntity;
+      ItemStackHandler stackHandler = tileKiln.getStackHandler();
       StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(0), pos);
-      stackHandler = ((TileKiln) tileEntity).getOutputStackHandler();
+      stackHandler = tileKiln.getOutputStackHandler();
 
       for (int i = 0; i < stackHandler.getSlots(); i++) {
         StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(i), pos);
@@ -348,7 +355,7 @@ public class BlockKiln
 
       // Pop the used wood into the world.
       if (state.getValue(VARIANT) == EnumType.WOOD) {
-        stackHandler = ((TileKiln) tileEntity).getLogStackHandler();
+        stackHandler = tileKiln.getLogStackHandler();
         StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(0), pos);
       }
     }
