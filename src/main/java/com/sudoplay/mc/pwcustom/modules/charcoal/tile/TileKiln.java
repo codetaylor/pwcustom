@@ -266,6 +266,16 @@ public class TileKiln
   }
 
   @Override
+  protected boolean isValidStructureBlock(World world, BlockPos pos, IBlockState blockState, EnumFacing facing) {
+
+    if (this.isRefractoryBlock(blockState)) {
+      return true;
+    }
+
+    return super.isValidStructureBlock(world, pos, blockState, facing);
+  }
+
+  @Override
   protected void onAllBurnStagesComplete() {
 
     // replace kiln block with complete variant
