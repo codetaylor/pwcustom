@@ -325,7 +325,7 @@ public class TileKiln
       }
     }
 
-    if (this.isRefractoryBlock(this.world.getBlockState(this.pos.up()))) {
+    if (this.isRefractoryBlock(this.world.getBlockState(this.pos.down()))) {
       result += 1;
     }
 
