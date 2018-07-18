@@ -291,7 +291,7 @@ public class TileKiln
 
       ItemStack[] failureItems = recipe.getFailureItems();
       float failureChance = recipe.getFailureChance();
-      failureChance *= (1f - this.countRefractoryBlocks() / 5f);
+      failureChance *= (1f - this.countAdjacentRefractoryBlocks() / 5f);
 
       for (int i = 0; i < input.getCount(); i++) {
 
@@ -322,7 +322,7 @@ public class TileKiln
     this.world.setBlockToAir(this.pos.up());
   }
 
-  private int countRefractoryBlocks() {
+  public int countAdjacentRefractoryBlocks() {
 
     int result = 0;
 
