@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.utils;
 
+import com.codetaylor.mc.athenaeum.integration.crafttweaker.mtlib.helpers.CTLogHelper;
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IItemStack;
@@ -40,6 +41,11 @@ public class ZenOreDictUtil {
 
   @ZenMethod
   public static void remove(IOreDictEntry oreDictEntry, IItemStack item) {
+
+    if (item == null) {
+      CTLogHelper.logError("Can't remove null from ore dict: " + oreDictEntry.getName());
+      return;
+    }
 
     REMOVE_ITEM_LIST.add(new ActionOreDictRemoveItemDelayed(oreDictEntry.getName(), item));
   }
