@@ -97,7 +97,8 @@ public class ItemCraftingPart
     DUST_DREADIUM("dust_dreadium", 47),
     GEAR_ETHAXIUM("gear_ethaxium", 48),
     PLATE_ETHAXIUM("plate_ethaxium", 49),
-    DUST_ETHAXIUM("dust_ethaxium", 50)
+    DUST_ETHAXIUM("dust_ethaxium", 50),
+    FLINT_SHARD("flint_shard", 51)
     ;
 
     private static final EnumType[] META_LOOKUP = Stream

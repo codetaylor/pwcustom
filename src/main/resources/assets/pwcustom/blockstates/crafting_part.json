@@ -259,6 +259,11 @@
         "textures": {
           "layer0": "pwcustom:items/dust_ethaxium"
         }
+      },
+      "flint_shard": {
+        "textures": {
+          "layer0": "pwcustom:items/flint_shard"
+        }
       }
     }
   }

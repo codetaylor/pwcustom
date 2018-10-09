@@ -108,14 +108,24 @@ public class ModuleCharcoalConfig {
     public int TAR_DRAIN_CAPACITY = 1000;
 
     @Config.Comment({
-        "The durability of the bow drill"
+        "The durability of the bow drill (default 16)"
     })
     public int BOW_DRILL_DURABILITY = 16;
 
     @Config.Comment({
-        "Defines how many ticks it takes to start a fire while using the bow drill"
+        "Defines how many ticks it takes to start a fire while using the bow drill (default: 60)"
     })
     public int BOW_DRILL_USE_DURATION = 60;
+
+    @Config.Comment({
+        "The durability of the flint and tinder (default: 8)"
+    })
+    public int FLINT_AND_TINDER_DURABILITY = 8;
+
+    @Config.Comment({
+        "Defines how many ticks it takes to start a fire while using the flint and tinder (default: 100)"
+    })
+    public int FLINT_AND_TINDER_USE_DURATION = 100;
   }
 
 }
