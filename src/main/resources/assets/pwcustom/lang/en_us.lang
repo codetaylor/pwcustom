@@ -355,6 +355,7 @@ item.pwcustom.cast_clay_unfired.bucket.name=Bucket Cast (Unfired Clay)
 tile.pwcustom.soul_gravel.name=Soul Gravel
 tile.pwcustom.ore.fossil_ore.name=Fossil Ore
 
+item.pwcustom.crafting_part.flint_shard.name=Flint Shard
 item.pwcustom.crafting_part.bow_limb_wooden.name=Wooden Bow Limb
 
 item.pwcustom.crafting_part.crafting_rune_common.name=Common Crafting Rune
