@@ -1,9 +1,11 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.compat.waila;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.IProgressProvider;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarTankBase;
 import com.sudoplay.mc.pwcustom.library.util.Util;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnBrick;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnBrickTop;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnPit;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarTankBase;
 import mcp.mobius.waila.api.IWailaRegistrar;
 
 public class WailaRegistrar {
@@ -21,7 +23,11 @@ public class WailaRegistrar {
     registrar.registerBodyProvider(tankDataProvider, TileTarTankBase.class);
 
     KilnPitDataProvider pitKilnDataProvider = new KilnPitDataProvider();
-    registrar.registerBodyProvider(pitKilnDataProvider, IProgressProvider.class);
+    registrar.registerBodyProvider(pitKilnDataProvider, TileKilnPit.class);
+
+    KilnBrickDataProvider kilnBrickDataProvider = new KilnBrickDataProvider();
+    registrar.registerBodyProvider(kilnBrickDataProvider, TileKilnBrick.class);
+    registrar.registerBodyProvider(kilnBrickDataProvider, TileKilnBrickTop.class);
   }
 
 }
