@@ -1,0 +1,32 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "pwcustom:kiln_brick"
+  },
+  "variants": {
+    "facing": {
+      "north": {
+      },
+      "east": {
+        "y": 90
+      },
+      "south": {
+        "y": 180
+      },
+      "west": {
+        "y": 270
+      }
+    },
+    "type": {
+      "top": {
+        "model": "pwcustom:kiln_brick_top"
+      },
+      "bottom": {
+        "model": "pwcustom:kiln_brick"
+      },
+      "bottom_lit": {
+        "model": "pwcustom:kiln_brick_lit"
+      }
+    }
+  }
+}

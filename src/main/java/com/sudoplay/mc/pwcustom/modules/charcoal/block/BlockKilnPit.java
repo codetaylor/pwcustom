@@ -5,8 +5,8 @@ import com.codetaylor.mc.athenaeum.spi.IVariant;
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.codetaylor.mc.athenaeum.util.StackHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnPitRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnPit;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -36,17 +36,17 @@ import java.util.Comparator;
 import java.util.Random;
 import java.util.stream.Stream;
 
-public class BlockKiln
+public class BlockKilnPit
     extends Block
-    implements IBlockVariant<BlockKiln.EnumType> {
+    implements IBlockVariant<BlockKilnPit.EnumType> {
 
-  public static final String NAME = "kiln";
+  public static final String NAME = "kiln_pit";
 
   public static final IProperty<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class);
   public static final AxisAlignedBB AABB_EMPTY = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.1875D, 1.0D);
   public static final AxisAlignedBB AABB_THATCH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 10D / 16D, 1.0D);
 
-  public BlockKiln() {
+  public BlockKilnPit() {
 
     super(Material.WOOD);
     this.setHardness(0.6f);
@@ -175,8 +175,8 @@ public class BlockKiln
 
     TileEntity tileEntity = worldIn.getTileEntity(pos);
 
-    if (tileEntity instanceof TileKiln) {
-      ((TileKiln) tileEntity).setNeedStructureValidation();
+    if (tileEntity instanceof TileKilnPit) {
+      ((TileKilnPit) tileEntity).setNeedStructureValidation();
     }
   }
 
@@ -210,7 +210,7 @@ public class BlockKiln
   @Override
   public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
 
-    return new TileKiln();
+    return new TileKilnPit();
   }
 
   @Override
@@ -228,11 +228,11 @@ public class BlockKiln
 
     TileEntity tileEntity = world.getTileEntity(pos);
 
-    if (!(tileEntity instanceof TileKiln)) {
+    if (!(tileEntity instanceof TileKilnPit)) {
       return false;
     }
 
-    TileKiln tileKiln = (TileKiln) tileEntity;
+    TileKilnPit tileKiln = (TileKilnPit) tileEntity;
     ItemStack heldItem = player.getHeldItem(hand);
 
     switch (state.getValue(VARIANT)) {
@@ -262,7 +262,7 @@ public class BlockKiln
             return true;
           }
 
-          PitKilnRecipe recipe = PitKilnRecipe.getRecipe(heldItem);
+          KilnPitRecipe recipe = KilnPitRecipe.getRecipe(heldItem);
 
           if (recipe != null) {
 
@@ -343,8 +343,8 @@ public class BlockKiln
 
     TileEntity tileEntity = worldIn.getTileEntity(pos);
 
-    if (tileEntity instanceof TileKiln) {
-      TileKiln tileKiln = (TileKiln) tileEntity;
+    if (tileEntity instanceof TileKilnPit) {
+      TileKilnPit tileKiln = (TileKilnPit) tileEntity;
       ItemStackHandler stackHandler = tileKiln.getStackHandler();
       StackHelper.spawnStackOnTop(worldIn, stackHandler.getStackInSlot(0), pos);
       stackHandler = tileKiln.getOutputStackHandler();

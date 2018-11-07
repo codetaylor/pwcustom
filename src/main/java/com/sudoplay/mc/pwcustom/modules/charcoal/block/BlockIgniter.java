@@ -2,10 +2,11 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
 import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import com.sudoplay.mc.pwcustom.modules.charcoal.event.IgnitionHandler;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnBrick;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarCollector;
-import com.sudoplay.mc.pwcustom.library.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -110,8 +111,15 @@ public class BlockIgniter
       if (Util.canSetFire(world, offset)) {
         world.setBlockState(offset, Blocks.FIRE.getDefaultState(), 3);
 
-      } else if (facingBlock == ModuleBlocks.KILN
-          && facingBlockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.WOOD
+      } else if (facingBlock == ModuleBlocks.KILN_BRICK) {
+        TileEntity tileEntity = world.getTileEntity(offset);
+
+        if (tileEntity instanceof TileKilnBrick) {
+          ((TileKilnBrick) tileEntity).setActive(true);
+        }
+
+      } else if (facingBlock == ModuleBlocks.KILN_PIT
+          && facingBlockState.getValue(BlockKilnPit.VARIANT) == BlockKilnPit.EnumType.WOOD
           && Util.canSetFire(world, offset.up())) {
         world.setBlockState(offset.up(), Blocks.FIRE.getDefaultState(), 3);
 

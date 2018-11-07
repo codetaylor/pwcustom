@@ -20,7 +20,7 @@ public class WailaRegistrar {
     TankDataProvider tankDataProvider = new TankDataProvider();
     registrar.registerBodyProvider(tankDataProvider, TileTarTankBase.class);
 
-    PitKilnDataProvider pitKilnDataProvider = new PitKilnDataProvider();
+    KilnPitDataProvider pitKilnDataProvider = new KilnPitDataProvider();
     registrar.registerBodyProvider(pitKilnDataProvider, IProgressProvider.class);
   }
 

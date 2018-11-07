@@ -512,9 +512,10 @@ tile.pwcustom.tar_drain.brick.name=Refractory Drain
 tile.pwcustom.igniter.stone.name=Stone Igniter
 tile.pwcustom.igniter.brick.name=Refractory Igniter
 tile.pwcustom.refractory_brick_block.name=Refractory Block
-tile.pwcustom.kiln.name=Pit Kiln
+tile.pwcustom.kiln_pit.name=Pit Kiln
 tile.pwcustom.limestone.name=Limestone
 tile.pwcustom.refractory_glass.name=Refractory Glass
+tile.pwcustom.kiln_brick.name=Brick Kiln
 
 # --- Waila plugin
 
@@ -528,6 +529,7 @@ gui.pwcustom.waila.result=Result:
 
 # --- JEI plugin
 
-gui.pwcustom.jei.category.kiln.pit=Pit Firing
+gui.pwcustom.jei.category.kiln.pit=Pit Kiln Firing
+gui.pwcustom.jei.category.kiln.brick=Brick Kiln Firing
 gui.pwcustom.jei.category.burn.pit=Pit Burning
 gui.pwcustom.jei.category.burn.refractory=Refractory Burning

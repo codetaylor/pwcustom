@@ -3,16 +3,16 @@
   "variants": {
     "variant": {
       "empty": {
-        "model": "pwcustom:kiln_empty"
+        "model": "pwcustom:kiln_pit_empty"
       },
       "thatch": {
-        "model": "pwcustom:kiln_thatch"
+        "model": "pwcustom:kiln_pit_thatch"
       },
       "wood": {
-        "model": "pwcustom:kiln_wood"
+        "model": "pwcustom:kiln_pit_wood"
       },
       "active": {
-        "model": "pwcustom:kiln_active"
+        "model": "pwcustom:kiln_pit_active"
       },
       "complete": {
         "model": "pwcustom:ash_block"

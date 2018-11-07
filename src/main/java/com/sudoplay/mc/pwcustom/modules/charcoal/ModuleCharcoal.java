@@ -8,12 +8,13 @@ import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.codetaylor.mc.athenaeum.registry.Registry;
 import com.sudoplay.mc.pwcustom.ModPWCustom;
 import com.sudoplay.mc.pwcustom.library.fluid.CPacketFluidUpdate;
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitBurnRecipe;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
 import com.sudoplay.mc.pwcustom.library.util.BlockMetaMatcher;
 import com.sudoplay.mc.pwcustom.library.util.Util;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnBrickRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnPitRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitBurnRecipe;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -56,7 +57,12 @@ public class ModuleCharcoal
 
     this.registerIntegrationPlugin(
         "crafttweaker",
-        "com.sudoplay.mc.pwcustom.modules.charcoal.compat.crafttweaker.ZenPitKiln"
+        "com.sudoplay.mc.pwcustom.modules.charcoal.compat.crafttweaker.ZenKilnPit"
+    );
+
+    this.registerIntegrationPlugin(
+        "crafttweaker",
+        "com.sudoplay.mc.pwcustom.modules.charcoal.compat.crafttweaker.ZenKilnBrick"
     );
 
     this.registerIntegrationPlugin(
@@ -78,9 +84,14 @@ public class ModuleCharcoal
         .setType(PitBurnRecipe.class)
         .create();
 
-    new RegistryBuilder<PitKilnRecipe>()
-        .setName(new ResourceLocation(MOD_ID, "kiln_recipe"))
-        .setType(PitKilnRecipe.class)
+    new RegistryBuilder<KilnPitRecipe>()
+        .setName(new ResourceLocation(MOD_ID, "kiln_pit_recipe"))
+        .setType(KilnPitRecipe.class)
+        .create();
+
+    new RegistryBuilder<KilnBrickRecipe>()
+        .setName(new ResourceLocation(MOD_ID, "kiln_brick_recipe"))
+        .setType(KilnBrickRecipe.class)
         .create();
   }
 

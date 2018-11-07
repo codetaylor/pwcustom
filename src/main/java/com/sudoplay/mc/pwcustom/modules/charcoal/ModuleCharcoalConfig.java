@@ -12,6 +12,18 @@ import java.util.Map;
 @Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + "/" + ModuleCharcoal.MOD_ID + ".module.Charcoal")
 public class ModuleCharcoalConfig {
 
+  public static BrickKiln BRICK_KILN = new BrickKiln();
+
+  public static class BrickKiln {
+
+    @Config.Comment({
+        "Set to true to deactivate the kiln when a recipe completes.",
+        "The kiln will need to be re-lit when it deactivates.",
+        "Default: false"
+    })
+    public boolean KEEP_HEAT = false;
+  }
+
   public static PitKiln PIT_KILN = new PitKiln();
 
   public static class PitKiln {

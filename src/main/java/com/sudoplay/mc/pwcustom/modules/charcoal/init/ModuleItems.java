@@ -24,7 +24,7 @@ public class ModuleItems {
     registry.registerItem(ModuleItems.BOW_DRILL, ItemBowDrill.NAME);
     registry.registerItem(ModuleItems.FLINT_AND_TINDER, ItemFlintAndTinder.NAME);
     registry.registerItem(ModuleItems.REFRACTORY_DOOR, ModuleBlocks.REFRACTORY_DOOR.getRegistryName());
-    registry.registerItem(new ItemBlock(ModuleBlocks.KILN), ModuleBlocks.KILN.getRegistryName());
+    registry.registerItem(new ItemBlock(ModuleBlocks.KILN_PIT), ModuleBlocks.KILN_PIT.getRegistryName());
   }
 
   @SideOnly(Side.CLIENT)

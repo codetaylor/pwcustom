@@ -1,10 +1,10 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.event;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKilnPit;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitBurnRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileActivePile;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnPit;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileTarCollector;
 import com.sudoplay.mc.pwcustom.modules.charcoal.util.FloodFill;
 import com.sudoplay.mc.pwcustom.library.util.Util;
@@ -84,14 +84,14 @@ public class IgnitionHandler {
       Block block = blockState.getBlock();
 
       if (facing == EnumFacing.DOWN
-          && block == ModuleBlocks.KILN) {
+          && block == ModuleBlocks.KILN_PIT) {
 
-        if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.WOOD) {
-          world.setBlockState(offset, blockState.withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.ACTIVE));
+        if (blockState.getValue(BlockKilnPit.VARIANT) == BlockKilnPit.EnumType.WOOD) {
+          world.setBlockState(offset, blockState.withProperty(BlockKilnPit.VARIANT, BlockKilnPit.EnumType.ACTIVE));
           TileEntity tileEntity = world.getTileEntity(offset);
 
-          if (tileEntity instanceof TileKiln) {
-            ((TileKiln) tileEntity).setActive(true);
+          if (tileEntity instanceof TileKilnPit) {
+            ((TileKilnPit) tileEntity).setActive(true);
           }
         }
 

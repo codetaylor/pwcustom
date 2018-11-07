@@ -1,6 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.compat.jei;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnPitRecipe;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.item.ItemStack;
 
@@ -9,13 +9,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class JEIRecipeWrapperPitKiln
+public class JEIRecipeWrapperKilnPit
     extends JEIRecipeWrapperTimed {
 
   private final List<List<ItemStack>> inputs;
   private final ItemStack output;
 
-  public JEIRecipeWrapperPitKiln(PitKilnRecipe recipe) {
+  public JEIRecipeWrapperKilnPit(KilnPitRecipe recipe) {
 
     super(recipe);
 

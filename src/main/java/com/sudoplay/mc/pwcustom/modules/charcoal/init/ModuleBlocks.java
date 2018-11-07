@@ -3,7 +3,8 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.init;
 import com.codetaylor.mc.athenaeum.registry.Registry;
 import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
-import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKilnPit;
+import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKilnBrick;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRTarCollector;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.*;
 import net.minecraft.block.BlockDoor;
@@ -21,19 +22,20 @@ public class ModuleBlocks {
   public static final BlockTarCollector TAR_COLLECTOR = new BlockTarCollector();
   public static final BlockTarDrain TAR_DRAIN = new BlockTarDrain();
   public static final BlockRefractoryBrick REFRACTORY_BRICK = new BlockRefractoryBrick();
-  public static final BlockKiln KILN = new BlockKiln();
+  public static final BlockKilnPit KILN_PIT = new BlockKilnPit();
   public static final BlockIgniter IGNITER = new BlockIgniter();
   public static final BlockPitAsh PIT_ASH_BLOCK = new BlockPitAsh();
   public static final BlockActivePile ACTIVE_PILE = new BlockActivePile();
   public static final BlockRefractoryDoor REFRACTORY_DOOR = new BlockRefractoryDoor();
   public static final BlockLimestone LIMESTONE = new BlockLimestone();
   public static final BlockRefractoryGlass REFRACTORY_GLASS = new BlockRefractoryGlass();
+  public static final BlockKilnBrick KILN_BRICK = new BlockKilnBrick();
 
   public static void onRegister(Registry registry) {
 
     registry.registerBlock(ModuleBlocks.ACTIVE_PILE, BlockActivePile.NAME);
     registry.registerBlock(ModuleBlocks.PIT_ASH_BLOCK, BlockPitAsh.NAME);
-    registry.registerBlock(ModuleBlocks.KILN, BlockKiln.NAME);
+    registry.registerBlock(ModuleBlocks.KILN_PIT, BlockKilnPit.NAME);
     registry.registerBlock(ModuleBlocks.REFRACTORY_DOOR, BlockRefractoryDoor.NAME);
 
     registry.registerBlockWithItem(ModuleBlocks.LOG_PILE, BlockLogPile.NAME);
@@ -45,13 +47,16 @@ public class ModuleBlocks {
     registry.registerBlockWithItem(ModuleBlocks.IGNITER, BlockIgniter.NAME);
     registry.registerBlockWithItem(ModuleBlocks.LIMESTONE, BlockLimestone.NAME);
     registry.registerBlockWithItem(ModuleBlocks.REFRACTORY_GLASS, BlockRefractoryGlass.NAME);
+    registry.registerBlockWithItem(ModuleBlocks.KILN_BRICK, BlockKilnBrick.NAME);
 
     registry.registerTileEntities(
         TileTarCollector.class,
         TileTarDrain.class,
-        TileKiln.class,
+        TileKilnPit.class,
         TilePitAsh.class,
-        TileActivePile.class
+        TileActivePile.class,
+        TileKilnBrick.class,
+        TileKilnBrickTop.class
     );
   }
 
@@ -66,7 +71,8 @@ public class ModuleBlocks {
           ModuleBlocks.THATCH,
           ModuleBlocks.REFRACTORY_BRICK,
           ModuleBlocks.LIMESTONE,
-          ModuleBlocks.REFRACTORY_GLASS
+          ModuleBlocks.REFRACTORY_GLASS,
+          ModuleBlocks.KILN_BRICK
       );
 
       ModelLoader.setCustomStateMapper(
@@ -74,8 +80,8 @@ public class ModuleBlocks {
           (new StateMap.Builder()).ignore(BlockDoor.POWERED).build()
       );
 
-      ModelRegistrationHelper.registerBlockItemModel(ModuleBlocks.KILN.getDefaultState()
-          .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.EMPTY));
+      ModelRegistrationHelper.registerBlockItemModel(ModuleBlocks.KILN_PIT.getDefaultState()
+          .withProperty(BlockKilnPit.VARIANT, BlockKilnPit.EnumType.EMPTY));
 
       // tar collector
       ModelRegistrationHelper.registerVariantBlockItemModels(
@@ -96,12 +102,16 @@ public class ModuleBlocks {
       );
 
       ClientRegistry.bindTileEntitySpecialRenderer(
-          TileKiln.class,
-          new TESRKiln()
+          TileKilnPit.class,
+          new TESRKilnPit()
       );
       ClientRegistry.bindTileEntitySpecialRenderer(
           TileTarCollector.class,
           new TESRTarCollector()
+      );
+      ClientRegistry.bindTileEntitySpecialRenderer(
+          TileKilnBrick.class,
+          new TESRKilnBrick()
       );
 
     });

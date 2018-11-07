@@ -1,9 +1,9 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.compat.waila;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoal;
-import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKilnPit;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnPitRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnPit;
 import com.sudoplay.mc.pwcustom.library.util.Util;
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -20,7 +20,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class PitKilnDataProvider
+public class KilnPitDataProvider
     implements IWailaDataProvider {
 
   @Nonnull
@@ -52,14 +52,14 @@ public class PitKilnDataProvider
   ) {
 
     if (config.getConfig(WailaRegistrar.CONFIG_PROGRESS)
-        && accessor.getTileEntity() instanceof TileKiln) {
+        && accessor.getTileEntity() instanceof TileKilnPit) {
 
       IBlockState blockState = accessor.getBlockState();
-      TileKiln tileKiln = (TileKiln) accessor.getTileEntity();
+      TileKilnPit tileKiln = (TileKilnPit) accessor.getTileEntity();
       float progress = tileKiln.getProgress();
       ItemStackHandler stackHandler = tileKiln.getStackHandler();
       ItemStack input = stackHandler.getStackInSlot(0);
-      PitKilnRecipe recipe = PitKilnRecipe.getRecipe(input);
+      KilnPitRecipe recipe = KilnPitRecipe.getRecipe(input);
       ItemStack output = ItemStack.EMPTY;
 
       StringBuilder renderString = new StringBuilder();
@@ -69,7 +69,7 @@ public class PitKilnDataProvider
         output.setCount(input.getCount());
       }
 
-      if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.COMPLETE) {
+      if (blockState.getValue(BlockKilnPit.VARIANT) == BlockKilnPit.EnumType.COMPLETE) {
 
         tooltip.add(Util.translate("gui." + ModuleCharcoal.MOD_ID + ".waila.kiln.pit.finished"));
 
@@ -103,10 +103,10 @@ public class PitKilnDataProvider
 
         } else {
 
-          if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.WOOD) {
+          if (blockState.getValue(BlockKilnPit.VARIANT) == BlockKilnPit.EnumType.WOOD) {
             tooltip.add(Util.translate("gui." + ModuleCharcoal.MOD_ID + ".waila.kiln.pit.ready"));
 
-          } else if (blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.ACTIVE) {
+          } else if (blockState.getValue(BlockKilnPit.VARIANT) == BlockKilnPit.EnumType.ACTIVE) {
             tooltip.add(Util.translateFormatted(
                 "gui." + ModuleCharcoal.MOD_ID + ".waila.kiln.pit.active",
                 Util.DF_PERCENT.format(progress)

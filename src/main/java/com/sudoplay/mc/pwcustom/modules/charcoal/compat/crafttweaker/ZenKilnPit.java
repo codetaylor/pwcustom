@@ -1,7 +1,7 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.compat.crafttweaker;
 
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnPitRecipe;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
@@ -14,12 +14,12 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @ZenClass("mods.pwcustom.PitKiln")
-public class ZenPitKiln {
+public class ZenKilnPit {
 
   @ZenMethod
   public static void addRecipe(String name, IItemStack output, IIngredient input, int burnTimeTicks) {
 
-    ZenPitKiln.addRecipe(name, output, input, burnTimeTicks, 0, new IItemStack[0]);
+    ZenKilnPit.addRecipe(name, output, input, burnTimeTicks, 0, new IItemStack[0]);
   }
 
   @ZenMethod
@@ -31,7 +31,7 @@ public class ZenPitKiln {
       float failureChance
   ) {
 
-    ZenPitKiln.addRecipe(name, output, input, burnTimeTicks, failureChance, new IItemStack[0]);
+    ZenKilnPit.addRecipe(name, output, input, burnTimeTicks, failureChance, new IItemStack[0]);
   }
 
   @ZenMethod
@@ -84,14 +84,14 @@ public class ZenPitKiln {
     @Override
     public void apply() {
 
-      PitKilnRecipe recipe = new PitKilnRecipe(
+      KilnPitRecipe recipe = new KilnPitRecipe(
           this.input,
           this.output,
           this.burnTimeTicks,
           this.failureChance,
           this.failureItems
       );
-      Registries.KILN_RECIPE.register(recipe.setRegistryName(new ResourceLocation("crafttweaker", this.name)));
+      Registries.KILN_PIT_RECIPE.register(recipe.setRegistryName(new ResourceLocation("crafttweaker", this.name)));
     }
 
     @Override

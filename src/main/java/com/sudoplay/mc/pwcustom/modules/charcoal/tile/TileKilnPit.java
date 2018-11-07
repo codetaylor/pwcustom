@@ -2,10 +2,10 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.Registries;
-import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKilnPit;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemMaterial;
-import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.PitKilnRecipe;
+import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnPitRecipe;
 import com.sudoplay.mc.pwcustom.library.util.Util;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
-public class TileKiln
+public class TileKilnPit
     extends TileBurnableBase
     implements ITickable,
     IProgressProvider {
@@ -42,7 +42,7 @@ public class TileKiln
   private EntityItem entityItem;
   private int ticksSinceLastClientSync;
 
-  public TileKiln() {
+  public TileKilnPit() {
 
     this.stackHandler = new ItemStackHandler(1) {
 
@@ -55,7 +55,7 @@ public class TileKiln
       @Override
       protected void onContentsChanged(int slot) {
 
-        TileKiln.this.entityItem = null;
+        TileKilnPit.this.entityItem = null;
       }
     };
 
@@ -146,8 +146,8 @@ public class TileKiln
 
     if (this.world.isRainingAt(this.pos)) {
       // set back to wood state and douse fire
-      IBlockState blockState = ModuleBlocks.KILN.getDefaultState()
-          .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.WOOD);
+      IBlockState blockState = ModuleBlocks.KILN_PIT.getDefaultState()
+          .withProperty(BlockKilnPit.VARIANT, BlockKilnPit.EnumType.WOOD);
       this.world.setBlockState(this.pos, blockState);
 
       BlockPos up = this.pos.up();
@@ -193,7 +193,7 @@ public class TileKiln
     // clear fire block above if it exists
 
     ItemStack input = this.stackHandler.getStackInSlot(0);
-    PitKilnRecipe recipe = PitKilnRecipe.getRecipe(input);
+    KilnPitRecipe recipe = KilnPitRecipe.getRecipe(input);
 
     if (!input.isEmpty()
         && recipe != null) {
@@ -217,8 +217,8 @@ public class TileKiln
     }
 
     this.setActive(false);
-    IBlockState blockState = ModuleBlocks.KILN.getDefaultState()
-        .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.COMPLETE);
+    IBlockState blockState = ModuleBlocks.KILN_PIT.getDefaultState()
+        .withProperty(BlockKilnPit.VARIANT, BlockKilnPit.EnumType.COMPLETE);
     this.world.setBlockState(this.pos, blockState);
     this.world.setBlockToAir(this.pos.up());
   }
@@ -233,8 +233,8 @@ public class TileKiln
 
     IBlockState selfBlockState = this.world.getBlockState(this.pos);
 
-    if (selfBlockState.getValue(BlockKiln.VARIANT) != BlockKiln.EnumType.WOOD
-        && selfBlockState.getValue(BlockKiln.VARIANT) != BlockKiln.EnumType.ACTIVE) {
+    if (selfBlockState.getValue(BlockKilnPit.VARIANT) != BlockKilnPit.EnumType.WOOD
+        && selfBlockState.getValue(BlockKilnPit.VARIANT) != BlockKilnPit.EnumType.ACTIVE) {
       return false;
     }
 
@@ -282,7 +282,7 @@ public class TileKiln
     // set stack handler items to recipe result
 
     ItemStack input = this.stackHandler.getStackInSlot(0);
-    PitKilnRecipe recipe = PitKilnRecipe.getRecipe(input);
+    KilnPitRecipe recipe = KilnPitRecipe.getRecipe(input);
 
     if (recipe != null) {
       ItemStack output = recipe.getOutput();
@@ -316,8 +316,8 @@ public class TileKiln
     this.insertOutputItem(ItemMaterial.EnumType.PIT_ASH.asStack(ashCount));
 
     this.setActive(false);
-    IBlockState blockState = ModuleBlocks.KILN.getDefaultState()
-        .withProperty(BlockKiln.VARIANT, BlockKiln.EnumType.COMPLETE);
+    IBlockState blockState = ModuleBlocks.KILN_PIT.getDefaultState()
+        .withProperty(BlockKilnPit.VARIANT, BlockKilnPit.EnumType.COMPLETE);
     this.world.setBlockState(this.pos, blockState);
     this.world.setBlockToAir(this.pos.up());
   }

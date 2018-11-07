@@ -1,8 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.client.render;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockKilnPit;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
-import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKiln;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnPit;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,11 +12,11 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class TESRKiln
-    extends TileEntitySpecialRenderer<TileKiln> {
+public class TESRKilnPit
+    extends TileEntitySpecialRenderer<TileKilnPit> {
 
   @Override
-  public void render(TileKiln te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+  public void render(TileKilnPit te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
     GlStateManager.pushAttrib();
     GlStateManager.pushMatrix();
@@ -26,8 +26,8 @@ public class TESRKiln
     World world = te.getWorld();
     IBlockState blockState = world.getBlockState(te.getPos());
 
-    if (blockState.getBlock() == ModuleBlocks.KILN
-        && blockState.getValue(BlockKiln.VARIANT) == BlockKiln.EnumType.EMPTY) {
+    if (blockState.getBlock() == ModuleBlocks.KILN_PIT
+        && blockState.getValue(BlockKilnPit.VARIANT) == BlockKilnPit.EnumType.EMPTY) {
 
       ItemStack stack = te.getStackHandler().getStackInSlot(0);
 

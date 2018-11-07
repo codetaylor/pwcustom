@@ -2,6 +2,8 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.item;
 
 import com.sudoplay.mc.pwcustom.library.util.Util;
 import com.sudoplay.mc.pwcustom.modules.charcoal.event.IgnitionHandler;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
+import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnBrick;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -9,6 +11,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -17,7 +20,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class ItemIgniterBase
+public abstract class ItemIgniterBase
     extends Item {
 
   @Nonnull
@@ -77,7 +80,28 @@ public class ItemIgniterBase
         BlockPos pos = rayTraceResult.getBlockPos();
         BlockPos offset = pos.offset(rayTraceResult.sideHit);
 
-        if (Util.canSetFire(world, offset)) {
+        if (world.getBlockState(pos).getBlock() == ModuleBlocks.KILN_BRICK) {
+
+          TileEntity tileEntity = world.getTileEntity(pos);
+
+          if (tileEntity instanceof TileKilnBrick) {
+            ((TileKilnBrick) tileEntity).setActive(true);
+          }
+
+          world.playSound(
+              null,
+              offset,
+              SoundEvents.ITEM_FLINTANDSTEEL_USE,
+              SoundCategory.BLOCKS,
+              1.0F,
+              Util.RANDOM.nextFloat() * 0.4F + 0.8F
+          );
+
+          if (!((EntityPlayer) player).isCreative()) {
+            stack.damageItem(1, player);
+          }
+
+        } else if (Util.canSetFire(world, offset)) {
           world.setBlockState(offset, Blocks.FIRE.getDefaultState(), 3);
           world.playSound(
               null,
