@@ -45,48 +45,6 @@ public class BlockKilnBrick
   public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
   public static final PropertyEnum<EnumType> TYPE = PropertyEnum.create("type", EnumType.class);
 
-  public enum EnumType
-      implements IVariant {
-
-    Top(0, "top"),
-    Bottom(1, "bottom"),
-    BottomLit(2, "bottom_lit");
-
-    private static final EnumType[] META_LOOKUP = Stream.of(EnumType.values())
-        .sorted(Comparator.comparing(EnumType::getMeta))
-        .toArray(EnumType[]::new);
-
-    private final int meta;
-    private final String name;
-
-    EnumType(int meta, String name) {
-
-      this.meta = meta;
-      this.name = name;
-    }
-
-    @Override
-    public int getMeta() {
-
-      return this.meta;
-    }
-
-    @Override
-    public String getName() {
-
-      return this.name;
-    }
-
-    public static EnumType fromMeta(int meta) {
-
-      if (meta < 0 || meta >= META_LOOKUP.length) {
-        meta = 0;
-      }
-
-      return META_LOOKUP[meta];
-    }
-  }
-
   public BlockKilnBrick() {
 
     super(Material.CLAY);
@@ -336,10 +294,6 @@ public class BlockKilnBrick
       return false;
     }
 
-    if (world.isRemote) {
-      return true;
-    }
-
     //System.out.println(String.format("(%f, %f, %f): %s == %s", hitX, hitY, hitZ, facing, state.getValue(FACING)));
 
     if (facing == state.getValue(FACING)) {
@@ -348,13 +302,16 @@ public class BlockKilnBrick
         // remove fuel
 
         ItemStackHandler stackHandler = tileKiln.getFuelStackHandler();
-        ItemStack itemStack = stackHandler.extractItem(0, 64, false);
+        ItemStack itemStack = stackHandler.extractItem(0, 64, world.isRemote);
 
-        if (!itemStack.isEmpty()) {
-          StackHelper.spawnStackOnTop(world, itemStack, pos);
+        if (!world.isRemote) {
+
+          if (!itemStack.isEmpty()) {
+            StackHelper.spawnStackOnTop(world, itemStack, pos);
+          }
+
+          BlockHelper.notifyBlockUpdate(world, pos);
         }
-
-        BlockHelper.notifyBlockUpdate(world, pos);
         return true;
 
       } else {
@@ -362,16 +319,22 @@ public class BlockKilnBrick
 
         if (StackHelper.isFuel(heldItem)) {
 
+          int count = heldItem.getCount();
           ItemStackHandler stackHandler = tileKiln.getFuelStackHandler();
-          player.setHeldItem(hand, stackHandler.insertItem(0, heldItem, false));
-          BlockHelper.notifyBlockUpdate(world, pos);
+          ItemStack itemStack = stackHandler.insertItem(0, heldItem, world.isRemote);
 
-          return true;
+          if (count != itemStack.getCount()) {
+
+            if (!world.isRemote) {
+              player.setHeldItem(hand, itemStack);
+              BlockHelper.notifyBlockUpdate(world, pos);
+            }
+            return true;
+          }
         }
-
       }
 
-      return true;
+      return false;
     }
 
     return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
@@ -459,7 +422,8 @@ public class BlockKilnBrick
       TileEntity tileEntity = world.getTileEntity(pos.down());
 
       if (tileEntity instanceof TileKilnBrick
-          && ((TileKilnBrick) tileEntity).isActive()) {
+          && ((TileKilnBrick) tileEntity).isActive()
+          && ((TileKilnBrick) tileEntity).isFiring()) {
 
         double centerX = pos.getX() + 0.5;
         double centerY = pos.getY() + 0.25;
@@ -514,6 +478,67 @@ public class BlockKilnBrick
         }
       }
     }
+  }
 
+  @Nonnull
+  @Override
+  public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
+
+    if (state.getValue(TYPE) == EnumType.Bottom) {
+
+      TileEntity tileEntity = world.getTileEntity(pos);
+
+      if (tileEntity instanceof TileKilnBrick
+          && ((TileKilnBrick) tileEntity).getRemainingBurnTimeTicks() > 0) {
+
+        return state.withProperty(TYPE, EnumType.BottomDormant);
+      }
+    }
+
+    return state;
+  }
+
+  public enum EnumType
+      implements IVariant {
+
+    Top(0, "top"),
+    Bottom(1, "bottom"),
+    BottomLit(2, "bottom_lit"),
+    BottomDormant(3, "bottom_dormant");
+
+    private static final EnumType[] META_LOOKUP = Stream.of(EnumType.values())
+        .sorted(Comparator.comparing(EnumType::getMeta))
+        .toArray(EnumType[]::new);
+
+    private final int meta;
+    private final String name;
+
+    EnumType(int meta, String name) {
+
+      this.meta = meta;
+      this.name = name;
+    }
+
+    @Override
+    public int getMeta() {
+
+      return this.meta;
+    }
+
+    @Nonnull
+    @Override
+    public String getName() {
+
+      return this.name;
+    }
+
+    public static EnumType fromMeta(int meta) {
+
+      if (meta < 0 || meta >= META_LOOKUP.length) {
+        meta = 0;
+      }
+
+      return META_LOOKUP[meta];
+    }
   }
 }

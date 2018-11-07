@@ -4,7 +4,7 @@
     "side": "pwcustom:blocks/kiln_brick_side",
     "top": "pwcustom:blocks/kiln_brick_top",
     "dark": "pwcustom:blocks/kiln_brick_dark",
-    "lit": "pwcustom:blocks/active_pile",
+    "ash": "pwcustom:blocks/ash_coal",
     "particle": "pwcustom:blocks/kiln_brick_side"
   },
   "elements": [
@@ -190,9 +190,9 @@
     },
     {
       "from": [2, 1, 2],
-      "to": [14, 3, 14],
+      "to": [14, 2, 14],
       "faces": {
-        "up": {"uv": [2, 2, 14, 14], "texture": "#lit"}
+        "up": {"uv": [2, 2, 14, 14], "texture": "#ash"}
       }
     }
   ]

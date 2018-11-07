@@ -26,6 +26,9 @@
       },
       "bottom_lit": {
         "model": "pwcustom:kiln_brick_lit"
+      },
+      "bottom_dormant": {
+        "model": "pwcustom:kiln_brick_dormant"
       }
     }
   }

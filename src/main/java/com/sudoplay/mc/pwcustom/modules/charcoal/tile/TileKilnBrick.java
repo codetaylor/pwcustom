@@ -31,11 +31,14 @@ public class TileKilnBrick
     implements ITickable,
     IProgressProvider {
 
+  private static final int DORMANT_COUNTER = 20;
+
   private ItemStackHandler fuelStackHandler;
   private ItemStackHandler stackHandler;
   private ItemStackHandler outputStackHandler;
   private int remainingRecipeTimeTicks;
   private int remainingBurnTimeTicks;
+  private int dormantCounter;
 
   // transient
   private EntityItem entityItem;
@@ -44,6 +47,8 @@ public class TileKilnBrick
   private int ticksSinceLastClientSync;
 
   public TileKilnBrick() {
+
+    this.dormantCounter = DORMANT_COUNTER;
 
     this.stackHandler = new ItemStackHandler(1) {
 
@@ -75,6 +80,7 @@ public class TileKilnBrick
         }
 
         TileKilnBrick.this.markDirty();
+        BlockHelper.notifyBlockUpdate(TileKilnBrick.this.world, TileKilnBrick.this.pos);
       }
 
       @Nonnull
@@ -89,9 +95,7 @@ public class TileKilnBrick
           return stack;
         }
 
-        ItemStack itemStack = super.insertItem(slot, stack, simulate);
-        BlockHelper.notifyBlockUpdate(TileKilnBrick.this.world, TileKilnBrick.this.pos);
-        return itemStack;
+        return super.insertItem(slot, stack, simulate);
       }
     };
 
@@ -100,8 +104,8 @@ public class TileKilnBrick
       @Override
       protected void onContentsChanged(int slot) {
 
-        super.onContentsChanged(slot);
         TileKilnBrick.this.markDirty();
+        BlockHelper.notifyBlockUpdate(TileKilnBrick.this.world, TileKilnBrick.this.pos);
       }
     };
 
@@ -116,8 +120,8 @@ public class TileKilnBrick
       @Override
       protected void onContentsChanged(int slot) {
 
-        super.onContentsChanged(slot);
         TileKilnBrick.this.markDirty();
+        BlockHelper.notifyBlockUpdate(TileKilnBrick.this.world, TileKilnBrick.this.pos);
       }
 
       @Nonnull
@@ -135,6 +139,11 @@ public class TileKilnBrick
         return itemStack;
       }
     };
+  }
+
+  public int getRemainingBurnTimeTicks() {
+
+    return this.remainingBurnTimeTicks;
   }
 
   @Override
@@ -188,8 +197,10 @@ public class TileKilnBrick
 
     if (value && !active) {
 
-      blockState = blockState.withProperty(BlockKilnBrick.TYPE, BlockKilnBrick.EnumType.BottomLit);
-      this.world.setBlockState(this.pos, blockState, 3);
+      if (this.hasFuel()) {
+        blockState = blockState.withProperty(BlockKilnBrick.TYPE, BlockKilnBrick.EnumType.BottomLit);
+        this.world.setBlockState(this.pos, blockState, 3);
+      }
 
     } else if (!value && active) {
 
@@ -203,9 +214,15 @@ public class TileKilnBrick
     return (this.world.getBlockState(this.pos).getValue(BlockKilnBrick.TYPE) == BlockKilnBrick.EnumType.BottomLit);
   }
 
-  public void setRemainingRecipeTimeTicks(int remainingRecipeTimeTicks) {
+  public boolean isFiring() {
 
-    this.remainingRecipeTimeTicks = remainingRecipeTimeTicks;
+    return !this.stackHandler.getStackInSlot(0).isEmpty();
+  }
+
+  public boolean hasFuel() {
+
+    return this.remainingBurnTimeTicks > 0
+        || !this.fuelStackHandler.getStackInSlot(0).isEmpty();
   }
 
   public EntityItem getEntityItem() {
@@ -280,8 +297,25 @@ public class TileKilnBrick
       return;
     }
 
+    this.markDirty();
+
+    if (ModuleCharcoalConfig.BRICK_KILN.KEEP_HEAT
+        && !this.isFiring()
+        && this.dormantCounter > 0) {
+
+      this.dormantCounter -= 1;
+    }
+
+    if (this.dormantCounter == 0) {
+      this.setActive(false);
+    }
+
     if (!this.isActive()) {
       return;
+    }
+
+    if (this.isFiring()) {
+      this.dormantCounter = DORMANT_COUNTER;
     }
 
     boolean forceUpdate = false;
@@ -312,6 +346,8 @@ public class TileKilnBrick
       if (this.remainingRecipeTimeTicks == 0) {
         this.onComplete();
       }
+
+      forceUpdate = true;
     }
 
     this.ticksSinceLastClientSync += 1;
@@ -322,7 +358,7 @@ public class TileKilnBrick
       BlockHelper.notifyBlockUpdate(this.world, this.pos);
     }
 
-    this.markDirty();
+    //this.markDirty();
   }
 
   protected void onComplete() {
@@ -359,9 +395,9 @@ public class TileKilnBrick
       }
     }
 
-    if (ModuleCharcoalConfig.BRICK_KILN.KEEP_HEAT) {
+    /*if (ModuleCharcoalConfig.BRICK_KILN.KEEP_HEAT) {
       this.setActive(false);
-    }
+    }*/
   }
 
   private void insertOutputItem(ItemStack output) {
