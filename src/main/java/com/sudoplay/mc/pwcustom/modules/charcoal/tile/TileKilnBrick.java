@@ -31,7 +31,7 @@ public class TileKilnBrick
     implements ITickable,
     IProgressProvider {
 
-  private static final int DORMANT_COUNTER = 20;
+  private static final int DORMANT_COUNTER = 50;
 
   private ItemStackHandler fuelStackHandler;
   private ItemStackHandler stackHandler;
@@ -79,6 +79,7 @@ public class TileKilnBrick
           }
         }
 
+        TileKilnBrick.this.dormantCounter = DORMANT_COUNTER;
         TileKilnBrick.this.markDirty();
         BlockHelper.notifyBlockUpdate(TileKilnBrick.this.world, TileKilnBrick.this.pos);
       }
@@ -91,7 +92,8 @@ public class TileKilnBrick
 
         KilnBrickRecipe recipe = KilnBrickRecipe.getRecipe(stack);
 
-        if (recipe == null) {
+        if (recipe == null
+            || !TileKilnBrick.this.getOutputStackHandler().getStackInSlot(0).isEmpty()) {
           return stack;
         }
 
@@ -104,6 +106,7 @@ public class TileKilnBrick
       @Override
       protected void onContentsChanged(int slot) {
 
+        TileKilnBrick.this.dormantCounter = DORMANT_COUNTER;
         TileKilnBrick.this.markDirty();
         BlockHelper.notifyBlockUpdate(TileKilnBrick.this.world, TileKilnBrick.this.pos);
       }
@@ -216,7 +219,8 @@ public class TileKilnBrick
 
   public boolean isFiring() {
 
-    return !this.stackHandler.getStackInSlot(0).isEmpty();
+    return this.hasFuel()
+        && !this.stackHandler.getStackInSlot(0).isEmpty();
   }
 
   public boolean hasFuel() {
@@ -270,9 +274,9 @@ public class TileKilnBrick
   @Override
   public float getProgress() {
 
-    if (!this.isActive()) {
-      return 0;
-    }
+//    if (!this.isActive()) {
+//      return 0;
+//    }
 
     ItemStack itemStack = this.getStackHandler().getStackInSlot(0);
 
@@ -299,8 +303,10 @@ public class TileKilnBrick
 
     this.markDirty();
 
-    if (ModuleCharcoalConfig.BRICK_KILN.KEEP_HEAT
-        && !this.isFiring()
+    if (this.isFiring()) {
+      this.dormantCounter = DORMANT_COUNTER;
+
+    } else if (ModuleCharcoalConfig.BRICK_KILN.KEEP_HEAT
         && this.dormantCounter > 0) {
 
       this.dormantCounter -= 1;
@@ -312,10 +318,6 @@ public class TileKilnBrick
 
     if (!this.isActive()) {
       return;
-    }
-
-    if (this.isFiring()) {
-      this.dormantCounter = DORMANT_COUNTER;
     }
 
     boolean forceUpdate = false;
