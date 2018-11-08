@@ -42,22 +42,25 @@ public class ModuleCharcoalConfig {
   public static class Refractory {
 
     @Config.Comment({
-        "Maximum chance for a recipe item to fail conversion."
+        "Maximum chance for a recipe item to fail conversion.",
+        "Default: 0.95"
     })
     public double MAX_FAILURE_CHANCE = 0.95;
 
     @Config.Comment({
-        "Minimum chance for a recipe item to fail conversion."
+        "Minimum chance for a recipe item to fail conversion.",
+        "Default: 0.05"
     })
     public double MIN_FAILURE_CHANCE = 0.05;
 
     @Config.Comment({
-        "The maximum fluid capacity of an active pile in mb"
+        "The maximum fluid capacity of an active pile in mb.",
+        "Default: 500"
     })
     public int ACTIVE_PILE_MAX_FLUID_CAPACITY = 500;
 
     @Config.Comment({
-        "The duration in ticks that different fluids will burn in the Tar Collector"
+        "The duration in ticks that different fluids will burn in the Tar Collector."
     })
     public Map<String, Integer> FLUID_BURN_TICKS = new HashMap<String, Integer>() {{
       this.put(ModuleFluids.WOOD_TAR.getName(), 20);
@@ -65,7 +68,8 @@ public class ModuleCharcoalConfig {
     }};
 
     @Config.Comment({
-        "How many smoke particles a burning collector will emit per tick"
+        "How many smoke particles a burning collector will emit per tick.",
+        "Default: 10"
     })
     public int BURNING_COLLECTOR_SMOKE_PARTICLES = 10;
   }
@@ -75,7 +79,7 @@ public class ModuleCharcoalConfig {
   public static class General {
 
     @Config.Comment({
-        "List of valid refractory bricks used in the pit kiln and coke oven"
+        "List of valid refractory bricks used in the pit kiln and coke oven."
     })
     public String[] REFRACTORY_BRICKS = new String[]{
         ModuleCharcoal.MOD_ID + ":" + BlockRefractoryBrick.NAME,
@@ -110,32 +114,38 @@ public class ModuleCharcoalConfig {
     }
 
     @Config.Comment({
-        "Fluid capacity of the tar collector in millibuckets"
+        "Fluid capacity of the tar collector in mb.",
+        "Default: 8000"
     })
     public int TAR_COLLECTOR_CAPACITY = 8000;
 
     @Config.Comment({
-        "Fluid capacity of the tar drain in millibuckets"
+        "Fluid capacity of the tar drain in mb.",
+        "Default: 1000"
     })
     public int TAR_DRAIN_CAPACITY = 1000;
 
     @Config.Comment({
-        "The durability of the bow drill (default 16)"
+        "The durability of the bow drill.",
+        "Default: 16"
     })
     public int BOW_DRILL_DURABILITY = 16;
 
     @Config.Comment({
-        "Defines how many ticks it takes to start a fire while using the bow drill (default: 60)"
+        "Defines how many ticks it takes to start a fire while using the bow drill.",
+        "Default: 60"
     })
     public int BOW_DRILL_USE_DURATION = 60;
 
     @Config.Comment({
-        "The durability of the flint and tinder (default: 8)"
+        "The durability of the flint and tinder.",
+        "Default: 8"
     })
     public int FLINT_AND_TINDER_DURABILITY = 8;
 
     @Config.Comment({
-        "Defines how many ticks it takes to start a fire while using the flint and tinder (default: 100)"
+        "Defines how many ticks it takes to start a fire while using the flint and tinder.",
+        "Default: 100"
     })
     public int FLINT_AND_TINDER_USE_DURATION = 100;
   }
