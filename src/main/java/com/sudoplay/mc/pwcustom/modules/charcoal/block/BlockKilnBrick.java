@@ -58,6 +58,16 @@ public class BlockKilnBrick
   }
 
   @Override
+  public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+
+    if (state.getValue(TYPE) == EnumType.BottomLit) {
+      return 10;
+    }
+
+    return super.getLightValue(state, world, pos);
+  }
+
+  @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 
     if (this.isTop(state)) {
