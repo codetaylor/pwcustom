@@ -200,7 +200,8 @@ public class TileKilnBrick
 
     if (value && !active) {
 
-      if (this.hasFuel()) {
+      if (this.hasFuel()
+          && !this.stackHandler.getStackInSlot(0).isEmpty()) {
         blockState = blockState.withProperty(BlockKilnBrick.TYPE, BlockKilnBrick.EnumType.BottomLit);
         this.world.setBlockState(this.pos, blockState, 3);
       }
