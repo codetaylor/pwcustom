@@ -47,7 +47,7 @@ public class BlockKilnBrick
 
   public BlockKilnBrick() {
 
-    super(Material.CLAY);
+    super(Material.ROCK);
     this.setSoundType(SoundType.STONE);
     this.setHardness(2);
     this.setHarvestLevel("pickaxe", 0);
