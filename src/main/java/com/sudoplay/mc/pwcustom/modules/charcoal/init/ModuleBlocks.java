@@ -3,8 +3,8 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.init;
 import com.codetaylor.mc.athenaeum.registry.Registry;
 import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
-import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKilnPit;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKilnBrick;
+import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKilnPit;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRTarCollector;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.*;
 import net.minecraft.block.BlockDoor;
@@ -30,6 +30,7 @@ public class ModuleBlocks {
   public static final BlockLimestone LIMESTONE = new BlockLimestone();
   public static final BlockRefractoryGlass REFRACTORY_GLASS = new BlockRefractoryGlass();
   public static final BlockKilnBrick KILN_BRICK = new BlockKilnBrick();
+  public static final BlockCampfire CAMPFIRE = new BlockCampfire();
 
   public static void onRegister(Registry registry) {
 
@@ -37,6 +38,7 @@ public class ModuleBlocks {
     registry.registerBlock(ModuleBlocks.PIT_ASH_BLOCK, BlockPitAsh.NAME);
     registry.registerBlock(ModuleBlocks.KILN_PIT, BlockKilnPit.NAME);
     registry.registerBlock(ModuleBlocks.REFRACTORY_DOOR, BlockRefractoryDoor.NAME);
+    registry.registerBlock(ModuleBlocks.CAMPFIRE, BlockCampfire.NAME);
 
     registry.registerBlockWithItem(ModuleBlocks.LOG_PILE, BlockLogPile.NAME);
     registry.registerBlockWithItem(ModuleBlocks.COAL_COKE_BLOCK, BlockCoalCokeBlock.NAME);
@@ -56,7 +58,8 @@ public class ModuleBlocks {
         TilePitAsh.class,
         TileActivePile.class,
         TileKilnBrick.class,
-        TileKilnBrickTop.class
+        TileKilnBrickTop.class,
+        TileCampfire.class
     );
   }
 

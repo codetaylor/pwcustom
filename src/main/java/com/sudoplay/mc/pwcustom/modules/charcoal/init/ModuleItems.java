@@ -16,6 +16,7 @@ public class ModuleItems {
   public static final ItemIgniterBase BOW_DRILL = new ItemBowDrill();
   public static final ItemIgniterBase FLINT_AND_TINDER = new ItemFlintAndTinder();
   public static final ItemDoor REFRACTORY_DOOR = new ItemDoor(ModuleBlocks.REFRACTORY_DOOR);
+  public static final ItemTinder TINDER = new ItemTinder();
 
   public static void onRegister(Registry registry) {
 
@@ -25,6 +26,7 @@ public class ModuleItems {
     registry.registerItem(ModuleItems.FLINT_AND_TINDER, ItemFlintAndTinder.NAME);
     registry.registerItem(ModuleItems.REFRACTORY_DOOR, ModuleBlocks.REFRACTORY_DOOR.getRegistryName());
     registry.registerItem(new ItemBlock(ModuleBlocks.KILN_PIT), ModuleBlocks.KILN_PIT.getRegistryName());
+    registry.registerItem(ModuleItems.TINDER, ItemTinder.NAME);
   }
 
   @SideOnly(Side.CLIENT)
@@ -36,7 +38,8 @@ public class ModuleItems {
           ModuleItems.QUICKLIME,
           ModuleItems.BOW_DRILL,
           ModuleItems.FLINT_AND_TINDER,
-          ModuleItems.REFRACTORY_DOOR
+          ModuleItems.REFRACTORY_DOOR,
+          ModuleItems.TINDER
       );
 
       ModelRegistrationHelper.registerVariantItemModels(

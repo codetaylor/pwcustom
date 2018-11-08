@@ -38,6 +38,9 @@ public class FuelHandler {
     } else if (fuel.getItem() == ModuleItems.MATERIAL
         && fuel.getMetadata() == ItemMaterial.EnumType.STRAW.getMeta()) {
       event.setBurnTime(50);
+
+    } else if (fuel.getItem() == ModuleItems.TINDER) {
+      event.setBurnTime(120);
     }
   }
 

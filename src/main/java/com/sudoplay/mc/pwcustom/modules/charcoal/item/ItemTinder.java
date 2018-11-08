@@ -1,8 +1,10 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.item;
 
-import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
+import com.codetaylor.mc.athenaeum.util.StackHelper;
 import com.sudoplay.mc.pwcustom.library.util.Util;
-import net.minecraft.block.material.Material;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockCampfire;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -17,10 +19,10 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class ItemQuicklime
+public class ItemTinder
     extends Item {
 
-  public static final String NAME = "quicklime";
+  public static final String NAME = "tinder";
 
   @Nonnull
   @Override
@@ -29,7 +31,7 @@ public class ItemQuicklime
     ItemStack heldItem = player.getHeldItem(hand);
 
     if (!heldItem.isEmpty()
-        && heldItem.getItem() == ModuleItems.QUICKLIME) {
+        && heldItem.getItem() == ModuleItems.TINDER) {
 
       RayTraceResult rayTraceResult = this.rayTrace(world, player, true);
 
@@ -43,15 +45,20 @@ public class ItemQuicklime
           return new ActionResult<>(EnumActionResult.PASS, heldItem);
         }
 
-        if (world.getBlockState(blockPos).getMaterial() == Material.WATER) {
-          this.playSplashSound(world, player);
+        BlockPos offset = blockPos.offset(rayTraceResult.sideHit);
 
-          ItemStack itemStack = new ItemStack(ModuleItems.QUICKLIME, heldItem.getCount() - 1);
-          player.addItemStackToInventory(ItemMaterial.EnumType.SLAKED_LIME.asStack());
+        if (ModuleBlocks.CAMPFIRE.canPlaceBlockAt(world, offset)) {
+          this.playSound(world, player);
+          world.setBlockState(
+              offset,
+              ModuleBlocks.CAMPFIRE.getDefaultState()
+                  .withProperty(BlockCampfire.VARIANT, BlockCampfire.EnumType.NORMAL)
+                  .withProperty(BlockCampfire.WOOD, 0),
+              3
+          );
 
-          // TODO: config option
-          world.setBlockToAir(blockPos);
-
+          ItemStack itemStack = StackHelper.decrease(heldItem, 1, false);
+          //player.setHeldItem(hand, itemStack);
           return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
         }
       }
@@ -60,14 +67,14 @@ public class ItemQuicklime
     return super.onItemRightClick(world, player, hand);
   }
 
-  private void playSplashSound(World world, EntityPlayer player) {
+  private void playSound(World world, EntityPlayer player) {
 
     world.playSound(
         player,
         player.posX,
         player.posY,
         player.posZ,
-        SoundEvents.ENTITY_BOBBER_SPLASH,
+        SoundEvents.BLOCK_GRASS_PLACE,
         SoundCategory.PLAYERS,
         1,
         (float) (1 + Util.RANDOM.nextGaussian() * 0.4f)

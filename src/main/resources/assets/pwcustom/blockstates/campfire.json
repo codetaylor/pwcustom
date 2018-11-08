@@ -1,0 +1,103 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "uvlock": true,
+    "textures": {
+      "particle": "pwcustom:blocks/campfire"
+    }
+  },
+  "variants": {
+    "wood": {
+      "0": {},
+      "1": {
+        "submodel": "pwcustom:campfire_log_a"
+      },
+      "2": {
+        "submodel": {
+          "a": {"model": "pwcustom:campfire_log_a"},
+          "b": {"model": "pwcustom:campfire_log_a", "y": 90}
+        }
+      },
+      "3": {
+        "submodel": {
+          "a": {"model": "pwcustom:campfire_log_a"},
+          "b": {"model": "pwcustom:campfire_log_a", "y": 90},
+          "c": {"model": "pwcustom:campfire_log_a", "y": 180}
+        }
+      },
+      "4": {
+        "submodel": {
+          "a": {"model": "pwcustom:campfire_log_a"},
+          "b": {"model": "pwcustom:campfire_log_a", "y": 90},
+          "c": {"model": "pwcustom:campfire_log_a", "y": 180},
+          "d": {"model": "pwcustom:campfire_log_a", "y": 270}
+        }
+      },
+      "5": {
+        "submodel": {
+          "a": {"model": "pwcustom:campfire_log_a"},
+          "b": {"model": "pwcustom:campfire_log_a", "y": 90},
+          "c": {"model": "pwcustom:campfire_log_a", "y": 180},
+          "d": {"model": "pwcustom:campfire_log_a", "y": 270},
+          "e": {"model": "pwcustom:campfire_log_b"}
+        }
+      },
+      "6": {
+        "submodel": {
+          "a": {"model": "pwcustom:campfire_log_a"},
+          "b": {"model": "pwcustom:campfire_log_a", "y": 90},
+          "c": {"model": "pwcustom:campfire_log_a", "y": 180},
+          "d": {"model": "pwcustom:campfire_log_a", "y": 270},
+          "e": {"model": "pwcustom:campfire_log_b"},
+          "f": {"model": "pwcustom:campfire_log_b", "y": 90}
+        }
+      },
+      "7": {
+        "submodel": {
+          "a": {"model": "pwcustom:campfire_log_a"},
+          "b": {"model": "pwcustom:campfire_log_a", "y": 90},
+          "c": {"model": "pwcustom:campfire_log_a", "y": 180},
+          "d": {"model": "pwcustom:campfire_log_a", "y": 270},
+          "e": {"model": "pwcustom:campfire_log_b"},
+          "f": {"model": "pwcustom:campfire_log_b", "y": 90},
+          "g": {"model": "pwcustom:campfire_log_b", "y": 180}
+        }
+      },
+      "8": {
+        "submodel": {
+          "a": {"model": "pwcustom:campfire_log_a"},
+          "b": {"model": "pwcustom:campfire_log_a", "y": 90},
+          "c": {"model": "pwcustom:campfire_log_a", "y": 180},
+          "d": {"model": "pwcustom:campfire_log_a", "y": 270},
+          "e": {"model": "pwcustom:campfire_log_b"},
+          "f": {"model": "pwcustom:campfire_log_b", "y": 90},
+          "g": {"model": "pwcustom:campfire_log_b", "y": 180},
+          "h": {"model": "pwcustom:campfire_log_b", "y": 270}
+        }
+      }
+    },
+    "variant": {
+      "normal": {
+        "model": "pwcustom:tinder",
+        "textures": {
+          "tinder": "pwcustom:blocks/thatch",
+          "particle": "pwcustom:blocks/thatch"
+        }
+      },
+      "lit": {
+        "model": "pwcustom:tinder",
+        "textures": {
+          "tinder": "pwcustom:blocks/active_pile",
+          "particle": "pwcustom:blocks/active_pile"
+        }
+      },
+      "ash": {
+        "model": "pwcustom:tinder",
+        "textures": {
+          "tinder": "pwcustom:blocks/ash_block",
+          "particle": "pwcustom:blocks/ash_block"
+        }
+      }
+    }
+  }
+}
