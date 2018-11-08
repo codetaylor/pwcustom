@@ -4,6 +4,7 @@ import com.codetaylor.mc.athenaeum.spi.IBlockVariant;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.codetaylor.mc.athenaeum.util.StackHelper;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleBlocks;
 import com.sudoplay.mc.pwcustom.modules.charcoal.recipe.KilnPitRecipe;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileKilnPit;
@@ -270,7 +271,7 @@ public class BlockKilnPit
             // calculate the burn time and place the item into the kiln. The burn
             // time is reduced for each adjacent refractory block.
 
-            float modifier = 1.0f - tileKiln.countAdjacentRefractoryBlocks() * 0.1f;
+            float modifier = (float) (1.0f - tileKiln.countAdjacentRefractoryBlocks() * ModuleCharcoalConfig.PIT_KILN.REFRACTORY_BLOCK_TIME_BONUS);
             int modifiedBurnTime = (int) (recipe.getTimeTicks() * modifier);
             int burnTimeTicks = Math.max(1, modifiedBurnTime);
 
