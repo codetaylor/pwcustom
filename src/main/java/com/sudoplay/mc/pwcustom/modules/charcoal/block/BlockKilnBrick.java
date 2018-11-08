@@ -299,8 +299,7 @@ public class BlockKilnBrick
     TileKilnBrick tileKiln = (TileKilnBrick) tileEntity;
     ItemStack heldItem = player.getHeldItem(hand);
 
-    if (heldItem.getItem() instanceof ItemIgniterBase
-        || heldItem.getItem() == Items.FLINT_AND_STEEL) {
+    if (heldItem.getItem() instanceof ItemIgniterBase) {
       return false;
     }
 
@@ -326,6 +325,27 @@ public class BlockKilnBrick
 
       } else {
         // add fuel
+
+        if (heldItem.getItem() == Items.FLINT_AND_STEEL) {
+
+          if (!world.isRemote) {
+
+            if (player.isCreative()) {
+              heldItem.damageItem(1, player);
+            }
+
+            tileKiln.setActive(true);
+            world.playSound(
+                null,
+                pos,
+                SoundEvents.ITEM_FLINTANDSTEEL_USE,
+                SoundCategory.BLOCKS,
+                1.0F,
+                Util.RANDOM.nextFloat() * 0.4F + 0.8F
+            );
+          }
+          return true;
+        }
 
         if (StackHelper.isFuel(heldItem)) {
 
