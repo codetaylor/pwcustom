@@ -498,6 +498,7 @@ item.pwcustom.quicklime.name=Quicklime
 item.pwcustom.slaked.lime.name=Slaked Lime
 item.pwcustom.bow.drill.name=Bow Drill
 item.pwcustom.flint.and.tinder.name=Flint and Tinder
+item.pwcustom.tinder.name=Tinder
 
 
 # --- Tiles
@@ -516,6 +517,7 @@ tile.pwcustom.kiln_pit.name=Pit Kiln
 tile.pwcustom.limestone.name=Limestone
 tile.pwcustom.refractory_glass.name=Refractory Glass
 tile.pwcustom.kiln_brick.name=Brick Kiln
+tile.pwcustom.campfire.name=Campfire
 
 # --- Waila plugin
 
@@ -528,6 +530,9 @@ gui.pwcustom.waila.kiln.pit.finished=Finished
 
 gui.pwcustom.waila.kiln.brick.fuel=Fuel: %s
 gui.pwcustom.waila.kiln.brick.heat=Burn Time: %s
+
+gui.pwcustom.waila.campfire.fuel=Fuel: %s
+gui.pwcustom.waila.campfire.heat=Burn Time: %s
 
 gui.pwcustom.waila.empty=Empty
 gui.pwcustom.waila.result=Result:

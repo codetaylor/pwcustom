@@ -1,8 +1,8 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
-import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.library.util.Util;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import net.minecraft.block.BlockFire;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.state.IBlockState;
@@ -179,7 +179,7 @@ public class TileTarCollector
     double centerY = this.pos.getY() + 1;
     double centerZ = this.pos.getZ() + 0.5;
 
-    for (int i = 0; i < ModuleCharcoalConfig.REFRACTORY.BURNING_COLLECTOR_SMOKE_PARTICLES; i++) {
+    for (int i = 0; i < ModuleCharcoalConfig.CLIENT.BURNING_COLLECTOR_SMOKE_PARTICLES; i++) {
       spawnParticles(centerX, centerY, centerZ, EnumParticleTypes.SMOKE_LARGE);
     }
 

@@ -3,6 +3,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.init;
 import com.codetaylor.mc.athenaeum.registry.Registry;
 import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.*;
+import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRCampfire;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKilnBrick;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRKilnPit;
 import com.sudoplay.mc.pwcustom.modules.charcoal.client.render.TESRTarCollector;
@@ -115,6 +116,10 @@ public class ModuleBlocks {
       ClientRegistry.bindTileEntitySpecialRenderer(
           TileKilnBrick.class,
           new TESRKilnBrick()
+      );
+      ClientRegistry.bindTileEntitySpecialRenderer(
+          TileCampfire.class,
+          new TESRCampfire()
       );
 
     });

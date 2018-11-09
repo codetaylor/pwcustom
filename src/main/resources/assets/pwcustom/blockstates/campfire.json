@@ -2,6 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "uvlock": true,
+    "model": "pwcustom:tinder",
     "textures": {
       "particle": "pwcustom:blocks/campfire"
     }
@@ -78,23 +79,25 @@
     },
     "variant": {
       "normal": {
-        "model": "pwcustom:tinder",
         "textures": {
-          "tinder": "pwcustom:blocks/thatch",
-          "particle": "pwcustom:blocks/thatch"
+          "tinder": "pwcustom:blocks/tinder",
+          "particle": "pwcustom:blocks/tinder"
         }
       },
       "lit": {
-        "model": "pwcustom:tinder",
+        "submodel": {
+          "f0": {"model": "pwcustom:campfire_fire"}
+        },
         "textures": {
           "tinder": "pwcustom:blocks/active_pile",
+          "fire": "blocks/fire_layer_1",
           "particle": "pwcustom:blocks/active_pile"
         }
       },
       "ash": {
-        "model": "pwcustom:tinder",
+        "model": "pwcustom:campfire_ash",
         "textures": {
-          "tinder": "pwcustom:blocks/ash_block",
+          "ash": "pwcustom:blocks/ash_block",
           "particle": "pwcustom:blocks/ash_block"
         }
       }

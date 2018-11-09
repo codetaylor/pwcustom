@@ -178,7 +178,7 @@ public class TileActivePile
     float failureChance = recipe.getFailureChance();
     ItemStack[] failureItems = recipe.getFailureItems();
 
-    if (recipe.doesFluidLevelAffectsFailureChance()) {
+    if (recipe.doesFluidLevelAffectFailureChance()) {
       failureChance += (1 - failureChance) * (this.fluidTank.getFluidAmount() / (float) this.fluidTank.getCapacity());
     }
 

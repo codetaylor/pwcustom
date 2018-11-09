@@ -12,6 +12,17 @@ import java.util.Map;
 @Config(modid = ModuleCharcoal.MOD_ID, name = ModuleCharcoal.MOD_ID + "/" + ModuleCharcoal.MOD_ID + ".module.Charcoal")
 public class ModuleCharcoalConfig {
 
+  public static Client CLIENT = new Client();
+
+  public static class Client {
+
+    @Config.Comment({
+        "How many smoke particles a burning collector will emit per tick.",
+        "Default: 10"
+    })
+    public int BURNING_COLLECTOR_SMOKE_PARTICLES = 10;
+  }
+
   public static BrickKiln BRICK_KILN = new BrickKiln();
 
   public static class BrickKiln {
@@ -60,18 +71,12 @@ public class ModuleCharcoalConfig {
     public int ACTIVE_PILE_MAX_FLUID_CAPACITY = 500;
 
     @Config.Comment({
-        "The duration in ticks that different fluids will burn in the Tar Collector."
+        "The duration in ticks that 1 mb of fluid will burn in the Tar Collector."
     })
     public Map<String, Integer> FLUID_BURN_TICKS = new HashMap<String, Integer>() {{
       this.put(ModuleFluids.WOOD_TAR.getName(), 20);
       this.put(ModuleFluids.COAL_TAR.getName(), 40);
     }};
-
-    @Config.Comment({
-        "How many smoke particles a burning collector will emit per tick.",
-        "Default: 10"
-    })
-    public int BURNING_COLLECTOR_SMOKE_PARTICLES = 10;
   }
 
   public static Fuel FUEL = new Fuel();
@@ -120,6 +125,24 @@ public class ModuleCharcoalConfig {
     })
     public int COAL_COKE_BLOCK_BURN_TIME_TICKS = 32000;
 
+  }
+
+  public static Campfire CAMPFIRE = new Campfire();
+
+  public static class Campfire {
+
+    @Config.Comment({
+        "How many ticks to cook food on the campfire.",
+        "Default: " + (20 * 20)
+    })
+    public int COOK_TIME_TICKS = 20 * 20;
+
+    @Config.Comment({
+        "The amount of ticks of burn time added to the campfire",
+        "for each log consumed.",
+        "Default: " + (60 * 20)
+    })
+    public int BURN_TIME_TICKS_PER_LOG = 60 * 20;
   }
 
   public static General GENERAL = new General();
@@ -181,9 +204,9 @@ public class ModuleCharcoalConfig {
 
     @Config.Comment({
         "Defines how many ticks it takes to start a fire while using the bow drill.",
-        "Default: 60"
+        "Default: " + (3 * 20)
     })
-    public int BOW_DRILL_USE_DURATION = 60;
+    public int BOW_DRILL_USE_DURATION = 3 * 20;
 
     @Config.Comment({
         "The durability of the flint and tinder.",
@@ -193,9 +216,9 @@ public class ModuleCharcoalConfig {
 
     @Config.Comment({
         "Defines how many ticks it takes to start a fire while using the flint and tinder.",
-        "Default: 100"
+        "Default: " + (5 * 20)
     })
-    public int FLINT_AND_TINDER_USE_DURATION = 100;
+    public int FLINT_AND_TINDER_USE_DURATION = 5 * 20;
   }
 
 }

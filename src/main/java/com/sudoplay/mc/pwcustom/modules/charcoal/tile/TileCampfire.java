@@ -2,15 +2,21 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.codetaylor.mc.athenaeum.util.StackHelper;
+import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
 import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockCampfire;
+import com.sudoplay.mc.pwcustom.modules.charcoal.init.ModuleItems;
+import com.sudoplay.mc.pwcustom.modules.charcoal.item.ItemMaterial;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -21,9 +27,54 @@ public class TileCampfire
     extends TileEntity
     implements ITickable {
 
+  private ItemStackHandler stackHandler;
+  private ItemStackHandler outputStackHandler;
   private ItemStackHandler fuelStackHandler;
+  private int cookTime;
+  private int cookTimeTotal;
+  private int burnTimeRemaining;
+  private boolean active;
+  private boolean dead;
+
+  // transient
+  private EntityItem entityItem;
+  private EntityItem entityItemOutput;
+  private int ticksSinceLastClientSync;
 
   public TileCampfire() {
+
+    this.stackHandler = new ItemStackHandler(1) {
+
+      @Override
+      protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+
+        return 1;
+      }
+
+      @Override
+      protected void onContentsChanged(int slot) {
+
+        TileCampfire.this.setCookTime(TileCampfire.this.getCookTime(this.getStackInSlot(slot)));
+        TileCampfire.this.markDirty();
+        BlockHelper.notifyBlockUpdate(TileCampfire.this.world, TileCampfire.this.pos);
+      }
+    };
+
+    this.outputStackHandler = new ItemStackHandler(1) {
+
+      @Override
+      protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+
+        return 1;
+      }
+
+      @Override
+      protected void onContentsChanged(int slot) {
+
+        TileCampfire.this.markDirty();
+        BlockHelper.notifyBlockUpdate(TileCampfire.this.world, TileCampfire.this.pos);
+      }
+    };
 
     this.fuelStackHandler = new ItemStackHandler(1) {
 
@@ -39,9 +90,54 @@ public class TileCampfire
         TileCampfire.this.markDirty();
         BlockHelper.notifyBlockUpdate(TileCampfire.this.world, TileCampfire.this.pos);
       }
-
     };
 
+    this.burnTimeRemaining = ModuleCharcoalConfig.FUEL.TINDER_BURN_TIME_TICKS;
+    this.cookTime = -1;
+    this.cookTimeTotal = -1;
+  }
+
+  public void setCookTime(int cookTime) {
+
+    this.cookTime = cookTime;
+    this.cookTimeTotal = cookTime;
+  }
+
+  public int getCookTime(ItemStack stack) {
+
+    return (stack.isEmpty()) ? -1 : ModuleCharcoalConfig.CAMPFIRE.COOK_TIME_TICKS;
+  }
+
+  public EntityItem getEntityItem() {
+
+    if (this.entityItem == null) {
+      ItemStack stackInSlot = this.stackHandler.getStackInSlot(0);
+      this.entityItem = new EntityItem(this.world);
+      this.entityItem.setItem(stackInSlot);
+    }
+
+    return this.entityItem;
+  }
+
+  public EntityItem getEntityItemOutput() {
+
+    if (this.entityItemOutput == null) {
+      ItemStack stackInSlot = this.outputStackHandler.getStackInSlot(0);
+      this.entityItemOutput = new EntityItem(this.world);
+      this.entityItemOutput.setItem(stackInSlot);
+    }
+
+    return this.entityItemOutput;
+  }
+
+  public ItemStackHandler getStackHandler() {
+
+    return this.stackHandler;
+  }
+
+  public ItemStackHandler getOutputStackHandler() {
+
+    return this.outputStackHandler;
   }
 
   public ItemStackHandler getFuelStackHandler() {
@@ -50,6 +146,13 @@ public class TileCampfire
   }
 
   public BlockCampfire.EnumType getState() {
+
+    if (this.isActive()) {
+      return BlockCampfire.EnumType.LIT;
+
+    } else if (this.isDead()) {
+      return BlockCampfire.EnumType.ASH;
+    }
 
     return BlockCampfire.EnumType.NORMAL;
   }
@@ -70,6 +173,55 @@ public class TileCampfire
   @Override
   public void update() {
 
+    if (this.world.isRemote) {
+      return;
+    }
+
+    if (this.isDead()) {
+      return;
+    }
+
+    if (this.isActive()) {
+
+      if (this.cookTime > 0) {
+        this.cookTime -= 1;
+      }
+
+      if (this.cookTime == 0) {
+        ItemStack itemStack = this.stackHandler.extractItem(0, 1, false);
+
+        if (!itemStack.isEmpty()) {
+          ItemStack result = FurnaceRecipes.instance().getSmeltingResult(itemStack);
+          this.outputStackHandler.insertItem(0, result, false);
+        }
+      }
+
+      this.burnTimeRemaining -= 1;
+
+      if (this.burnTimeRemaining <= 0) {
+
+        // consume fuel
+
+        ItemStack itemStack = this.fuelStackHandler.extractItem(0, 1, false);
+
+        if (!itemStack.isEmpty()) {
+          this.burnTimeRemaining = ModuleCharcoalConfig.CAMPFIRE.BURN_TIME_TICKS_PER_LOG;
+
+        } else {
+          this.setActive(false);
+          this.dead = true;
+        }
+      }
+
+      this.ticksSinceLastClientSync += 1;
+
+      if (this.ticksSinceLastClientSync >= 20) {
+        this.ticksSinceLastClientSync = 0;
+        BlockHelper.notifyBlockUpdate(this.world, this.pos);
+      }
+
+      this.markDirty();
+    }
   }
 
   @Nonnull
@@ -77,7 +229,14 @@ public class TileCampfire
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 
     super.writeToNBT(compound);
+    compound.setTag("stackHandler", this.stackHandler.serializeNBT());
+    compound.setTag("outputStackHandler", this.outputStackHandler.serializeNBT());
     compound.setTag("fuelStackHandler", this.fuelStackHandler.serializeNBT());
+    compound.setInteger("burnTimeRemaining", this.burnTimeRemaining);
+    compound.setBoolean("active", this.active);
+    compound.setBoolean("dead", this.dead);
+    compound.setInteger("cookTime", this.cookTime);
+    compound.setInteger("cookTimeTotal", this.cookTimeTotal);
     return compound;
   }
 
@@ -85,7 +244,14 @@ public class TileCampfire
   public void readFromNBT(NBTTagCompound compound) {
 
     super.readFromNBT(compound);
+    this.stackHandler.deserializeNBT(compound.getCompoundTag("stackHandler"));
+    this.outputStackHandler.deserializeNBT(compound.getCompoundTag("outputStackHandler"));
     this.fuelStackHandler.deserializeNBT(compound.getCompoundTag("fuelStackHandler"));
+    this.burnTimeRemaining = compound.getInteger("burnTimeRemaining");
+    this.active = compound.getBoolean("active");
+    this.dead = compound.getBoolean("dead");
+    this.cookTime = compound.getInteger("cookTime");
+    this.cookTimeTotal = compound.getInteger("cookTimeTotal");
   }
 
   @Nonnull
@@ -107,6 +273,7 @@ public class TileCampfire
 
     this.readFromNBT(packet.getNbtCompound());
     BlockHelper.notifyBlockUpdate(this.world, this.pos);
+    world.checkLightFor(EnumSkyBlock.BLOCK, this.pos);
   }
 
   @Override
@@ -124,7 +291,42 @@ public class TileCampfire
     return super.shouldRefresh(world, pos, oldState, newState);
   }
 
+  public boolean isDead() {
+
+    return this.dead;
+  }
+
+  public boolean isActive() {
+
+    return this.active;
+  }
+
+  public void setActive(boolean active) {
+
+    if (this.isDead()) {
+      return;
+    }
+
+    if (!this.active && active) {
+      this.active = true;
+      this.markDirty();
+      BlockHelper.notifyBlockUpdate(this.world, this.pos);
+
+    } else if (this.active && !active) {
+      this.active = false;
+      this.markDirty();
+      BlockHelper.notifyBlockUpdate(this.world, this.pos);
+    }
+  }
+
   public void removeItems() {
+
+    if (this.getState() == BlockCampfire.EnumType.ASH) {
+      StackHelper.spawnStackOnTop(this.world, ItemMaterial.EnumType.PIT_ASH.asStack(1), this.pos, -0.125);
+
+    } else if (getState() == BlockCampfire.EnumType.NORMAL) {
+      StackHelper.spawnStackOnTop(this.world, new ItemStack(ModuleItems.TINDER), this.pos, -0.125);
+    }
 
     ItemStackHandler stackHandler = this.getFuelStackHandler();
     ItemStack itemStack = stackHandler.extractItem(0, 64, false);
@@ -133,6 +335,34 @@ public class TileCampfire
       StackHelper.spawnStackOnTop(this.world, itemStack, this.pos);
     }
 
+    stackHandler = this.getStackHandler();
+    itemStack = stackHandler.extractItem(0, 64, false);
+
+    if (!itemStack.isEmpty()) {
+      StackHelper.spawnStackOnTop(this.world, itemStack, this.pos);
+    }
+
+    stackHandler = this.getOutputStackHandler();
+    itemStack = stackHandler.extractItem(0, 64, false);
+
+    if (!itemStack.isEmpty()) {
+      StackHelper.spawnStackOnTop(this.world, itemStack, this.pos);
+    }
+
     BlockHelper.notifyBlockUpdate(this.world, this.pos);
+  }
+
+  public float getProgress() {
+
+    if (this.cookTime < 0) {
+      return 0;
+    }
+
+    return 1f - (this.cookTime / (float) this.cookTimeTotal);
+  }
+
+  public int getRemainingBurnTimeTicks() {
+
+    return this.burnTimeRemaining;
   }
 }

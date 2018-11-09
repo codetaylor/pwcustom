@@ -2,6 +2,7 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.init;
 
 import com.codetaylor.mc.athenaeum.registry.Registry;
 import com.codetaylor.mc.athenaeum.util.ModelRegistrationHelper;
+import com.sudoplay.mc.pwcustom.modules.charcoal.block.BlockCampfire;
 import com.sudoplay.mc.pwcustom.modules.charcoal.item.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -27,6 +28,7 @@ public class ModuleItems {
     registry.registerItem(ModuleItems.REFRACTORY_DOOR, ModuleBlocks.REFRACTORY_DOOR.getRegistryName());
     registry.registerItem(new ItemBlock(ModuleBlocks.KILN_PIT), ModuleBlocks.KILN_PIT.getRegistryName());
     registry.registerItem(ModuleItems.TINDER, ItemTinder.NAME);
+    registry.registerItem(new ItemBlock(ModuleBlocks.CAMPFIRE), BlockCampfire.NAME);
   }
 
   @SideOnly(Side.CLIENT)
@@ -40,6 +42,12 @@ public class ModuleItems {
           ModuleItems.FLINT_AND_TINDER,
           ModuleItems.REFRACTORY_DOOR,
           ModuleItems.TINDER
+      );
+
+      ModelRegistrationHelper.registerBlockItemModel(
+          ModuleBlocks.CAMPFIRE.getDefaultState()
+              .withProperty(BlockCampfire.VARIANT, BlockCampfire.EnumType.LIT)
+              .withProperty(BlockCampfire.WOOD, 8)
       );
 
       ModelRegistrationHelper.registerVariantItemModels(

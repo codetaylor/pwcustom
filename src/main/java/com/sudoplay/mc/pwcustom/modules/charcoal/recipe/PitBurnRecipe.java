@@ -105,7 +105,7 @@ public class PitBurnRecipe
     return this.requiresRefractoryBlocks;
   }
 
-  public boolean doesFluidLevelAffectsFailureChance() {
+  public boolean doesFluidLevelAffectFailureChance() {
 
     return this.fluidLevelAffectsFailureChance;
   }

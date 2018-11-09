@@ -2,21 +2,30 @@ package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
 import com.codetaylor.mc.athenaeum.spi.IVariant;
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
+import com.codetaylor.mc.athenaeum.util.StackHelper;
+import com.sudoplay.mc.pwcustom.library.util.Util;
 import com.sudoplay.mc.pwcustom.modules.charcoal.tile.TileCampfire;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -27,6 +36,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Comparator;
+import java.util.Random;
 import java.util.stream.Stream;
 
 public class BlockCampfire
@@ -37,11 +47,67 @@ public class BlockCampfire
   public static final IProperty<EnumType> VARIANT = PropertyEnum.create("variant", EnumType.class);
   public static final PropertyInteger WOOD = PropertyInteger.create("wood", 0, 8);
 
-  public static AxisAlignedBB AABB_FULL = new AxisAlignedBB(0, 0, 0, 1, 6f / 16f, 1);
+  public static final AxisAlignedBB AABB_FULL = new AxisAlignedBB(0, 0, 0, 1, 6f / 16f, 1);
+  public static final AxisAlignedBB AABB_TINDER = new AxisAlignedBB(4f / 16f, 0, 4f / 16f, 12f / 16f, 5f / 16f, 12f / 16f);
+  public static final AxisAlignedBB AABB_ASH = new AxisAlignedBB(3f / 16f, 0, 3f / 16f, 13f / 16f, 1f / 16f, 13f / 16f);
 
   public BlockCampfire() {
 
     super(Material.WOOD);
+  }
+
+  @Override
+  public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
+
+    IBlockState actualState = this.getActualState(state, world, pos);
+
+    if (actualState.getValue(WOOD) > 0) {
+      return SoundType.WOOD;
+
+    } else if (actualState.getValue(VARIANT) == EnumType.ASH) {
+      return SoundType.SAND;
+
+    } else {
+      return SoundType.PLANT;
+    }
+  }
+
+  @Override
+  public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+
+    IBlockState actualState = this.getActualState(state, world, pos);
+
+    if (actualState.getValue(VARIANT) == EnumType.LIT) {
+      return 15;
+    }
+
+    return super.getLightValue(state, world, pos);
+  }
+
+  @Nonnull
+  @Override
+  public BlockRenderLayer getBlockLayer() {
+
+    return BlockRenderLayer.CUTOUT_MIPPED;
+  }
+
+  @Override
+  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+
+    return true;
+  }
+
+  @Nonnull
+  @Override
+  public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+
+    return BlockFaceShape.UNDEFINED;
+  }
+
+  @Override
+  public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face) {
+
+    return false;
   }
 
   @Nonnull
@@ -55,8 +121,10 @@ public class BlockCampfire
 
     } else if (actualState.getValue(VARIANT) == EnumType.NORMAL
         || actualState.getValue(VARIANT) == EnumType.LIT) {
-      return new AxisAlignedBB(4f / 16f, 0, 4f / 16f, 12f / 16f, 5f / 16f, 12f / 16f);
+      return AABB_TINDER;
 
+    } else if (actualState.getValue(VARIANT) == EnumType.ASH) {
+      return AABB_ASH;
     }
 
     return super.getBoundingBox(state, source, pos);
@@ -65,41 +133,128 @@ public class BlockCampfire
   @Override
   public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
+    TileEntity tileEntity = world.getTileEntity(pos);
+
+    if (!(tileEntity instanceof TileCampfire)) {
+      return false;
+    }
+
+    TileCampfire campfire = (TileCampfire) tileEntity;
+
+    if (campfire.isDead()) {
+      return false;
+    }
+
     ItemStack heldItem = player.getHeldItem(hand);
 
-    if (!heldItem.isEmpty()) {
+    if (heldItem.isEmpty()) {
 
-      TileEntity tileEntity = world.getTileEntity(pos);
+      if (player.isSneaking()) {
 
-      if (tileEntity instanceof TileCampfire) {
+        ItemStack itemStack = campfire.getStackHandler().extractItem(0, 64, world.isRemote);
 
-        int logWood = OreDictionary.getOreID("logWood");
-        int[] oreIDs = OreDictionary.getOreIDs(heldItem);
+        if (!itemStack.isEmpty()) {
 
-        for (int oreID : oreIDs) {
-
-          if (oreID == logWood) {
-
-            heldItem.setCount(heldItem.getCount() - 1);
-            ItemStackHandler fuelStackHandler = ((TileCampfire) tileEntity).getFuelStackHandler();
-
-            if (fuelStackHandler.getStackInSlot(0).isEmpty()
-                || fuelStackHandler.getStackInSlot(0).getCount() < 8) {
-
-              if (!world.isRemote) {
-                fuelStackHandler.insertItem(0, new ItemStack(heldItem.getItem(), 1, heldItem.getMetadata()), false);
-                world.playSound(null, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1, 1);
-                BlockHelper.notifyBlockUpdate(world, pos);
-              }
-              return true;
-            }
+          if (!world.isRemote) {
+            StackHelper.spawnStackOnTop(world, itemStack, pos, -0.125);
           }
+
+          return true;
+        }
+
+        itemStack = campfire.getOutputStackHandler().extractItem(0, 64, world.isRemote);
+
+        if (!itemStack.isEmpty()) {
+
+          if (!world.isRemote) {
+            StackHelper.spawnStackOnTop(world, itemStack, pos, -0.125);
+          }
+
+          return true;
         }
       }
 
+      return false;
+    }
+
+    if (heldItem.getItem() == Items.FLINT_AND_STEEL) {
+
+      if (!world.isRemote) {
+
+        if (player.isCreative()) {
+          heldItem.damageItem(1, player);
+        }
+
+        campfire.setActive(true);
+        world.playSound(
+            null,
+            pos,
+            SoundEvents.ITEM_FLINTANDSTEEL_USE,
+            SoundCategory.BLOCKS,
+            1.0F,
+            Util.RANDOM.nextFloat() * 0.4F + 0.8F
+        );
+      }
+      return true;
+
+    } else if (heldItem.getItem() instanceof ItemFood) {
+
+      ItemStack recipeResult = FurnaceRecipes.instance().getSmeltingResult(heldItem);
+
+      if (recipeResult.isEmpty()) {
+        return false;
+      }
+
+      ItemStack output = campfire.getOutputStackHandler().getStackInSlot(0);
+
+      if (!output.isEmpty()) {
+        // Only allow input if the output has been removed.
+        return false;
+      }
+
+      ItemStackHandler inputHandler = campfire.getStackHandler();
+      ItemStack result = inputHandler.insertItem(0, new ItemStack(heldItem.getItem(), 1, heldItem.getMetadata()), world.isRemote);
+
+      if (result.isEmpty()) {
+
+        if (!world.isRemote) {
+          heldItem.setCount(heldItem.getCount() - 1);
+        }
+
+        return true;
+      }
+    }
+
+    int logWood = OreDictionary.getOreID("logWood");
+    int[] oreIDs = OreDictionary.getOreIDs(heldItem);
+
+    for (int oreID : oreIDs) {
+
+      if (oreID == logWood) {
+
+        ItemStackHandler fuelStackHandler = campfire.getFuelStackHandler();
+
+        if (fuelStackHandler.getStackInSlot(0).isEmpty()
+            || fuelStackHandler.getStackInSlot(0).getCount() < 8) {
+
+          if (!world.isRemote) {
+            heldItem.setCount(heldItem.getCount() - 1);
+            fuelStackHandler.insertItem(0, new ItemStack(heldItem.getItem(), 1, heldItem.getMetadata()), false);
+            world.playSound(null, pos, SoundEvents.BLOCK_WOOD_PLACE, SoundCategory.BLOCKS, 1, 1);
+            BlockHelper.notifyBlockUpdate(world, pos);
+          }
+        }
+        return true;
+      }
     }
 
     return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
+  }
+
+  @Override
+  public int quantityDropped(IBlockState state, int fortune, Random random) {
+
+    return 0;
   }
 
   @Nonnull
@@ -190,6 +345,55 @@ public class BlockCampfire
   public TileEntity createTileEntity(World world, IBlockState state) {
 
     return new TileCampfire();
+  }
+
+  @Override
+  public void onEntityWalk(World world, BlockPos pos, Entity entity) {
+
+    if (!entity.isImmuneToFire()
+        && entity instanceof EntityLivingBase
+        && !EnchantmentHelper.hasFrostWalkerEnchantment((EntityLivingBase) entity)) {
+      entity.attackEntityFrom(DamageSource.HOT_FLOOR, 1.0F);
+    }
+
+    super.onEntityWalk(world, pos, entity);
+  }
+
+  @Override
+  public void breakBlock(World world, BlockPos pos, IBlockState state) {
+
+    TileEntity tileEntity = world.getTileEntity(pos);
+
+    if (tileEntity instanceof TileCampfire) {
+      ((TileCampfire) tileEntity).removeItems();
+    }
+
+    super.breakBlock(world, pos, state);
+  }
+
+  @Override
+  public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+
+    TileEntity tileEntity = world.getTileEntity(pos);
+
+    if (tileEntity instanceof TileCampfire
+        && ((TileCampfire) tileEntity).isActive()) {
+
+      double x = (double) pos.getX() + 0.5;
+      double y = (double) pos.getY() + (4.0 / 16.0) + (rand.nextDouble() * 2.0 / 16.0);
+      double z = (double) pos.getZ() + 0.5;
+
+      if (rand.nextDouble() < 0.1) {
+        world.playSound((double) pos.getX() + 0.5, (double) pos.getY(), (double) pos.getZ() + 0.5, SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0f, 1.0f, false);
+      }
+
+      for (int i = 0; i < 4; i++) {
+        double offsetX = (rand.nextDouble() * 2.0 - 1.0) * 0.2;
+        double offsetZ = (rand.nextDouble() * 2.0 - 1.0) * 0.2;
+        world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + offsetX, y, z + offsetZ, 0.0, 0.0, 0.0);
+        world.spawnParticle(EnumParticleTypes.FLAME, x + offsetX, y, z + offsetZ, 0.0, 0.0, 0.0);
+      }
+    }
   }
 
   public enum EnumType
