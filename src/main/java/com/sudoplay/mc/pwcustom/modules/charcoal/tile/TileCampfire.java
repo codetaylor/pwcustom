@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.tile;
 
+import com.codetaylor.mc.athenaeum.inventory.LIFOStackHandler;
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.codetaylor.mc.athenaeum.util.StackHelper;
 import com.sudoplay.mc.pwcustom.modules.charcoal.ModuleCharcoalConfig;
@@ -29,7 +30,7 @@ public class TileCampfire
 
   private ItemStackHandler stackHandler;
   private ItemStackHandler outputStackHandler;
-  private ItemStackHandler fuelStackHandler;
+  private LIFOStackHandler fuelStackHandler;
   private int cookTime;
   private int cookTimeTotal;
   private int burnTimeRemaining;
@@ -78,21 +79,22 @@ public class TileCampfire
       }
     };
 
-    this.fuelStackHandler = new ItemStackHandler(1) {
+    this.fuelStackHandler = new LIFOStackHandler(8) {
 
       @Override
       protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
 
-        return 8;
-      }
-
-      @Override
-      protected void onContentsChanged(int slot) {
-
-        TileCampfire.this.markDirty();
-        BlockHelper.notifyBlockUpdate(TileCampfire.this.world, TileCampfire.this.pos);
+        return 1;
       }
     };
+    this.fuelStackHandler.addObserver((handler, slot) -> {
+      this.markDirty();
+      BlockHelper.notifyBlockUpdate(this.world, this.pos);
+    });
+    this.fuelStackHandler.addObserverContentsCleared(handler -> {
+      this.markDirty();
+      BlockHelper.notifyBlockUpdate(this.world, this.pos);
+    });
 
     this.burnTimeRemaining = ModuleCharcoalConfig.FUEL.TINDER_BURN_TIME_TICKS;
     this.cookTime = -1;
@@ -143,7 +145,7 @@ public class TileCampfire
     return this.outputStackHandler;
   }
 
-  public ItemStackHandler getFuelStackHandler() {
+  public LIFOStackHandler getFuelStackHandler() {
 
     return this.fuelStackHandler;
   }
@@ -164,13 +166,9 @@ public class TileCampfire
 
     // 0 is no wood
     // [0, 8]
-    ItemStack itemStack = this.fuelStackHandler.getStackInSlot(0);
 
-    if (itemStack.isEmpty()) {
-      return 0;
-    }
-
-    return itemStack.getCount();
+    int index = this.fuelStackHandler.getLastNonEmptyIndex();
+    return (index + 1);
   }
 
   @Override
@@ -368,10 +366,18 @@ public class TileCampfire
     }
 
     ItemStackHandler stackHandler = this.getFuelStackHandler();
-    ItemStack itemStack = stackHandler.extractItem(0, 64, false);
+    ItemStack itemStack;
 
-    if (!itemStack.isEmpty()) {
-      StackHelper.spawnStackOnTop(this.world, itemStack, this.pos);
+    for (int i = 0; i < stackHandler.getSlots(); i++) {
+
+      itemStack = stackHandler.extractItem(i, 64, false);
+
+      if (!itemStack.isEmpty()) {
+        StackHelper.spawnStackOnTop(this.world, itemStack, this.pos);
+
+      } else {
+        break;
+      }
     }
 
     stackHandler = this.getStackHandler();

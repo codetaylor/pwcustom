@@ -65,11 +65,9 @@ public class CampfireDataProvider
 
       ItemStackHandler stackHandler = tileCampfire.getStackHandler();
       ItemStackHandler outputStackHandler = tileCampfire.getOutputStackHandler();
-      ItemStackHandler fuelStackHandler = tileCampfire.getFuelStackHandler();
 
       ItemStack input = stackHandler.getStackInSlot(0);
       boolean hasOutput = !outputStackHandler.getStackInSlot(0).isEmpty();
-      ItemStack fuel = fuelStackHandler.getStackInSlot(0);
 
       if (!input.isEmpty()) {
 
@@ -107,10 +105,12 @@ public class CampfireDataProvider
       }
 
       {
-        if (!fuel.isEmpty()) {
+        int fuelRemaining = tileCampfire.getFuelRemaining();
+
+        if (fuelRemaining > 0) {
           tooltip.add(Util.translateFormatted(
               "gui." + ModuleCharcoal.MOD_ID + ".waila.campfire.fuel",
-              String.valueOf(fuel.getCount())
+              String.valueOf(fuelRemaining)
           ));
         }
 

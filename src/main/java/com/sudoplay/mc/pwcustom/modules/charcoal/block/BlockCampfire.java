@@ -1,5 +1,6 @@
 package com.sudoplay.mc.pwcustom.modules.charcoal.block;
 
+import com.codetaylor.mc.athenaeum.inventory.LIFOStackHandler;
 import com.codetaylor.mc.athenaeum.spi.IVariant;
 import com.codetaylor.mc.athenaeum.util.BlockHelper;
 import com.codetaylor.mc.athenaeum.util.StackHelper;
@@ -232,10 +233,11 @@ public class BlockCampfire
 
       if (oreID == logWood) {
 
-        ItemStackHandler fuelStackHandler = campfire.getFuelStackHandler();
+        LIFOStackHandler fuelStackHandler = campfire.getFuelStackHandler();
 
-        if (fuelStackHandler.getStackInSlot(0).isEmpty()
-            || fuelStackHandler.getStackInSlot(0).getCount() < 8) {
+        int firstEmptyIndex = fuelStackHandler.getFirstEmptyIndex();
+
+        if (firstEmptyIndex > -1) {
 
           if (!world.isRemote) {
             heldItem.setCount(heldItem.getCount() - 1);
@@ -244,6 +246,7 @@ public class BlockCampfire
             BlockHelper.notifyBlockUpdate(world, pos);
           }
         }
+
         return true;
       }
     }
