@@ -143,6 +143,19 @@ public class ModuleCharcoalConfig {
         "Default: " + (60 * 20)
     })
     public int BURN_TIME_TICKS_PER_LOG = 60 * 20;
+
+    @Config.Comment({
+        "Set to true if the campfire should be extinguished by rain.",
+        "Default: true"
+    })
+    public boolean EXTINGUISHED_BY_RAIN = true;
+
+    @Config.Comment({
+        "The number of ticks that the campfire can be exposed to rain before",
+        "it is extinguished.",
+        "Default: " + (10 * 20)
+    })
+    public int TICKS_BEFORE_EXTINGUISHED = 10 * 20;
   }
 
   public static General GENERAL = new General();

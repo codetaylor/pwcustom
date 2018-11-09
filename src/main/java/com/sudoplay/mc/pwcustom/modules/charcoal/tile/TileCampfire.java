@@ -35,11 +35,13 @@ public class TileCampfire
   private int burnTimeRemaining;
   private boolean active;
   private boolean dead;
+  private boolean doused;
 
   // transient
   private EntityItem entityItem;
   private EntityItem entityItemOutput;
   private int ticksSinceLastClientSync;
+  private int rainTimeRemaining;
 
   public TileCampfire() {
 
@@ -95,6 +97,7 @@ public class TileCampfire
     this.burnTimeRemaining = ModuleCharcoalConfig.FUEL.TINDER_BURN_TIME_TICKS;
     this.cookTime = -1;
     this.cookTimeTotal = -1;
+    this.rainTimeRemaining = ModuleCharcoalConfig.CAMPFIRE.TICKS_BEFORE_EXTINGUISHED;
   }
 
   public void setCookTime(int cookTime) {
@@ -183,6 +186,24 @@ public class TileCampfire
 
     if (this.isActive()) {
 
+      if (ModuleCharcoalConfig.CAMPFIRE.EXTINGUISHED_BY_RAIN) {
+
+        if (this.world.isRainingAt(this.pos.up())) {
+
+          if (this.rainTimeRemaining > 0) {
+            this.rainTimeRemaining -= 1;
+          }
+
+          if (this.rainTimeRemaining == 0) {
+            this.setActive(false);
+            this.doused = true;
+          }
+
+        } else {
+          this.rainTimeRemaining = ModuleCharcoalConfig.CAMPFIRE.TICKS_BEFORE_EXTINGUISHED;
+        }
+      }
+
       if (this.cookTime > 0) {
         this.cookTime -= 1;
       }
@@ -210,6 +231,21 @@ public class TileCampfire
         } else {
           this.setActive(false);
           this.dead = true;
+
+          ItemStackHandler stackHandler = this.getStackHandler();
+          ItemStack contents = stackHandler.extractItem(0, 64, false);
+
+          if (!contents.isEmpty()) {
+            StackHelper.spawnStackOnTop(this.world, contents, this.pos);
+          }
+
+          stackHandler = this.getOutputStackHandler();
+          contents = stackHandler.extractItem(0, 64, false);
+
+          if (!contents.isEmpty()) {
+            StackHelper.spawnStackOnTop(this.world, contents, this.pos);
+          }
+
         }
       }
 
@@ -237,6 +273,7 @@ public class TileCampfire
     compound.setBoolean("dead", this.dead);
     compound.setInteger("cookTime", this.cookTime);
     compound.setInteger("cookTimeTotal", this.cookTimeTotal);
+    compound.setBoolean("doused", this.doused);
     return compound;
   }
 
@@ -252,6 +289,7 @@ public class TileCampfire
     this.dead = compound.getBoolean("dead");
     this.cookTime = compound.getInteger("cookTime");
     this.cookTimeTotal = compound.getInteger("cookTimeTotal");
+    this.doused = compound.getBoolean("doused");
   }
 
   @Nonnull
@@ -324,7 +362,8 @@ public class TileCampfire
     if (this.getState() == BlockCampfire.EnumType.ASH) {
       StackHelper.spawnStackOnTop(this.world, ItemMaterial.EnumType.PIT_ASH.asStack(1), this.pos, -0.125);
 
-    } else if (getState() == BlockCampfire.EnumType.NORMAL) {
+    } else if (!this.doused
+        && this.getState() == BlockCampfire.EnumType.NORMAL) {
       StackHelper.spawnStackOnTop(this.world, new ItemStack(ModuleItems.TINDER), this.pos, -0.125);
     }
 

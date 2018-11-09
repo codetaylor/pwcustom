@@ -91,7 +91,7 @@
         "textures": {
           "tinder": "pwcustom:blocks/active_pile",
           "fire": "blocks/fire_layer_1",
-          "particle": "pwcustom:blocks/active_pile"
+          "particle": "blocks/fire_layer_1"
         }
       },
       "ash": {

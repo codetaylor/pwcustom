@@ -531,7 +531,7 @@ gui.pwcustom.waila.kiln.pit.finished=Finished
 gui.pwcustom.waila.kiln.brick.fuel=Fuel: %s
 gui.pwcustom.waila.kiln.brick.heat=Burn Time: %s
 
-gui.pwcustom.waila.campfire.fuel=Fuel: %s
+gui.pwcustom.waila.campfire.fuel=Fuel: Wood Logs * %s
 gui.pwcustom.waila.campfire.heat=Burn Time: %s
 
 gui.pwcustom.waila.empty=Empty

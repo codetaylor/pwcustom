@@ -77,7 +77,7 @@ public class CampfireDataProvider
 
         StringBuilder renderString = new StringBuilder();
         renderString.append(WailaUtil.getStackRenderString(input));
-        renderString.append(WailaUtil.getStackRenderString(fuel));
+        //renderString.append(WailaUtil.getStackRenderString(fuel));
 
         ItemStack recipeOutput = FurnaceRecipes.instance().getSmeltingResult(input);
 
@@ -110,7 +110,7 @@ public class CampfireDataProvider
         if (!fuel.isEmpty()) {
           tooltip.add(Util.translateFormatted(
               "gui." + ModuleCharcoal.MOD_ID + ".waila.campfire.fuel",
-              fuel.getItem().getItemStackDisplayName(fuel) + " * " + fuel.getCount()
+              String.valueOf(fuel.getCount())
           ));
         }
 
